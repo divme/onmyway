@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="css/reset.css" />
+		<title>清凉一夏New</title>
+		<script src="../../geek/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+
+		<style>
+			   *{margin:0;padding:0;}
+			.day {
+				position: relative;
+				width: 320px;
+				box-sizing: border-box;
+				margin:20px auto;
+				padding-bottom: 10px;
+				background: #ffffff;
+				border: 5px solid #aee2fa;
+				border-radius: 20px 20px 10px 10px;
+				background-size: 100%;
+				z-index: 99;
+				overflow: hidden;
+			}
+			   .clock_box {overflow: hidden;margin-top: 0;  }
+			   .clock_img {float: left;width: 20%;  }
+			   .border_box {float: left;width: 80%; overflow: hidden; margin-left: -1px; background: #FFFFFF; border-bottom: 1px dotted #bcbcbc;}
+			   .clock_award {float: left; width: 62.5%;  }
+			   .clock_button {float: left;  width: 37.5%;  }
+			   .button_img {width: 60%;margin-top: 10px; margin-left: 20%;  }
+			   .text_time {margin-top: 2px;  font-size: 10px;  text-align: center;  color: #7fb4dd;  }
+			   .red_num {color: #fe4a55;}
+			   .rest_time {  margin-top: 2px;  font-size: 10px;  text-align: center;  color: #7fb4dd;  }
+			   .red_time {color: #fe4a55;}
+			   .finish , .nostart{display: none;margin-top: 2px; font-size: 10px;text-align: center; color: #7fb4dd;}
+		</style>
+	</head>
+	<body>
+
+		<div class="day">
+			<div><img src="img/day_banner.png" /></div>
+			<div class="clock_box">
+				<div class="clock_img"><img src="img/10_none.png" /></div>
+				<div class="border_box">
+					<div class="clock_award">
+						<img src="img/clock_award1.png" />
+					</div>
+					<div class="clock_button">
+						<div class="button_img">
+							<img src="img/day_button2.png" />
+						</div>
+						<div class="text_time">还剩<span class="red_num">6</span>个未领取</div>
+						<div class="rest_time" style="display: none;">倒计时<span class="red_time"><span class="hour">00</span>:<span class="minu">00</span>:<span class="second">00</span></span></div>
+						<div class="nostart">今日活动尚未开始</div>
+						<div class="finish">今日活动已结束</div>
+					</div>
+				</div>
+			</div>
+			<div class="clock_box">
+				<div class="clock_img"><img src="img/12_none.png" /></div>
+				<div class="border_box">
+					<div class="clock_award">
+						<img src="img/clock_award2.png" />
+					</div>
+					<div class="clock_button">
+						<div class="button_img">
+							<img src="img/day_button2.png" />
+						</div>
+						<div class="text_time" style="display: none;">还剩<span class="red_num">6</span>个未领取</div>
+						<div class="rest_time">倒计时<span class="red_time"><span class="hour">00</span>:<span class="minu">00</span>:<span class="second">00</span></span></div>
+						<div class="nostart">今日活动尚未开始</div>
+						<div class="finish">今日活动已结束</div>
+					</div>
+				</div>
+			</div>
+			<div class="clock_box">
+				<div class="clock_img"><img src="img/14_none.png" /></div>
+				<div class="border_box">
+					<div class="clock_award">
+						<img src="img/clock_award3.png" />
+					</div>
+					<div class="clock_button">
+						<div class="button_img">
+							<img src="img/day_button2.png" />
+						</div>
+						<div class="text_time" style="display: none;">还剩<span class="red_num">6</span>个未领取</div>
+						<div class="rest_time">倒计时<span class="red_time"><span class="hour">00</span>:<span class="minu">00</span>:<span class="second">00</span></span></div>
+						<div class="nostart">今日活动尚未开始</div>
+						<div class="finish">今日活动已结束</div>
+					</div>
+				</div>
+			</div>
+			<div class="clock_box">
+				<div class="clock_img"><img src="img/16_none.png" /></div>
+				<div class="border_box">
+					<div class="clock_award">
+						<img src="img/clock_award4.png" />
+					</div>
+					<div class="clock_button">
+						<div class="button_img">
+							<img src="img/day_button2.png" />
+						</div>
+						<div class="text_time" style="display: none;">还剩<span class="red_num">6</span>个未领取</div>
+						<div class="rest_time">倒计时<span class="red_time"><span class="hour">00</span>:<span class="minu">00</span>:<span class="second">00</span></span></div>
+						<div class="nostart">今日活动尚未开始</div>
+						<div class="finish">今日活动已结束</div>
+					</div>
+				</div>
+			</div>
+			<div class="clock_box">
+				<div class="clock_img"><img src="img/18_none.png" /></div>
+				<div class="border_box" style="border-bottom: none;">
+					<div class="clock_award">
+						<img src="img/clock_award5.png" />
+					</div>
+					<div class="clock_button">
+						<div class="button_img">
+							<img src="img/day_button2.png" />
+						</div>
+						<div class="text_time" style="display: none;">还剩<span class="red_num">6</span>个未领取</div>
+						<div class="rest_time">倒计时<span class="red_time"><span class="hour">00</span>:<span class="minu">00</span>:<span class="second">00</span></span></div>
+						<div class="nostart">今日活动尚未开始</div>
+						<div class="finish">今日活动已结束</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/newtime.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

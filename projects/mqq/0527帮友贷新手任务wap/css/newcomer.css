@@ -1,0 +1,24 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	font-family: "微软雅黑";
+	font-size: 14px;
+	-webkit-text-size-adjust: none;
+}
+
+img {
+	max-width: 100%;
+	/*border: 0px;
+	margin: 0px;
+	padding: 0px;*/
+	outline-width:0px;  
+    vertical-align:top; 
+}
+
+a,p {
+	margin: 0px;
+	padding: 0px;
+	text-decoration: none;
+}
+
+ul,li {text-decoration: none;list-style: none;margin: 0px;padding: 0px;}

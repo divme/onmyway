@@ -1,0 +1,25 @@
+body{margin: 0px;padding: 0px;font-family: "微软雅黑";background-color:#F6F6F6;}a,p{margin: 0px;padding: 0px;text-decoration:none;}img{max-width: 100%;}
+#header{width: 100%;height:40px;display:-webkit-box;display:-moz-box;-webkit-box-align:center;-moz-box-align:center;-webkit-box-pack: justify;-moz-box-pack: justify;justify-content: space-between;
+display: flex;display: -webkit-flex;align-items: center;-webkit-align-items: center;border-bottom: 1px solid #DDDDDD;background-color: #FFFFFF;}
+.zuo{width: 8px;height: 12px;margin-left: 15px;display: block;display: block;}
+.title_xiaoxi p{display: block;font-size: 1.0em;color: #333333;font-family: "微软雅黑";}
+.gmxx{width: 100%;height: 28px;}
+.gmxx span{font-size: 12px;color: #666666;line-height:28px;margin-left: 15px;}
+.gmje{width: 100%;height:45px;display: -webkit-box;-webkit-box-pack: justify;-moz-box-pack:justify;font-size: 12px;color: #666666;display: flex;align-items: center;justify-content: space-between;
+background-color: #FFFFFF;border-bottom: 1px solid #DDDDDD;border-top: 1px solid #DDDDDD;}
+.gmje .span1{margin-left: 15px;}
+.gmje .span2{margin-right: 15px;}
+.gmje input{width:200px;height: 43px;outline: none;appearance: none;-webkit-appearance: none;border: none;}
+.yqsy{width: 100%;height: 45px;display: -webkit-box;-webkit-box-pack: justify;-moz-box-pack:justify;font-size: 12px;color: #666666;display: flex;align-items: center;justify-content: space-between;}
+.yqsy p{color: #333333;margin-left: 15px;}
+.yqsy p span{color: #ff4343;}
+.yqsy a{color:#ff4343;margin-right: 15px;}
+.hdq{width: 100%;height: 45px;background-color: #FFFFFF;display: -webkit-box;-webkit-box-pack: justify;-moz-box-pack:justify;font-size: 12px;color: #666666;display: flex;align-items: center;justify-content: space-between;
+border-bottom: 1px solid #DDDDDD;border-top: 1px solid #DDDDDD;}
+.hdq span{margin-left: 15px;}
+.hdq p{margin-right: 15px;}
+.hdq_slide{width: 100%;height:auto;background-color: #FFFFFF;display: none;}
+.hdq_slide p{margin-left: 15px;font-size: 12px;color:#ff4343;line-height: 25px;}
+.hdq_slide ul{margin: 0;padding: 0;list-style: none;margin-left: 8px;}
+.hdq_slide input{vertical-align: middle;}
+.hdq_slide label{font-size: 12px;color: #666666;margin-top: 2px;}

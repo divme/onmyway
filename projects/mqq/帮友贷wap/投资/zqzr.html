@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    	<meta name="format-detection" content="telephone=no">
+		<title>债权转让</title>
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+	<body>
+		<header id="header">
+			<a class="zhuce" href=""><img src="img/zuo_wh.png" alt="" /></a>
+			<div class="name">
+				<p>经营资金周转</p>
+			</div>
+			 <a class="login" href=""><img src="img/share.png" alt="" /></a>
+		</header>
+		<div class="clr_hd"></div>
+		<div id="zhanghu">
+			<div class="san">
+				<p>转</p>
+				<a href="">查看原始标</a>
+			</div>
+			<div class="zhanghu_top">
+				<div class="nianhua">
+					<p><span id="number">0</span>%</p>
+				</div>
+				<p>预期年化</p>
+			</div>
+			<div class="zhanghu_bom">
+				<div class="kyyue">
+					<p><span>12</span>个月</p>
+					<p>期限</p>
+				</div>
+				<div class="fengexian"></div>
+				<div class="djzj">
+					<p>23,308.00<span>元</span></p>
+					<p>剩余金额</p>
+				</div>
+			</div>
+		</div>
+		<div class="item_jktz_frame">
+			<div class="jbxx borbtm">
+				<p class="j active">基本信息</p>
+			</div>
+			<div class="bar"></div>
+			<div class="jhjs">
+				<p class="j">回款详情</p>
+			</div>
+		</div>
+		<div class="info" style="top: 221px;">
+			<div class="jbxx_info">
+				<div class="jb_info1">
+					<ul>
+						<li><span>受让收益</span><p>105.48元</p></li>
+						<li><span>转让金额</span><p>3,657.57</p></li>
+						<li><span>下还款日</span><p>2016-01-17</p></li>
+						<li><span>预期年化</span><p>12.89%</p></li>
+						<li><span>总期限</span><p>12个月</p></li>
+						<li><span>剩余本金</span><p>3657.57元</p></li>
+						<li><span>剩余利息</span><p>105.49元</p></li>
+						<li><span>剩余时间</span><p>0天0时0分</p></li>
+					</ul>
+				</div>
+				<div class="xieyi">
+					<form action="">
+						<input type="checkbox" name="" id="xy" value="" onclick="check()" checked="checked"/><label>我已阅读并同意<a href="">《债权协议》</a></label>
+					</form>
+					
+				</div>
+			</div>
+			
+			<div class="tzjl_info">
+				
+					<div class="tzjl_tl">
+						<p>期数</p>
+						<p>还款总额</p>
+						<p>收益</p>
+						<p>时间</p>
+					</div>
+					<ul>
+						<li>
+							<p>5/9</p>
+							<p>307.46元</p>
+							<p>24.39元</p>
+							<p>2016-02-21</p>
+						</li>
+						<li>
+							<p>5/9</p>
+							<p>307.46元</p>
+							<p>24.39元</p>
+							<p>2016-02-21</p>
+						</li>
+						<li>
+							<p>5/9</p>
+							<p>307.46元</p>
+							<p>24.39元</p>
+							<p>2016-02-21</p>
+						</li>
+						<li>
+							<p>5/9</p>
+							<p>307.46元</p>
+							<p>24.39元</p>
+							<p>2016-02-21</p>
+						</li>
+						<li>
+							<p>5/9</p>
+							<p>307.46元</p>
+							<p>24.39元</p>
+							<p>2016-02-21</p>
+						</li>
+					</ul>
+					
+			</div>
+		</div>
+		<footer id="footer">
+			<input type="submit" value="立即购买" id="buy" />
+		</footer>
+		<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+		<script src="js/jquery.animateNumber.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('.jbxx').click(function(){
+					$('.jbxx,.jhjs').removeClass('borbtm')
+					$('.jbxx,.jhjs').children('p').removeClass('active')
+					$(this).addClass('borbtm')
+					$(this).children('p').addClass('active')
+					$('.jbxx_info,.tzjl_info').hide();
+					$('.jbxx_info').fadeIn('200');
+				})
+				$('.jhjs').click(function(){
+					$('.jbxx,.jhjs').removeClass('borbtm')
+					$('.jbxx,.jhjs').children('p').removeClass('active')
+					$(this).addClass('borbtm')
+					$(this).children('p').addClass('active')
+					$('.jbxx_info,.tzjl_info').hide();
+					$('.tzjl_info').fadeIn('200');
+				})
+				
+				
+				var decimal_places = 2;
+				var decimal_factor = decimal_places === 0 ? 1 : decimal_places * 10;
+				 
+				$('#number')
+				  .animateNumber(
+				    {
+				      number: 18.5* decimal_factor,
+				 
+				      numberStep: function(now, tween) {
+				        var floored_number = Math.floor(now) / decimal_factor,
+				            target = $(tween.elem);
+				 
+				        if (decimal_places > 0) {
+				          // force decimal places even if they are 0
+				          floored_number = floored_number.toFixed(decimal_places);
+				 
+				          // replace '.' separator with ','
+				          floored_number = floored_number.toString().replace(',', '.');
+				        }
+				 
+				        target.text(floored_number);
+				      }
+				    },
+				    500
+				  );
+				
+			})
+			function check(){
+					if($('#xy').is(':checked')){
+						$("#buy").css('background-color','#2383f6')
+						$("#buy").attr('disabled',false)
+						
+					}else{
+						$("#buy").css('background-color','#DDDDDD')
+						$("#buy").attr('disabled','disabled')
+						
+						
+					}
+					
+				}
+			
+			
+		</script>
+	</body>
+</html>

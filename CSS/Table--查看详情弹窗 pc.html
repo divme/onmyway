@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="stylesheet" type="text/css" href="../ZYsite/css/public.css" />
+		<script src="../ZYsite/js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<title>查看详情弹窗pc</title>
+		<style type="text/css">
+			.details_back {
+				/*display: none;*/
+				background-color: rgba(0, 0, 0, 0.6);
+				width: 100%;
+				height: 100%;
+				position: fixed;
+				left: 0px;
+				top: 0px;
+				z-index: 50;
+			}
+			
+			.details {
+				/*display: none;*/
+				width: 1000px;
+				height: 600px;
+				border-radius: 8px;
+				position: fixed;
+				left: 50%;
+				margin-left: -500px;
+				top: 50%;
+				margin-top: -300px;
+				overflow: hidden;
+				z-index: 99;
+				background: #FFFFFF;
+			}
+			/*弹出框头部*/
+			
+			.details_head {
+				height: 60px;
+				background: #c91d45;
+				position: relative;
+			}
+			
+			.details_head p {
+				text-align: center;
+				color: #FFFFFF;
+				background: #c91d45;
+				height: 60px;
+				line-height: 60px;
+				font-size: 24px;
+			}
+			
+			.details_head .close_details {
+				position: absolute;
+				width: 60px;
+				height: 60px;
+				top: 0px;
+				right: 0px;
+				text-align: center;
+				line-height: 60px;
+				color: #FFFFFF;
+				cursor: pointer;
+				font-size: 24px;
+			}
+			/*table上面*/
+			
+			.table_top {
+				height: 80px;
+				overflow: hidden;
+			}
+			
+			.table_top p {
+				float: left;
+				height: 80px;
+				line-height: 80px;
+				font-size: 16px;
+				width: 40%;
+				margin-left: 10%;
+				/*padding-left: 20px;
+				padding-right: 30px;
+				margin-left: 150px;*/
+			}
+			
+			.table_top .people_num {
+				text-align: center;
+			}
+			
+			.table_top .score_num {
+				text-align: left;
+				margin-left: 0%;
+			}
+			
+			.table_top .people,
+			.score {
+				color: #C9152E;
+			}
+			
+			.table_top .real_people,
+			.real_score {
+				font-size: 36px;
+			}
+			/*关于table的设置*/
+			 table{
+				border-collapse:collapse;
+			 }
+			.table_box {
+				height: 350px;
+				overflow: hidden;
+				/*background: yellowgreen;*/
+			}
+			
+			.tableself {
+				width: 100%;
+			}
+			
+			.tableself th {
+				text-align: left;
+				background: #DEDEDE;
+				height: 50px;
+				line-height: 50px;
+				font-size: 15px;
+				font-weight: 600;
+				padding-left: 20px;
+				opacity: 0.7;
+			}
+			
+			.tableself td {
+				text-align: left;
+				height: 50px;
+				line-height: 50px;
+				font-size: 15px;
+				font-weight: normal;
+				padding-left: 20px;
+			}
+			
+			.tableself tr:hover {
+				color: #666666;
+			}
+			
+			.redscore {
+				color: #C9152E;
+				font-size: 14px;
+			}
+			/*分页样式*/
+			
+			.paging {
+				width: 400px;
+				margin-left: 300px;
+				margin-top: 30px;
+				position: absolute;
+				left: 50%;
+				margin-left: -200px;
+				text-align: center;
+			}
+			
+			.paging li {
+				float: left;
+				margin-left: 8px;
+				height: 30px;
+				line-height: 30px;
+			}
+			
+			.paging .page_num {
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				border: 1px solid #D7D7D7;
+			}
+			
+			.num_one,
+			.next_page {
+				background: #c91d45;
+				color: #FFFFFF;
+			}
+			
+			.next_page {
+				padding-left: 5px;
+				padding-right: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--
+		details高度设置方法一：
+			details_head高：60px；
+			table_top 高 ：80px；
+			th  高：             50px；
+			上面三个加起来：190px；再加上 td X td数量就是总高；
+			td 高：   50px；
+		details高度设置方法二：
+		    div把table包裹起来，然后让table滚动；
+		-->
+		<div class="details_back"></div>
+		<div class="details">
+			<div class="details_head">
+				<p>已邀请好友详情</p>
+				<div class="close_details">X</div>
+			</div>
+			<div class="table_top">
+				<p class="people_num">已成功邀请人数：<span class="people"><span class="real_people">60</span> 人</span>
+				</p>
+				<p class="score_num">累计获得积分奖励：<span class="score"><span class="real_score">1800</span> 元</span>
+				</p>
+			</div>
+			<div class="table_box">
+				<table class="tableself" border="0" cellspacing="0" cellpadding="">
+					<thead>
+					<th>序号</th>
+					<th>被邀请人</th>
+					<th>注册手机</th>
+					<th>注册时间</th>
+					<th>邀请时间</th>
+					<th>我的奖励</th>
+					</thead>
+					<tr class="tr">
+						<td>1</td>
+						<td>刘德华</td>
+						<td>15888888881</td>
+						<td>2016-05-30 09:45</td>
+						<td>2016-05-30 10:00</td>
+						<td class="redscore">赠20元</td>
+					</tr>
+					<tr class="tr">
+						<td>2</td>
+						<td>周润发</td>
+						<td>15888888881</td>
+						<td>2016-05-30 09:45</td>
+						<td>2016-05-30 10:00</td>
+						<td class="redscore">赠20元</td>
+					</tr>
+					<tr class="tr">
+						<td>3</td>
+						<td>成龙</td>
+						<td>15888888881</td>
+						<td>2016-05-30 09:45</td>
+						<td>2016-05-30 10:00</td>
+						<td class="redscore">赠20元</td>
+					</tr>
+					<tr class="tr">
+						<td>4</td>
+						<td>甄子丹</td>
+						<td>15888888881</td>
+						<td>2016-05-30 09:45</td>
+						<td>2016-05-30 10:00</td>
+						<td class="redscore">赠20元</td>
+					</tr>
+					<tr class="tr">
+						<td>5</td>
+						<td>吴京</td>
+						<td>15888888881</td>
+						<td>2016-05-30 09:45</td>
+						<td>2016-05-30 10:00</td>
+						<td class="redscore">赠20元</td>
+					</tr>
+					<tr class="tr">
+						<td>6</td>
+						<td>李连杰</td>
+						<td>15888888881</td>
+						<td>2016-05-30 09:45</td>
+						<td>2016-05-30 10:00</td>
+						<td class="redscore">赠20元</td>
+					</tr>
+                    <tr class="tr">
+						<td>7</td>
+						<td>黄飞鸿</td>
+						<td>15888888881</td>
+						<td>2016-05-30 </td>
+						<td>2016-05-30 </td>
+						<td class="redscore">赠20元</td>
+					</tr>
+					<tr class="tr">
+						<td>8</td>
+						<td>陈真</td>
+						<td>15888888881</td>
+						<td>2016-05-30 </td>
+						<td>2016-05-30 </td>
+						<td class="redscore">赠20元</td>
+					</tr>
+					<tr class="tr">
+						<td>9</td>
+						<td>霍元甲</td>
+						<td>15888888881</td>
+						<td>2016-05-30 </td>
+						<td>2016-05-30 </td>
+						<td class="redscore">赠20元</td>
+					</tr>
+					<tr class="tr">
+						<td>10</td>
+						<td>洪熙官</td>
+						<td>15888888881</td>
+						<td>2016-05-30 </td>
+						<td>2016-05-30 </td>
+						<td class="redscore">赠20元</td>
+					</tr>
+				</table>
+			</div>
+			<!--分页展示-->
+			<ul class="paging">
+				<li>40条记录</li>
+				<li>1/8页</li>
+				<li class="page_num num_one">1</li>
+				<li class="page_num">2</li>
+				<li class="page_num">3</li>
+				<li class="page_num">4</li>
+				<li class="page_num">5</li>
+				<li class="next_page">下一页</li>
+			</ul>
+		</div>
+		</div>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('.tr:odd').css('background','#e3e3e3');
+				$('.tr:even').css('background','#eaeaea');
+				var timer = setInterval(function() {
+					$('.tableself').find(".tr:first").insertAfter($('.tableself').find(".tr:last"));
+				}, 2000);
+				$('.close_details').click(function(){
+					$('.details,.details_back').css('display','none');
+				});
+			})
+		</script>
+	</body>
+
+</html>

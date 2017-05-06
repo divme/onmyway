@@ -1,0 +1,306 @@
+	body {
+				background: url(../img/background.png) repeat;
+			}
+			
+			.day {
+				position: relative;
+				width: 94%;
+				box-sizing: border-box;
+				margin-top: -30px;
+				margin-left: 3%;
+				padding-bottom: 10px;
+				background: #ffffff;
+				border: 5px solid #aee2fa;
+				border-radius: 20px 20px 10px 10px;
+				background-size: 100%;
+				z-index: 99;
+				overflow: hidden;
+			}
+			
+			.clock_box {
+				overflow: hidden;
+				margin-top: 0px;
+			}
+			
+			.clock_img {
+				width: 20%;
+				float: left;
+			}
+			
+			.border_box {
+				width: 80%;
+				overflow: hidden;
+				float: left;
+				margin-left: -1px;
+				background: #FFFFFF;
+				border-bottom: 1px dotted #bcbcbc;
+			}
+			
+			.clock_award {
+				float: left;
+				width: 50%;
+				width: 62.5%;
+			}
+			
+			.clock_button {
+				width: 30%;
+				width: 37.5%;
+				float: left;
+			}
+			
+			.button_img {
+				margin-top: 10px;
+				width: 60%;
+				margin-left: 20%;
+			}
+			
+			.text_time {
+				margin-top: 2px;
+				font-size: 10px;
+				text-align: center;
+				color: #7fb4dd;
+			}
+			
+			.red_num {
+				color: #fe4a55;
+			}
+			
+			.rest_time {
+				margin-top: 2px;
+				font-size: 10px;
+				text-align: center;
+				color: #7fb4dd;
+			}
+			
+			.red_time {
+				color: #fe4a55;
+			}
+			
+			.finish , .nostart{
+				margin-top: 2px;
+				font-size: 10px;
+				text-align: center;
+				color: #7fb4dd;
+				display: none;
+			}
+			.weekend {
+				width: 94%;
+				border: 5px solid #aee2fa;
+				border-radius: 20px 20px 10px 10px;
+				box-sizing: border-box;
+				margin-top: 20px;
+				margin-left: 3%;
+				background: #ffffff;
+				padding-bottom: 10px;
+				overflow: hidden;
+			}
+			
+			.prize_container {
+				overflow: hidden;
+				padding-bottom: 10px;
+			}
+			
+			.prize_box {
+				width: 50%;
+				margin-top: 10px;
+				float: left;
+			}
+			
+			.prize {
+				width: 92%;
+				margin: 0 auto;
+				border: 1px solid #eaeaea;
+				padding-top: 20px;
+				padding-bottom: 10px;
+			}
+			
+			.img_box {
+				width: 60%;
+				margin: 0 auto;
+			}
+			
+			.imgtext_box {
+				width: 50%;
+				margin: 0 auto;
+				margin-top: 20px;
+			}
+			
+			.button {
+				width: 50%;
+				margin-left: 25%;
+				margin-top: 10px;
+			}
+			
+			.get_p {
+				color: #7fbeea;
+				text-align: center;
+				font-size: 12px;
+				line-height: 18px;
+				margin-top: 5px;
+			}
+			
+			.red_num {
+				color: #fe5b64;
+			}
+			
+			.prize_boxbig {
+				width: 94%;
+				border: 1px solid #EAEAEA;
+				overflow: hidden;
+				margin: 0 auto;
+				padding-bottom: 15px;
+				font-size: 12px;
+			}
+			
+			.big1 {
+				float: left;
+				width: 50%;
+			}
+			
+			.big2 {
+				float: left;
+				width: 50%;
+			}
+			
+			.button_big {
+				width: 60%;
+				margin: 0 auto;
+				margin-top: 15px;
+			}
+			
+			.text_boxbig {
+				width: 60%;
+				margin: 0 auto;
+				margin-top: 20px;
+			}
+			
+			.rank {
+				width: 94%;
+				border: 5px solid #aee2fa;
+				border-radius: 20px 20px 10px 10px;
+				box-sizing: border-box;
+				margin-top: 20px;
+				margin-left: 3%;
+				background: #ffffff;
+				overflow: hidden;
+			}
+			
+			.award_box {
+				overflow: hidden;
+				padding-bottom: 2px;
+			}
+			
+			.award {
+				float: left;
+				width: 30%;
+				margin-top: 5px;
+				margin-left: 2.5%;
+				outline: 1px solid #EAEAEA;
+			}
+			
+			.img_1 {
+				width: 80%;
+				margin-left: 10%;
+			}
+			
+			.img_2 {
+				width: 100%;
+				margin-top: 10px;
+			}
+			
+			.ranklist {
+				position: relative;
+				width: 84.277%;
+				margin-left: 7.8615%;
+				margin-top: 10px;
+			}
+			
+			.table_box {
+				position: relative;
+				top: -7px;
+				width: 80%;
+				margin-left: 10%;
+				padding-bottom: 10px;
+			}
+			
+			.table {
+				width: 100%;
+				font-size: 12px;
+			}
+			
+			td,
+			th {
+				text-align: center;
+				height: 28px;
+				line-height: 28px;
+			}
+			
+			.th {
+				color: #3fa5e3;
+				background: #aee2fa;
+			}
+			
+			.tr {
+				color: #6a7c85;
+			}
+			.count_box{
+				position: relative;
+			}
+			.count{
+			    position: absolute;
+			    left: 2px;
+			    top: 6px;
+			    font-size: 12px;
+			    color:#62b5e9;
+			}
+			.count_day,.count_hour,.count_minu,.count_second{
+				margin-left: -2px;
+			}
+			.footer {
+				width: 94%;
+				margin-left: 3%;
+				margin-top: 20px;
+			}
+			
+			@media (min-width:360px) {
+				.day {
+					border-radius: 28px 28px 10px 10px;
+				}
+				.weekend {
+					border-radius: 28px 28px 10px 10px;
+				}
+				.rank {
+					border-radius: 28px 28px 10px 10px;
+				}
+				.table_box {
+					top: -9px;
+				}
+				.count{
+					left: 5px;
+			        top: 10px; 
+			        font-size: 13px; 
+			   }
+			}
+			
+			@media (min-width:400px) {
+				.day {
+					border-radius: 30px 30px 10px 10px;
+				}
+				.weekend {
+					border-radius: 28px 28px 10px 10px;
+				}
+				.rank {
+					border-radius: 28px 28px 10px 10px;
+				}
+				.table_box {
+					top: -11px;
+				}
+				.button_big {
+				margin-top: 20px;
+			   }
+			   .count{
+			   	    left: 10px;
+			        top: 10px;  
+			        font-size: 14px;
+			   }
+			}

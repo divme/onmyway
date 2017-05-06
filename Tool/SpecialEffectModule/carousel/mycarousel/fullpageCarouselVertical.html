@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>fullpage carousel</title>
+		<link rel="stylesheet" href="css/public.css" />
+		<style>
+			*  {margin:0;padding:0;}
+		    html,body{height:100%;}
+		   .wrapper{position:relative;height:100%;overflow:hidden;background:#f9f9f9;}
+
+			.container{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;}
+			.inner-container{height:100%;background:yellowgreen;color:steelblue;font-size:40px;text-align:center;}
+			.inner-container:first-of-type {background:mediumaquamarine url(img/1.png)  no-repeat center center;}
+			.inner-container:nth-of-type(2){background:lightyellow  url(img/2.png)  no-repeat center center;}
+			.inner-container:nth-of-type(3){background:lightgoldenrodyellow url(img/3.png)  no-repeat center center;}
+			.inner-container:nth-of-type(4){background:yellowgreen url(img/4.png)  no-repeat center center;}
+			.btns{position:absolute;top:50%;right:50px;height:120px;width:10px;margin-top:-60px;}
+			.btn{display:block;width: 20px;height: 20px;border-radius:50%;background:red;margin-top: 5px;}
+			.on{background:yellow;}
+			.prenext{width: 40px;height: 80px;position: absolute;top: 100px;background: skyblue;}
+			.left{left: 0;}
+			.right{right: 0;}
+
+		</style>
+	</head>
+	<body>
+	<div class="wrapper">
+		<div class="container">
+			<div class="inner-container">第一页</div>
+			<div class="inner-container">第二页</div>
+			<div class="inner-container">第三页</div>
+			<div class="inner-container">第四页</div>
+		</div>
+	</div>
+	<script src="js/jquery-2.1.1.min.js"></script>
+	<script>
+		$(function(){
+			var height = window.innerHeight,
+				count = $('.inner-container').length,
+				index = 0,
+				Timer;
+
+			// 添加控制器
+			var btn = "<div class='btns' id='icon'>";
+			for(var i = 0 ; i < count ; i++){
+				btn += "<span class='btn'></span>"
+			}
+			btn += "</div>";
+			$('.wrapper').append(btn);
+			$(".btn").eq(0).addClass('on');
+
+
+			// 设置宽度
+			$('.inner-container').css('height',height);
+			$('.container').css('height',count*height);
+
+			// 基础函数
+			function carousel(index){
+				var newtop = - index * height ;
+				$('.container').stop(stop,false).animate({'top':newtop},300);
+				$('.btn').stop(stop,false).eq(index).addClass('on').siblings().removeClass('on');
+			}
+
+			// 自动carousel
+			$('.wrapper').hover(function(){
+				clearInterval(Timer);
+			},function(){
+				Timer = setInterval(function(){
+					carousel(index);
+					index++;
+					if(index == count){ index = 0 }
+				},3000)
+			}).trigger('mouseleave');
+
+			// 控制器和前后键
+			$('#icon').on('mouseover','.btn',function(){
+				index = $('.btn').index(this);
+				carousel(index);
+			});
+		})
+	</script>
+	</body>
+</html>

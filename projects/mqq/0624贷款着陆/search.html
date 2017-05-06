@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--<meta name="format-detection" content="telephone=no">-->
+		<link rel="stylesheet" href="css/reset.css" />
+		<script src="js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<title>持续搜索中</title>
+		<style type="text/css">
+		span{
+			margin: -2px;
+			padding: 0px;
+		}
+		.top{
+			width: 90%;
+			margin-left: 5%;
+			margin-top: 15px;
+			overflow: hidden;
+		}
+		.l-pic{
+			width: 40%;
+			float: left;
+			
+		}
+		.r-text{
+		   width: 58%;
+		   float: right;
+		   margin-right: 1px;
+		   /*border: 1px solid #ff5a54;*/
+		   font-size: 12px;
+		}
+		.add{
+			font-size: 18px;
+			background: #FF5A54;
+			color: #FFFFFF;
+			font-weight: bold;
+		}
+		.r-text p{
+			height: 20px;
+			line-height: 20px;
+			padding-left: 10px;
+			color: #FF5A54;
+		}
+		.first{
+			margin-top: 10px;
+		}
+		.bottom{
+			border-bottom: 1px dashed #D3D3D3;
+		}
+		.b-top{
+			margin-top: 3px;
+		}
+		.reduce{
+			/*display: block;*/
+			height: 35px;
+			font-size: 25px;
+			color: #FF5A54;
+			margin-left: 10px;
+			margin-bottom: 5px;
+			padding-left: 10px;
+			padding-right: 10px;
+			background: url(img/left-bottom.png) no-repeat left bottom,url(img/r-top.png) no-repeat right top;
+			background-size: 20%;
+		}
+		.button{
+			padding: 5px;
+			margin-left: 5px;
+			background: #FF5A54;
+			color: #FFFFFF;
+			border-radius: 6px;
+		}
+			.content{
+			    position: relative;
+			}
+			.search{
+			   position: absolute;
+			   width:50% ;
+			   height: 40px;
+			   line-height: 40px;
+			   font-size: 16px;
+			   top: 100px;
+			   left:25% ;
+			   background: #d3d3d3;    
+			   text-align: center;
+			   opacity: 0.7;
+			}
+			.footback{
+					position: relative;
+				}
+				.button-box{
+					position: absolute;
+					background: url(img/down-back.png);
+					background-size: 100%;
+					width: 56.25%;
+					top: 13px;
+					right: 10px;
+				}
+				.down-app{
+				   position: relative;
+				   top: -3px;
+				   animation: myname 1.3s infinite;
+				   -webkit-animation:myname 1.3s infinite;
+				}
+				@keyframes myname{
+				0%{top: -6px;}
+				40%{top: -6px;}
+				60%{top: -3px;}
+				80%{top: -6px;}
+				100%{top: -6px;}
+			}
+			@-webkit-keyframes myname{
+				0%{top: -6px;}
+				40%{top: -6px;}
+				60%{top: -3px;}
+				80%{top: -6px;}
+				100%{top: -6px;}
+			}
+			@media screen and (min-width: 350px) and (max-width: 400px) {
+				.search{
+					top: 140px;
+				}
+				.r-text{
+					font-size: 14px;
+				}
+				.r-text p{
+					height: 25px;
+					line-height: 25px;
+				}
+				.reduce{
+					height: 40px;
+					font-size: 30px;
+					padding-left: 15px;
+					padding-right: 15px;
+				}
+				.button{
+					margin-left: 10px;
+				}
+				.button-box{
+					top: 15px;
+				}
+			}
+			@media screen and (min-width: 400px) {
+				.search{
+					top: 160px;	
+				}
+				.r-text{
+					font-size: 15px;
+				}
+				.r-text p{
+					height: 28px;
+					line-height: 28px;
+				}
+				.reduce{
+					height: 45px;
+					font-size: 32px;
+					padding-left: 18px;
+					padding-right: 18px;
+				}
+				.button{
+					padding: 6px;
+					margin-left: 10px;
+				}
+				.button-box{
+					top: 16px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="">
+			<img src="img/search-header.png"/>
+		</div>
+		<div class="top">
+			<div class="l-pic"><img src="img/lpic.png"/></div>
+			<div class="r-text">
+				<p class="first">已为您搜索到<span class="add">18</span>家</p>
+				<p class="bottom">可提供贷款的银行及机构，</p>
+				<p class="b-top">其中利率最低低至：</p>
+				<span class="reduce">0.<span class="num">8</span>%</span>
+				<a class="button" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.bangyoudai.maiquanquan">立即申请</a>
+			</div>
+		</div>
+		<div class="content">
+			<img src="img/search-back.png"/>
+			<div class="search">
+				持续搜索中
+				<span class="spot spot1">·</span>
+				<span class="spot spot2">·</span>
+				<span class="spot spot3">·</span>
+				<span class="spot spot4">·</span>
+				<span class="spot spot5">·</span>
+				<span class="spot spot6">·</span>
+			</div>
+		</div>
+		<div class="footback">
+			<img src="img/new-footer.png"/>
+			<div class="button-box">
+				<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.bangyoudai.maiquanquan"><img class="down-app" src="img/down-app.png"/></a>
+			</div>
+		</div>
+		<div style="height: 30px;"></div>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				(function setheight(){
+					var width =parseInt($('.r-text').css('width'));
+				    var height =width * 0.675;
+				    $('.r-text').css('height',height+'px');
+				})();
+			   var mmm =1;
+			   function search(){
+		     	 for (var i = 1; i < 7; i++) {
+		     		$(".spot"+i).css('visibility','hidden');
+		     	  }
+		       };
+		        search();
+		     function realsearch(){
+		   	   if (mmm>6) {
+		   	 	 search();
+		   	 	 mmm=1;
+		   	  }
+		   	 $(".spot"+mmm).css('visibility','visible');
+		   	 mmm++;
+		   };
+				function addnum(){
+			      var i = $('.add').text();
+			      if (i<128){
+			    	  i++;
+			    	  $('.add').text(i);
+			       }else{
+			    	clearInterval(timer);
+			      } 
+		       };
+		        function reducenum(){
+		        	var i = $('.num').text();
+		        	if (i>4){
+			    	  i = i - 1;
+			    	  $('.num').text(i);
+			       }else{
+			    	clearInterval(timer1);
+			      } 
+		        };
+		        var timer = setInterval(addnum,150);
+		        var timer1 = setInterval(reducenum,1000);
+		        var timer2 = setInterval(realsearch,200);  
+			})
+		</script>
+	</body>
+</html>

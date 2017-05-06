@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width">
+    <title>verity(验证) script</title>
+    <style>
+        .scale{width:320px;background:yellowgreen;font-size:15px;}
+    </style>
+</head>
+<body>
+     <div class="scale">验证scale的缩放基于什么东西，缩放对象又是谁？</div>
+     <div class="scale">scale的缩放基于ideal viewport，缩放对象是layout viewport.</div>
+     <script>
+         console.log(document.documentElement.clientWidth);
+         console.log(screen.availWidth);
+     </script>
+
+     <h5>验证：函数也是对象，可以添加方法，属性等</h5>
+     <script>
+         function ty(){
+             console.log('ty');
+         }
+         ty.ddefault={
+             a:1,
+             b:2,
+             c:3
+         };
+         ty.dear='zy';
+         ty.lover=function(){
+             console.log('zy')
+         }
+     </script>
+
+
+
+     <h5>函数参数的按值传递</h5>
+     <script>
+         function test(m){
+             m={v:5}
+         }
+         var m ={k:30};
+         test (m);
+         console.log(m.k)
+     </script>
+
+     <h5>add(1)(2,3)(4)函数实现的思考</h5>
+     <script>
+         function add(){
+             var arg = Array.prototype.slice.call(arguments);
+             return function fn(){
+                 var arg1 = Array.prototype.slice.call(arguments);
+                 if(arg1.length == 0){
+                      return arg.reduce(function(a,b){
+                          return a+b;
+                      })
+                 }else{
+                      var arg = arg.concat(arg1);
+                      return fn;
+                 }
+             }
+         }
+         console.log(add(1)(2)()) ;
+         console.log(add(1)(2)(3)());
+         console.log(add(1)(2)(3)(4)());
+     </script>
+     <!--<script>-->
+         <!--function add() {-->
+             <!--var args = Array.prototype.slice.call(arguments);-->
+
+             <!--var fn = function () {-->
+                 <!--var arg_fn = Array.prototype.slice.call(arguments);-->
+                 <!--return add.apply(null, args.concat(arg_fn));-->
+             <!--}-->
+
+             <!--fn.valueOf = function () {-->
+                 <!--return args.reduce(function(a, b) {-->
+                     <!--return a + b;-->
+                 <!--})-->
+             <!--}-->
+
+             <!--return fn;-->
+         <!--}-->
+         <!--add(1);-->
+         <!--console.log(add(1,2)(3));-->
+         <!--console.log(add(1)(2)(5)(3))-->
+     <!--</script>-->
+</body>
+</html>
+

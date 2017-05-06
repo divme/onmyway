@@ -1,0 +1,108 @@
+*{margin: 0;padding: 0;border:none;outline: none; font-family: inherit;}
+html,body{
+	font-family:"Helvetica Neue",'微软雅黑', Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	line-height: 1.6;
+}
+img{max-width: 100%;outline-width:0; vertical-align:top; }
+a{text-decoration: none;color: #000000;}
+ul,li {list-style: none;}
+input[type="button"],input[type="submit"],input[type="reset"] {-webkit-appearance: none;}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+	display: block;
+}
+.clear{clear:both;}
+
+/*header公共样式*/
+ 	header {
+ 		/*width: 90%;*/
+ 		width: 100%;
+ 		min-width: 288px;
+ 		margin: 10px auto;
+ 		text-align: center;
+ 	}
+ 	header h1 {
+ 		text-align: center;
+ 	}
+ 	header img {
+ 		width: 100%;
+ 		min-height: 100px;
+ 		background: skyblue;
+ 	}
+ 	nav {
+ 		width: 100%;
+ 		background: salmon;
+ 		border: 2px salmon solid;
+ 		box-sizing: border-box;
+ 	}
+ 	nav a {
+ 		color: black;
+ 		display: inline-block;
+ 		width: 18%;
+ 		box-sizing: border-box;
+ 		padding: 5px 10px;
+ 		background: white;
+ 	}
+ 	nav a:hover {
+ 		color: white;
+ 		background: sandybrown;
+ 	}
+ 	/*页面主体外包盒子*/
+ 	main {
+ 		/*width: 90%;*/
+ 		max-width: 1200px;
+ 		min-width: 400px;
+ 		height: auto;
+ 		margin: 20px auto 0 auto;
+ 		overflow: hidden;
+ 	}
+ 	/*footer公共样式*/
+ 	footer {
+ 		/*position: fixed;*/
+ 		width: 100%;
+ 		/*bottom: 0px;
+ 		left: 0px;*/
+ 		margin: 0 auto;
+ 		margin-top: 50px;
+ 		background: #303A40;
+ 		color: #FFFFFF;
+ 		box-sizing: border-box;
+ 		padding-top: 20px;
+ 		padding-left: 10%;
+ 		padding-right: 10%;
+ 		padding-bottom: 50px;
+ 	}
+ 	footer p {
+ 		line-height: 1.5rem;
+ 		color: #FFFFFF;	
+ 	}
+
+ @media screen and (max-width:430px) {
+	 header {
+		 width: 100%;
+		 min-width: 288px;
+		 margin: 10px auto;
+		 text-align: center;
+	 }
+
+	 nav a {
+		 color: black;
+		 display: inline-block;
+		 width: 30%;
+		 box-sizing: border-box;
+		 padding: 5px 10px;
+		 background: white;
+		 border-bottom: 2px salmon solid;
+	 }
+ }

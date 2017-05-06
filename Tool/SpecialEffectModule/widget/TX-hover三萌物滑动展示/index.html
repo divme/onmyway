@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>三萌物滑动展示</title>
+<style>
+    *{margin:0;padding:0;list-style-type:none;}
+    a,img{border:0;}
+    body{font:12px/180% Arial, Helvetica, sans-serif, "新宋体";}
+
+    .main{width:1000px;height:333px;margin:100px auto;overflow:hidden;}
+    .holder{overflow:hidden;width:320px;height:333px;float:left;position:relative;background-color:#000;margin-right:1px;}
+    .holder .image{position:absolute;left:-100px;}
+    .holder span{background-color:#333;font-size:27px;color:#dedede;font-weight:700;padding:4px;position:absolute;top:120px;left:4px;}
+    .holder .text{padding:20px;display:none;line-height:26px;position:absolute;top:180px;font-size:16px;color:#fff;width:340px;}
+</style>
+
+<script type="text/javascript" src="jquery-1.6.2.min.js"></script>
+<script type="text/javascript"> 
+$(document).ready(function(){
+	$('.holder').hover(function(){
+		$(this).removeClass('.notactive');	
+		$('.notactive').stop().animate({'width':'290px'},400); 
+		$(this).find('img').stop().animate({'top':'-165px'},400); 
+		$(this).stop().animate({'width':'380px'},400); 
+		$(this).find('span').css({'background-color':'#000'}); 
+		$(this).find('.text').fadeIn(300); 
+	},function(){
+		$('.notactive').stop().animate({'width':'320px'},400); 
+		$(this).addClass('.notactive');	
+		$(this).find('.text').hide();
+		$(this).find('img').stop().animate({'top':'0px'},500); 
+		$(this).stop().animate({'width':'320px'},400);
+		$(this).find('span').css({'background-color':'#333', 'color':'#dedede'}); 
+	});
+});
+$(document).ready(function(){
+	$('.holder').hover(function(){
+		$(this).removeClass('.notactive');
+		$('.notactive').stop().animate({'width':'290px'},400);
+	},function(){
+
+	})
+})
+</script>
+
+</head>
+<body>
+
+<div class="main">
+	<div class="holder notactive">
+		<img class="image" src="images/4237135170_61a9938781.jpg"/>
+		<span>Image One</span>
+		<div class="text">Miss but disappear you day by day.</div>
+	</div>
+	<div class="holder notactive">
+		<img class="image" src="images/4166210326_06d91ce72a.jpg"/>
+		<span>Image Two</span>
+		<div class="text">Miss but disappear you day by day.</div>
+	</div>
+	<div class="holder notactive">
+		<img class="image" src="images/4060303038_a630262185.jpg"/>
+		<span>Image Three</span>
+		<div class="text">Miss but disappear you day by day.</div>
+	</div>
+</div>
+
+</body>
+</html>

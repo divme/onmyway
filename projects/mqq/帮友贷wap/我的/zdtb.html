@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    	<meta name="format-detection" content="telephone=no">	
+		<title>自动投标</title>
+		<link rel="stylesheet" href="css/style4.css" />
+	</head>
+	<body>
+		<header id="header">
+			<a href="" class="zuo"><img src="img/zuo.png"/></a>
+			<p>自动投标</p>
+			<a href="" class="shm">说明</a>
+		</header>
+		<div class="tbzt">
+			<p>自动投标状态</p>
+			<form action="">
+				<input type="checkbox" name="" id="zdtb_btn" value="" onclick="check()"/>
+			</form>
+		</div>
+		<div class="zdtb_main">
+			<div class="tbje">
+				<p>每次投标金额</p>
+				<input type="text" name="" id="" value="" placeholder="请输入50元的整数倍"/>
+				<span>元</span>
+			</div>
+			<div class="lxfw">
+				<p>利息范围</p>
+				<div class="lxfw_right">
+					<input type="text" name="min_lx" id="min_lx" value="10" />
+					<span>%至</span>
+					<input type="text" name="max_lx" id="max_lx" value="24" />
+					<span>%</span>
+				</div>
+			</div>
+			<div class="lxfw">
+				<p>借款期限</p> 
+				<div class="lxfw_right">
+					<input type="text" name="min_lx" id="min_lx" value="1" />
+					<span>个月至</span>
+					<input type="text" name="max_lx" id="max_lx" value="24" />
+					<span>个月</span>
+				</div>
+			</div>
+			<div class="lxfw">
+				<p>账户保留金额</p> 
+				<div class="lxfw_right">
+					<input type="text" name="blje" id="blje" value="200" />
+					<span>元</span>
+				</div>
+			</div>
+			<div class="lxfw" style="border-bottom:none;">
+				<p>您的账户余额</p> 
+				<div class="lxfw_right">
+					<span>0.00元</span>
+				</div>
+			</div>
+			
+		</div>
+		<input type="submit" name="baocun" id="baochun" value="保存" disabled="disabled"/>
+		<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript">
+			function check(){
+					if($('#zdtb_btn').is(':checked')){
+						$("#baochun").css('background-color','#2383f6')
+						$("#baochun").attr('disabled',false)
+						
+					}else{
+						$("#baochun").css('background-color','#D0D0D0')
+						$("#baochun").attr('disabled','disabled')
+						
+						
+					}
+					
+				}
+		</script>
+	</body>
+</html>

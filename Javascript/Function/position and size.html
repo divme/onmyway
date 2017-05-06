@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>位置和大小</title>
+		<script src="js/jquery-2.1.1.min.js"></script>
+		<style>
+			body{padding: 0;}
+			#demo{width:600px;height:300px;background:rgb(245,245,245);margin-top:20px;margin-left:40px;}
+			/*.demo{width:300px;height:1000px;}*/
+			#big{height:1000px;background:yellowgreen;}
+		</style>
+	</head>
+	<body>
+		<div id="demo">
+			<!--<div class="demo"></div>-->
+		</div>
+		<div id="big"></div>
+		<!--原生js-->
+		<script>
+		    var demo=document.getElementById("demo");
+			var big=document.getElementById("big");
+		console.group("原生javascript");
+		    console.group("视口大小");
+			    console.log("window outerWidth:"+window.outerWidth);
+			    console.log("window outerHeight:"+window.outerHeight);
+			    console.log("window innerWidth:"+window.innerWidth);
+			    console.log("window innerHeight:"+window.innerHeight);
+			    console.log("document.documentElement.clientWidth:"+document.documentElement.clientWidth);
+			    console.log("document.documentElement.clientHeight:"+document.documentElement.clientHeight);
+			    console.log("document.body.clientWidth:"+document.body.clientWidth);
+			    console.log("document.body.clientHeight:"+document.body.clientHeight);
+			    console.log("screen availWidth:"+screen.availWidth);
+			    console.log("screen availHeight:"+screen.availHeight);
+			    console.log("screen width:"+screen.width);
+			    console.log("screen height:"+screen.height);
+			console.groupEnd();
+			console.group("元素大小");
+			    console.log("clientWidth:"+demo.clientWidth);
+			    console.log("clientHeight:"+demo.clientHeight);
+				console.log("offsetwidth:"+demo.offsetWidth);
+				console.log("offsetheight:"+demo.offsetHeight);
+			    console.log("scrollWidth:"+demo.scrollWidth);
+			    console.log("scrollHeight:"+demo.scrollHeight);
+			console.groupEnd();
+			console.group("元素位置");
+            	console.log("offsetLeft:"+demo.offsetLeft);
+            	console.log("offsetTop:"+demo.offsetTop);
+//			    demo.onscroll=function(){
+//					console.log("scrollTop:"+demo.scrollTop);
+//				}
+
+
+            console.groupEnd();
+            console.group("窗口滚动高度");
+//	            window.onscroll=function(){
+	            	console.log("document.body.scrollTop:"+document.body.scrollTop);
+	            	console.log("document.documentElement.scrollTop:"+document.documentElement.scrollTop);
+//	            }
+            console.groupEnd();
+        console.groupEnd();    
+		</script>
+		<!--jquery-->
+		<script>
+		console.group("jQuery");
+		    console.group("视口大小");
+			    console.log("window width(不包含滚动条):"+$(window).width());
+			    console.log("window height:"+$(window).height());
+//			    console.log("window innerWidth(不包含滚动条):"+$(window).innerWidth());
+//			    console.log("window innerHeight:"+$(window).innerHeight());
+//			    console.log("window outerWidth(不包含滚动条):"+$(window).outerWidth());
+//			    console.log("window outerHeight:"+$(window).outerHeight());
+			    
+			    console.log("document width(不包含滚动条):"+$(document).width());
+			    console.log("document height:"+$(document).height());
+//			    console.log("document innerWidth(不包含滚动条):"+$(document).innerWidth());
+//			    console.log("document innerHeight:"+$(document).innerHeight());
+//			    console.log("document outerWidth(不包含滚动条):"+$(document).outerWidth());
+//			    console.log("document outerHeight:"+$(document).outerHeight());
+
+		        console.log("body width:"+$('body').width());
+		        console.log("body height:"+$('body').height());
+			console.groupEnd();
+			console.group("元素大小");
+				console.log("width():"+$("#demo").width());
+				console.log("height():"+$("#demo").height());
+			console.groupEnd();
+			console.group("元素位置");
+            	console.log("offsetLeft:"+$("#demo").offset().left);
+            	console.log("offsetTop:"+$("#demo").offset().top);
+		        console.log("positionLeft:"+$("#demo").position().left);
+		        console.log("positionTop:"+$("#demo").position().top);
+            console.groupEnd();
+            console.group("窗口滚动高度");
+//	            widnow.onscroll=function(){
+	            	console.log("$('body').scrollTop():"+$("body").scrollTop());
+//            }
+            console.groupEnd();
+        console.groupEnd();      
+		</script>
+	</body>
+</html>

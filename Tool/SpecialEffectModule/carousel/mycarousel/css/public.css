@@ -1,0 +1,23 @@
+*{margin: 0px;padding: 0px;border:none;outline: none; font-family: inherit;}
+html,body{font-family: "microsoft yahei";font-size: 14px;line-height: 1.6;}
+img{max-width: 100%;outline-width:0px; vertical-align:bottom; }
+a{text-decoration: none;color: #000000;}
+ul,li {list-style: none;}
+input[type="button"],input[type="submit"],input[type="reset"] {-webkit-appearance: none;}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+	display: block;
+}
+.clear{clear:both;}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.clearfix{zoom:1;}

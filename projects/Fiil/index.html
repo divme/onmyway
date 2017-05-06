@@ -1,0 +1,400 @@
+
+<!doctype html>
+<html>
+<head>
+    <script type="text/javascript" src="js/skip.js"></script>
+<meta charset="utf-8">
+<meta name="description" content="fiil耳机官方网站，11月正式发售。搜索微信公众号：声音共和国，了解更多独家内幕"/>
+<meta name="keywords"
+      content="fiil,fiil耳机,fiil官网,汪峰耳机,flll耳机,好声音汪峰送耳机,大众音乐人,大众音乐人的起点,中国好声音耳机,好声音耳机,送邓紫棋耳机,送好声音学员,送学员,品牌,耳机,汪峰,邓紫棋,中国好声音,峰暴战队耳机,hifi,flll,fiii,fill"/>
+<meta http-equiv="x-dns-prefetch-control" content="on" />
+<!-- <link rel="dns-prefetch" href="//source-img.fiil.com" />
+<link rel="dns-prefetch" href="//source.fiil.com" />
+<link rel="dns-prefetch" href="//fiil.com" />
+<link rel="dns-prefetch" href="//www.fiil.com" /> -->
+
+
+<script>
+	function trimStr(str){
+		return str.replace(/(^\s*)|(\s*$)/g,"");
+	}
+
+	function lanSkip(){
+		var url = window.location.href;
+		if(url.indexOf("/cn/") > -1){
+			setCookie("lang","zh",30);
+		}
+		else if(url.indexOf("/en/") > -1){
+			setCookie("lang","en",30);
+		}
+	}
+
+	function setCookie(name,value,exp){
+		var expDate = new Date();
+		expDate.setDate(expDate.getDate()+exp);
+		document.cookie = name + "=" + escape(value)  + ((exp == null||exp == "")? ";" : ";expires=" + expDate.toUTCString()) + ";path=/";
+	}
+
+	function getCookie(name){
+		var cookieStr = "";
+		cookieStr = document.cookie;
+
+		var nameExsist = true;
+		if(cookieStr.length > 0){
+			var cookieArr = new Array();
+			cookieArr = cookieStr.split(";");
+			for(var i = 0; i<cookieArr.length; i++){
+				var cookieArrItem = new Array();
+				cookieArrItem = cookieArr[i].split("=");
+				if(trimStr(cookieArrItem[0]) == name){
+					return unescape(trimStr(cookieArrItem[1]));
+					break;
+				}
+				else{
+					nameExsist = false;
+				}
+			}
+			if(!nameExsist){
+				return "";
+			}
+		}
+		else{
+			return "";
+		}
+	}
+
+	function delCookie(name) {
+		var expDate = new Date();
+		expDate.setDate(expDate.getDate()-1);
+		var cval = getCookie("lang");
+		if(cval != null){
+			document.cookie = name + "=" + escape(cval) + ";expires=" + expDate.toUTCString() + ";path=/";
+		}
+	}
+
+//	window.onload = function(){
+//		lanSkip();
+//	};
+
+
+	(function(){
+		lanSkip();
+	})();
+</script>
+
+    <title>首页 fiil耳机官方网站</title>
+    <link href="css/animate.css" rel="stylesheet" type="text/css">
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <link href="css/home.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <script src="js/sub.js"></script>
+    <script type="text/javascript" src="js/swiper.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no">
+</head>
+<body>
+<script type="text/javascript">
+    var __isEn = location.href.indexOf('/en') > -1;
+    $(document).ready(function () {
+        var url = location.href;
+        $('[data-lan="' + (__isEn ? "en" : "cn") + '"]').addClass('active');
+        $('[data-lan]').on('click', function () {
+            var lan = $(this).attr('data-lan');
+            if (lan === 'en' && !__isEn) {
+                setCookie("lang","en",30);
+				var lan_url = location.href;
+				lan_url = lan_url.replace("/cn/","/en/");
+                window.location.href = lan_url;
+//                alert(getCookie("lang"));
+            } else if (lan === 'cn' && __isEn) {
+                setCookie("lang","zh",30);
+                var lan_url = location.href;
+				lan_url = lan_url.replace("/en/","/cn/");
+                window.location.href = lan_url;
+            }
+        })
+    });
+</script>
+<nav class="j-nav-bar">
+    <div class="nav-back animated7"></div>
+    <dl>
+        <dd><a href="//www.fiil.com/cn/"><i class="logo"></i></a></dd>
+        <dd><a data-nav="index" href="//www.fiil.com/cn/">首页</a></dd>
+        <dd class="hover-sub-pro"><a data-nav="product">产品</a>
+            <div class="fiil-head-sub-col" data-sub="sub-pro">
+                <div class="">
+                    <div class="head-sub-item">
+                        <a class="sub-url" href="fiil-wireless.php">
+                            <div class="sub-img sub-img-pro1"></div>
+                            <div class="sub-title">FIIL系列</div>
+                        </a>
+                    </div>
+                    <div class="head-sub-item">
+                        <a class="sub-url" href="fiil-bestie.php">
+                            <div class="sub-img sub-img-pro2"></div>
+                            <div class="sub-title">FIIL Bestie</div>
+                        </a>
+                    </div>
+                    <div class="head-sub-item">
+                        <a class="sub-url" href="diva.php">
+                            <div class="sub-img  sub-img-pro3"></div>
+                            <div class="sub-title">FIIL Diva系列</div>
+                        </a>
+                    </div>
+                    <div class="head-sub-item">
+                        <a class="sub-url" href="carat.php">
+                            <div class="sub-img  sub-img-pro4"></div>
+                            <div class="sub-title">FIIL Carat</div>
+                        </a>
+                    </div>
+                    <div class="head-sub-item">
+                        <a class="sub-url" href="vox.php">
+                            <div class="sub-img  sub-img-pro5"></div>
+                            <div class="sub-title">FIIL Vox</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </dd>
+        <!--<dd><a data-nav="diva" href="diva.php">FIIL Diva</a></dd>-->
+        <!--<dd><a data-nav="bestie" href="fiil-bestie.php">FIIL Bestie</a></dd>-->
+        <dd class="nav-service hover-sub-ser"><a data-nav="service">服务</a>
+            <div class="fiil-head-sub-col" data-sub="sub-ser">
+                <div class="head-sub-item">
+                    <a class="sub-url" href="download.php">
+                        <div class="sub-img sub-img-ser1"></div>
+                        <div class="sub-title">下载fiil+</div>
+                    </a>
+                </div>
+                <div class="head-sub-item">
+                    <a class="sub-url" href="offline.php">
+                        <div class="sub-img sub-img-ser2"></div>
+                        <div class="sub-title">线下门店</div>
+                    </a>
+                </div>
+                <div class="head-sub-item">
+                    <a class="sub-url" href="guarantee.php">
+                        <div class="sub-img  sub-img-ser3"></div>
+                        <div class="sub-title">产品注册</div>
+                    </a>
+                </div>
+                <div class="head-sub-item">
+                    <a class="sub-url" href="validate.php">
+                        <div class="sub-img  sub-img-ser4"></div>
+                        <div class="sub-title">正品验证</div>
+                    </a>
+                </div>
+            </div>
+        </dd>
+        <dd><a href="//bbs.fiil.com/" target="_blank">社区</a></dd>
+        <dd><a href="//store.fiil.com/" target="_blank">商城</a></dd>
+        <dd class="language"><span><a data-lan="cn" class="active">中文</a> <i>|</i> <a data-lan="en"> EN </a></span></dd>
+    </dl>
+</nav>
+
+<!-- Swiper -->
+<div class="fiil-slide init-height">
+    <div class="swiper-container fiil-style init-height">
+        <div class="swiper-wrapper">
+            <!--<div class="swiper-slide banner1"><a target="_blank" href="http://store.fiil.com/pc/activity/20161105/activity.jsp"></a></div>-->
+            <div class="swiper-slide banner2">
+                <a target="_blank" href="carat.php"></a>
+            </div>
+            <div class="swiper-slide banner3" onclick="window.location.href='diva.php'"></div>
+            <div class="swiper-slide banner4"><a target="_blank" href="//store.fiil.com/pc/pcPro.fiil?type=1&pid=52"></a></div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+<div class="content-wrap">
+    <div class="product-wrap">
+        <div class="product-container wrapper">
+            <div class="item p1">
+                <p><i class="mask"></i><em></em><a target="_blank" href="live-carat.html">FIIL Carat 新品发布会</a></p>
+
+                <h3><a target="_blank" href="live-diva.html">FIIL Carat 新品发布会</a></h3>
+                <h5></h5>
+
+                <div class="desc">FIIL Carat全场景智能运动耳机， 10月20日16:00官网发布会直播，点击立即观看 >
+                </div>
+            </div>
+            <div class="item p2">
+                <p class="animated7"><i class="mask"></i><em></em><a target="_blank" href="//store.fiil.com/pc/pcPro.fiil?type=1&pid=52">FIIL ME NOW</a></p>
+
+                <h3><a target="_blank" href="//store.fiil.com/pc/pcPro.fiil?type=1&pid=52">FIIL Wireless  陶瓷版首发</a></h3>
+                <h5></h5>
+
+                <div class="desc">陶瓷限量蓝牙版，精密陶瓷工艺，坚韧耐磨亮面设计， CD级无损蓝牙传输、HIFI音质、滑动触控、锻造与音乐相融的艺术品。</div>
+            </div>
+            <div class="item p3">
+                <p><i class="mask"></i><em></em><a target="_blank" href="//store.fiil.com/pc/pcPro.fiil?type=1&pid=54">FIIL ME NOW</a></p>
+
+                <h3><a target="_blank" href="//store.fiil.com/pc/pcPro.fiil?type=1&pid=54">FIIL Diva 官网首发</a></h3>
+                <h5></h5>
+
+                <div class="desc">FIIL Diva Pro 全场景智能无线耳机，高清无损本地存储播放，接入酷我音乐资源库，海量云端无损音乐免费享受,立即抢购!</div>
+            </div>
+        </div>
+    </div>
+    <div class="story-grid wrapper">
+        <div class="top clear-fix">
+            <div class="grid-item left">
+                <div class="fade-item">
+                    <p class="top-desc">FIIL ME NOW</p>
+
+                    <div class="item-wrap">
+						<a target="_blank" href="download.php">
+							<i>FIIL+ APP</i>
+
+							<div class="img-wrap">
+								<div class="mask animated7"></div>
+								<div class="line animated7"></div>
+								<div class="img-desc animated4">
+									<h1>FIIL+APP</h1>
+
+									<p>FIIL+多功能APP，让你玩转好音乐，体验FIIL的艺术魅力。</p>
+								</div>
+								<img src="img/index/brand_img2.jpg">
+							</div>
+						</a>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-item right">
+                <div class="img-wrap">
+					<a target="_blank" href="fiil-wireless.php">
+						<div class="mask animated7"></div>
+						<div class="line animated7"></div>
+						<div class="img-desc-logo animated7">
+							<div></div>
+						</div>
+						<div class="img-desc animated4">
+							<h1>FIIL Wireless 无线HIFI耳机</h1>
+
+							<p>IF设计奖、CD级无损蓝牙传输、HIFI音质、滑动触控、ANC主动降噪，无线也有好声音。</p>
+						</div>
+						<img src="img/index/brand_img1.png">
+					</a>
+                </div>
+                <i>FIIL Wireless</i>
+            </div>
+        </div>
+        <div class="middle">
+            <div class="item-wrap grid-item fade-item">
+                <div class="img-wrap">
+					<a target="_blank" href="fiil-bestie.php">
+						<div class="mask animated7"></div>
+						<div class="line animated7"></div>
+						<div class="img-desc animated4">
+							<h1>入耳式耳机</h1>
+
+							<p>日本音频协会Hi-Res认证、美国楼氏动铁、安卓/苹果双兼容</p>
+						</div>
+						<img src="img/index/brand_img3.jpg">
+					</a>
+                </div>
+                <i>FIIL Bestie</i>
+            </div>
+        </div>
+        <div class="bottom clear-fix">
+            <div class="grid-item fade-item left">
+                <div class="img-wrap">
+					<a target="_blank" href="//bbs.fiil.com/plugin.php?id=fiil_bbs:index">
+						<div class="mask animated7"></div>
+						<div class="line animated7"></div>
+						<div class="img-desc-logo animated7">
+							<div></div>
+						</div>
+						<div class="img-desc animated4">
+							<h1>FIIL 社区</h1>
+							<p>这里只有 fiil &friends！</p>
+							<p>玩音乐、聊梦想、组派对、乐生活</p>
+							<p>小伙伴们在fiil社区等你来玩哦！</p>
+						</div>
+						<img src="img/index/brand_img4.jpg">
+					</a>
+                </div>
+                <i>FIIL    社区</i>
+            </div>
+            <div class="grid-item right">
+                <img src="img/index/fiil-me-now_black.png">
+
+                <div class="video-wrap">
+                    <video id="fiil-player" src="http://source-img.fiil.com/portal/pc/video/other_mv/new_diva_04.mp4"></video>
+                    <p class="player-controller">
+                        <em class="iconfont play">&#xe601;</em>
+                        <em class="iconfont pause">&#xe604;</em>
+                    </p>
+                </div>
+
+                <i>品牌故事</i>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="footer-wrap">
+        <div class="footer-row footer-top">
+            <p class="f-l"><img src="img/index/fiil-me-now_white.png"></p>
+
+            <div class="f-r sns-share">
+                <a class="animated7" target="_blank" href="//weibo.com/u/5604999844?topnav=1&wvr=6&topsug=1&is_all=1"><i class="iconfont">&#xe602;</i></a>
+                <a class="animated7" target="_blank" href="//bbs.fiil.com"><i class="iconfont">&#xe614;</i></a>
+                <a class="animated7" target="_blank" href="//tieba.baidu.com/f?kw=fiil&ie=utf-8"><i class="iconfont">&#xe613;</i></a>
+            </div>
+        </div>
+        <div class="footer-row footer-middle">
+            <div class="f-l">
+                <div class="footer-item">
+                    <span>服务支持</span>
+                    <a href="service.php">售后政策</a>
+                    <a href="privacy.php">隐私条款</a>
+                    <a href="law.php">法律声明</a>
+                </div>
+                <div class="footer-item">
+                    <span>帮助中心</span>
+                    <a href="operate.php">操作说明</a>
+                    <a href="payment.php">支付方式</a>
+                    <a href="delivery.php">配送方式</a>
+                </div>
+                <div class="footer-item">
+                    <span>关于我们</span>
+                    <!--<a href="news.php">新闻咨询</a>-->
+                    <!--<a href="gallery.php"></a>-->
+                    <a href="gallery.php">图片视频</a>
+                </div>
+                <div class="footer-item">
+                    <span>关注我们</span>
+                    <a href="contact.php">联系我们</a>
+                    <a href="job.php">加入我们</a>
+                    <!-- <a href="offline.php">线下门店</a> !-->
+                </div>
+            </div>
+            <div class="f-r qr-code">
+                <h3>微信公众号</h3>
+                <img src="img/index/wechat_qrcode.png">
+            </div>
+        </div>
+        <h5 class="footer-split"></h5>
+
+        <div class="footer-row footer-bottom">
+            <div class="f-l">
+                <p>Copyright © 2015-2016, Fengfan (Beijing) Technology Co., Ltd. All Rights Reserved.</p>
+
+                <p>峰范（北京）科技有限公司 | 京ICP备15026427号</p></div>
+            <div class="f-r tel">400-850-7997</div>
+        </div>
+    </div>
+</footer>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?b930a0af17fc24859e92e702b1e3265a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script></body>
+</html>

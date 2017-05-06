@@ -1,0 +1,233 @@
+﻿<html>
+<head>
+<Meta http-equiv="Page-Enter" Content="revealTrans(duration=5, transition=22)">
+　　　　　　<Meta http-equiv="Page-Exit" Content="revealTrans(duration=5, transition=22)">
+
+<title>my first  HTML</title>
+<link href="F:/mypage/daojucheng/8.ico" rel="shortcut icon"> 
+</head>
+<body bgcolor="#67a5cd">
+ <h1 align="center"><a name="OK">超级喜欢！</a></h1>
+<p>this file will open on the line </p><hr/>
+<p>this a new pra</p></br>
+<p>this another pra</p></hr>
+<!--i am zhushi i won't xianshi-->
+<h1 align="center">chuanxiao</h1>
+<h2 align="center">chunxiao</h2>
+<strong>wow i am so strong</strong><hr/>
+<big>wow i am so big</big><hr/>
+<i>wow i am xie de </i>
+
+<pre>pre shi yu geshi 
+wenben </pre>
+<pre> for i = 1 to 10
+           print i
+ next i </pre>
+ <code> for i = 1 to 10</br>
+           print i</pre>
+<address><a href="http://www.w3school.com.cn/tiy/t.asp?f=html_address">shandong,zibo,huantai</a></address>
+<abbr title="love u so much tangya">love</abbr><hr/>
+<acronym title="world wide web">www</acronym></br></br>
+<acronym title="world wide web">wow</acronym></br>
+<bdo dir="rtl"> i  am  a  pig!</bdo></br>
+<bdo dir="ltr"> i am a pig </bdo>
+<blockquote>zhe shi  long yinyong</blockquote>
+<q>zhe shi short yinyong</q>
+<p>xian  shan chu <del>wow</del> ran hou xiahua<ins>wow</ins></p>
+<a href="http://www.baidu.com"><img height="100"  src="E:/每日用图/2014年7月/20140708/1.jpg" /></a></br>
+<a href="http://www.baidu.com" target="_blank">度娘全知道</a>
+<p><a href="#OK" style="text-decoration:none">唐娅喜欢吃肉吗？</a></p>
+<a href="http://hao.360.cn" target="_top">这是要去哪啊</a></br>
+<table border="1">
+<caption><h1>表一</h1></caption>
+<tr><td>100</td><td>200</td><td>300</td></tr></table>
+<h4>表二</h4>
+
+
+<table border="5">
+<tr><td>100</td><td>200</td><td>300</td></tr>
+<tr><td><ins>400</ins></td><td>500</td><td>600</td></tr></table>
+<h4>表三</h4><table border="9"><tr><th>&nbsp;</th><th>啊</th><th>哦</th></tr>
+<tr><th>嗯</th><td>1</td></tr>
+<tr><td>2</td><th>额</th><td>3</td></tr>
+<tr><th>哈</th><td>3</td><td>4</td></tr>
+</table>
+
+<ul><li>小丫</li><li>小娅</li><li>小鸭</li></ul>
+<button type="button" onclick="alert('Welcome!')">点我点我!</button>
+
+<form name="input" action="http://www.baidu.com">
+<input type="submit" value="Hello world!">
+</form></a>
+
+
+<form name="input" action="http://hao.360.cn" target="_blank">
+Username: 
+<input type="text" name="user" />
+<input type="submit" value="Submit" />
+</form>
+
+
+<p><sup>我岑寂</sup>大赛的<sub>活塞皇帝扫黄</sub>打是滴哦撒谎好滴哦撒谎的<q>我是一个好孩子</q>dsadsadwdsadwq "dawdwadwadawdwadwa"</p>
+<p><time>22:10:34</time></p>
+<p>22:10:34</p>
+<wbr>movie</wbr>
+
+<form style="width:500;height:500;border:1 solid red;border-style: outset;margin:0 auto">
+  <fieldset style="margin-top:100;padding-left:220;padding-right:215"><legend>let me try</legend>
+    <select>
+<option>wow</option>
+<option>nmn</option>
+<option>zyz</option>
+    </select>
+  </fieldset>
+</form>
+
+
+<p>请点击文本标记之一，就可以触发相关控件：</p>
+
+<form>
+<label for="male">Male</label>
+<input type="radio" name="sex" id="male" />
+<br />
+<label for="female">Female</label>
+<input type="radio" name="sex" id="female" />
+</form>
+
+
+<p id="dem">
+JavaScript 能改变 HTML 元素的内容。
+</p>
+
+<script> 
+function myFunction()
+{
+element=document.getElementById("dem"); // 找到元素
+element.innerHTML="Hello JavaScript!";    // 改变内容
+}
+
+</script>
+
+<button type="button" onclick="myFunction()">点击这里</button></br></br></br>
+
+
+
+<script>
+function changeImage()
+{
+element=document.getElementById('myimage')
+if (element.src.match("2"))
+  {
+  element.src="images/1.jpg";
+  }
+else
+  {
+  element.src="images/2.jpg";
+  }
+}
+</script>
+
+<img id="myimage" onclick="changeImage()" src="images/1.jpg"/  alt="呵呵">
+
+
+<p>请输入数字，如果输入为空或者不是数字，弹出提示框</p>
+<form><input id="demo"  type="text"/></form>
+
+<button type="button"  onclick="myFunction1()">click me!</button>
+
+
+
+
+
+<p>请输入数字。如果输入值不是数字，浏览器会弹出提示框。</p>
+
+<form><input id="demo" type="text"></form>
+<script>
+function myFunction1()
+{
+var x=document.getElementById("demo").value;
+if(x==""||isNaN(x))
+	{
+	alert("Not Numeric");
+	}
+}
+</script>
+
+<button type="button" onclick="myFunction1()">点击这里</button>
+
+
+
+
+
+<button type="button">打我啊</button>
+<a href="http://www.baidu.com"><input type="button" value="打我呀"></a>
+
+
+
+<style>
+ul.wow
+{
+list-style-type:none;
+margin:0;
+padding:0;
+float:left;
+}
+.wow li{float:left;}
+a.non:link,a.non:visited
+{
+display:block;
+font-weight:bold;
+color:#FFFFFF;
+background-color:#bebebe;
+width:120px;
+text-align:center;
+padding:4px;
+text-decoration:none;
+text-transform:uppercase;
+}
+a.non:hover,a.non:active
+{
+background-color:#cc0000;
+}
+</style>
+<div style="width:600px;height:300px;border:1px solid red">
+<ul class="wow">
+<li><a class="non" href="#home">Home</a></li>
+<li><a class="non" href="#news">News</a></li>
+<li><a class="non" href="#contact">Contact</a></li>
+<li><a class="non" href="#about">About</a></li>
+</ul>
+</div>
+
+
+
+<button onclick="myFun()">点击这里</button>
+
+<script>
+function myFun()
+{
+document.write("糟糕！文档消失了。");
+}
+</script>
+
+
+<button onclick="myFunction('Bill Gates','CEO')">点击这里</button>
+
+<script>
+function myFunction(name,job)
+{
+alert("Welcome " + name + ", the " + job);
+}
+</script>
+
+<p id="p1">这是一段文本。</p>
+<input type="button" value="隐藏文本" onclick="document.getElementById('p1').style.visibility='hidden'" />
+<input type="button" value="显示文本" onclick="document.getElementById('p1').style.visibility='visible'" />
+
+<h1 style="display:block;width:150px;height:100px;background-color:#67a5cd;text-align:center;margin:0 auto;padding-top:50px;" onmouseover="this.innerHTML='真听话!'" onmouseout="this.innerHTML='指我指我'">指我指我</h1>
+
+<form>
+   <input type="file"/>
+</form>
+</body>
+</html>

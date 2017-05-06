@@ -1,0 +1,62 @@
+
+body{margin: 0px;padding: 0px;font-size: 16px;font-family: "Hiragino Sans GB";}p,a{margin: 0px;padding: 0px;text-decoration: none;}ul{list-style: none;}img{max-width: 100%;}
+#header{width: 100%;height:45px;display:-webkit-box;display:-moz-box;-webkit-box-align:center;-webkit-box-pack:justify;display: flex;display:-webkit-flex;justify-content: space-between;align-items: center;
+background-color:#23A7F1;position: fixed;}
+.clr_hd{width: 100%;height: 45px;}
+.zhuce{width: auto;margin-left: 20px;width: 6.25%;display: block;}
+.login{margin-right: 20px;width: 6.25%;display: block;}
+.zhuce p,.login p{font-size: 0.875em;color: #333333;line-height:20px;}
+.name p{font-size: 1.0625em;color: #FFFFFF;line-height: 10px;font-family: "微软雅黑";}
+
+
+#zhanghu{width: 100%;height: auto;background-color: #23A7F1;padding-bottom: 15px;background: url(../img/wode_bg.png) no-repeat center;background-size: cover;}
+.zhanghu_top{width: 100%;height: auto;text-align:center;overflow: hidden;}
+.zhanghu_top p{display: block;color: #FFFFFF;}
+.zhanghu_top p:nth-of-type(1){font-size: 1.875em;}
+.zhanghu_top p:nth-of-type(2){font-size: 0.625em;}
+.zhanghu_bom{margin-top: 15px;width: 100%;height:35px;display:-webkit-box;display:-moz-box;-webkit-box-pack:justify;-moz-box-pack:justify;display: flex;display: -webkit-flex;justify-content: space-between;padding-top: 12px;}
+.kyyue{height: 35px;-webkit-box-flex: 1;-moz-box-flex: 1;flex: 1;-webkit-flex: 1;text-align:center;}
+.fengexian{width: 2px;height: auto;background-color: #ffffff;margin-top: 5px;opacity: 0.3;}
+.djzj{height: 35px;-webkit-box-flex: 1;-moz-box-flex: 1;flex: 1;-webkit-flex: 1;text-align: center;}
+.kyyue p:nth-of-type(1),.djzj p:nth-of-type(1){font-size: 0.9375em;color: #FFFFFF;}
+.kyyue p:nth-of-type(2),.djzj p:nth-of-type(2){font-size: 0.625em;color: #FFFFFF;}
+
+.menu{width:100%;height:75px;background-color: #f2f2f2;border-bottom: 1px solid #dddddd;display:-webkit-box;display:-moz-box;-webkit-box-pack:justify;-moz-box-pack:justify;-webkit-box-align:center;-moz-box-align:center;display: flex;
+display: -webkit-flex;justify-content:space-between;align-items: center;}
+.chongzhi,.tixian{width: 40.9375%;height: 38px;}
+.chongzhi{background-color: #ff4343;border-radius: 3px;-webkit-border-radius: 3px;-moz-border-radius: 3px;text-align: center;margin-left: 6.041%;}
+.tixian{border-radius: 3px;-webkit-border-radius: 3px;-moz-border-radius: 3px;text-align: center;margin-right: 6.041%;border: 1px solid #999999;}
+.chongzhi p{font-size: 1.09375em;color: #FFFFFF;line-height: 38px;}
+.tixian p{font-size: 1.09375em;color:#23A7F1;line-height: 38px;}
+ .iconframe{width: 100%;height: auto;}
+.row1{width: 100%;min-height:107px;display:-webkit-box;display:-moz-box;display:flex;display:-webkit-flex;}
+.icon1{width:33.333%;height:auto;display:-webkit-box;display:-moz-box;-moz-box-orient:vertical;-webkit-box-orient:vertical;-webkit-box-pack:center;-moz-box-pack:center;-webkit-box-align:center;
+-moz-box-align:center;flex: 1;-webkit-flex:1;display:flex;display:-webkit-flex;flex-flow: column;-webkit-flex-flow: column;justify-content: center;align-items:center;
+-webkit-justify-content: center;-webkit-align-items:center;}
+.right_btm{border-bottom: 1px solid #dddddd;border-right:1px solid #dddddd;}
+.btm{border-bottom:1px solid #dddddd;}
+.icon1_map{width: 20.322%;height: auto;}
+.icon1 p{font-size: 0.75em;color: #666666;margin-top: 11px;}
+.clr{width: 100%;height:70px;background-color: #F2F2F2;}
+
+/*------------------------------footer---------------------*/
+#footer{width: 100%;height: 60px;position: fixed;bottom:0px;display:-webkit-box;display:-moz-box;-webkit-box-pack:justify;-webkit-box-align:center;-moz-box-pack:justify;-moz-box-align:center;display:flex;display:-webkit-flex;justify-content:space-around;
+	border-top: 1px solid #DDDDDD;background-color: #FFFFFF;
+}
+
+.item{width: 14.062%;height: auto;text-align: center;align-self: center;}
+
+.shouye{background: url(../img/shouye.png) no-repeat center;width: 25px;height: 25px;margin: 0px auto;display: block;}
+
+.touzhi{background: url(../img/touzhi.png) no-repeat center;width: 25px;height: 25px;margin: 0px auto;display: block;}
+
+.jiekuan{background: url(../img/jiank.png) no-repeat center;width: 25px;height: 25px;margin: 0px auto;display: block;}
+
+.wode{background: url(../img/wodeblue.png) no-repeat center;width: 25px;height: 25px;margin: 0px auto;display: block;}
+
+.item p{font-size: 0.75em;margin-top:5px;margin-bottom: 0px;}
+
+@media only screen and (min-width: 100px) and (max-width: 640px) {
+	
+}
+

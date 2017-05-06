@@ -1,0 +1,9 @@
+body{margin: 0px;padding: 0px;font-family: "微软雅黑";background-color:#F6F6F6;}a,p{margin: 0px;padding: 0px;text-decoration: 0px;}img{max-width: 100%;}
+#header{width: 100%;height:40px;display:-webkit-box;display:-moz-box;-webkit-box-align:center;-moz-box-align:center;-webkit-box-pack: justify;-moz-box-pack: justify;justify-content: space-between;
+display: flex;display: -webkit-flex;align-items: center;-webkit-align-items: center;border-bottom: 1px solid #DDDDDD;background-color: #FFFFFF;}
+.zuo{width: 8px;height: 12px;margin-left: 15px;display: block;display: block;}
+.title_xiaoxi p{display: block;font-size: 1.0em;color: #333333;font-family: "微软雅黑";}
+#section{width: 100%;height: auto;}
+.chdk,.yfbdk{width: 100%;height: 45px;border-top:1px solid #DDDDDD;border-bottom: 1px solid #DDDDDD;background-color: #FFFFFF;display: block;margin-top: 5px;}
+.chdk p,.yfbdk p{float:left;line-height: 45px;margin-left: 15px;font-size: 1.0em;color: #333333;}
+.chdk div,.yfbdk div{float: right;width: 8px;height: 12px;margin-top: 9px;margin-right: 15px;}

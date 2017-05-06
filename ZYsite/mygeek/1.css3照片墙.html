@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>极客css3图片墙</title>
+		<style>
+			.body {
+				background: #eeeeee;
+			}
+			
+			.container {
+				/*width: 1500px;*/
+				width: 94%;
+				min-width: 600px;
+				max-width: 1500px;
+				height: 1000px;
+				margin: 50px auto;
+				position: relative;
+			}
+			
+			.container img {
+				position: absolute;
+				padding: 10px 5px;
+				margin: 10px;
+				border: 0px;
+				box-shadow: 5px 5px 2px darkkhaki;
+				-webkit-transition: all 1s ease-in;
+				z-index: 1;
+				background: #FFFFFF;
+			}
+			
+			.pic {
+				/*width: 240px;*/
+				width: 16%;
+			}
+			
+			.container img:hover {
+				/*width: 350px;*/
+				width: 23%;
+				box-shadow: 0px 6px 10px saddlebrown;
+				-webkit-transform: rotate(0deg) scale(1.20);
+				z-index: 2;
+			}
+			
+			.pic0 {
+				transform: rotate(10deg);
+				-webkit-transform: rotate(10deg);
+			}
+			
+			.pic1 {
+				transform: rotate(10deg);
+				-webkit-transform: rotate(-10deg);
+				/*left: 300px;*/
+				left: 20%;
+			}
+			
+			.pic2 {
+				transform: rotate(10deg);
+				-ms-transform: rotate(10deg);
+				-webkit-transform: rotate(15deg);
+				/*left: 600px;*/
+				left: 40%;
+			}
+			
+			.pic3 {
+				transform: rotate(10deg);
+				-ms-transform: rotate(10deg);
+				-webkit-transform: rotate(-5deg);
+				/*left: 900px;*/
+				left: 60%;
+			}
+			
+			.pic4 {
+				transform: rotate(10deg);
+				-ms-transform: rotate(10deg);
+				-webkit-transform: rotate(-10deg);
+				/*left: 1200px;*/
+				left: 80%;
+			}
+			
+			.pic5 {
+				transform: rotate(10deg);
+				-ms-transform: rotate(10deg);
+				-webkit-transform: rotate(5deg);
+				left: 0;
+				/*top: 400px;*/
+				top: 26.66667%;
+			}
+			
+			.pic6 {
+				transform: rotate(10deg);
+				-ms-transform: rotate(10deg);
+				-webkit-transform: rotate(10deg);
+				/*left: 300px;*/
+				left: 20%;
+				/*top: 380px;*/
+				top: 25.333333%;
+			}
+			
+			.pic7 {
+				transform: rotate(10deg);
+				-ms-transform: rotate(10deg);
+				-webkit-transform: rotate(-8deg);
+				/*left: 500px;*/
+				left: 33.333%;
+				/*top: 420px;*/
+				top: 28%;
+			}
+			
+			.pic8 {
+				transform: rotate(10deg);
+				-ms-transform: rotate(10deg);
+				-webkit-transform: rotate(6deg);
+				/*left: 800px;*/
+				left: 53.3333333333%;
+				/*top: 400px;*/
+				top: 26.6666666666667%;
+			}
+			
+			.pic9 {
+				transform: rotate(10deg);
+				-ms-transform: rotate(10deg);
+				-webkit-transform: rotate(-9deg);
+				/*left: 1100px;*/
+				left:73.333333% ;
+				/*top: 200px;*/
+				top: 13.33333%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<img src="img/0.jpg" class="pic pic0" />
+			<img src="img/1.jpg" class="pic pic1" />
+			<img src="img/2.jpg" class="pic pic2" />
+			<img src="img/3.jpg" class="pic pic3" />
+			<img src="img/4.jpg" class="pic pic4" />
+			<img src="img/5.jpg" class="pic pic5" />
+			<img src="img/6.jpg" class="pic pic6" />
+			<img src="img/7.jpg" class="pic pic7"/>
+			<img src="img/8.jpg" class="pic pic8" />
+			<img src="img/9.jpg" class="pic pic9" />
+		</div>
+	</body>
+</html>

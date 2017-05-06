@@ -1,0 +1,357 @@
+
+              h3{text-align: center;margin-top: 20px;}
+              p{padding-left: 20px;padding-right: 20px;}
+              
+              
+ /*表格一*/
+             .log{
+				position: relative;
+				width: 80%;
+				max-width: 800px;
+				min-width: 200px;
+				margin: 0 auto;
+				margin-top: 10px;
+				
+				border: 1px solid #c00502;
+			}
+			.log_head{
+				position: relative;
+				height: 25px;
+				line-height: 25px;
+				font-family: '黑体';
+				color: #FFFFFF;
+				background: #fe5c5a;
+				text-align: left;
+				font-size: 15px;
+				padding-left: 20px;
+				padding-right: 0px;
+			}
+			.log_head .mylog{
+				position: absolute;
+				display: block;
+				height: 20px;
+				line-height: 20px;
+				font-family: "microsoft yahei";
+				color: #fe5c5a;
+				background: #fff95c;
+				border-radius: 7px;
+				padding-left: 5px;
+				padding-right: 5px;
+				top: 2px;
+				right: 3px;
+				font-size: 12px;
+			}
+			.thead{
+				background: #FFFFFF;
+				width: 100%;
+				overflow: hidden;
+			}
+			.thead li{
+				float: left;
+				width: 33.3%;
+				font-size: 14px;
+				height: 22px;
+				line-height: 22px;
+				color: #fe5c5a;
+				text-align: center;
+			}
+			.jilutable{
+				width: 100%;
+				height: 80px;
+				overflow: hidden;
+				padding: 0px;
+			}
+			.scroll{
+				/*position: relative;*/
+				width: 101%;	
+			
+			}
+			.scroll tr{
+				width: 100%;
+			}
+			.scroll td{
+				text-align: center;
+	            vertical-align: center;
+	            height: 20px;
+	            line-height: 20px;
+	            width: 33.3%;
+	           font-size: 14px;
+	           text-align: center;
+			}
+ 
+ /*表格二*/
+			.details {
+				width: 94%;
+				margin: 0 auto;
+				max-width: 1200px;
+				min-width: 300px;
+				/*height: 450px;*/
+				border-radius: 8px;
+				margin-top: 10px;
+				padding-bottom: 10px;
+				overflow: hidden;
+				background: #FFFFFF;
+			}
+			
+			.details_head {
+				height: 40px;
+				background: #c91d45;
+				position: relative;
+			}
+			
+			.details_head p {
+				text-align: center;
+				color: #FFFFFF;
+				background: #c91d45;
+				height: 40px;
+				line-height: 40px;
+				font-size: 16px;
+			}
+			
+			.details_head .close_details {
+				position: absolute;
+				width: 40px;
+				height: 40px;
+				top: 0px;
+				right: 0px;
+				text-align: center;
+				line-height: 40px;
+				color: #FFFFFF;
+				cursor: pointer;
+				font-size: 16px;
+			}
+			
+			.table_top {
+				height: 50px;
+				background:#E2E2E2 ;
+			}
+			
+			.table_top p {
+				text-align: center;
+				height: 25px;
+				line-height: 25px;
+				font-size: 12px;
+				color: #FF0000;
+			}
+			
+			.table_top .people {
+				color: #C9152E;
+			}
+			
+			
+			.table_top .score {
+				color: #C9152E;
+			}
+			
+			.table_box{
+				height: 240px;
+				overflow: hidden;
+			}
+			.tableself {
+				width: 100%;
+			}
+			.tableself th {
+				text-align: center;
+				background: #E5E5E5;
+				height: 30px;
+				line-height: 30px;
+				font-size: 12px;
+				font-weight: 600;
+				padding-left: 2px;
+				opacity: 0.7;
+			}
+			.tableself td {
+				text-align: center;
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				font-size: 12px;
+				font-weight: normal;
+				padding-left: 5px;
+			}
+			
+			.tableself tr:hover {
+				color: #666666;
+			}
+			.redscore {
+				color: #C9152E;
+				font-size: 14px;
+			}
+			
+/*表单部分*/
+.information {
+	margin-top: 20px;
+	box-sizing: border-box;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+	border-top: 1px solid #e5e5e5;
+	background: white;
+	border-radius: 5px;
+}
+.box {
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 1px solid #EBEBEB;
+	font-family: "黑体";
+	overflow: hidden;
+	position: relative;
+}
+.box input {
+	margin-top: 10px;
+	float: right;
+	border: none;
+	outline: none;
+	text-align: right;
+	font-size: 13px;
+	height: 20px;
+	line-height: 20px;		
+}
+.duanxin {
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 1px solid #EBEBEB;
+	font-family: "黑体";
+}
+.duanxin input {
+	margin-top: 10px;
+	border: none;
+	outline: none;
+	margin-right: 5px;
+	text-align: right;
+	font-size: 13px;
+	float: right;
+	height: 20px;
+	line-height: 20px;
+}
+.duanxin .mark {
+	width: 100px;
+	/*background: #23A7F1;*/
+}
+.duanxin .getmark {
+	float: right;
+	background-color: #23A7F1;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	color: white;
+	height: 30px;
+	line-height: 30px;
+	margin-top: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-right: 0px;
+}
+
+.next {
+	width: 90%;
+	margin: 45px auto auto auto;
+}
+
+.next input {
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	width: 100%;
+	height: 42px;
+	line-height: 42px;
+	color: white;
+	background-color: #23a7f1;
+	border: none;
+	outline: none;
+}
+
+.use_right,
+.time_right {
+	float: right;
+	font-size: 13px;
+	cursor: pointer;
+	height: 30px;
+	line-height: 30px;
+	margin-right: -5px;
+	margin-top: 8px;
+	position: relative;
+	color: rgba(0, 0, 0, 0.4);
+	/*background: yellow;*/
+}
+
+.use_right .xiasanjiao,
+.time_right .xiasanjiao {
+	float: right;
+	width: 25px;
+	height: 25px;
+	margin-top: 1px;
+	margin-right: -12px;
+}
+.jine .howmuch {
+	float: right;
+	margin-right: 0px;
+}
+
+.wan{
+	width: 20px;
+	margin-top: 5px;
+	height: 30px;
+	line-height: 30px;
+	float: right;
+	margin-right: -2px;
+	padding-right: 0px;
+	font-size: 14px;
+}
+.chenghu::-webkit-input-placeholder {
+	color: #23A7F1;
+}
+
+.chenghu::-moz-placeholder {
+	color: #23A7F1;
+}
+
+.chenghu::-ms-input-placeholder {
+	color: #23A7F1;
+}
+
+.tel::-webkit-input-placeholder {
+	color: #23A7F1;
+}
+
+.tel::-moz-placeholder {
+	color: #23A7F1;
+}
+
+.tel::-ms-input-placeholder {
+	color: #23A7F1;
+}
+
+.mark::-webkit-input-placeholder {
+	color: #23A7F1;
+}
+
+.mark::-moz-placeholder {
+	color: #23A7F1;
+}
+
+.mark::-ms-input-placeholder {
+	color: #23A7F1;
+}
+
+.howmuch::-webkit-input-placeholder {
+	color: #23A7F1;
+}
+
+.howmuch::-moz-placeholder {
+	color: #23A7F1;
+}
+
+.howmuch::-ms-input-placeholder {
+	color: #23A7F1;
+}
+
+/*教学表单*/
+.kl{
+	margin:30px auto;
+	background:rgb(240,240,240);
+	padding:30px;
+}

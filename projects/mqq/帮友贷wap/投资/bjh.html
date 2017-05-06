@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    	<meta name="format-detection" content="telephone=no">
+		<title>帮计划</title>
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+	<body>
+		<header id="header">
+			<a class="zhuce" href=""><img src="img/zuo_wh.png" alt="" /></a>
+			<div class="name">
+				<p>帮计划</p>
+			</div>
+			 <a class="login" href=""><img src="img/share.png" alt="" /></a>
+		</header>
+		<div class="clr_hd"></div>
+		<div id="zhanghu">
+			<div class="zhanghu_top">
+				<div class="nianhua">
+					<p><span id="number">0</span>%</p>
+				</div>
+				<p>预期年化</p>
+			</div>
+			<div class="zhanghu_bom">
+				<div class="kyyue">
+					<p><span>1</span>个月</p>
+					<p>期限</p>
+				</div>
+				<div class="fengexian"></div>
+				<div class="djzj">
+					<p>100,000.00<span>元</span></p>
+					<p>剩余金额</p>
+				</div>
+			</div>
+		</div>
+		<div class="item_frame">
+			<div class="jbxx borbtm">
+				<p class="j active">基本信息</p>
+			</div>
+			<div class="bar"></div>
+			<div class="jhjs">
+				<p class="j">计划介绍</p>
+			</div>
+		</div>
+		<div class="info">
+			<div class="jbxx_info">
+				<div class="jb_info1">
+					<ul>
+						<li><span>计划金额</span><p>300,000.00元</p></li>
+						<li><span>处理方式</span><p>锁定期限</p></li>
+						<li><span>收益再投资</span><p>1个月</p></li>
+						<li><span>开始时间</span><p>2015年09月21日</p></li>
+						<li><span>锁定结束</span><p>2015年10月23日</p></li>
+						<li><span>剩余时间</span><p>2天00时51分05秒</p></li>
+					</ul>
+				</div>
+				
+				<div class="jb_info2">
+					<ul>
+						<li><span>加入条件</span><p>加入金额2000元起，且为1000元的整数倍递增。</p></li>
+						<li><span>加入上限</span><p>无最高上限</p></li>
+						<li><span>退出方式</span><p>系统将通过债权转让自动完成退出，债权转让资金及投资回款所得等将不再继续自动投标。</p></li>
+						<li>
+							<span>费率说明</span>
+							<p>紧急退出费：加入金额x0.00%。<br />投资管理费：退出帮计划时，如出借人加入资金对应借款产生的总利息大于预期收益，则超出预期收益部分作为投资管理费由平台收取；若出借人加入资金对应借款产生的总利息小于等于预期收益，则平台不收取投资管理费。</p>
+						</li>
+						<li><span>保障方式</span><p>100%本息保障计划还款周期。</p></li>
+						
+					</ul>
+				</div>
+			</div>
+			<div class="jhjs_info">
+				<div class="jb_info1">
+					<ul>
+						<li>
+							<span>计划介绍</span>
+							<p>帮计划是2105年帮友贷新推出的一种帮计划是2015年帮友贷新推出的一种帮计划是2105年帮友贷新推出的一种2015帮计划是2105年帮友贷新推出的一种帮计划是2105年帮友
+								贷新推出的一种帮计划是2105年帮友贷新推出的一种5计划是2105年帮友贷新推出的一种帮计划是2105年帮友贷新推出的一种帮计划是2105年帮友贷新推出的一种帮计划是2试
+								5年帮友贷新推出的一种帮计划是2105年帮友贷新推出的一种帮计划是2105年帮友贷新推出的一种帮计划是2105年帮友贷新推出的一种帮计划是2105年帮友贷新推出1一种帮计
+								划是2105年帮友贷新推出的一种帮计划是2105年帮友贷新帮计划是2105年帮友贷新推出的一种。</p>
+						</li>
+					</ul>
+				</div>
+				<div class="jb_info2">
+					<ul>
+						<li><span>计划特点</span>
+							<p>1、14% - 18%的预期收益率50倍于活期存款利率。<br />2、100%本息保障计划。<br />3、投资90天后，可申请紧急退出计划，解决资金不时之需。<br />4、投资分布、投标详情及资金流向，公开透明。<br />
+							5、方便快捷，无需二次操作，坐享收益。</p>
+						</li>
+					</ul>
+				</div>
+				<div class="jb_info3">
+					<span>计划原理</span>
+					<div class="yuanlu">
+						<img src="img/yuanli.png" alt="" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer id="footer">
+			<input type="submit" value="立即购买" id="buy" />
+		</footer>
+		<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+		<script src="js/jquery.animateNumber.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('.jbxx').click(function(){
+					$('.jbxx,.jhjs').removeClass('borbtm')
+					$('.jbxx,.jhjs').children('p').removeClass('active')
+					$(this).addClass('borbtm')
+					$(this).children('p').addClass('active')
+					$('.jbxx_info,.jhjs_info').hide();
+					$('.jbxx_info').fadeIn('200');
+				})
+				$('.jhjs').click(function(){
+					$('.jbxx,.jhjs').removeClass('borbtm')
+					$('.jbxx,.jhjs').children('p').removeClass('active')
+					$(this).addClass('borbtm')
+					$(this).children('p').addClass('active')
+					$('.jbxx_info,.jhjs_info').hide();
+					$('.jhjs_info').fadeIn('200');
+				})
+				var decimal_places = 2;
+				var decimal_factor = decimal_places === 0 ? 1 : decimal_places * 10;
+				 
+				$('#number')
+				  .animateNumber(
+				    {
+				      number: 18.5* decimal_factor,
+				 
+				      numberStep: function(now, tween) {
+				        var floored_number = Math.floor(now) / decimal_factor,
+				            target = $(tween.elem);
+				 
+				        if (decimal_places > 0) {
+				          // force decimal places even if they are 0
+				          floored_number = floored_number.toFixed(decimal_places);
+				 
+				          // replace '.' separator with ','
+				          floored_number = floored_number.toString().replace(',', '.');
+				        }
+				 
+				        target.text(floored_number);
+				      }
+				    },
+				    500
+				  );
+			})
+			
+			
+		</script>
+	</body>
+</html>

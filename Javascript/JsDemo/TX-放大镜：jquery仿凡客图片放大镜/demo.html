@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>图片放大镜</title>
+    <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+	<style type="text/css">
+		*{margin:0;padding:0;list-style-type:none;}
+		a,img{border:0;}
+		body{line-height:180%;font-size:12px;}
+		.demoh2{font-size:14px;margin:20px;color:#ff6600;}
+		/* preview style */
+		.preview{width:500px;}
+		/* smallImg */
+		.smallImg{position:relative;height:360px; padding:26px 5px; width:72px; overflow:hidden;float:left;}
+		.scrollbutton{width:45px; height:10px; overflow:hidden; position:absolute; left:17px; cursor:pointer;background:url(images/zoom.gif) no-repeat;}
+		.scrollbutton.smallImgUp{background-position:0 0; top:8px;}
+		.scrollbutton.smallImgDown{background-position:0 -11px; bottom:8px;}
+		.scrollbutton.smallImgUp.disabled{background-position:0 -22px;}
+		.scrollbutton.smallImgDown.disabled{background-position:0 -33px;}
+		#imageMenu {height:350px;overflow:hidden; margin-top:4px;}
+		#imageMenu li {height:82px; width:72px; overflow:hidden;}
+		#imageMenu li img{padding:1px;border:1px solid #E8E8E8; width:68px; height:68px;cursor:pointer;}
+		#imageMenu li#onlickImg img{border:1px solid #990000;}
+		/* bigImg */
+		.bigImg{position:relative;float:right;width:400px;height:400px;padding:5px;border:1px solid #E4E4E4;overflow:hidden;}
+		.bigImg #midimg{width:400px;height:400px;}
+		.bigImg #winSelector{width:235px;height:210px;}
+		#winSelector{position:absolute;cursor:crosshair;filter:alpha(opacity=15);-moz-opacity:0.15;opacity:0.15;background-color:#000;border:1px solid #fff;}
+		/* bigView */
+		#bigView{position:absolute;border: 1px solid black;overflow: hidden;width:260px;height:295.652px;top:300px;left:540px;z-index:999;}
+		#bigView img{position:absolute;}
+	</style>
+</head>
+
+<body>
+
+
+	<div class="preview" style="float:left;">
+		<div class="smallImg">
+			<div class="scrollbutton smallImgUp disabled"></div>
+			<div id="imageMenu">
+				<ul>
+					<li id="onlickImg"><img src="small/01.jpg" width="68" height="68" alt="洋妞"/></li>
+					<li><img src="small/02.jpg" width="68" height="68" alt="洋妞"/></li>
+					<li><img src="small/03.jpg" width="68" height="68" alt="洋妞"/></li>
+					<li><img src="small/04.jpg" width="68" height="68" alt="洋妞"/></li>
+					<li><img src="small/05.jpg" width="68" height="68" alt="洋妞"/></li>
+					<li><img src="small/06.jpg" width="68" height="68" alt="洋妞"/></li>
+				</ul>
+			</div>
+			<div class="scrollbutton smallImgDown"></div>
+		</div><!--smallImg end-->
+	
+		<div id="vertical" class="bigImg">
+			<img id="midimg" src="mid/01.jpg" width="400" height="400" alt="天戈遥控飞机 AA02801 四通道遥控直升机 中天模型"  />
+			<div id="winSelector" style="display:none;" ></div>
+		</div><!--bigImg end-->
+		
+		<div id="bigView" style="display:none;"><img width="800" height="800" alt="" src="" /></div>
+
+	</div><!--preview end-->
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	// 图片上下滚动
+	var count = $("#imageMenu li").length - 3; /* 显示 4 个 li标签内容 */
+	var interval = $("#imageMenu li:first").height();
+	var curIndex = 0;
+    var midChangeHandler = null;//点击到中图
+	
+	$('.scrollbutton').click(function(){
+		if( $(this).hasClass('disabled') ) return false;
+		if ($(this).hasClass('smallImgUp')) --curIndex;
+		else ++curIndex;
+		
+		$('.scrollbutton').removeClass('disabled');
+		if (curIndex == 0) $('.smallImgUp').addClass('disabled');
+		if (curIndex == count-1) $('.smallImgDown').addClass('disabled');
+		
+		$("#imageMenu ul").stop(false, true).animate({"marginTop" : -curIndex*interval + "px"}, 600);
+	});
+	
+	 
+	
+    $("#imageMenu li img").bind("click", function(){
+		if ($(this).attr("id") != "onlickImg") {
+			midChange($(this).attr("src").replace("small", "mid"));
+			$("#imageMenu li").removeAttr("id");
+			$(this).parent().attr("id", "onlickImg");
+		}
+	}).bind("mouseover", function(){
+		if ($(this).attr("id") != "onlickImg") {
+			window.clearTimeout(midChangeHandler);
+			midChange($(this).attr("src").replace("small", "mid"));
+			$(this).css({ "border": "1px solid #990000" });
+		}
+	}).bind("mouseout", function(){
+		if($(this).attr("id") != "onlickImg"){
+			$(this).removeAttr("style");
+			midChangeHandler = window.setTimeout(function(){
+				midChange($("#onlickImg img").attr("src").replace("small", "mid"));
+			}, 1000);
+		}
+	});
+    // Tool function
+    function midChange(src) {
+        $("#midimg").attr("src", src).load(function() {
+            changeViewImg();
+        });
+    }
+    
+    function changeViewImg() {
+        $("#bigView img").attr("src", $("#midimg").attr("src").replace("mid", "big"));
+     }
+    changeViewImg();
+    //大视窗看图
+    function mouseover(e) {
+        if ($("#winSelector").css("display") == "none"){
+            $("#winSelector,#bigView").show();
+        }
+        $("#winSelector").css(fixedPosition(e));
+        e.stopPropagation();
+    }
+
+    function mouseOut(e) {
+        if ($("#winSelector").css("display") != "none") {
+            $("#winSelector,#bigView").hide();
+        }
+        e.stopPropagation();
+    }
+
+    $("#midimg").mouseover(mouseover); //中图事件
+    $("#midimg,#winSelector").mousemove(mouseover).mouseout(mouseOut); //选择器事件
+
+    var $divWidth = $("#winSelector").width(); //选择器宽度
+    var $divHeight = $("#winSelector").height(); //选择器高度
+    var $imgWidth = $("#midimg").width(); //中图宽度
+    var $imgHeight = $("#midimg").height(); //中图高度
+    var $viewImgWidth = $viewImgHeight = $height = null; //IE加载后才能得到 大图宽度 大图高度 大图视窗高度
+
+    
+
+    $("#bigView").scrollLeft(0).scrollTop(0);
+    function fixedPosition(e) {
+        if (e == null) {
+            return;
+        }
+        var $imgLeft = $("#midimg").offset().left; //中图左边距
+        var $imgTop = $("#midimg").offset().top; //中图上边距
+        X = e.pageX - $imgLeft - $divWidth / 2; //selector顶点坐标 X
+        Y = e.pageY - $imgTop - $divHeight / 2; //selector顶点坐标 Y
+        X = X < 0 ? 0 : X;
+        Y = Y < 0 ? 0 : Y;
+        X = X + $divWidth > $imgWidth ? $imgWidth - $divWidth : X;
+        Y = Y + $divHeight > $imgHeight ? $imgHeight - $divHeight : Y;
+
+        if ($viewImgWidth == null) {
+            $viewImgWidth = $("#bigView img").outerWidth();
+            $viewImgHeight = $("#bigView img").height();
+            if ($viewImgWidth < 200 || $viewImgHeight < 200) {
+                $viewImgWidth = $viewImgHeight = 800;
+            }
+            $height = $divHeight * $viewImgHeight / $imgHeight;
+            $("#bigView").width($divWidth * $viewImgWidth / $imgWidth);
+            $("#bigView").height($height);
+        }
+
+        var scrollX = X * $viewImgWidth / $imgWidth;
+        var scrollY = Y * $viewImgHeight / $imgHeight;
+        $("#bigView img").css({ "left": scrollX * -1, "top": scrollY * -1 });
+        $("#bigView").css({ "top": 0, "left": $(".preview").offset().left + $(".preview").width() + 15 });
+
+        return { left: X, top: Y };
+    }
+
+});
+</script>
+</body>
+</html>

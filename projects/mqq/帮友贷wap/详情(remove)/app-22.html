@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    	<meta name="format-detection" content="telephone=no">
+		<title>支付app22</title>
+		<link rel="stylesheet" href="css/items_info.css" />
+		<link rel="stylesheet" href="font/font-awesome-4.4.0/css/font-awesome.min.css" />   <!--特殊字体库-->
+		<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var gWidth=$('.goumai_info').width();
+					gHeight=gWidth*0.125;
+					$('.goumai_info').css('height',gHeight+'px')
+					$('.shumu').css('height',gHeight+'px')
+					$('.shumu>p').css('line-height',gHeight+'px')
+			})
+			
+		</script>
+		<style type="text/css">
+			body{background-color: #FFFFFF;}
+			#qianshu::-webkit-input-placeholder{font-size: 1.0em;color: #999999;}
+			#qianshu::-moz-placeholder{font-size:1.0em;color: #999999;}
+			
+			#qianshu{width: 100%;height: 95%;appearance: none;-webkit-appearance: none;-moz-appearance: none;outline: none;border: 1px solid #999999;
+				text-align: center;color: #333333;
+			}
+			.yuqishouyi{overflow: hidden;}
+			.yuqishouyi p{display: block;}
+			.yuqishouyi p:nth-of-type(1){float: left;}
+			.yuqishouyi p:nth-of-type(2){float: right;display: inline-block;margin-right: 15px;}
+			.yuqishouyi p:nth-of-type(2) img{display: block;width: 16px;height: 16px;display: inline-block;vertical-align: sub;}
+			
+		</style>
+	</head>
+	<body>
+		<header id="header">
+			<div class="zuo"><img src="img/zuo.png"/></div>
+			<div class="items_title">
+				<p>支付</p>
+			</div>
+		</header>
+		<section id="main">
+			<div class="goumai">
+				<p>购买金额</p>
+			</div>
+			<div class="goumai_info">
+				<div class="reduce"><img src="img/minus.png" alt="" /></i></div>
+				<div class="shumu"><input type="text"placeholder="2000元起投,且为1000元整数倍" id="qianshu" /></div>
+				<div class="add"><img src="img/plus.png" alt="" /></div>
+			</div>
+			<div class="yuqishouyi">
+				<p>预期收益：</p>
+				<p>自动使用红包<img src="img/tishibiao.png" alt="" /></p>
+			</div>
+			<div class="zuoduoketou">
+				<p>做多可投</p>
+				<p>11111</p>
+			</div>
+			<div class="zhanghuyue">
+				<p> 账户余额</p>
+				<p>100</p>
+			</div>
+		</section>
+		<div id="footer">
+			<div class="xiadan">
+				<p>确认购买</p>
+			</div>
+		</div>
+		<div class="zhedangceng"></div>
+		<div class="tanchukuang">
+			<div class="close"><a href=""><img src="img/close.png" alt="" /></a></div>
+			<div class="clrb"></div>
+			<p>支付金额</p>
+			<p>10000元</p>
+			<div class="tishi">
+				<p>请输入支付密码</p>
+				<p><a href="">找回密码</a></p>
+			</div>	
+			<div class="password_frame">
+				
+				<input type="password" name="" id="password" value="" maxlength="6"/>
+			</div>
+	</body>
+</html>

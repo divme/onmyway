@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css 动画实战</title>
+    <script src="../geek/jquery-2.1.1.min.js"></script>
+    <style>
+        *{margin:0;padding:0}
+        .wrapper{width:75%;margin:10px auto}
+        h3{margin:30px;text-align: center}
+        /*border 试验*/
+        .border{
+            width:0;
+            height:0;
+            border-top:20px solid red;
+            border-right:20px solid greenyellow;
+            border-bottom:20px solid yellow;
+            border-left:20px solid yellowgreen;
+        }
+        /*border颜色妙用*/
+        .bordercolor{
+            width:100px;
+            height:100px;
+            margin:auto;
+            border-radius:50%;
+            border:10px solid rgba(0,0,0,1);
+            border-left-color: #f6f6f6;
+            animation:bc 1s linear infinite;
+        }
+        @keyframes bc {
+            0%{transform: rotate(0deg)}
+            100%{transform: rotate(360deg)}
+        }
+        /*border位置妙用*/
+        .borderwidth{
+            position: relative;
+            width: 100px;
+            height:100px;
+            margin:20px auto;
+            background: yellowgreen;
+        }
+        .borderwidth:before{
+            content: '';
+            position: absolute;
+            width:0;
+            height:0;
+            top: 0;
+            right: 0;
+            border-style: solid;
+            border-width: 0;
+            border-color: rgba(0,0,0,0.2) #dedede;
+            /*box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);*/
+            -webkit-transition: all 0.4s ease-out;
+            transition:all 0.4s ease-out;
+        }
+        .borderwidth:hover:before{
+            border-right-width:30px;
+            border-bottom-width:30px;
+        }
+        /*border-radius 结合动画*/
+        .radius{
+            width:200px;
+            height:100px;
+            background:greenyellow;
+            border-bottom-left-radius: 100px;
+            border-bottom-right-radius: 100px;
+            transform-origin: 50% 0;
+            animation:radius 2s linear infinite alternate;
+        }
+        @keyframes radius{
+            0%{transform: rotate(30deg)}
+            100%{transform: rotate(-30deg)}
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <h3>border 宽度试验</h3>
+    <p>谁为0，就去掉谁的那一边</p>
+    <div class="border"></div>
+    <h3>border 颜色妙用</h3>
+    <div class="bordercolor"></div>
+    <h3>border 宽度妙用</h3>
+    <div class="borderwidth"></div>
+    <h3>border-radius 结合动画</h3>
+    <div class="radius"></div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

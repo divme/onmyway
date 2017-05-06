@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Touch Tap</title>
+    <!--<meta name="viewport" content="width=device-width;initial-scale=1.0;max-scale=1.0;minium-scale=1.0"/>-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        *{margin:0;padding:0}
+        .fullpage{position:absolute;top:100px;left:0;width:100%;height:300px;background:#f6f6f6;display:flex;-webkit-display:flex;align-items: center;justify-content: center;}
+        .son{padding:3px 5px}
+    </style>
+</head>
+<body>
+   <div class="fullpage" id="id">
+       <button class="son">Click</button>
+       <p></p>
+   </div>
+
+   <h6>设置满屏</h6>
+   <script>
+       var fullpage = document.getElementsByClassName('fullpage')[0];
+       var son = document.getElementsByClassName('son')[0];
+//       (function(){
+//           fullpage.style.width = window.innerWidth+"px";
+//           fullpage.style.height = window.innerHeight+"px";
+//       })()
+   </script>
+   <h6>0.封装好的tap事件</h6>
+   <script>
+       (function(){
+           var touchstart, touchend;
+           if (typeof(window.ontouchstart) != 'undefined') {
+               touchstart = 'touchstart';
+               touchend   = 'touchend';
+           } else if (typeof(window.onmspointerdown) != 'undefined') {
+               touchstart = 'MSPointerDown';
+               touchend   = 'MSPointerUp';
+           } else {
+               touchstart = 'mousedown';
+               touchend   = 'mouseup';
+           }
+
+           function NodeFacade(node){
+               this._node = node;
+           }
+           NodeFacade.prototype.getDomNode = function() {
+               return this._node;
+           }
+           NodeFacade.prototype.on = function(evt, callback, scope) {
+               var scopeObj;
+               if(!scope) {
+                   scopeObj = this._node;
+               } else{
+                   scopeObj = scope;
+               }
+               if (evt === 'tap') {
+                   this._node.addEventListener(touchstart, function() {
+                       callback.apply(scope, arguments);
+                   });
+               } else if (evt === 'tapend') {
+                   this._node.addEventListener(touchend, function() {
+                       callback.apply(scope, arguments);
+                   });
+               } else {
+                   this._node.addEventListener(evt, function() {
+                       callback.apply(scope, arguments);
+                   });
+               }
+               return this;
+           }
+           window.$ = function(selector) {
+               var node = document.querySelector(selector);
+               if (node) {
+                   return new NodeFacade(node);
+               } else {
+                   return null;
+               }
+           }
+       })();
+       var newthing = $(".fullpage");
+       newthing.on("tap",function (){
+           alert("我tap了！");
+       },null);
+   </script>
+
+
+   <h6>1.初步试验touch事件,触摸完毕显示初始结束位置</h6>
+   <script>
+       var start,
+           move,
+           end;
+       son.addEventListener('touchstart',callback,false);
+       function callback(){
+           son.innerHTML="start";
+       }
+       fullpage.ontouchstart = function(e){
+           start = e.touches[0].screenX;
+           var txt = document.createTextNode(start);
+           fullpage.removeChild(fullpage.lastChild);
+           fullpage.appendChild(txt);
+       }
+       fullpage.ontouchmove = function(e){
+           move = e.touches[0].screenX;
+           var txt = document.createTextNode(move);
+           fullpage.removeChild(fullpage.lastChild);
+           fullpage.appendChild(txt);
+       }
+       fullpage.ontouchend = function (e){
+           var distance = move - start;
+           var txt = document.createTextNode("开始"+start+"结束"+move+"距离"+distance);
+           fullpage.removeChild(fullpage.lastChild);
+           fullpage.appendChild(txt);
+       }
+   </script>
+
+   <h6>2.初步封装touch事件函数，但是只能处理固定事件了</h6>
+   <script>
+       function touchevent(ele){
+            var start,move;
+            ele.ontouchstart = function (e){
+                   start = e.touches[0].screenX;
+                   var txt = document.createTextNode(start);
+                   ele.removeChild(ele.lastChild);
+                   ele.appendChild(txt);
+
+            };
+            ele.ontouchmove = function(e){
+                e.preventDefault();//
+                move = e.touches[0].screenX;
+                var txt = document.createTextNode(move);
+                ele.removeChild(ele.lastChild);
+                ele.appendChild(txt);
+            }
+            ele.ontouchend = function (e){
+                var distance = move - start;
+                var txt = document.createTextNode("开始"+start+"\n结束"+move+"\n距离"+distance);
+                ele.removeChild(ele.lastChild);
+                ele.appendChild(txt);
+            }
+       }
+       touchevent(fullpage);
+   </script>
+
+   <h6>3.给obj添加滑动事件</h6>
+   <script>
+        var obj = document.getElementById('id');
+        obj.addEventListener('touchmove', function(event) {
+            if (event.targetTouches.length == 1) {
+                event.preventDefault();
+                var touch = event.targetTouches[0];
+                obj.style.left = touch.screenX+5 + 'px';
+                obj.style.top = touch.screenY+5 + 'px';
+            }
+        }, false);
+    </script>
+</body>
+</html>

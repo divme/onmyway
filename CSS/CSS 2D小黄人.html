@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小黄人</title>
+    <style>
+        *{margin:0;padding:0;position: relative;}
+        .wrapper{
+            float: left;
+            width:260px;
+            margin:50px;
+        }
+        .xhr{
+            width:120px;
+            margin:auto;
+        }
+        .shenti{
+            width:120px;
+            height:200px;
+            border-radius: 60px;
+            background: #F9D846;
+            border:2px solid #424242;
+            overflow: hidden;
+            z-index:3;
+        }
+        /*裤子*/
+        @media (min-width:10px){
+
+            .kuzi{
+                position: absolute;
+                width:120px;
+                height:55px;
+                bottom:0;
+                background: #21759F;
+                border-top:2px solid #424242;
+            }
+            .kzout{
+                position: absolute;
+                width:80px;
+                height:25px;
+                top:-27px;
+                left:18px;
+                background: #21759f;
+                border:2px solid #424242;
+                border-bottom: none;
+            }
+            .koudai{
+                position: absolute;
+                width: 25px;
+                height: 20px;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+                border:2px solid #424242;
+                top:25px;
+                bottom:0;
+                left:-1px;
+                right:0;
+                margin:auto;
+            }
+            .kufeng{
+                position: absolute;
+                width:2px;
+                height:20px;
+                background: #424242;
+                left:0;
+                right:0;
+                bottom:0;
+                margin:auto;
+            }
+            .lskoudai{
+                width:22px;
+                height:15px;
+                top:5px;
+                overflow: hidden;
+                /*background: rgba(255,0,0,0.5);*/
+            }
+            .lkoudai{
+                position: absolute;
+                width: 50px;
+                height:30px;
+                bottom:0;
+                right:0;
+                border-radius:50%;
+                border-right:2px solid #424242;
+                border-bottom:2px solid #424242;
+            }
+            .rskoudai{
+                position: absolute;
+                width:22px;
+                height:15px;
+                top:5px;
+                right:2px;
+                overflow: hidden;
+                /*background: rgba(255,0,0,0.5);*/
+            }
+            .rkoudai{
+                position: absolute;
+                width: 50px;
+                height:30px;
+                bottom:0;
+                left:0;
+                border-radius:50%;
+                border-left:2px solid #424242;
+                border-bottom:2px solid #424242;
+            }
+            .jiandai{
+                width:50px;
+                height:8px;
+                background: #21759f;
+                border:2px solid #424242;
+            }
+            .ljiandai{
+                top:-12px;
+                left:-35px;
+                transform: rotate(45deg);
+            }
+            .ljiandai:after{
+                position: absolute;
+                content: '';
+                width:5px;
+                height:5px;
+                border-radius:50%;
+                top:0;bottom:0;
+                right:2px;
+                margin:auto;
+                background: #282828;
+            }
+            .rjiandai{
+                top:-24px;
+                right:-61px;
+                transform: rotate(-45deg);
+            }
+            .rjiandai:after{
+                position: absolute;
+                content: '';
+                width:5px;
+                height:5px;
+                border-radius:50%;
+                top:0;bottom:0;
+                left:2px;
+                margin:auto;
+                background: #282828;
+            }
+        }
+        /*眼睛*/
+        @media (min-width:10px){
+            .yanjing{
+                position: absolute;
+                width: 36px;
+                height: 36px;
+                top:30px;
+                border-radius: 50%;
+                border:2px solid #282828;
+                background: #ffffff;
+                overflow: hidden;
+                animation: yj 5s infinite;
+            }
+            @keyframes yj {
+                90%{height:36px;top:30px}
+                91%{height:2px;top:48px}
+                98%{height:36px;top:30px}
+            }
+            .yanzhu{
+                position: absolute;
+                width:17px;
+                height:17px;
+                top:20%;
+                left:20%;
+                border-radius:50%;
+                border:1px solid #424242;
+                background: #282828;
+
+            }
+            .yanquan{
+                position: absolute;
+                top:1px;
+                left:1px;
+                width:10px;
+                height: 10px;
+                border-radius:5px;
+                background: #ffffff;
+            }
+            .zyanjing{
+                left:20px;
+            }
+            .zhyanzhu{ animation:zyz 5s linear infinite}
+            .zbyanquan{  }
+            @keyframes zyz {
+                10%{left:0;right:auto;}
+                20%{left:20%;}
+                30%{left:50%}
+                40%{left:30%}
+                50%{left:20%;}
+            }
+            @keyframes yyz {
+                10%{right:0;left:auto;}
+                20%{right:20%;}
+                30%{right:50%}
+                40%{right:30%}
+                50%{right:20%;}
+            }
+            .yyanjing{
+                right:20px;
+            }
+            .yhyanzhu{ animation:zyz 5s linear infinite }
+            .ybyanquan{  }
+            .jingjia{
+                position: absolute;
+                width:30px;
+                height:8px;
+                top:50px;
+                background: #282828;
+            }
+            .zjingjia{ left:-8px ;transform: rotate(5deg);  }
+            .yjingjia{ right:-8px;transform: rotate(-5deg); }
+        }
+        /*嘴巴*/
+        @media (min-width: 10px){
+            .mouth{
+                position: absolute;
+                width:30px;
+                height:10px;
+                top:80px;
+                left:40px;
+                border:2px solid #282828;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                background: #fff;
+                animation:zb 10s infinite;
+            }
+            @keyframes zb {
+                35%{
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
+                }
+                40%{
+                    border-top-left-radius: 15px;
+                    border-top-right-radius: 15px;
+                }
+                65%{
+                    border-top-left-radius: 15px;
+                    border-top-right-radius: 15px;
+                }
+                70%{
+                    border-top-left-radius:0;
+                    border-top-right-radius: 0;
+                }
+            }
+        }
+        /*四肢*/
+        @media (min-width:10px){
+            .gebo{
+                position: absolute;
+                width:36px;
+                height:36px;
+                border-radius:12px;
+                border:2px solid #282828;
+                background: #F9D846;
+                z-index:1;
+            }
+            .zgebo{
+                top:105px;
+                left:-10px;
+                transform: rotate(40deg);
+                animation:zgb 1.2s infinite;
+            }
+            @keyframes zgb {
+                0%{transform:rotate(60deg)}
+                50%{transform:rotate(30deg)}
+                100%{transform:rotate(60deg)}
+            }
+            @keyframes ygb {
+                0%{transform:rotate(-30deg)}
+                50%{transform:rotate(-60deg)}
+                100%{transform:rotate(-30deg)}
+            }
+            .ygebo{
+                top:105px;
+                right:-13px;
+                transform: rotate(-40deg);
+                animation:ygb 1.2s infinite;
+            }
+            .tui{
+                position: absolute;
+                width:20px;
+                height:23px;
+                background: #000;
+                bottom:-20px;
+            }
+            .ztui{
+                left:42px;
+                animation:zt 1.2s linear infinite;
+            }
+            @keyframes zt {
+                0%{transform:rotate(0deg)}
+                50%{transform:rotate(12deg)}
+                100%{transform:rotate(0deg)}
+            }
+            @keyframes yt {
+                0%{transform:rotate(-12deg)}
+                50%{transform:rotate(0deg)}
+                100%{transform:rotate(-12deg)}
+            }
+            .ytui{
+                left:63px;
+                animation:yt 1.2s linear infinite;
+            }
+            .zxiezi{
+                position: absolute;
+                width:18px;
+                height:16px;
+                bottom:1px;
+                left:-16px;
+                background: #000;
+                border-top-left-radius: 8px;
+                border-bottom-left-radius: 8px;
+                transform: rotate(5deg);
+            }
+            .yxiezi{
+                position: absolute;
+                width:18px;
+                height:16px;
+                bottom:1px;
+                right:-16px;
+                background: #000;
+                border-top-right-radius: 8px;
+                border-bottom-right-radius: 8px;
+                transform: rotate(-5deg);
+            }
+        }
+        /*头发*/
+        @media (min-width:10px){
+           .toufa1{
+               position: absolute;
+               width:55px;
+               height:60px;
+               top:-20px;
+               left:10px;
+               border-radius:50%;
+               background: #000;
+               transform: rotate(-50deg);
+               animation:tf1 10s infinite;
+           }
+            @keyframes tf1 {
+                19%{top:-20px;}
+                20%{top:-18px;}
+                22%{top:-20px;}
+                24%{top:-18px;}
+                26%{top:-20px;}
+                28%{top:-18px;}
+                30%{top:-20px}
+            }
+            .toufa11{
+                position: absolute;
+                width: 52px;
+                height:50px;
+                left:-5px;
+                top:2px;
+                border-radius:50%;
+                background: #ffffff;
+                transform:rotate(-10deg);
+            }
+            .toufa2{
+                position: absolute;
+                width:40px;
+                height:40px;
+                top:-10px;
+                left:23px;
+                border-radius:50%;
+                background: #000;
+            }
+            .toufa22{
+                position: absolute;
+                width:40px;
+                height:50px;
+                top:5px;
+                left:0;
+                border-radius:50%;
+                background: #ffffff;
+                transform: rotate(-20deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<img src="./img/xhr.png" alt="小黄人">
+<div class="wrapper"><!-- 容器 -->
+    <div class="xhr">
+        <div class="shenti">
+            <!--裤子相关-->
+            <div class="kuzi">
+                <div class="kzout">
+                    <div class="koudai"></div>
+                    <div class="jiandai ljiandai"></div>
+                    <div class="jiandai rjiandai"></div>
+                </div>
+                <div class="kufeng"></div>
+                <div class="lskoudai"><div class="lkoudai"></div></div>
+                <div class="rskoudai"><div class="rkoudai"></div></div>
+            </div>
+            <!--眼睛相关-->
+            <div class="yanjing zyanjing">
+                <div class="yanzhu zhyanzhu">
+                    <div class="yanquan zbyanquan"></div>
+                </div>
+            </div>
+            <div class="yanjing yyanjing">
+                <div class="yanzhu yhyanzhu">
+                    <div class="yanquan ybyanquan"></div>
+                </div>
+            </div>
+            <div class="jingjia zjingjia"></div>
+            <div class="jingjia yjingjia"></div>
+            <!--嘴巴相关-->
+            <div class="mouth"></div>
+        </div>
+        <!--四肢相关-->
+        <div class="gebo zgebo"></div>
+        <div class="gebo ygebo"></div>
+        <div class="tui ztui">
+            <div class="zxiezi"></div>
+        </div>
+        <div class="tui ytui">
+            <div class="yxiezi"></div>
+        </div>
+        <!--头发相关-->
+        <div class="toufa1">
+            <div class="toufa11"></div>
+        </div>
+        <div class="toufa2">
+            <div class="toufa22"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

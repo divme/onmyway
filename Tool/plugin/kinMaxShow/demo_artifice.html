@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>kinMaxShow 技巧效果 -jquery.kinMaxShow V1.0</title>
+<link type="text/css" href="_doc/base.css" rel="stylesheet" />
+<style type="text/css">
+    body{ margin:0; padding:50px 0 0 0;}
+    #show{width:600px; margin:0 auto;}
+    #kinMaxShow{width:100%; height:300px; visibility:hidden; overflow:hidden;}
+</style>
+<script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="js/jquery.kinMaxShow-1.0.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	$("#kinMaxShow").kinMaxShow({
+		height:300,
+		button:{
+				switchEvent:'mouseover',
+				showIndex:true,
+				normal:{width:'18px',height:'18px',borderRadius:'50%',lineHeight:'18px',left:'16px',bottom:'16px',fontSize:'12px',opacity:0.8,background:"#666666",border:"1px solid #999999",color:"#CCCCCC",marginRight:'6px'},
+				focus:{background:"#CC0000",border:"1px solid #FF0000",color:"#000000"}
+			}			
+	});
+});
+
+</script>
+</head>
+
+<body>
+	<div id="show">
+        <div id="kinMaxShow">
+            <div><img src="images/demo_artifice_images/1.jpg" /></div>
+            <div><img src="images/demo_artifice_images/2.jpg"  /></div>
+            
+            <div><img src="images/demo_artifice_images/3.jpg"   /></div>
+            <div><img src="images/demo_artifice_images/4.jpg"   /></div>
+    
+            <div><img src="images/demo_artifice_images/5.jpg"   /></div>
+            <div><img src="images/demo_artifice_images/6.jpg"   /></div>		        
+        </div>
+    </div>
+    
+<div id="info_box">
+<h1 class="title">kinMaxShow 技巧效果演示</h1>
+<p class="text">kinMaxShow 说是全屏焦点图插件(满屏自适应)，但是通过一定技巧设置就可以变成一个可控制的焦点图。kinMaxShow宽度默认是自适应100%比例。这时只要给他加个父级 并且控制了父级的宽度 这样kinMaxShow就会变成一个普通定宽的焦点图了。 如上例中， 代码如下：</p>
+<div class="mycode">
+<pre>
+<h4>javascript 代码</h4>
+&lt;script src="js/jquery-1.10.2.min.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="js/jquery.kinMaxShow-1.0.min.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+$(function(){
+	
+    $("#kinMaxShow").kinMaxShow({
+<span class="note">	//设置焦点图高度(单位:像素) 必须设置 否则使用默认值 500</span>    
+        height:300,
+<span class="note">	//设置焦点图 按钮效果</span>
+        button:{
+<span class="note">	    //设置焦点图切换方式为mouseover 鼠标经过按钮切换图片, 默认为 click， 可选 click[鼠标点击切换]或mouseover[鼠标滑过切换]</span>        
+            switchEvent:'mouseover',
+<span class="note">	    //设置显示 索引数字  true 显示， 默认为 false 不显示</span>            
+            showIndex:true,
+            <span class="note">//按钮常规下 样式设置 ，css写法，类似jQuery的 $('xxx').css({key:value,……})中css写法。</span>            
+            <span class="note">//【友情提示：可以设置透明度哦 不用区分浏览器 统一为 opacity，CSS3属性也支持哦 如：设置按钮圆角、投影等，只不过IE8及以下不支持】</span>            
+            normal:{width:'18px',height:'18px',lineHeight:'18px',left:'16px',bottom:'16px',fontSize:'12px',opacity:0.8,background:"#666666",border:"1px solid #999999",color:"#CCCCCC",marginRight:'6px'},
+            <span class="note">//当前焦点图按钮样式 设置，写法同上</span>            
+            focus:{background:"#CC0000",border:"1px solid #FF0000",color:"#000000"}
+            }			
+    });
+
+
+});
+
+&lt;/script&gt;
+
+</pre>
+</div>
+
+<div class="mycode">
+<pre>
+<h4>HTML 代码</h4>
+<span class="note">&lt;!--这是焦点图父级容器 设置他的宽度即可控制焦点图宽度--&gt;</span>
+<span class="highlight">&lt;div id="show"&gt;</span>
+
+<span class="note">     &lt;!--焦点图HTML 结构--&gt;</span>
+    &lt;div id="kinMaxShow"&gt;
+    
+        &lt;div&gt;
+            &lt;a href="http://www.qq.com" target="_blank"&gt;&lt;img src="images/demo_artifice_images/1.jpg"   /&gt;&lt;/a&gt;
+        &lt;/div&gt;
+        
+        &lt;div&gt;
+            &lt;a href="http://www.qq.com" target="_blank"&gt;&lt;img src="images/demo_artifice_images/2.jpg"  /&gt;&lt;/a&gt;
+        &lt;/div&gt;
+        
+        &lt;div&gt;
+            &lt;a href="http://www.qq.com" target="_blank"&gt;&lt;img src="images/demo_artifice_images/3.jpg"   /&gt;&lt;/a&gt;
+        &lt;/div&gt;
+        
+        &lt;div&gt;
+            &lt;a href="http://www.qq.com" target="_blank"&gt;&lt;img src="images/demo_artifice_images/4.jpg"   /&gt;&lt;/a&gt;
+        &lt;/div&gt;
+
+        &lt;div&gt;
+            &lt;a href="http://www.qq.com" target="_blank"&gt;&lt;img src="images/demo_artifice_images/5.jpg"   /&gt;&lt;/a&gt;
+        &lt;/div&gt;
+
+        &lt;div&gt;
+            &lt;a href="http://www.qq.com" target="_blank"&gt;&lt;img src="images/demo_artifice_images/6.jpg"   /&gt;&lt;/a&gt;
+        &lt;/div&gt;		
+            
+    &lt;/div&gt;
+
+<span class="highlight">&lt;/div&gt;</span>
+</pre>
+</div>
+<div class="mycode">
+<pre>
+<h4>CSS样式</h4>
+&lt;style type="text/css"&gt;
+<span class="note">     /* 设置焦点图父级宽度 */</span>    
+    #show{width:600px; margin:0 auto;}
+    #kinMaxShow{display:none;}
+
+&lt;/style&gt;
+</pre>
+</div>
+
+</div>    
+	
+</body>
+</html>

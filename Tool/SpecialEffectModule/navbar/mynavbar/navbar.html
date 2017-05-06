@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>navbar</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <script src="js/jquery-1.7.1.min.js"></script>
+</head>
+<body>
+<h1>1.jquery下拉导航菜单-1</h1>
+<script>
+    $(document).ready(function() {
+        $(".main-navigation li").hover(function(){
+            var itemwidth = $(this).width();
+            $(this).prepend("<div class='hover'></div>");
+            $(this).find("div").fadeIn('1000').css({'width' : itemwidth});
+            $(this).find("ul").fadeIn('1000').css("display", "block");
+        },function(){
+            $(this).find("div").slideUp('100').fadeOut('100');
+            $(this).find("div").remove();
+            $(this).find("ul").fadeOut('100');
+        });
+
+        $(".search-input").focus(function(){
+            $(this).animate({width:'180px'}, 500);
+        });
+
+        $(".search-input").focusout(function(){
+            $(this).animate({width:'117px'}, 500);
+        });
+    });
+</script>
+<div class="container">
+    <div class="main-navigation">
+        <ul>
+            <li><a href="#">Home</a>
+                <ul>
+                    <li><a href="#">Sub Menu Item 1</a></li>
+                    <li><a href="#">Sub Menu Item 2</a></li>
+                    <li><a href="#">Sub Menu Item 3</a></li>
+                    <li><a href="#">Sub Menu Item 4</a></li>
+                    <li><a href="#">Sub Menu Item 5</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Services</a>
+                <ul>
+                    <li><a href="#">Sub Menu Item 1</a></li>
+                    <li><a href="#">Sub Menu Item 2</a></li>
+                    <li><a href="#">Sub Menu Item 3</a></li>
+                    <li><a href="#">Sub Menu Item 4</a></li>
+                    <li><a href="#">Sub Menu Item 5</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Portfolio</a>
+                <ul>
+                    <li><a href="#">Sub Menu Item 1</a></li>
+                    <li><a href="#">Sub Menu Item 2</a></li>
+                    <li><a href="#">Sub Menu Item 3</a></li>
+                    <li><a href="#">Sub Menu Item 4</a></li>
+                    <li><a href="#">Sub Menu Item 5</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+                <ul>
+                    <li><a href="#">Sub Menu Item 1</a></li>
+                    <li><a href="#">Sub Menu Item 2</a></li>
+                    <li><a href="#">Sub Menu Item 3</a></li>
+                    <li><a href="#">Sub Menu Item 4</a></li>
+                    <li><a href="#">Sub Menu Item 5</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="search">
+            <input type="text" name="search" class="search-input" />
+            <input type="submit" name="search" value="" class="search-btn" />
+        </div>
+    </div>
+</div>
+
+<h1>2.jquery下拉导航菜单-2</h1>
+<script>
+    jQuery(document).ready(function(){
+        var ary={};
+        $('[nav]').hover(function(){
+            var nav = $(this).attr('nav');
+            clearTimeout(ary[ nav + 'timer' ] );
+            ary[nav + 'timer'] = setTimeout(function(gg){
+                $('[nav]').each(function(){
+                    $(this)[gg == $(this).attr('nav') ? 'addClass':'removeClass' ]('nav-up-selected');
+                });
+                $('#'+gg).stop(true,true).slideDown(200);
+            }, 100, nav);
+        },function(){
+            var nav = $(this).attr('nav');
+            clearTimeout( ary[ nav + 'timer' ] );
+            ary[ nav + 'timer' ] = setTimeout(function(){
+                $('[nav]').removeClass('nav-up-selected');
+                $('#'+nav).stop(true,true).slideUp(200);
+            }, 10);
+        });
+    });
+</script>
+<div class="container">
+    <div class="head-v3">
+        <div class="navigation-up">
+            <div class="navigation-inner">
+                <div class="navigation-v3">
+                    <ul>
+                        <li class="nav-up-selected-inpage" nav="home">
+                            <h2>
+                                <a href="#">首页</a>
+                            </h2>
+                        </li>
+                        <li class="" nav="product">
+                            <h2>
+                                <a href="">云产品</a>
+                            </h2>
+                        </li>
+                        <li class="" nav="wechat">
+                            <h2>
+                                <a href="">微信建站</a>
+                            </h2>
+                        </li>
+                        <li class="" nav="solution">
+                            <h2>
+                                <a href=" ">行业解决方案</a>
+                            </h2>
+                        </li>
+                        <li class="" nav="cooperate">
+                            <h2>
+                                <a href="#">合作伙伴</a>
+                            </h2>
+                        </li>
+                        <li nav="support">
+                            <h2>
+                                <a href="#">帮助与支持</a>
+                            </h2>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-down">
+            <div id="solution" class="nav-down-menu menu-3 menu-1" style="display: none;" nav="solution">
+                <div class="navigation-down-inner">
+                    <dl style="margin-left: 380px;">
+                        <dd>
+                            <a class="link" hotrep="hp.header.solution.1" href="http://weixin.ary.com/">微信</a>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd>
+                            <a class="link" hotrep="hp.header.solution.2" href=" ">游戏</a>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd>
+                            <a class="link" hotrep="hp.header.solution.3" href=" ">移动应用</a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <div id="support" class="nav-down-menu menu-3 menu-1" style="display: none;" nav="support">
+                <div class="navigation-down-inner">
+                    <dl style="margin-left: 610px;">
+                        <dd>
+                            <a class="link" hotrep="hp.header.support.1" href="#/wiki.php">资料库</a>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd>
+                            <a class="link" hotrep="hp.header.support.2" href=" ">论坛</a>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd>
+                            <a class="link" hotrep="hp.header.support.3" href="#/fuchi2014.php">亿元扶持</a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <div id="cooperate" class="nav-down-menu menu-3 menu-1" style="display: none;" nav="cooperate">
+                <div class="navigation-down-inner">
+                    <dl style="margin-left: 480px;">
+                        <dd>
+                            <a hotrep="hp.header.partner.1" href="">代理商</a>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd>
+                            <a hotrep="hp.header.partner.2" href="">微信服务商</a>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd>
+                            <a hotrep="hp.header.partner.3" href="">创投机构</a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1>3.javascript导航菜单切换动画</h1>
+<script>
+    $(function(){
+        $('#navigator li').hover(function(){
+            $(this).find('.on').animate({'marginTop':'-45px'},300).siblings().stop(true,true)
+        },function(){
+            $(this).find('.on').animate({'marginTop':'0'},300)
+        })
+    })
+</script>
+<div class="container">
+    <ul id="navigator">
+        <li class='li'><span class='on' style='margin-top:0'>首 页</span><span class="hidden"> 首页</span>  </li>
+        <li class='li'><span class="on" style='margin-top:0'>云产品</span><span class="hidden">云产品</span></li>
+        <li class='li'><span class="on" style='margin-top:0'>自主建站</span><span class="hidden">自主建站</span></li>
+        <li class='li'><span class="on" style='margin-top:0'>云服务</span><span class="hidden">云服务</span></li>
+        <li class='li'><span class="on" style='margin-top:0'>数据库</span><span class="hidden">数据库</span></li>
+        <li class='li'><span class="on" style='margin-top:0'>CRF</span><span class="hidden">CRF</span></li>
+        <li class='li'><span class="on" style='margin-top:0'>AJAX</span><span class="hidden">AJAX</span></li>
+        <li class='li'><span class="on" style='margin-top:0'>联系我们</span><span class="hidden">联系我们</span></li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/public.css"/>
+		<title>首页</title>
+		<style type="text/css">
+		body{background:url(img/paper.gif);}
+		/*侧边栏*/
+		  aside {
+		  	width: 350px;
+		  	height: 350px;
+		  	position: relative;
+		  	float: left;
+		  	color: seagreen;
+		  	border-radius: 8px;
+		  	background:url(img/jiangshi.png) no-repeat;
+		    background-size: 100%;
+		  	overflow: hidden;
+		  }
+		  ul.nav {
+		  	width: 200px;
+		  	height: 350px;
+		  	padding: 10px 0 30px 0;
+		  	padding-left: 175px;
+		  	background: url(img/shad2.png) no-repeat;
+		  }
+		  ul.nav li {
+		  	margin: 5px 0 0 0;
+		  }
+		  
+		  ul.nav li a {
+		  	background: #cbcbcb url(img/border.png) no-repeat;
+		  	color: #174867;
+		  	padding: 7px 15px 7px 15px;
+		  	width: 100px;
+		  	display: block;
+		  	-webkit-transition: all 0.3s ease-out;
+		  	-moz-transition: all 0.3s ease-out;
+		  	-o-transition: all 0.3s ease-out;
+		  	box-shadow: 2px 2px 4px #888;
+		  	-webkit-box-shadow: 2px 2px 4px #888;
+		  }
+		  
+		  ul.nav li a:hover {
+		  	background: #ebebeb url(img/border.png) no-repeat;
+		  	color: #67a5cd;
+		  	padding: 7px 15px 7px 30px;
+		  }
+		 
+		  /*主体部分*/
+		  .article {
+		  	max-width: 650px;
+		  	min-width: 320px;
+		  	position: relative;
+		  	float: left;
+		  	margin-left: 140px;
+		  	/*background: yellow;*/
+		  	overflow: hidden;	
+		  }
+		  .fly {
+		  	width: 30px;
+		  	/*width: 300px;*/
+		  	height: 20px;
+		  	/*height: 200px;*/
+		  	border-radius:50%;
+		  	background: url(img/paper.gif);
+		  	border: 1px solid #174867;
+		  	overflow: hidden;
+		  	float: left;
+		  	margin: 10px;
+		  	opacity: 0.8;
+		  	box-shadow: 5px 5px 10px #174867;
+		  	position: relative;
+		  }
+		  .fly h2 {
+		  	background-color: #E7DECE;
+		  	line-height: 1.4;
+		  	/*color: salmon;*/
+		  	opacity: 0.8;
+		  	text-align: center;
+		  }
+		  
+		  .fly p {
+		  	background: silver;
+		  	width: 100%;
+		  	height: 200px;
+		  	line-height: 22px;
+		  	box-sizing: border-box;
+		  	padding: 5px 5px 10px 10px;
+		  }
+		  .fly .list{
+		  	display: list-item;
+		  	text-align: center;
+		  	line-height: 1.5;
+		  	color: #4079A7;
+		  	/*color: #FFFFFF;*/
+		  }
+		@media screen and (min-width:651px) and (max-width:1200px){
+			aside{
+				float: none;
+				left: 50%;
+				margin-left: -200px;
+			}
+			.article{
+				float: none;
+				left: 50%;
+				margin-left: -325px;
+				margin-top: 20px;
+			}
+		}
+		@media screen and (max-width:650px){
+			aside{
+				float: none;
+				margin: 0 auto;
+			}
+			.article{
+				float: none;
+				width: 320px;
+				left: 0;
+				margin: 0 auto;	
+			}
+			.one{
+				/*transform: rotate(30deg);
+				-webkit-transform: rotate(30deg);*/
+				/*transform: translate(30px,0);
+				-webkit-transform: translate(30px,0);*/
+			}
+		
+		}
+		</style>
+
+	</head>
+	<body>
+		<header>
+			<img src="img/banner.png" />
+			<nav>
+				<a href="#">Home</a>
+				<a href="html5.html">HTML5</a>
+				<a href="css3.html">CSS3</a>
+				<a href="javascript.html">Javascript</a>
+				<a href="jquery.html">jQuery</a>
+			</nav>
+		</header>
+		<!--<h1>Home</h1>-->
+		<main>
+		
+		<aside>
+		     <ul class="nav">
+			    <li><a href="甲壳虫乐队/index.html">甲壳虫乐队</a></li>
+			    <li><a href="mygeek/4.幽灵按钮.html">幽灵按钮</a></li>
+			    <li><a href="mygeek/3.标签切换.html">奇幻标签</a></li>
+			    <li><a href="css3.html">旋转照片</a></li>
+			    <li><a href="memory/loldaoju.html">我的第一步</a></li>
+		     </ul> 
+		     <div class="clear"></div>
+		</aside>
+		<div class="article">
+			<div class="fly one">
+				<h2>HTML5</h2>
+				<a class="list" href="#">1.表格内容详解</a>
+				<a class="list" href="#">2.表单内容详解</a>
+				<a class="list" href="#">3.列表内容详解</a>
+			</div>
+			<div class="fly two">
+				<h2>CSS3</h2>
+				
+			</div>
+			<div class="fly three">
+				<h2>javascript</h2>
+				
+			</div>
+			<div class="fly four">
+				<h2>jQuery</h2>
+				
+			</div>
+			<div class="clear"></div>
+		</div>
+	</main>
+
+<script src="js/jquery-2.1.1.min.js"></script>
+<script src="js/public.js"></script>
+<script type="text/javascript">
+	function animate() {
+		$('.fly').animate({
+			'width':'300px',
+			'height': '200px',
+			'top': '20px',
+			'left': '50px'
+		}, 2000, function recover() {
+			$('.fly').animate({
+				'top': '0px',
+				'left': '0px'
+			}, 1000)
+		});
+		$()
+	}
+	$(document).ready(function() {
+		animate();
+		var path=location.pathname;
+		var page=$('header').find('a').text().toLowerCase();
+
+	})
+</script>
+		<footer>
+			<p>
+				
+				H5的全新语义化标签意义比较明确<br/>
+				人家都有footer，咱也是footer~
+			</p>
+		</footer>
+	</body>
+</html>

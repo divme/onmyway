@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Swiper中文网基础演示(www.swiper.com.cn)</title>
+<link rel="stylesheet" href="css/swiper.min.css">
+<!--Swiper3.0.4-->
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+.blue-slide {
+	background: #4390EE;
+}
+.red-slide {
+	background: #CA4040;
+}
+.orange-slide {
+	background: #FF8604;
+}
+.swiper-slide {
+	line-height: 300px;
+	color: #fff;
+	font-size: 36px;
+	text-align: center;
+}
+
+</style>
+</head>
+<body>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide blue-slide">slider1</div>
+      <div class="swiper-slide red-slide">slider2</div>
+      <div class="swiper-slide orange-slide">slider3</div>
+    </div>
+    <!-- 如果需要分页器 -->
+    <div class="swiper-pagination"></div>
+
+    <!-- 如果需要导航按钮 -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+
+    <!-- 如果需要滚动条 -->
+    <div class="swiper-scrollbar"></div>
+</div>
+<script src="js/swiper.min.js"></script>
+<script type="text/javascript">
+  var mySwiper = new Swiper('.swiper-container',{
+    loop: true,
+	autoplay: 3000,
+      pagination: '.swiper-pagination',// 如果需要分页器
+      nextButton: '.swiper-button-next',// 如果需要前进后退按钮
+      prevButton: '.swiper-button-prev',
+      scrollbar: '.swiper-scrollbar',
+  });
+</script>
+</body>
+</html>

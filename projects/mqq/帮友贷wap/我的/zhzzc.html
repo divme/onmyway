@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>账户总资产</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    	<meta name="format-detection" content="telephone=no">
+    	<link rel="stylesheet" href="css/zhzzc.css" />
+	</head>
+	<body>
+		<header id="header">
+			<a href="index1.html" class="zuo">
+				<img src="img/zuo.png"/></div>
+			</a>
+			<div class="title_xiaoxi">
+				<p>账户总资产</p>
+			</div>
+			<div></div>
+		</header>
+		<div class="zc_main">
+			<div class="zc_list sb">
+				<span>散标代收本金</span>
+				<div class="icon"><img src="img/i@40.png" alt="" /></div>
+				<p>159,150.36元</p>
+			</div>
+			<div class="zc_list bjh">
+				<span>帮计划</span>
+				<div class="icon"><img src="img/i@40.png" alt="" /></div>
+				<p>140,980.55元</p>
+			</div>
+			<div class="zc_list">
+				<span>可用余额</span>
+				<p>707247.87元</p>
+			</div>
+			<div class="zc_list djzj">
+				<span>冻结资金</span>
+				<div class="icon"><img src="img/i@40.png" alt="" /></div>
+				<p>-26643.67元</p>
+			</div>
+			<div class="zc_list dssy">
+				<span>待收收益</span>
+				<div class="icon"><img src="img/i@40.png" alt="" /></div>
+				<p>26643.67元</p>
+			</div>
+			<div class="zc_list">
+				<span>借款负债</span>
+				<p>0元</p>
+			</div>
+			<div class="zc_list">
+				<span>合计</span>
+				<p>....元</p>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('.sb').click(function(){
+					alert("所有散标的待收本金")
+				})
+				$('.bjh').click(function(){
+					alert("帮计划的待收本金+帮计划结余")
+				})
+				$('.djzj').click(function(){
+					alert("提现资金+所投的标未满标时的投标资金")
+				})
+				$('.dssy').click(function(){
+					alert("已实际投资到散标（含帮计划）和债权中未收回的利息")
+				})
+			})
+		</script>
+	</body>
+</html>

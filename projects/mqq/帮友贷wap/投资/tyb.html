@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    	<meta name="format-detection" content="telephone=no">
+		<title>帮计划</title>
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+	<body>
+		<header id="header">
+			<a class="zhuce" href=""><img src="img/zuo_wh.png" alt="" /></a>
+			<div class="name">
+				<p>体验标</p>
+			</div>
+			<div></div> 
+		</header>
+		<div class="clr_hd"></div>
+		<div id="zhanghu">
+			<div class="zhanghu_top">
+				<div class="nianhua">
+					<p><span id="number">22</span>%</p>
+				</div>
+				<p>预期年化</p>
+			</div>
+			<div class="zhanghu_bom">
+				<div class="kyyue">
+					<p><span>3</span>天</p>
+					<p>期限</p>
+				</div>
+				<div class="fengexian"></div>
+				<div class="djzj">
+					<p>8888.00<span>元</span></p>
+					<p>剩余体验金额</p>
+				</div>
+			</div>
+		</div>
+		<div class="info" style="position: relative;top: 145px;">
+			<div class="jbxx_info" style="padding-bottom: 40px;">
+				<div class="jb_info1">
+					<ul>
+						<li><span>处理方式</span><p>当日计息</p></li>
+						<li><span>锁定期限</span><p>3天</p></li>
+						<li><span>体验说明</span><p>帮友贷平台为新注册并且未成功投资过的新用户开通全新体验通道帮友贷平台为新注册并且未成功投资过的新用户开通全新体验通道
+						帮友贷平台为新注册并且未成功投资过的新用户开通全新体验通道帮友贷平台为新注册并且未成功投资过的新用户开通全新体验通道帮友贷平台为新注册并且未成功投资过</p></li>
+						<li><span>到期收益</span><p style="color: #FF4343;">体验金×22%×3/365=所得收益</p></li>
+					</ul>
+				</div>	
+			</div>
+		</div>
+		<div class="tyb_tz">
+			 <div class="input_fr">
+			 	<p>金额</p>
+			 	<input type="text" name="" id="" value="" class="exp_money" placeholder="8888.00"/>
+			 	<span>元</span>
+			 </div>
+			<a href="" class="true_btn">确定</a>
+		</div>
+		<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+		<script src="js/jquery.animateNumber.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				
+				var decimal_places = 2;
+				var decimal_factor = decimal_places === 0 ? 1 : decimal_places * 10;
+				 
+				$('#number')
+				  .animateNumber(
+				    {
+				      number: 18.5* decimal_factor,
+				 
+				      numberStep: function(now, tween) {
+				        var floored_number = Math.floor(now) / decimal_factor,
+				            target = $(tween.elem);
+				 
+				        if (decimal_places > 0) {
+				          // force decimal places even if they are 0
+				          floored_number = floored_number.toFixed(decimal_places);
+				 
+				          // replace '.' separator with ','
+				          floored_number = floored_number.toString().replace(',', '.');
+				        }
+				 
+				        target.text(floored_number);
+				      }
+				    },
+				    500
+				 );
+				 
+				 var 
+			})
+			
+			
+		</script>
+	</body>
+</html>

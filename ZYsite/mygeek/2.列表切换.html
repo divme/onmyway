@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>极客CSS3列表切换</title>
+	</head>
+	<script src="js/jquery-2.1.1.min.js"></script>
+	 <style>
+	 *{margin:0px;padding:0px;}
+	 .container{width:760px;margin:50px auto;padding:10px;}
+	 .header{width:750px;height: 40px;margin: 0px auto;position: relative;border:5px inset saddlebrown;}
+	 .ul-container{display:block;width:60px;height:26px;position:absolute;top:7px;right:0px;}
+	 .ul-container li{float:left;width:30px;height:26px;list-style-type: none;}
+	 .lione{background:url(img/icon.png) no-repeat;background-position:   0px 0px;}
+	 .litwo{background:url(img/icon.png) no-repeat;background-position: -30px 0px;}
+	 .div-container{width:750px;margin:10px auto;}
+	 .mao{width: 100%;height:105px;border:2px outset salmon;box-shadow: 5px 5px 5px saddlebrown;margin-top:20px;}
+	 .mao img{float:left;}
+	 .mao span{line-height:20px;font-size:16px;}
+	 .gou{width:190px;height:200px;float: left;margin:20px 20px;overflow:auto;border:8px outset sandybrown;box-shadow: 5px 5px 5px sandybrown;}
+	 </style>
+	 <script>
+	 	$(document).ready(function(){
+	 		$(".lione").click(function(){
+	 			$(".lione").css("background-position","0px -26px");
+	 			$(".litwo").css("background-position","-30px -26px");
+	 			$(".div-container").children().removeClass("mao").addClass("gou");
+	 		})
+	 		$(".litwo").click(function(){
+	 			$(".lione").css("background-position","0px 0px");
+	 			$(".litwo").css("background-position","-30px 0px");
+	 			$(".div-container").children().removeClass("gou").addClass("mao");
+	 		})
+	 	})
+	 </script>
+	<body>
+		<div class="container">
+		  <div class="header">
+				<ul class="ul-container">
+					<li class="lione"></li>
+					<li class="litwo"></li>
+				</ul>
+		  </div>
+		  <div class="div-container">
+			<div class="mao">
+				<img src="img/lesson.png" />
+				<span>这只是重复的图文one这只是重复的图文one这只是重复的图文one这只是重复的图文one这只是重复的图文one这只是重复的图文one这只是重复的图文one这只是重复的图文one</span>
+			</div>
+			<div class="mao">
+				<img src="img/lesson.png" />
+				<span>这只是重复的图文two</span>
+			</div>
+			<div class="mao">
+				<img src="img/lesson.png" />
+				<span>这只是重复的图文three</span>
+			</div>
+			<div class="mao">
+				<img src="img/lesson.png" />
+				<span>这只是重复的图文four</span>
+			</div>
+			<div class="mao">
+				<img src="img/lesson.png" />
+				<span>这只是重复的图文five</span>
+			</div>
+			<div class="mao">
+				<img src="img/lesson.png" />
+				<span>这只是重复的图文six</span>
+			</div>
+		 </div>
+		</div>
+	</body>
+</html>

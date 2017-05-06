@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>标签切换</title>
+		<style>
+		*{
+			margin: 0px;
+			padding: 0px;
+			text-decoration: none;
+			list-style: none;
+		}
+			.container{
+				margin: 0 auto;
+				width:300px;
+				height:120px;
+				position: relative;
+				border:2px solid silver;
+				box-shadow: 6px 6px 10px slategray;	
+				}
+			.container-title{
+				height:30px;
+				
+			}	
+			.container-title a{
+				display: block;
+				float: left;
+				width:60px;
+				height:30px;
+				color: black;
+				font-size:18px;
+				line-height:30px;
+				text-align: center;
+				background:silver;
+			}
+			.container-title a:hover{
+				background: white;
+				color: sandybrown;
+			}
+			.container-content{
+				height:70px;
+				width: 280px;
+				margin: 10px;
+				overflow: hidden;
+			}
+			.container-content ul li{
+				float: left;
+				margin-left: 10px;
+				margin-top: 5px;
+				height: 30px;
+				line-height: 30px;
+			}
+			.container-content ul li:hover{
+				color:sandybrown;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container" id="container">
+			<div class="container-title">
+				<a href="1.css3照片墙.html"><b>公告</b></a>
+				<a href="1.css3照片墙.html"><b>规则</b></a>
+				<a href="1.css3照片墙.html"><b>安全</b></a>
+				<a href="1.css3照片墙.html"><b>公益</b></a>
+				<a href="1.css3照片墙.html"><b>论坛</b></a>
+			</div>
+			<div class="container-content" id="container-content">
+				<div  class="content" style="display: block;">
+					<ul>
+						<li>天下第一又能怎样</li>
+						<li>邮费争议问题汇总</li>
+						<li>邮费争议问题汇总</li>
+						<li>邮费争议问题汇总</li>
+					</ul>
+				</div>
+				<div  class="content" style="display: none;">
+					<ul>
+						<li>广告法禁用语大全</li>
+						<li>邮费争议问题汇总</li>
+						<li>邮费争议问题汇总</li>
+						<li>邮费争议问题汇总</li>
+					</ul>
+				</div>
+				<div  class="content" style="display: none;">
+					<ul>
+						<li>叽里呱啦王者强</li>
+						<li>邮费争议问题汇总</li>
+						<li>邮费争议问题汇总</li>
+						<li>邮费争议问题汇总</li>
+					</ul>
+				</div>
+				<div  class="content" style="display: none;">
+					<ul>
+						<li>我从不管邮费争议</li>
+						<li>邮费争议问题汇总</li>
+						<li>邮费争议问题汇总</li>
+						<li>邮费争议问题汇总</li>
+					</ul>
+				</div>
+				<div  class="content" style="display: none;">
+					<ul>
+						<li>天下最末又有何妨</li>
+						<li>邮费争议问题汇总</li>
+						<li>邮费争议问题汇总</li>
+						<li>邮费争议问题汇总</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script>
+		window.onload=function(){
+			var alist = document.getElementsByTagName("a");
+//			console.info( alist.length )
+            var divlist=document.getElementsByClassName("content");
+            		for (var i=0;i<alist.length;i++) {
+            			alist[i].id=i;
+            			alist[i].onmouseover=function(){
+            	        
+						 for (var j=0;j<alist.length;j++) {
+            		      
+						 divlist[j].style.display="none";
+            	            
+						}
+                        divlist[this.id].style.display="block";
+            	    }
+           
+				}
+            }
+		</script>
+	</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="css/newcomer.css" />
+		<script src="js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<title>新手任务</title>
+		<style type="text/css">
+			.one{
+				position: relative;
+			}
+			.one .button{
+				position: absolute;
+				width:16.875%;
+				height: 20px;
+			    			
+			}
+			.one .button img{
+				width: 100%;
+			}
+			.one .button_one{
+			    left: 43.75%;
+			    top: 34.78%;
+			}
+			.one .button_two{
+			    left: 67.65625%;
+			    top: 34.78%;
+			}
+			.one .button_three{
+			    left: 43.75%;
+			    top: 66.2319%;
+			}
+			.one .button_four{
+			    left: 67.65625%;
+			    top: 66.2319%;
+			}
+			.one .button_five{
+				width: 21.875%;
+			    left: 16.3%;
+			    top: 66.2319%;
+			    /*z-index: 5;
+			    background: red;*/
+			}
+			.one .button_six{
+				width: 27.34375%;
+			    left: 51.5625%;
+			    top: 86.9565%;
+			    /*z-index: 5;
+			    background: red;*/
+			}
+			.two{
+				position: relative;
+			}
+			.two .twobutton{
+				position: absolute;
+				width:21.875% ;
+				height: 20px;
+				left:12.96875% ;
+				bottom:10.7914%;
+			}
+			.four{
+				position: relative;
+			}
+			.lottery{
+				position: absolute;
+				width: 64.6875%;
+				left:22.5%;
+				top: 0px;
+				background-color: #fe5c5a;
+				padding: 3px;
+				box-sizing: border-box;
+				border-radius: 8px;
+			}
+			.cj{
+				display: block;
+				float: left;
+				width: 32%;
+				border-radius: 8px;
+				overflow: hidden;
+			}
+			.log{
+				position: absolute;
+				width: 64.6875%;
+				left:22.5%;
+				bottom: 0px;
+				border: 1px solid #c00502;
+			}
+			.log_head{
+				position: relative;
+				height: 18px;
+				line-height: 18px;
+				font-family: '黑体';
+				color: #FFFFFF;
+				background: #fe5c5a;
+				text-align: left;
+				font-size: 12px;
+				padding-left: 20px;
+			}
+			.log_head .mylog{
+				position: absolute;
+				display: block;
+				height: 14px;
+				line-height: 14px;
+				font-family: '黑体';
+				color: #fe5c5a;
+				background: #fff95c;
+				border-radius: 7px;
+				padding-left: 5px;
+				padding-right: 5px;
+				top: 2px;
+				right: 3px;
+				font-size: 12px;
+			}
+			.thead{
+				background: #FFFFFF;
+				width: 100%;
+				overflow: hidden;
+			}
+			.thead li{
+				float: left;
+				width: 33.3%;
+				font-size: 12px;
+				height: 20px;
+				line-height: 20px;
+				color: #fe5c5a;
+				text-align: center;
+			}
+			.jilutable{
+				width: 100%;
+				height: 64px;
+				overflow: hidden;
+				font-size: 12px;
+			}
+			.scroll{
+				position: relative;
+				width: 100%;		
+			}
+			.scroll tr{
+				width: 100%;
+			}
+			.scroll td{
+				text-align: center;
+	            vertical-align: center;
+	            height: 16px;
+	            line-height: 16px;
+	            width: 33%;
+	            border: none;
+	           font-size: 12px;
+	           text-align: center;
+			}
+			@media (min-width:360px){
+				.scroll td {height: 20px;}
+				.jilutable{height: 80px;}
+			}
+			@media (min-width:400px){
+				.scroll td {height: 25px;}
+				.jilutable{height: 100px;}
+			}
+			.active{
+               /*outline: 2px dotted skyblue;*/
+               opacity: 0.8;
+            }
+		</style>
+	</head>
+	<body>
+	<div class="banner">
+		<img src="img/banner.png" />
+	</div>
+	<div class="one">
+		<img src="img/onemore.png" />
+		<a class="button button_one"><img src="img/lhb.png" /></a>
+		<a class="button button_two"><img src="img/lhb.png" /></a>
+		<a class="button button_three"><img src="img/lhb.png" /></a>
+		<a class="button button_four"><img src="img/lhb.png" /></a>
+		<a class="button button_five"><img src="img/ltyj.png" /></a>
+		<a class="button button_six"><img src="img/downapp.png"/></a>
+	</div>
+	<div class="two">
+		<img src="img/two.png" />
+		<a class="twobutton"><img src="img/tzlq.png" /></a>
+	</div>
+	<div class="three">
+		<img src="img/threemore.png" />
+	</div>
+	<div class="four">
+		<img src="img/four.png" />
+		<div class="lottery" id="lottery">
+			<img class="cj lottery-unit lottery-unit-0" src="img/cj1.png" alt="恭喜您获得Iphone 6S" />
+			<img class="cj lottery-unit lottery-unit-1" src="img/cj2.png" alt="恭喜您获得1000元JD卡" style="margin-left: 2%;" />
+			<img class="cj lottery-unit lottery-unit-2" src="img/cj3.png" alt="恭喜您获得1%加息劵"  style="margin-left: 2%"/>
+			<img class="cj lottery-unit lottery-unit-7" src="img/cj4.png" alt="恭喜您获得蓝牙耳机" style="margin-top: 2%"/>
+			<img class="cj trouble" src="img/ljcj.png" alt="立即抽奖" style="margin-left: 2%;margin-top: 2%"/>				
+			<img class="cj lottery-unit lottery-unit-3" src="img/cj6.png" alt="恭喜您获得Ipad Air" style="margin-left: 2%;margin-top: 2%"/>
+			<img class="cj lottery-unit lottery-unit-6" src="img/cj7.png" alt="谢谢您的参与" style="margin-top: 2%"/>
+			<img class="cj lottery-unit lottery-unit-5" src="img/cj8.png" alt="恭喜您获得500元加油卡" style="margin-left: 2%;margin-top: 2%"/>
+			<img class="cj lottery-unit lottery-unit-4" src="img/cj9.png" alt="恭喜您获得30元话费" style="margin-left: 2%;margin-top: 2%"/>
+		</div>
+		<div class="log">
+			<p class="log_head">获奖记录<a class="mylog">我的获奖记录</a></p>
+			<ul class="thead"><li>用户名</li><li>奖品</li><li>时间</li></ul>
+			<div class="jilutable">
+			 <table class="scroll" border="0" cellspacing="0" cellpadding="0">
+				<tr><td>Data1</td><td>Data</td><td>Data</td></tr>
+				<tr><td>Data2</td><td>Data</td><td>Data</td></tr>
+				<tr><td>Data3</td><td>Data</td><td>Data</td></tr>
+				<tr><td>Data4</td><td>Data</td><td>Data</td></tr>
+				<tr><td>Data5</td><td>Data</td><td>Data</td></tr>
+				<tr><td>Data6</td><td>Data</td><td>Data</td></tr>
+			 </table>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		<img src="img/footer.png" />
+	</div>
+	<script type="text/javascript">
+	var lottery = {
+		index: 0,   // 当前转动到哪个位置
+		prize: -1,  // 中奖位置
+		count: 0,   // 总共有多少个位置
+		speed: 200, // 初始转动速度
+		times: 0,   // 转动次数
+		cycle: 50,  // 转动基本次数：即至少需要转动多少次再进入抽奖环节
+		timer: 0,   // setTimeout的ID，用clearTimeout清除
+		click: false,// 设置状态使抽奖过程中点击无效
+		/* 初始化函数，设置盒子高，给第一个元素添加活动状态 */
+		init: function(id){
+			this.obj = $('#' + id);
+			this.obj.css('height',this.obj.outerWidth());
+			this.units = this.obj.find('.lottery-unit');
+			this.count = this.units.length;
+			if(this.count > 0 ){
+				this.obj.find('.lottery-unit-'+this.index).addClass('active');
+			}
+		},
+		/* 去掉当前元素活动状态，给下一元素添加活动状态 */
+		roll: function(){
+			this.obj.find('.lottery-unit-'+this.index).removeClass('active');
+			this.index += 1;
+			if (this.index > this.count-1){
+				this.index = 0;
+			}
+			this.obj.find('.lottery-unit-'+this.index).addClass('active');
+		},
+		/* 好像没用到过的停止函数 */
+		stop: function(index){
+			this.prize = index;
+		}
+	};
+    /* 每移动一下都执行一次该函数，根据条件改变转盘速度 */
+	function roll() {
+		lottery.times += 1;
+		if (lottery.times > lottery.cycle + 10 && lottery.prize == lottery.index) {
+			console.log(lottery.times);
+			clearTimeout(lottery.timer);
+			lottery.prize = -1;
+			lottery.times = 0;
+			var textpopup = $('.active').attr('alt');
+			alert(textpopup);
+			lottery.click = false;
+		} else {
+			lottery.roll();
+			if (lottery.times < lottery.cycle) {
+				lottery.speed -= 10;
+				lottery.speed = (lottery.speed < 40) ? 40 : lottery.speed;
+			}else if (lottery.times == lottery.cycle) {
+				lottery.prize = Math.random() * (lottery.count) | 0;
+			} else {
+				if (lottery.times > lottery.cycle + 10 && ((lottery.prize == 0 && lottery.index == 7) || lottery.prize == lottery.index + 1)) {
+					lottery.speed += 110;
+				} else {
+					lottery.speed += 20;
+				}
+			}
+			lottery.timer = setTimeout(roll, lottery.speed);
+		}
+		return false;
+	}
+	$(document).ready(function(){
+		lottery.init('lottery');
+		$(".trouble").click(function() {
+			if (lottery.click) {
+				return false;
+			} else {
+				lottery.speed = 200;
+				roll();
+				lottery.click = true;
+			}
+		});
+//        setInterval(function(){$(".trouble").trigger('click')},5000)
+		$('tr:even').css({'background':'#fd9f88'});
+		$('tr:odd').css({'background':'#fec8bb'});
+		function tableRun() {
+					var height = $("tr").height();
+					$(".scroll").animate({
+						marginTop: -height + "px"
+					}, 2000, function() {
+						$(".scroll").css({
+							marginTop: '0'
+						});
+						$(".scroll").find("tr:first").insertAfter($(".scroll").find("tr:last"));
+					})
+		}
+		var timer = setInterval(tableRun, 2000);
+	})
+</script>
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="css/public.css" />
+		<title>轮播图</title>
+	</head>
+	<body>
+	<header>
+			
+			<img src="img/banner2.png" />
+			<nav>
+				<a href="home.html">Home</a>
+				<a href="html5.html">HTML5</a>
+				<a href="css3.html">CSS3</a>
+				<a href="#">Javascript</a>
+				<a href="jquery.html">jQuery</a>
+			</nav>
+	</header>
+
+		<style>
+			.jsauto-container{margin: auto;position:relative;width: 500px;height: 300px;overflow: hidden;}
+			.pic{width: 500px;height: auto;display: none;}
+			#p1{width: 500px;height: auto;display: block;}
+			.all{position: absolute;width:120px;text-align: center;height:10px;left:200px;top:280px;}
+			.one{width: 30px;height: 10px;background:seagreen;float:left;margin-left: 5px;}
+			.leftjt{width: 40px;height: 80px;position: absolute;left: 0px;top: 100px;background: skyblue;}
+			.righjt{width: 40px;height: 80px;position: absolute;right: 0px;top: 100px;background: skyblue;}
+		</style>
+		<div class="jsauto-container"  onmouseenter="clearTimeout(Timer)" onmouseleave="autoplay()">
+			<img class="pic" src="img/11.jpg" />
+			<img class="pic" src="img/12.jpg" />
+			<img class="pic" src="img/13.jpg" />
+			<div class="all">
+				<div class="one" onmouseover="gallery(0)"></div>
+				<div class="one" onmouseover="gallery(1)"></div>
+				<div class="one" onmouseover="gallery(2)"></div>
+			</div>
+			<div class="leftjt" onclick="clickleft();"></div>
+			<div class="righjt" onclick="clickrigh();"></div>	
+		</div>
+
+	<script src="js/jquery-2.1.1.min.js"></script>
+	<script src="js/public.js"></script>
+		<script type="text/javascript">
+           function addLoadEvent(func) {
+				var oldLoad=window.onload;
+				if (typeof window.load!=='function') {
+					 window.onload=func;
+					}
+				else{
+					window.onload=function(){
+						oldLoad();
+						func();
+					}
+				}
+			}
+
+			var one = document.getElementsByClassName("one");
+			var pic = document.getElementsByClassName("pic"),
+			    Timer,
+			    j = 0;
+
+			//图片轮播的基础函数
+			function gallery(num){
+			         for (var i =0;i<one.length;i++) {
+			    				pic[i].style.display="none";
+			    				one[i].style.background="seagreen";
+			    	}
+			         pic[num].style.display="block";
+			         one[num].style.background="white";
+			}   
+
+			//图片自动轮播的函数  
+			function autoplay(){
+			       if(j==one.length){j=0;}
+			       gallery(j);
+				   j++;
+				   Timer = setTimeout("autoplay()",6000);
+			}
+
+			//点击左箭头
+			function clickleft(){
+			    for (var k=0;k<one.length;k++) {
+			    	if(pic[k].style.display=="block"){
+			             
+			    		 var m=k-1;
+			 		     if (m==-1) { m=2;}
+			 		     gallery(m);
+			    		 break;
+			    	}
+			    	continue;
+			   }
+			}
+
+			//点击右箭头
+			function clickrigh(){
+			    for (var k=0;k<one.length;k++) {
+			    	if(pic[k].style.display=="block"){
+			             var m=k+1;
+			    		 if (m==one.length) {m=0;}
+			             gallery(m);
+			    		 break;
+			    	}
+			    	continue;
+			    }
+			}
+			   
+			addLoadEvent(autoplay);
+		</script>
+		<p class="pp">
+			1.在app.js里，clickleft和clickrigh里的变量k如果能和全局变量j统一起来，就更好了，再想想；<br>
+			2.想用事件委托或者事件监听的方式改写里面的鼠标事件
+		</p>
+	</body>
+</html>

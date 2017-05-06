@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>幽灵按钮</title>
+		<style type="text/css">
+			    *{margin:0px;padding:0px;}
+			    body{background: slategrey;}
+				.container{
+					width: 690px;
+					height:300px;
+					margin:30px auto;
+				 }
+				.monsterbox{
+					width: 180px;
+					height:250px;
+					margin:0 50px 0 0;
+					float: left;
+					position: relative;
+				 }
+				.pic{
+					width: 180px;
+				    height:160px;
+				    transition: 0.2s linear;
+				    -webkit-transition:0.2s linear;
+				    
+				 }
+				.pic:hover{
+					transform: rotate(360deg) scale(1.2);
+					-webkit-transform: rotate(360deg) scale(1.2);
+					
+				 }
+			  .pic-miss{ background: url(img/mission.png) no-repeat center center;}
+	          .pic-play{ background: url(img/play.png) no-repeat center center;}
+	          .pic-touch{background: url(img/touch.png) no-repeat center center;}
+	          .monsterbox .btn{
+	          	display:block;
+	          	float: left;
+	          	margin:50px auto 0px auto;
+	          	position: relative;
+	          	width: 180px;
+	          	height:40px;
+	          	text-decoration: none;
+	          	color:green;
+	          	line-height: 34px;
+	            font-size: 20px;
+	            border:2px solid white;
+	            font-weight: bolder;
+	            padding-left: 15px;
+	            box-sizing: border-box;
+	            background: url(img/allow.png) no-repeat 130px center;
+	            transition:0.2s ease;
+	            -webkit-transition: 0.2s ease;
+	          }
+	          .btn:hover{
+	          	background: url(img/allow.png) no-repeat 140px center;
+	          }
+	          .link{
+	          	width:0px;
+	          	height: 2px;
+	          	position: absolute;
+	          	background: white;
+	          }
+	          .left{
+	          	width:0px;
+	          	height: 2px;
+	          	left:-110%;
+	          	top:-2px;
+	          	transition: 0.4s ease;
+	          	-webkit-transition: 0.4s ease;
+	          }
+	          .btn:hover .left{
+	          	width:180px;
+	          	left: -2px;
+	          }
+	          .top{
+	          	height: 0px;
+	          	width: 2px;
+	          	top:-110%;
+	          	right:-2px;
+	          	transition: 0.4s ease;
+	          	-webkit-transition: 0.4s ease;
+	          }
+	          .btn:hover .top{
+	           height:40px;
+	           top:-2px;
+	          }
+	          .right{
+	          	height: 2px;
+	          	width: 0px;
+	          	bottom:-2px;
+	          	right:-110%;
+	          	transition: 0.4s ease;
+	          	-webkit-transition: 0.4s ease;
+	          }
+	          .btn:hover .right{
+	           width:100%;
+	           right:-2px;
+	          }
+	          .bottom{
+	          	height: 0px;
+	          	width: 2px;
+	          	bottom:-110%;
+	          	left:-2px;
+	          	transition: 0.4s ease;
+	          	-webkit-transition: 0.4s ease;
+	          }
+	          .btn:hover .bottom{
+	           height:40px;
+	           bottom:-2px;
+	          }
+	          .moved{
+	            text-align: center;
+	          	width:160px;
+	          	height:30px;
+	          	position: absolute;
+	          	top:140px;
+	          	left:10px;
+	          	line-height: 30px;
+	          	color: white;
+	          	font-size: 25px;
+	          	opacity:0;
+	          	background: green;
+	          	-webkit-transition: 1s ease;
+	          
+	          }
+	          
+	          .sj{
+	          	width: 0px;
+	          	height: 0px;
+	          	position:absolute;
+	          	border: 7px solid transparent;
+	            border-top-color: green;
+	          	bottom:-14px;
+	          	opacity: 1;
+	          	left: 50%;
+	            margin-left: -3px;
+	          }
+	         .monsterbox:hover .moved{
+	          opacity:0.8;
+	          top:170px;
+	          	animation: my 1s; 
+	          	-webkit-animation: my 1s;
+	          }
+	          
+	          为moved做的相近于现在效果的简单动画效果
+	          @keyframes my{
+	          0%  {opacity:0;top:160px;}
+	          25% {opacity:0.2;top:165px;}
+	          50% {opacity:0.4;top:170px;}
+	          75% {opacity:0.7;top:175px;}
+	          100%{opacity:1;top:180px;}
+	          }
+	          @-webkit-keyframes my{
+	          0%  {opacity:0;top:160px;}
+	          25% {opacity:0.2;top:165px;}
+	          50% {opacity:0.4;top:170px;}
+	          75% {opacity:0.7;top:175px;}
+	          100%{opacity:1;top:180px;}
+	          }
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+
+			<div class="monsterbox">
+			<div class="pic pic-miss"></div>
+			<div class="moved">my mission
+				<div class="sj"></div>
+			</div>
+			<a href="#" type="button" class="btn">MISSION
+				<div class="link left"></div>
+				<div class="link top"></div>
+				<div class="link right"></div>
+				<div class="link bottom"></div>
+			</a>
+		</div>
+
+			<div class="monsterbox">
+				<div class="pic pic-play"></div>
+				<div class="moved">my play<div class="sj"></div></div>
+				<a href="#" type="button" class="btn">
+					<div class="link left"></div>
+					<div class="link top"></div>
+					<div class="link right"></div>
+					<div class="link bottom"></div>
+					PLAY</a>
+			</div>
+
+			<div class="monsterbox">
+				<div class="pic pic-touch"></div>
+				<div class="moved">my touch<div class="sj"></div></div>
+				<a href="#" type="button" class="btn">
+					<div class="link left"></div>
+					<div class="link top"></div>
+					<div class="link right"></div>
+					<div class="link bottom"></div>
+					TOUCH</a>
+			</div>
+		</div>
+		
+	</body>
+
+</html>

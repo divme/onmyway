@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    	<meta name="format-detection" content="telephone=no">
+		<title>添加银行卡</title>
+		<link rel="stylesheet" href="css/cards.css" />
+		<style type="text/css">
+			#item2 P:nth-of-type(1){display: block;width: 100px;height: auto;}
+			#item2:nth-of-type(1) p:nth-of-type(2){float: left;margin-left: 10%;}
+			#item2:nth-of-type(2) p:nth-of-type(2){float: left;margin-left: 10%;}
+			#item1+#item2 p:nth-of-type(1){float: left;margin-left: 5%;width:137px;color: #666666;}
+			#item1+#item2 p:nth-of-type(2){color: #23A7F1;font-size: 0.75em;border-left: 1px solid #DDDDDD;padding-left: 10px;}
+			.item_title p:nth-of-type(3){font-size: 0.75em;line-height:33px;margin-right: 15px;float: right;color: #FF4343;}
+			#item1+#item2 a{color: #23A7F1;font-size: 0.75em;border-left: 1px solid #DDDDDD;padding-left: 10px;float: right;margin-right:15px;line-height: 45px;}
+		</style>
+	</head>
+	<body>
+		<header id="header">
+			<div class="zuo"><img src="img/zuo.png"/></div>
+			<div class="items_title">
+				<p>添加银行卡</p>
+			</div>
+		</header>
+		<section id="item2">
+			<div class="item_title">
+				<p>开户名</p>
+				<p>李喆</p>
+			</div>
+		</section>
+		<section id="item2">
+			<div class="item_title">
+				<p>账户类型</p>
+				 <p>借记卡</p>
+				 <p>不支持信用卡</p>
+			</div>
+		</section>
+		<section id="item2">
+			<div class="item_title">
+				<p>选择银行</p>
+				<select name="" id="yinhang" value="查看银行列表">
+					<option value="">中国农业银行</option>
+					<option value="">中国工商银行</option>
+					<option value="">中国建设银行</option>
+				</select>
+				<xialabar><img src="" alt="" /></xialabar>
+			</div>
+		</section>
+		<section id="item2">
+			<div class="item_title">
+				<p>开户行</p>
+				<input type="text" name="kaihuhang" id="kaihuhang" value="" placeholder="请输入网店名称"/>
+			</div>
+		</section>
+		<section id="item2">
+			<div class="item_title">
+				<p>银行卡号</p>
+				<input type="text" name="card_number" id="card_number" value="" placeholder="正确填写银行卡号"/>
+			</div>
+		</section>
+		<section id="item1">
+			<div class="item_title">
+				<p>手机验证</p>
+			</div>
+		</section>
+		<section id="item2">
+			<div class="item_title">
+				<p>请输入手机验证码</p>
+				<a>获取验证码</a>
+			</div>
+		</section>
+		<footer>
+			<div class="tixian">
+				<a href="">确认添加</a>
+			</div>
+		</footer>
+		<div class="clr"></div>
+	</body>
+</html>

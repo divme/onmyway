@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>changepicture</title>
+		<link rel="stylesheet" href="css/public.css" />
+		<script src="js/jquery-2.1.1.min.js"></script>
+		<script src="js/public.js"></script>
+		<style type="text/css">
+			.chpic {
+				text-align: center;
+			}
+			
+			.change {
+				width: 80%;
+				min-width: 400px;
+				max-width: 1200px;
+				height: 120px;
+				background: #87CEEB;
+				line-height: 40px;
+				margin: 0 auto;
+				color: white;
+				text-align: center;
+				position: relative;
+				box-sizing: border-box;
+				cursor: pointer;
+			}
+			
+			.fuckp {
+				width: auto;
+				min-width: 400px;
+				height: 120px;
+				resize: both;
+				margin-top: 50px;
+				margin-bottom: 20px;
+			}
+			
+			.heng {
+				background: salmon;
+				opacity: 0;
+				width: 30px;
+				height: 30px;
+				position: absolute;
+				bottom: 50px;
+				left: 185px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			
+			.change2 {
+				background: greenyellow;
+				height: 200px;
+			}
+			
+			.up {
+				border: 1px silver solid;
+			}
+			
+			.explain {
+				color: saddlebrown;
+				line-height: 40px;
+			}
+			
+			.field-box {
+				min-width: 400px;
+				margin-top: 20px;
+			}
+			
+			input {
+				margin-top: 5px;
+				padding-left: 3px;
+				padding-right: 3px;
+				/*border: none;*/
+				outline: none;
+				background: #FFFFFF;
+			}
+			
+			input:hover {
+				background: #67A5CD;
+				color: #FFFFFF;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header>
+			<img src="img/banner.png" />
+			<nav>
+				<a href="home.html">Home</a>
+				<a href="html5.html">HTML5</a>
+				<a href="css3.html">CSS3</a>
+				<a href="javascript.html">Javascript</a>
+				<a href="#">jQuery</a>
+			</nav>
+		</header>
+
+		<div class="chpic">
+
+			<div class="change" title="我是title">
+				<div class="heng"></div>王<br/>>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<
+			</div>
+
+			<div class="fuckp">
+				<h1>我很 <em>大</em>, 哈 哈 哈 </h1>
+				<h2>我是一个悲伤的H2，只想安静的做个美男子</h2>
+		    </div>
+		<!--
+         	作者：328560150@qq.com
+         	时间：2015-10-14
+         	描述：jQuery效果
+         -->
+					<div class="field-box">
+
+						<fieldset>
+							<legend>jQuery效果</legend>
+							<input type="button" name="en" id="showH1" value="showH1" />
+							<input type="button" name="en" id="hideH1" value="hideH1" /><br />
+							<input type="button" name="en" id="hide" value="hide" />
+							<input type="button" name="en" id="show" value="show" />
+							<input type="button" name="en" id="toggle" value="toggle" />
+							<input type="button" name="en" id="fadeout" value="fadeout" />
+							<input type="button" name="en" id="fadein" value="fadein" />
+							<input type="button" name="en" id="fadetoggle" value="fadetoggle" />
+							<input type="button" name="en" id="fadeto" value="fadeto" /><br/>
+							<input type="button" name="en" id="slideup" value="slideup" />
+							<input type="button" name="en" id="slidedown" value="slidedown" />
+							<input type="button" name="en" id="slidetoggle" value="slidetoggle" /><br/>
+							<input type="button" name="en" id="animate" value="animate" /><br/><br/></fieldset> <br />
+					</div>
+					<script type="text/javascript">
+						$(document).ready(function() {
+							$("#showH1").click(function() {
+								$("h1").css("visibility", "visible");
+							});
+							$("#hideH1").click(function() {
+								$("h1").css("visibility", "hidden");
+							});
+							$("#slidetoggle").bind("click", function() {
+								$(".change").slideToggle();
+								$(".fuckp").css("visibility", "hidden");
+							});
+							$("#hide").click(function() {
+								$(".change").hide("slow");
+							});
+							$("#show").click(function() {
+								$(".change").show("fast");
+							});
+							$("#toggle").click(function() {
+								$(".change").toggle("slow");
+							});
+							$("#fadein").click(function() {
+								$(".change").fadeIn("slow");
+							});
+							$("#fadeout").click(function() {
+								$(".change").fadeOut();
+							});
+							$("#fadetoggle").click(function() {
+								$(".change").fadeToggle();
+							});
+							$("#fadeto").click(function() {
+								$(".change").fadeTo("slow", 0.5);
+							});
+							$("#slidedown").click(function() {
+								$(".change").slideDown().fadeTo("fast", 1);
+							});
+							$("#slideup").click(function() {
+								$(".change").slideUp();
+							});
+							$("#animate").click(function() {
+								$(".change").animate({
+									width: "400px",
+									height: "400px",
+									background: "green",
+									borderRadius: "200px"
+								}, 2000);
+								$(".change").animate({
+									fontSize: '3em',
+									paddingTop: '100px'
+								}, 1000);
+								$(".change .heng").animate({
+									opacity: '1'
+								}, 2000);
+								$(".heng").animate({
+									width: '100px',
+									height: '100px',
+									left: '150px'
+								}, 1000);
+
+							});
+						})
+					</script>
+					<!--
+         	作者：328560150@qq.com
+         	时间：2015-10-14
+         	描述：jQuery HTML
+      -->
+					<div class="field-box">
+
+						<fieldset>
+							<legend>jQuery HTML</legend>
+							元素捕获&nbsp;<input type="button" name="en" id="text" value="text" />
+							<input type="button" name="en" id="html" value="html" />
+							<input type="button" name="en" id="attr" value="attr" />
+							<input type="button" name="en" id="writetext" value="writetext" />
+							<input type="button" name="en" id="writehtml" value="writehtml" />
+							<input type="button" name="en" id="writeattr" value="writeattr" /><br> 添加删除元素&nbsp;
+							<input type="button" name="en" id="append" value="append" />
+							<input type="button" name="en" id="prepend" value="prepend" />
+							<input type="button" name="en" id="remove" value="remove" />
+							<input type="button" name="en" id="empty" value="empty" /><br/> css类&nbsp;
+							<input type="button" name="en" id="addclass" value="addclass" />
+							<input type="button" name="en" id="removeclass" value="removeclass" />
+							<input type="button" name="en" id="toggleclass" value="toggleclass" /><br/><br/> </fieldset><br/>
+					</div>
+
+
+					<script>
+						$(document).ready(function() {
+							$("#text").click(function() {
+								alert($("h1").text());
+							});
+							$("#html").click(function() {
+								alert($("h1").html());
+							});
+							$("#attr").click(function() {
+								alert($(".change").attr("title"));
+							});
+							$("#writetext").click(function() {
+								$("h1").text("<em>I am not me</em>");
+							});
+							$("#writehtml").click(function() {
+								$("h1").html("<em>I am EM</em>");
+							});
+							$("#writeattr").click(function() {
+								$(".change").attr("title", "我再也不是title了");
+							});
+							$("#append").click(function() {
+								var newappend = "<h3>我是一只被强行用append添加的H3</h3>";
+								var newafter = "<h3>我是一只用after添加到H1后面的h3</h3>";
+								$(".chpic").append(newappend);
+								$("h1").after(newafter);
+							});
+							$("#prepend").click(function() {
+								var newprepend = "<h3>我是一只被强行用prepend添加的H3</h3>";
+								var newbefore = "<h3>我是一只用before添加到H1前面的H3</h3>";
+								$(".chpic").prepend(newprepend);
+								$("h1").before(newbefore);
+							});
+							$("#remove").click(function() {
+								$("h3").remove();
+							});
+							$("#empty").click(function() {
+								$("h2").empty();
+								//      			$(".chpic").empty("h2");
+							});
+							$("#addclass").click(function() {
+								$(".change").addClass("change2");
+							});
+							$("#removeclass").click(function() {
+								$(".change").removeClass("change2");
+							});
+							$("#toggleclass").click(function() {
+								$(".change").toggleClass("change2");
+							});
+						})
+					</script>
+					<!--
+        	作者：328560150@qq.com
+        	时间：2015-10-14
+        	描述：jquery遍历
+        -->
+					<div class="field-box">
+
+						<fieldset>
+							<legend>jQuery遍历</legend>
+							<input type="button" name="en" id="parent" value="parent" />
+							<input type="button" name="en" id="parents" value="parents" />
+							<input type="button" name="en" id="parentsuntil" value="parentsuntil" /><br/>
+							<input type="button" name="en" id="children" value="children()" />
+							<input type="button" name="en" id="find" value="find()" /><br />
+							<input type="button" name="en" id="sibilings" value="sibilings()" /><br />
+							<input type="button" name="en" id="next" value="next( )  nextAll( )  nextUntil( )" /><br />
+							<input type="button" name="en" id="prev" value="prev( )  prevAll( )  prevUntil( )" /><br />
+							<input type="button" name="en" id="first" value="first()" />
+							<input type="button" name="en" id="last" value="last()" />
+							<input type="button" name="en" id="eq" value="eq()" />
+							<h4>注释：</h4><br/>
+							<p class="explain"></p>
+						</fieldset><br/>
+					</div>
+					<script type="text/javascript">
+						$(document).ready(function() {
+							$("#parent").click(function() {
+								$("h2").parent().addClass("up");
+							});
+						})
+						$("#parents").click(function() {
+							$(".explain").text("返回被选元素的所有祖先元素，直到根元素");
+						});
+						$("#parentsuntil").click(function() {
+							$(".explain").text("返回被选元素的所有祖先元素，until规定的元素");
+						});
+						$("#children").click(function() {
+							$(".explain").html("返回被选元素的所有<em>直接</em>子元素");
+						});
+						$("#find").click(function() {
+							$(".explain").text("返回被选元素的所有符合条件的子元素");
+						});
+						$("#sibilings").click(function() {
+							$(".explain").text("返回被选元素的所有同胞元素");
+						});
+						$("#next").click(function() {
+							$(".explain").html("返回被选元素的所有<strong>后面</strong>的同胞元素，第一个或者所有的或者直到某个");
+						});
+						$("#prev").click(function() {
+							$(".explain").html("返回被选元素的所有<strong>前面</strong>的同胞元素，第一个或者所有的或者直到某个");
+						});
+						$("#first").click(function() {
+							$(".explain").text("返回<div>的第一个<p>元素$('div p').first()");
+						});
+						$("#last").click(function() {
+							$(".explain").text("返回<div>的最后一个<p>元素$('div p').last()");
+						});
+						$("#eq").click(function() {
+							$(".explain").text("返回数组里下标num的元素$('div .mother').eq(num)");
+						});
+					</script>
+			</div>
+	</body>
+
+</html>

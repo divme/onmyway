@@ -1,0 +1,49 @@
+@font-face {
+	font-family:"Hiragino Sans GB";
+	src: url(../font/font-awesome-4.4.0/fonts/fontawesome-webfont.woff);
+}
+html{font-size: 16px;}body{margin: 0px;padding: 0px;font-family: "Hiragino Sans GB";}img{max-width: 100%;}ul,input{list-style: none;margin: 0px;padding: 0px;}a,p{margin: 0px;padding: 0px;text-decoration: none;}
+#header{width: 100%;height: 45px;display:-webkit-box;display:-moz-box;display: flex;display: -webkit-flex;border-bottom: 1px solid #DDDDDD;position: relative;background-color: #FFFFFF;}
+#header div p{line-height: 45px;font-size: 1.0625em;}
+.zuo{width: 18px;height: 18px;margin-left: 15px;margin-top: 14px;}
+.items_title{display: block;font-size: 1.0625em;color: #000000;margin: 0px auto;position: absolute;left: 50%;-webkit-transform:translate(-50%,0);-moz-transform:translate(-50%,0);transform:translate(-50%,0);}
+#item1{width: 100%;height: 45px;}
+#item1 p{font-size: 0.875em;color: #333333;line-height: 44px;margin-left: 17px;}
+#item2{width: 100%;height: auto;background-color: #FFFFFF;border-bottom: 1px solid #DDDDDD;}
+.item_title{width: 100%;height: 45px;margin-top: 5px;margin-bottom: 5px;}
+.item_title p:nth-of-type(1){font-size: 0.875em;line-height: 45px;margin-left: 15px;float: left;color:#343434;}
+.item_title p:nth-of-type(2){font-size: 0.75em;line-height:45px;margin-right: 15px;float: right;color: #666666;}
+
+.yousanjiao{float: right;width: 6.25%;height:20px;margin-right: 15px;margin-top: 7px;}
+#jine{width: 40%;border: none;outline: none;height:inherit;margin-left: 76px;font-size: 0.8em;border-left: 1px solid #666666;padding-left: 5px;}
+.clr{width: 100%;height:20px;}
+.tuodong_frame{width: 100%;height: auto;text-align: center;position:fixed;bottom:70px;}
+.tuodong_frame p{font-size: 0.75em;color: #DDDDDD;}
+.tuodong_frame img{display: block;width: 6.25%;height: auto;margin: auto;margin-bottom: 5px;}
+footer{width: 100%;height: auto;margin-top: 41px;}
+.tixian{width: 90.625%;height: 40px;background-color: #23A7F1;text-align: center;margin: auto;border-radius:5px ;-webkit-border-radius:5px ;-moz-border-radius: 5px;
+				letter-spacing: 2px;			
+}
+select{appearance: none;-webkit-appearance: none;-moz-appearance: none;}
+.tixian a{font-size: 1.125em;line-height: 40px;color: #FFFFFF;}
+footer{position: fixed;width: 100%;height: auto;bottom:0px;}
+.xiadan{width: 100%;height: 50px;background-color: #666666;text-align: center;}
+.xiadan p{font-size: 1.5em;line-height: 50px;color: #FFFFFF;}
+.xiadan a{font-size: 1.5em;line-height: 50px;color: #FFFFFF;}
+.zhedangceng{position: absolute;width: 100%;height: 100%;z-index: 10;background-color: #000000;opacity: 0.4;top: 0px;overflow: hidden;clear: both;display: none;}
+.tanchukuang{display:none;position: fixed;bottom: 0px;background-color: #FFFFFF;width: 100%;height: 144px;z-index: 12;}
+.tishi{width: 100%;height: 54px;text-align: center;padding-top: 12px;}
+.tishi p{line-height: 20px;font-size: 0.75em;color: #666666;}
+.tanchukuang a{display: block;width: 100%;font-size: 1.125em;color: #333333;text-align: center;line-height: 33px;}
+@media screen and (min-width:375px) {
+	html{font-size: 18px;}
+	.item_title{height:35px;}
+	.item_title p:nth-of-type(1){line-height: 35px;}
+	.item_title p:nth-of-type(2){line-height: 35px;}
+}
+
+/*-------------------------------plus-03---------------------------------*/
+#kaihuhang{border: none;outline: none;border-left:1px solid #666666 ;height: inherit;padding-left:5px ;margin-left: 8%;}
+#card_number{border: none;outline: none;border-left:1px solid #666666 ;height: inherit;padding-left:5px ;margin-left:8%;}
+#yinhang{margin-left: 9%;border: none;outline: none;}
+.clr{width: 100%;height: 135px;}

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="css/reset.css" />
+		<script src="js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<title>清凉一夏</title>
+		<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+	</head>
+
+	<body>
+		<div class="header">
+			<img src="img/banner.png" />
+		</div>
+		<div class="day">
+			<div><img src="img/day_banner.png" /></div>
+			<div class="clock_box">
+				<div class="clock_img"><img src="img/10_have.png" /></div>
+				<div class="border_box">
+					<div class="clock_award">
+						<img src="img/clock_award1.png" />
+					</div>
+					<div class="clock_button">
+						<div class="button_img">
+							<img src="img/day_button1.png" />
+						</div>
+						<div class="text_time">还剩<span class="red_num">6</span>个未领取</div>
+						<div class="rest_time" style="display: none;">倒计时<span class="red_time"><span class="hour">00</span>:<span class="minu">00</span>:<span class="second">00</span></span></div>
+						<div class="nostart">今日活动尚未开始</div>
+						<div class="finish">今日活动已结束</div>
+					</div>
+				</div>
+			</div>
+			<div class="clock_box">
+				<div class="clock_img"><img src="img/12_have.png" /></div>
+				<div class="border_box">
+					<div class="clock_award">
+						<img src="img/clock_award2.png" />
+					</div>
+					<div class="clock_button">
+						<div class="button_img">
+							<img src="img/day_button2.png" />
+						</div>
+						<div class="text_time" style="display: none;">还剩<span class="red_num">6</span>个未领取</div>
+						<div class="rest_time">倒计时<span class="red_time"><span class="hour">00</span>:<span class="minu">00</span>:<span class="second">00</span></span></div>
+						<div class="nostart">今日活动尚未开始</div>
+						<div class="finish">今日活动已结束</div>
+					</div>
+				</div>
+			</div>
+			<div class="clock_box">
+				<div class="clock_img"><img src="img/14_have.png" /></div>
+				<div class="border_box">
+					<div class="clock_award">
+						<img src="img/clock_award3.png" />
+					</div>
+					<div class="clock_button">
+						<div class="button_img">
+							<img src="img/day_button2.png" />
+						</div>
+						<div class="text_time" style="display: none;">还剩<span class="red_num">6</span>个未领取</div>
+						<div class="rest_time">倒计时<span class="red_time"><span class="hour">00</span>:<span class="minu">00</span>:<span class="second">00</span></span></div>
+						<div class="nostart">今日活动尚未开始</div>
+						<div class="finish">今日活动已结束</div>
+					</div>
+				</div>
+			</div>
+			<div class="clock_box">
+				<div class="clock_img"><img src="img/16_have.png" /></div>
+				<div class="border_box">
+					<div class="clock_award">
+						<img src="img/clock_award4.png" />
+					</div>
+					<div class="clock_button">
+						<div class="button_img">
+							<img src="img/day_button2.png" />
+						</div>
+						<div class="text_time" style="display: none;">还剩<span class="red_num">6</span>个未领取</div>
+						<div class="rest_time">倒计时<span class="red_time"><span class="hour">00</span>:<span class="minu">00</span>:<span class="second">00</span></span></div>
+						<div class="nostart">今日活动尚未开始</div>
+						<div class="finish">今日活动已结束</div>
+					</div>
+				</div>
+			</div>
+			<div class="clock_box">
+				<div class="clock_img"><img src="img/18_have.png" /></div>
+				<div class="border_box" style="border-bottom: none;">
+					<div class="clock_award">
+						<img src="img/clock_award5.png" />
+					</div>
+					<div class="clock_button">
+						<div class="button_img">
+							<img src="img/day_button2.png" />
+						</div>
+						<div class="text_time" style="display: none;">还剩<span class="red_num">6</span>个未领取</div>
+						<div class="rest_time">倒计时<span class="red_time"><span class="hour">00</span>:<span class="minu">00</span>:<span class="second">00</span></span></div>
+						<div class="nostart">今日活动尚未开始</div>
+						<div class="finish">今日活动已结束</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="weekend">
+			<div><img src="img/weekend_banner.png"/></div>
+			<div class="prize_container">
+				<div class="prize_box">
+					<div class="prize">
+						<div class="img_box"><img src="img/prize1.png" /></div>
+						<div class="imgtext_box"><img src="img/prize1_text.png" /></div>
+					</div>
+					<div class="button">
+						<img src="img/button1.png" />
+					</div>
+					<p class="get_p">还剩<span class="red_num">0</span>个未领取</p>
+				</div>
+				<div class="prize_box">
+					<div class="prize">
+						<div class="img_box"><img src="img/prize2.png" /></div>
+						<div class="imgtext_box"><img src="img/prize2_text.png" /></div>
+					</div>
+					<div class="button">
+						<img src="img/button2.png" />
+					</div>
+					<p class="get_p">还剩<span class="red_num">6</span>个未领取</p>
+				</div>
+				<div class="prize_box">
+					<div class="prize">
+						<div class="img_box"><img src="img/prize3.png" /></div>
+						<div class="imgtext_box"><img src="img/prize3_text.png" /></div>
+					</div>
+					<div class="button">
+						<img src="img/button1.png" />
+					</div>
+					<p class="get_p">还剩<span class="red_num">0</span>个未领取</p>
+				</div>
+				<div class="prize_box">
+					<div class="prize">
+						<div class="img_box"><img src="img/prize4.png" /></div>
+						<div class="imgtext_box"><img src="img/prize4_text.png" /></div>
+					</div>
+					<div class="button">
+						<img src="img/button2.png" />
+					</div>
+					<p class="get_p">还剩<span class="red_num">6</span>个未领取</p>
+				</div>
+			</div>
+			<div class="prize_boxbig">
+				<div class="big1"><img src="img/prize6.png" /></div>
+				<div class="big2">
+					<div class="text_boxbig"><img src="img/prize5_text.png" /></div>
+					<div class="button_big"><img src="img/button2.png" /></div>
+					<p class="get_p">还剩<span class="red_num">6</span>个未领取</p>
+				</div>
+			</div>
+		</div>	
+		<div class="rank">
+			<div><img src="img/rank_banner.png" /></div>
+			<div class="award_box">
+				<div class="award">
+					<img class="img_1" src="img/rank1.png" />
+					<img class="img_2" src="img/rank1_text.png" />
+				</div>
+				<div class="award">
+					<img class="img_1" src="img/rank2.png" />
+					<img class="img_2" src="img/rank2_text.png" />
+				</div>
+				<div class="award">
+					<img class="img_1" src="img/rank3.png" />
+					<img class="img_2" src="img/rank3_text.png" />
+				</div>
+			</div>
+			<div class="ranklist">
+				<img src="img/ranklist.png" />
+			</div>
+			<div class="table_box">
+				<table class="table" border="0" cellspacing="0" cellpadding="">
+					<tr class="th">
+						<th style="padding-right: 10px;">排名</th>
+						<th>用户名</th>
+						<th>当月累计投资额</th>
+					</tr>
+					<tr class="tr">
+						<td style="padding-right: 10px;">01</td>
+						<td>qin**hao</td>
+						<td>1234567元</td>
+					</tr>
+					<tr class="tr">
+						<td style="padding-right: 10px;">02</td>
+						<td>qin**hao</td>
+						<td>1234567元</td>
+					</tr>
+					<tr class="tr">
+						<td style="padding-right: 10px;">03</td>
+						<td>qin**hao</td>
+						<td>1234567元</td>
+					</tr>
+					<tr class="tr">
+						<td style="padding-right: 10px;">04</td>
+						<td>qin**hao</td>
+						<td>1234567元</td>
+					</tr>
+					<tr class="tr">
+						<td style="padding-right: 10px;">05</td>
+						<td>qin**hao</td>
+						<td>1234567元</td>
+					</tr>
+					<tr class="tr">
+						<td style="padding-right: 10px;">06</td>
+						<td>qin**hao</td>
+						<td>1234567元</td>
+					</tr>
+					<tr class="tr">
+						<td style="padding-right: 10px;">07</td>
+						<td>qin**hao</td>
+						<td>1234567元</td>
+					</tr>
+					<tr class="tr">
+						<td style="padding-right: 10px;">08</td>
+						<td>qin**hao</td>
+						<td>1234567元</td>
+					</tr>
+					<tr class="tr">
+						<td style="padding-right: 10px;">09</td>
+						<td>qin**hao</td>
+						<td>1234567元</td>
+					</tr>
+					<tr class="tr">
+						<td style="padding-right: 10px;">10</td>
+						<td>qin**hao</td>
+						<td>1234567元</td>
+					</tr>
+				</table>
+				<div class="count_box">
+					<img src="img/table_bottom.png" />
+				    <span class="count">活动剩余时间：<span class="count_day"></span>天
+				    <span class="count_hour"></span>时
+				    <span class="count_minu"></span>分
+				    <span class="count_second"></span>秒
+				    </span>
+				</div>
+				<!--<script type="text/javascript">
+				   function count(){
+				   	var date1 = new Date();
+					var date2 = new Date();date2.setMonth(7,1);
+					var start = date1.getTime();
+					var end = date2.setHours(0,0,0,0);
+                    var differ = Math.floor((end - start)/1000);
+                    var day =Math.floor(differ/(60*60*24));
+                        day = (day>=10)?day:("0"+day);
+                    var hour =Math.floor((differ-day*3600*24)/3600);
+                        hour =(hour>=10)?hour:("0"+hour);
+                    var minu =Math.floor((differ-day*3600*24-3600*hour)/60);
+                        minu = (minu>=10)?minu:("0"+minu);
+                    var second =Math.floor(differ-day*3600*24-3600*hour-60*minu);
+                        second = (second>=10)?second:("0"+second);
+                        $('.count_day').text(day);
+                        $('.count_hour').text(hour);
+                        $('.count_minu').text(minu);
+                        $('.count_second').text(second);
+//                      setTimeout(count,1000);
+				   }
+				$(function(){
+					setInterval(count,1000);
+				})
+                    
+				</script>-->
+			</div>
+		</div>
+		<div class="footer">
+			<img src="img/footer.png" />
+		</div>
+		<div class="bottom">
+			<img src="img/bottom.png" />
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$(".tr:even").css('background', '#92d9fa');
+				$(".tr:odd").css('background', '#c9eeff');
+			})
+		</script>
+
+
+	</body>
+
+</html>

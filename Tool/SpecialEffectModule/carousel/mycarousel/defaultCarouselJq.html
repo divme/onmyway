@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>default carousel jquery</title>
+		<link rel="stylesheet" href="css/public.css" />
+		<style>
+			/*.wrapper{width:800px;margin:0 auto;padding-bottom:50px;}*/
+			/* 核心代码 */
+			.focus{position:relative;width:800px;height:300px;margin:30px auto;overflow:hidden;}
+			.focus ul{position:absolute;}
+			.focus ul li{float:left;width:800px;height:100%;overflow:hidden;position:relative;background:#000;}
+			/*控制器*/
+			.focus .btns{position:absolute;width:800px;height:10px;right:0;bottom:15px;text-align:center;}
+			.focus .btn{display:inline-block;width:13px;height:13px;margin-left:5px;cursor:pointer;background:#fff;border-radius:50%;}
+			.focus .btn.on{background:yellow;}
+			/*左右键*/
+			.focus .prenext{width:45px;height:100px;position:absolute;top:90px;background:url(img/sprite.png) no-repeat 0 0;cursor:pointer;display:none;}
+			.focus .pre{left:0;}
+			.focus .next{right:0;background-position:right top;}
+		</style>
+	</head>
+	<body>
+		
+			<div id="focus" class="focus">
+				<ul class='clearfix'>
+					<li><a href="JavaScript:;"><img src="img/1.png"/></a></li>
+					<li><a href="JavaScript:;"><img src="img/2.png"/></a></li>
+					<li><a href="JavaScript:;"><img src="img/3.png"/></a></li>
+				</ul>
+			</div>
+		
+    
+	<script src='js/jquery-2.1.1.min.js'></script>	
+	<script src='js/defaultCarouselJq.js'></script>	
+	<script type="text/javascript">
+		$(function() {
+	     	$('#focus').slideFocus();	
+		});
+	</script>
+	</body>
+</html>

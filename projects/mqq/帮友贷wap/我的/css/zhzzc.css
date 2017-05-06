@@ -1,0 +1,11 @@
+body{margin: 0px;padding: 0px;font-family:"微软雅黑";background-color:#f6f6f6;font-size: 16px;}img{max-width: 100%;}ul,input{list-style: none;
+margin: 0px;padding: 0px;}a,p{margin: 0px;padding: 0px;text-decoration: none;}
+#header{width: 100%;height:40px;display:-webkit-box;display:-moz-box;-webkit-box-align:center;-moz-box-align:center;-webkit-box-pack: justify;-moz-box-pack: justify;justify-content: space-between;
+display: flex;display: -webkit-flex;align-items: center;-webkit-align-items: center;background-color: #FFFFFF;}
+.zuo{width: 8px;height: 12px;margin-left: 15px;display: block;display: block;}
+.title_xiaoxi p{display: block;font-size: 1.0em;color: #333333;font-family: "微软雅黑";}
+.zc_main{width: 100%;height: auto;margin-top: 5px;border-top: 1px solid #DDDDDD;}
+.zc_list{width: 100%;height: 40px;border-bottom: 1px solid #DDDDDD;background-color: #FFFFFF;}
+.zc_list span{font-size: 0.8em;color:#333333;line-height: 40px;margin-left: 15px;float: left;}
+.zc_list p{font-size: 0.8em;color:#23a7f1;line-height: 40px;margin-right: 15px;float: right;}
+.icon{width:15px;height: 15px;float: left;margin-top: 10px;margin-left: 5px;}

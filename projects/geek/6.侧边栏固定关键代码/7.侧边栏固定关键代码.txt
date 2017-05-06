@@ -1,0 +1,51 @@
+<!--<script>-->
+    <!--var Getid = function(id){-->
+        <!--return document.getElementById(id);-->
+    <!--}-->
+
+    <!--var addEvent = function(obj,event,fun){-->
+        <!--if(obj.addEventListener){-->
+            <!--obj.addEventListener(event,fun,false);-->
+        <!--}else if(obj.attachEvent()){-->
+            <!--obj.attachEvent("on"+event,fun);-->
+        <!--}-->
+    <!--}-->
+
+    <!--var lnSider = Getid("lesson-nav");-->
+    <!--addEvent(window,"scroll",function(){-->
+        <!--var scrollHeight = document.body.scrollTop;-->
+        <!--console.log(scrollHeight);-->
+        <!--var contentHeight = Getid("changeid").offsetHeight - lnSider.offsetHeight;-->
+<!--//        console.log(contentHeight);-->
+        <!--if(scrollHeight >253 && scrollHeight<contentHeight+253){-->
+            <!--lnSider.style.position = "absolute";-->
+            <!--lnSider.style.left ="0px";-->
+            <!--lnSider.style.top = scrollHeight - 253 +"px";-->
+        <!--}else if(scrollHeight <=253){-->
+            <!--lnSider.style.position = "absolute";-->
+            <!--lnSider.style.left ="0px";-->
+            <!--lnSider.style.top = "0px";-->
+        <!--}-->
+    <!--});-->
+
+<!--</script>-->
+
+<script>
+    var jWindow = $(window);
+    jWindow.scroll(function(){
+        var scrollHeight = jWindow.scrollTop();
+        var contentHeight = $("#changeid").height() - $(".lesson-nav").height();
+        if(scrollHeight >253 && scrollHeight < contentHeight + 253){
+            $(".lesson-nav").css({
+                position:"absolute",
+                left:"0px",
+                top:scrollHeight - 253+"px"
+            });
+        }else if(scrollHeight <=253){
+            $(".lesson-nav").css({
+                position:"absolute",
+                left:"0px",
+                top:"0px"
+            });
+        }
+    });

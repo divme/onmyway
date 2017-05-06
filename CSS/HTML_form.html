@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+    <style>
+        *{
+            font-family:"Helvetica Neue",'微软雅黑', Verdana, Arial, Helvetica, sans-serif;
+            font-size:14px;
+        }
+        body{
+            padding:20px;
+        }
+        pre{
+            padding:10px;
+            background: #424242;
+            color: #d3ae68;
+        }
+
+    /*input ，select ， button 样式初始化 */
+        input { border:none; }
+        input:focus { border:none; outline:none;}
+        select { border:none;
+            /*去掉默认样式*/
+            -moz-appearance:none;
+            -webkit-appearance:none;
+        }
+        select:focus { border:none;outline:none;}
+
+     /*更多初始化*/
+        /*给number类型的input框去掉上下箭头*/
+        /*在chrome浏览器去除*/
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+        }
+        /*在火狐浏览器中去除*/
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        /*如果是电话号码的话,直接用type为tel的,也显示数字键盘,然而不会有上下箭头*/
+
+        /*给input的占位符设置颜色*/
+        input::-webkit-input-placeholder {color: #d4ae68;}
+        input::-moz-placeholder {color: #d4ae68;}
+
+
+        /*iphone里面submit等的input框会有默认的不能覆盖的默认样式,用以下语句去掉默认样式*/
+        /*input {-webkit-appearance: none;}*/
+        input[type="button"],
+        input[type="submit"],
+        input[type="reset"] {
+            -webkit-appearance: none;
+        }
+
+        /*去掉Chrome浏览器里input的默认高光样式*/
+        input:focus {
+            /*-webkit-tap-highlight-color: rgba(0, 0, 0, 0);*/
+            /*-webkit-user-modify: read-write-plaintext-only;*/
+        }
+        /*去掉火狐浏览器input框阴影*/
+        input { box-shadow: none; background: none; }
+
+
+        /*表单一般样式设置*/
+        .container{
+            width:500px;
+            margin:50px auto;
+        }
+        .inputgroup{
+            border:1px solid #ddd;
+            width:300px;
+            line-height: 50px;
+            margin:20px auto;
+        }
+        input{
+            /*width:70%;*/
+            /*height:100%;*/
+            margin:0 10px;
+            background: #f6f6f6;
+            color: #282828;
+        }
+        select{
+            width:100%;
+            height:100%;
+            text-indent: 10px;
+        }
+        select option{
+        }
+    </style>
+</head>
+<body>
+
+<p>
+
+</p>
+<div class="container">
+    <form action="index.php" method="post">
+        <div class="inputgroup"><input type="text" size="35" maxlength="6" autocomplete="on" name="后台通过name获取数据" placeholder="text" value="display value" /> </div>
+        <div class="inputgroup"><input type="password" maxlength="6" name="后台通过name获取数据" placeholder="password" value="" /></div>
+
+        <div class="inputgroup"><input type="number" name="后台通过name获取数据" placeholder="number" value="" maxlength="5" /></div>
+        <div class="inputgroup"><input type="tel" name="后台通过name获取数据" placeholder="tel" value="" maxlength="5" /></div>
+        <div class="inputgroup"><input type="email" name="后台通过name获取数据" placeholder="email" value="" /></div>
+        <div class="inputgroup"><input type="search" name=""  id="" placeholder="search" value="" /></div>
+
+        <div class="inputgroup"><input type="week" name="后台通过name获取数据" placeholder="week" value=""> </div>
+        <div class="inputgroup"><input type="month" name="后台通过name获取数据" placeholder="month" value=""> </div>
+
+        <div class="inputgroup">
+            <input type="radio" name="sex" id="man" value="male"><label for="man">Male</label>
+            <input type="radio" name="sex" id="woman" value="female"><label for="woman">Male</label>
+        </div>
+        <div class="inputgroup">
+            <input type="checkbox" name="vehicle" value="Bike" id="bike"><label for="bike">I have a bike</label><br/>
+            <input type="checkbox" name="vehicle" value="Car" id="car"><label for="car">I have a car</label>
+        </div>
+        <div class="inputgroup">
+            <select name="cars" title="cars">
+                <option value="volvo">Volvo</option>
+                <option value="saab" selected>Saab</option>
+                <option value="fiat">Fiat</option>
+                <option value="audi">Audi</option>
+            </select>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

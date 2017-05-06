@@ -1,0 +1,26 @@
+
+body{margin: 0px;padding: 0px;font-size: 16px;font-family: "Hiragino Sans GB";background-color:#f4f4f4;}p,a{margin: 0;padding: 0px;text-decoration: none;}img{max-width:100%;}ul{list-style: none;margin: 0px;padding: 0px;}
+#header{width: 100%;height: 45px;text-align: center;background: #FFFFFF;display:-webkit-box;-webkit-box-align: center;-webkit-box-pack: justify;}
+#header p{line-height: 45px;font-size:1em;}
+.zhuce{margin-left: 20px;width: 8px;height:12px;display: block;}
+/*----------------------------------main------------------------------*/
+#main{width: 100%;height: auto;}
+#main li{width: 100%;height:45px;border-bottom: 1px solid #dddddd;display:-webkit-box;display:-moz-box;-webkit-box-pack:justify;justify-content: space-between;display:-webkit-flex;display: flex;
+		align-items: center;
+}
+ .set_icon{width: 90%;height: auto;margin-left: 10px;display:-webkit-box;display:-moz-box;-webkit-box-align:center;-moz-box-align:center;display: flex;display: -webkit-flex;align-items: center;}
+
+.icon_frame{float: left;width:5.639%;height: auto;}
+.set_icon p{float: left;display: block;font-size: 0.875em;margin-left: 15px;color: #666666;cursor: pointer;}
+.set_icon p a{color: #666666;cursor: pointer;}
+.yousnajiao{width: 2.125%;height: auto;margin-right: 20px;}
+.login{width: 90.625%;height:40px;border-radius:4px ;-webkit-border-radius:4px ;-moz-border-radius:4px ;background-color: #2b85f2;margin: auto;text-align: center;margin-top:20px;}
+.login p{font-size: 1.1em;color: #FFFFFF;letter-spacing: 15px;line-height: 40px;}
+
+/*--------------------------------footer------------------------------*/
+#footer{width: 100%;height: 60px;position: fixed;bottom: 0px;display:-webkit-box;display:-moz-box;-webkit-box-pack:justify;-webkit-box-align:center;-moz-box-pack:justify;-moz-box-align:center;display:flex;display:-webkit-flex;justify-content:space-around;
+	border-top: 1px solid #DDDDDD;background-color: #FFFFFF;
+}
+.item{width: 14.062%;height: auto;text-align: center;align-self: center;}
+.item p{font-size: 0.75em;margin-top: 0px;margin-bottom: 0px;}
+.item p:active{color: #23A7F1;}

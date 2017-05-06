@@ -1,0 +1,11 @@
+.a0{width:962px;margin:0 auto;}
+.a1{width:960px;height:300px;margin:0 auto;border:1px solid #174867;}
+.a2{width:960px;height:300px;margin:0 auto;margin-top:5px;border:1px solid black;overflow:hidden;}
+.a3{width:310px;height:300px;float:left;border:1px solid #67a5cd;margin-top:5px;overflow:hidden;}
+.a4{width:310px;height:300px;float:left;margin-left:13px;border:1px solid #67a5cd;margin-top:5px;overflow:hidden;}
+.a5{width:310px;height:300px;float:left;margin-left:13px;border:1px solid #67a5cd;margin-top:5px;overflow:hidden;}
+.a6{width:120px;height:400px;float:left;margin-top:7px;overflow:hidden;}
+.ula{list-style-type:none;border:0px solid red;margin-top:3px;padding:0px;text-align:center;}
+.ula li{display:block;margin-top:5px;height:40px;width:115px;padding:1px;border:1px solid #4079A7;}
+.ula li:hover{background-color:#67a5cd;}
+.a7{width:839px;border:1px solid #4079A7;margin-top:12px;height:385px;float:left;text-align:center;}

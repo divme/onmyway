@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>oppo手机大屏carousel</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+<div class="pic">
+	<ul>
+		<li style="background:url(images/bg1.jpg) center;">
+			<img src="images/con1.png">
+			<div class="nav"></div>
+			<div class="bar"><p></p></div>
+		</li>
+		<li style="background:url(images/bg2.jpg) center;">
+			<img src="images/con2.png">
+			<div class="nav"></div>
+			<div class="bar"><p></p></div>
+		</li>
+		<li style="background:url(images/bg3.jpg) center;">
+			<img src="images/con3.png">
+			<div class="nav"></div>
+			<div class="bar">
+			<p></p>
+			</div>
+		</li>
+	</ul>
+</div>
+
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+var i=0;
+jummper();
+function jummper(){
+   $(".pic ul li").eq(i).find("img").css("left","-1180px");
+   $(".pic ul li").eq(i).find("p").css("width","0px");
+   $(".pic ul li").eq(i).find("img").animate({left:"0px"},500,function(){
+		$(".pic ul li").eq(i).find("p").animate({width:"1174px"},5000,function(){
+			// $(".pic ul li").eq(i).find("img").animate({left:"1180px"},500,function(){
+				i++;
+				if(i>2)
+				i=0;
+				$(".pic ul li").eq(i).fadeIn(100).siblings().fadeOut(100);
+			// });
+		});
+   });
+}
+setInterval(jummper,5600);
+</script>
+
+</body>
+</html>

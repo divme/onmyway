@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <title>Tool func-2</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="white" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script src="js/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+<div class="hilight">2017年315打假打到了Nike脸上</div>
+   <script>
+       (function($){
+           $.fn.hilight = function(options){
+               var opts = $.extend({},$.fn.hilight.defaults);
+               return this.each(function(){
+                   $this = $(this);
+                   var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
+                   $this.css({
+                       backgroundColor: o.background,
+                       color: o.foreground
+                   });
+                   var markup = $this.html();
+                   markup = $.fn.hilight.format(markup);
+                   $this.html(markup);
+               });
+           };
+           // 私有函数：debug
+           function debug($obj) {
+               if (window.console && window.console.log)
+                   window.console.log('hilight selection count: ' + $obj.size());
+           }
+           // 定义暴露format函数
+           $.fn.hilight.format = function(txt) {
+               debug($('.hilight'));
+               return '<strong>' + txt + '</strong>';
+           };
+           // 插件的defaults
+           $.fn.hilight.defaults = {
+               foreground: 'red',
+               background: 'yellow'
+           };
+
+       })(jQuery);
+
+       $('.hilight').hilight();
+
+   </script>
+</body>
+</html>

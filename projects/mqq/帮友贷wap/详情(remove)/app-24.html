@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    	<meta name="format-detection" content="telephone=no">
+		<title>约标工具</title>
+		<link rel="stylesheet" href="css/items_info.css" />
+		
+		<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var gWidth=$('.goumai_info').width();
+					gHeight=gWidth*0.125;
+					$('.goumai_info').css('height',gHeight+'px')
+					$('.shumu').css('height',gHeight+'px')
+					$('.shumu>p').css('line-height',gHeight+'px')
+			})
+		</script>
+	</head>
+	<body>
+		<header id="header">
+			<div class="zuo"><img src="img/zuo.png"/></div>
+			<div class="items_title">
+				<p>约标工具</p>
+			</div>
+		</header>
+		<section id="item1">
+			<p>资金周转</p>	
+		</section>
+		<section id="item2" >
+			<div class="item_title">
+				<p>预期年化</p>
+				<p>13.47%</p>
+			</div>
+			<div class="item_title">
+				<p>借款金额</p>
+				<p>4.00万</p>
+			</div>
+			<div class="item_title">
+				<p>剩余时间</p>
+				<p>0天4时24分</p>
+			</div>
+			
+		</section>
+		<section id="item2" style="margin-top: 10px;">
+			<div class="item_title">
+				<p>起投金额</p>
+				<p>10000</p>
+			</div>
+			<div class="item_title">
+				<p>借款期限</p>
+				<p>12个月</p>
+			</div>
+			
+		</section>
+		<section id="item2" style="margin-top: 10px;">
+			<div class="item_title">
+				<p>可用余额</p>
+				<p>10000元</p>
+			</div>
+		</section>
+		<section id="item2" style="margin-top: 10px;">
+			<div class="item_title">
+				<p></p>
+				
+				<div class="you">
+					<img src="img/yousanjiao.png" alt="" />
+				</div>
+				<p >选择红包</p>
+			</div>
+		</section>
+		
+		<section id="main">
+			
+			<div class="goumai_info">
+				<div class="reduce"><img src="img/minus.png" alt="" /></i></div>
+				<div class="shumu">
+					<input type="text" name="" id="smk" value="" placeholder="5000元起投，且为5000元的整数倍"/>
+				</div>
+				<div class="add"><img src="img/plus.png" alt="" /></div>
+			</div>
+		</section>
+		<div class="shouyi_yuebiao">
+				<p>预期收益：0.00</p>
+				<p>约标奖励：0.00</p>
+		</div>
+		<div class="clr_24"></div>
+		<footer>
+			<div class="xiadan">
+				<p>立即预约</p>
+			</div>
+		</footer>
+		<div class="zhedangceng"></div>
+		<div class="tanchukuang">
+			<div class="close"><a href=""><img src="img/close.png" alt="" /></a></div>
+			<div class="clrb"></div>
+			<p>支付金额</p>
+			<p>10000元</p>
+			<div class="tishi">
+				<p>请输入支付密码</p>
+				<p><a href="">找回密码</a></p>
+			</div>	
+			<div class="password_frame">
+				
+				<input type="password" name="" id="password" value="" maxlength="6"/>
+			</div>
+	</body>
+</html>

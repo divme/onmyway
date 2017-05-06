@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>变换</title>
+		<meta charset="utf-8" />
+		<link href="../css/paiban.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body onload="scroll()">
+		<div class="a0">
+			
+
+			<div class="a2">
+				<script>
+					function changeImage(id) {
+						 var element = document.getElementById(id)
+						if (element.src.match("2.jpg")) {
+							element.src = "img/1.jpg";
+						} else {
+							element.src = "img/2.jpg";
+						}
+					}
+				</script>
+				<img id="myimage1" onclick="changeImage('myimage1')" src="img/1.jpg" />
+				<img id="myimage2" onclick="changeImage('myimage2')" src="img/2.jpg" />
+				<img id="myimage3" onclick="changeImage('myimage3')" src="img/1.jpg" />
+			</div>
+
+			<div class="a3"> <img id="w3"> </div>
+			<div class="a4"> <img id="w4"> </div>
+			<div class="a5"> <img id="w5"> </div>
+
+			<div class="a6">
+				<ul class="ula">
+					<li id="li1" onmouseover="mouseover('p1')">
+						<p>内容一</p>
+					</li>
+					<li id="li2" onmouseover="mouseover('p2')">
+						<p>内容二</p>
+					</li>
+					<li id="li3" onmouseover="mouseover('p3')">
+						<p>内容三</p>
+					</li>
+					<li id="li4" onmouseover="mouseover('p4')">
+						<p>内容四</p>
+					</li>
+					<li id="li5" onmouseover="mouseover('p5')">
+						<p>内容五</p>
+					</li>
+					<li id="li6" onmouseover="mouseover('p6')">
+						<p>内容六</p>
+					</li>
+					<li id="li7" onmouseover="mouseover('p7')">
+						<p>内容七</p>
+					</li>
+					<li id="li8" onmouseover="mouseover('p8')" class="li8">
+						<p>内容八</p>
+					</li>
+				</ul>
+			</div>
+			<div class="a7" id="p1">我是一个粉刷匠，粉刷本领强</div>
+			<div class="a7" id="p2" style="display:none;">
+				<frameset rows="50% red,50% yellow">我要把那新房子，刷的很漂亮 </div>
+			<div class="a7" id="p3" style="display:none;">刷了房顶刷厨房</div>
+			<div class="a7" id="p4" style="display:none;">刷完房子就上床</div>
+			<div class="a7" id="p5" style="display:none;">一觉睡到大天亮</div>
+			<div class="a7" id="p6" style="display:none;">睡眼朦胧憋得慌</div>
+			<div class="a7" id="p7" style="display:none;">赶紧起来上茅房</div>
+			<div class="a7" id="p8" style="display:none;">上完茅房精神爽，爽到心花直怒放</div>
+		</div>
+		<script type="text/javascript">
+			function mouseover(id) {
+				for (var i = 1; i < 9; i++) {
+					var n = "p";
+					n = n + i;
+					document.getElementById(n).style.display = "none";
+				}
+				document.getElementById(id).style.display = "block";
+			}
+		</script>
+		<script>
+			var imgArray = new Array(
+				"img/2-1.jpg",
+				"img/2-2.jpg",
+				"img/2-3.jpg",
+				"img/2-4.jpg",
+				"img/2-5.jpg"
+			);
+			var imArray = new Array(
+				"img/3-1.jpg",
+				"img/3-2.jpg",
+				"img/3-3.jpg",
+				"img/3-4.jpg",
+				"img/3-5.jpg"
+			);
+			var iArray = new Array(
+				"img/4-1.jpg",
+				"img/4-2.jpg",
+				"img/4-3.jpg",
+				"img/4-4.jpg",
+				"img/4-5.jpg"
+			);
+
+			var i = 0;
+			function scroll() {
+				if (i < imgArray.length) {
+					document.getElementById("w3").src = imgArray[i];
+					document.getElementById("w4").src = imArray[i];
+					document.getElementById("w5").src = iArray[i];
+					i++;
+				} else {
+					i = 0;
+					document.getElementById("w3").src = imgArray[i];
+					document.getElementById("w4").src = imArray[i];
+					document.getElementById("w5").src = iArray[i];
+					i++;
+				}
+				setTimeout("scroll()", 2000);
+			}
+		</script>
+	</body>
+
+</html>

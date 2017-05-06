@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="css/reset.css" />
+		<script src="js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<title>简单注册，全网比息</title>
+		<style type="text/css">
+		body{
+			background: #ff5a54 ;
+			font-family: "微软雅黑";
+		}
+			.container{
+				width:76%;
+				margin: 0 auto;
+				margin-left:12% ;
+				/*border: 1px solid #000000;*/
+			}
+			.container input{
+				border: none;
+				outline: none;
+				border-radius: 14px;
+				height: 40px;
+				/*line-height: 20px;*/
+				text-align: center;
+				font-size: 15px;
+				font-weight: bold;
+				
+			}
+			input::-webkit-input-placeholder {
+				color: #989898;
+				opacity: 0.7;
+			}
+			
+			input::-moz-placeholder {
+				color: #989898;
+				opacity: 0.7;
+			}
+			
+			input::-ms-input-placeholder {
+				color: #989898;
+				opacity: 0.7;
+			}
+			.name{
+				width: 45%;
+			}
+			.money{
+				float: right;
+				width: 50%;
+			
+			}
+			.tel{
+				margin-top: 15px;
+				width: 100%;
+			}
+			.submit{
+				display: block;
+				width: 100%;
+				margin-top: 20px;
+				background: url(img/submitback.png) no-repeat;
+				background-size: 100% 100%;	
+				
+			}
+			.scroll{
+				position: relative;
+				top: -4px;
+				animation: myname 1.3s infinite;
+				-webkit-animation:myname 1.3s infinite;
+			
+			}
+			@keyframes myname{
+				0%{top: -8px;}
+				40%{top: -8px;}
+				60%{top: -4px;}
+				80%{top: -8px;}
+				100%{top: -8px;}
+			}
+			@-webkit-keyframes myname{
+				0%{top: -8px;}
+				40%{top: -8px;}
+				60%{top: -4px;}
+				80%{top: -8px;}
+				100%{top: -8px;}
+			}
+			
+			.p{
+				color: #ffffff;
+				font-size: 14px;
+				margin-top: 5px;
+				text-align: center;
+			}
+			.rediv{
+				position: relative;
+			}
+			.abimg{
+				width: 18.75%;
+				position: absolute;
+				top: 1px;
+				right: 1px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="rediv"><img src="img/banner-one.png"/><img class="abimg" src="img/top_logo.png"/></div>
+		<div><img src="img/banner-two.png"/></div>
+		<div class="container">
+			<form action="" method="post">
+				<input class="name"  name="name"  type="text" value="" placeholder="您的姓名"/>
+				<input class="money" name="money" type="text" value="" placeholder="贷款金额"/>
+				<input class="tel"   name="tel"   type="tel"  value="" placeholder="请填写您的手机号码"/>
+				<div class="submit" name="submit" href="#"><img class="scroll" src="img/submit.png"/></div>
+			</form>
+			<div class="p">
+				6000+银行及机构在线比息
+			</div>
+		</div>
+
+		<!--<script type="text/javascript">
+           function left(){
+			$('.scroll').animate({'top':'-4px'},600); 
+			$('.scroll').animate({'top':'-8px'},600);
+		  }
+			$(document).ready(function(){
+				setInterval(left,1000);
+			})
+		</script>-->
+	</body>
+</html>

@@ -1,0 +1,32 @@
+@charset "UTF-8";
+/* GLOBAL - BEGIN */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { 
+    display: block;
+}
+body {
+	margin:0px;
+	padding:0px;
+	background:#000;	
+	/*font-family:'Avenir LT W01 35 Light';*/
+	font-family:'Avenir LT W01 55 Roman';
+	font-size:12px;
+}
+.hidden {
+	display:none;	
+}
+#pagewrap {
+	position:relative;	
+}
+img {
+	border:0;	
+}
+.column {
+	float:left;	
+}
+a, a:visited {
+	color:#FFF;
+	text-decoration:none;	
+}
+a:hover {
+	text-decoration:underline;	
+}

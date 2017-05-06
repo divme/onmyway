@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    	<meta name="format-detection" content="telephone=no">	
+		<title>约标工具</title>
+		<link rel="stylesheet" href="css/style1.css" />
+	</head>
+	<body>
+		<header id="header">
+			<a href="" class="zuo">
+				<img src="img/zuo.png"/>
+			</a>
+			<p>约标工具</p>
+		</header>
+		<div class="blank"></div>
+		<section class="main_sblb">
+					<div class="article2_list" style="margin-top: 10px;">
+						<div class="article2_content1 article3_tl">
+							<p>短期周转</p>
+							<span>借款金额：<a>10.00万</a></span>
+						</div>
+						<div class="article2_content2">
+							<div class="shouyi_frame article3_sy">
+								<span>13.47<a>%</a></span>
+								<span>预期年化</span>
+							</div>
+							<div class="qixian">
+								<p><span>12</span>个月</p>
+								<p>期限</p>
+							</div>
+							<div id="myStat1" data-dimension="60" data-width="3" data-fontsize="16" data-percent="5" data-fgcolor="#ffb3b3"data-bgcolor="#fff" data-fill="#fff">
+								<a href="" class="jiaru_sb">预约</a>
+							</div>
+						</div>
+					</div>
+					<div class="article2_list" style="margin-top: 10px;">
+						<div class="article2_content1 article3_tl">
+							<p>短期周转</p>
+							<span>借款金额：<a>5.00万</a></span>
+						</div>
+						<div class="article2_content2">
+							<div class="shouyi_frame article3_sy">
+								<span>13.47<a>%</a></span>
+								<span>预期年化</span>
+							</div>
+							<div class="qixian">
+								<p><span>12</span>个月</p>
+								<p>期限</p>
+							</div>
+							<div id="myStat1" data-dimension="60" data-width="3" data-fontsize="16" data-percent="10" data-fgcolor="#ffb3b3"data-bgcolor="#fff" data-fill="#fff">
+								<a href="" class="jiaru_sb">预约</a>
+							</div>
+						</div>
+					</div>
+					
+			<div class="clr_btm"></div>
+		</section>
+		<script src="js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="js/jquery.circliful.min.js"></script>
+		<script type="text/javascript">
+			
+		    $( document ).ready(function() { 
+		        $('#myStat1,#myStat2').circliful(); 
+		        $('.article2_list').each(function(index){
+		        	var mysta1_dp=$(this).find('#myStat1').attr('data-percent')
+		        	
+		        	var jiaru=$(this).find('#myStat1').children('a');
+		        	
+		        		if(mysta1_dp==0){
+		        			jiaru.text('预约')
+		        		}
+		        		if(mysta1_dp==100){
+		        			jiaru.text('售罄')
+		        			
+		        			$(this).find('#myStat1').attr("data-fgcolor","#fff")
+		        			$(this).find('#myStat1').children('a').addClass('shouqin')
+		        		}
+		        		if(mysta1_dp<100&&mysta1_dp>0){
+		        			jiaru.text('加入')
+		        		}
+		        })
+		    }); 
+
+		</script>
+	</body>
+</html>

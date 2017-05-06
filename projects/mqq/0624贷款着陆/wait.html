@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--<meta name="format-detection" content="telephone=no">-->
+		<link rel="stylesheet" href="css/reset.css" />
+		<script src="js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<title>正在搜索</title>
+		<style type="text/css">
+			.container {
+				width: 80%;
+				margin-left: 10%;
+				margin-top: 120px;
+			}
+			
+			.p1 {
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				font-size: 17px;
+				color: #ff5a54;
+			}
+			
+			.box {
+				margin-top: 30px;
+				border: 5px solid #FF5A54;
+				padding: 5px;
+				overflow: hidden;
+			}
+			
+			.content-box {
+				overflow: hidden;
+			}
+			
+			.content {
+				width: 50%;
+				height: 15px;
+				background: #FF5A54;
+				/*margin-left: -50%;*/
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="p1"><b>请稍等，</b></div>
+			<div class="p1"><b>您的贷款需求正在实时搜索中</b>···</div>
+			<div class="box">
+				<div class="content-box">
+					<div class="content"></div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				function left() {
+					var width = parseInt($('.content-box').css('width'));
+					var width1 = parseInt($('.content').css('width'));
+//					console.log(width + 'and' + width1);
+					if (width1 < width) {
+						$('.content').animate({
+							'width': '+=1%'
+						}, 50);
+					} else {
+						clearInterval(timer);
+						window.location.href='search.html';
+					}
+				}
+				var timer = setInterval(left, 50);
+			})
+		</script>
+	</body>
+
+</html>

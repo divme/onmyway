@@ -1,0 +1,29 @@
+
+body{margin: 0px;padding: 0px;font-size: 16px;font-family:"Hiragino Sans GB";}img{max-width: 100%;}ul,input{list-style: none;margin: 0px;padding: 0px;}a,p{margin: 0px;padding: 0px;text-decoration: none;}
+#header{width: 100%;height: 45px;display:-webkit-box;display:-moz-box;display: flex;display: -webkit-flex;align-items:center;justify-content:space-between;border-bottom: 1px solid #DDDDDD;background-color: #FFFFFF;}
+#header div p{line-height: 45px;font-size:1.0em;}
+.zuo{width:9px;height: 18px;margin-left: 15px;display: block;}
+.title_xiaoxi{display: block;font-size: 1em;color: #000000;}
+.zhuce{margin-right: 15px;}
+.zhuce a{font-size:0.9em;color: #666666;}
+#form{width: 100%;}
+.input_frame1,.input_frame2{width: 100%;height: 45px;}
+.user,.lock{width: 25px;height: 45px;display: flex;display:-webkit-flex; float: left;display: -moz-box;display: -webkit-box;-moz-box-align: center;border-bottom: 1px solid #DDDDDD;margin-left: 15px;}
+.user div,.lock div{display: block;width:16px;height: 16px;margin-top: 11.5px;}
+.input_frame1 input,.input_frame2 input{width: 87.375%;height: 100%;border: none;border-bottom: 1px solid #DDDDDD;float:left;outline: none;}
+.input_frame2{margin-top: 5px;border-bottom: 1px solid #DDDDDD;}
+.login{width: 90.625%;height: 40px;background-color:#23a7f1;border-radius: 3px;-webkit-border-radius: 3px;-moz-border-radius: 3px;text-align: center;margin:0px auto;margin-top: 31px;}
+.login p{font-size: 0.9375em;color: #ffffff;line-height: 40px;letter-spacing: 5px;font-weight:bold;}
+.wjmm{width: 100%;height: auto;overflow: hidden;margin-top: 14px;}
+.wjmm a{font-size: 0.8em;color: #666666;}
+.wjmm p{float:right;margin-right: 20px;}
+
+/*--------------------------change password--------------------------------*/
+.password{width: 73px;height: 45px;float: left;display: flex;-moz-box-align: center;-webkit-box-align: center;display: -moz-box;display: -webkit-box;}
+.password p{font-size: 0.875em;color: #333333;margin: auto;}
+.xg_frame1 input{width: 75.375%;font-size: 0.8em;}
+/*----------------------------find password---------------------------*/
+.yanzheng{position: absolute;right: 25px;top: 50%;-webkit-transform: translate(0px,-50%);width: 70px;height: 30px;background-color:#23A7F1;border-radius: 5px;-webkit-border-radius: 5px;text-align: center;}
+.yanzheng p{font-size: 0.75em;color: #FFFFFF;line-height: 30px;}
+.phone1 div{width:14px;height: 20px;}
+.phone2 div img{display: block;margin-left:2px;}

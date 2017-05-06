@@ -1,0 +1,59 @@
+body{font-family: "微软雅黑";margin: 0;padding: 0;min-width: 1200px;width: 100%;}
+ul,li,p{margin: 0;padding: 0;list-style: none;}
+.clear{clear: both}
+a{text-decoration: none}
+#banner{background: url("../img/banner.jpg") no-repeat center;width: 100%;height: 700px;background-size: auto 100%;}
+#main{background:url("../img/main.jpg") no-repeat center top;width: 100%;height: auto;padding-bottom: 100px;}
+.container{width: 1200px;margin: 0 auto;}
+.day{background: url("../img/day.png") no-repeat center;width: 1025px;height: 804px;margin: 0 auto; position: relative}
+.day .time{width: 155px;height: 568px;position: absolute;top: 195px;left: 50px;}
+.day .time_axis{background: url("../img/time.png") no-repeat top right;width: 155px;height: 568px;float: left;position: absolute;top:0;right: 0;z-index: 2;}
+.day .time_show{color:#1b8acd;width: 100%;height: auto;text-align: right;font-size: 30px;line-height: 50px;}
+.day .time_show li{width: 113px;height: 50px;padding-right: 30px;}
+.day .time_show .time_current{background: url("../img/bg1.png") no-repeat;font-size: 36px;font-weight: bold;}
+.day .prize{position: absolute;top: 170px;left: 227px;}
+.day .prize li{width: 754px;height: 110px;background: url("../img/bg2.png") no-repeat bottom center;padding-top: 10px;}
+.day .prize_pitcure{float: left;margin-left: 50px;width: 194px;}
+.day .prize_pitcure img{display: block;margin: 0 auto;}
+.day .prize_num{float: left;margin-left: 35px;margin-top: 10px;}
+.day .prize_num .little_num{color:#1b8acd;font-size: 43px;font-weight: bold}
+.day .prize_receive{float: right;margin-right: 68px;}
+.day .receive_btn{background: url("../img/bg3.png") no-repeat;width: 160px;height: 69px;margin-top: 5px;cursor: pointer;}
+.day .receive_btn_curr{background: url("../img/bg4.png") no-repeat;width: 160px;height: 69px;margin-top: 5px;cursor: pointer;}
+.day .receive_down{font-size: 18px;line-height: 28px;color:#1b8acd;width: 160px;text-align: center}
+.day .receive_down span{color:#fe4a55}
+.week{background: url("../img/week.png") no-repeat center;width: 1026px;height: 1054px;margin: 65px auto 0;position: relative}
+.week .gift{width: 920px;position: absolute;top: 220px;left: 53px;}
+.week .gift_heng{border: 1px solid #aaa8a9;width: 435px;height: 253px;float: left;margin-right: 46px;margin-bottom: 46px;}
+.week .gift_shu{border: 1px solid #aaa8a9;width: 298px;height: 383px;float: left;margin-right: 10px;}
+.week .gift_heng .gift_show{margin: 30px 0 0 22px;float: left}
+.week .gift_heng .gift_detail{width: 170px;float: left;margin-left: 25px;margin-top: 50px;text-align: center}
+.week .gift_heng .gift_title{color:#3fa5e3;font-size: 24px;font-weight: bold;}
+.week .gift_heng .gift_require{max-width: 136px;color:#3fa5e3;font-size: 18px;margin: 10px auto 25px;}
+.week .gift_heng .gift_btn{background: url("../img/bg5.png") no-repeat;width: 165px;height: 48px;margin: 0 auto;cursor: pointer}
+.week .gift_heng .gift_btn_out{background: url("../img/bg7.png") no-repeat;width: 165px;height: 48px;margin: 0 auto;cursor: pointer}
+.week .gift_heng .gift_little{font-size: 18px;color:#1b8acd;line-height: 30px;}
+.week .gift_heng .gift_little span{color:#fe4a55}
+
+.week .gift_shu .gift_show{display: block;margin: 40px auto;}
+.week .gift_shu .gift_detail{text-align: center}
+.week .gift_shu .gift_title{color:#3fa5e3;font-size: 24px;font-weight: bold;}
+.week .gift_shu .gift_require{max-width: 136px;color:#3fa5e3;font-size: 18px;margin: 10px auto 25px;}
+.week .gift_shu .gift_btn{background: url("../img/bg5.png") no-repeat;width: 165px;height: 48px;margin: 0 auto;cursor: pointer}
+.week .gift_shu .gift_btn_out{background: url("../img/bg7.png") no-repeat;width: 165px;height: 48px;margin: 0 auto;cursor: pointer}
+.week .gift_shu .gift_little{font-size: 18px;color:#1b8acd;line-height: 30px;}
+.week .gift_shu .gift_little span{color:#fe4a55}
+.rank{background: url("../img/rank.png") no-repeat;width: 1025px;height: 814px;margin: 55px auto 0;position: relative}
+.rank .rank_img{position: absolute;top: 184px;left: 60px;}
+.rank .prize_img{width: 115px;height: 184px;float: left;}
+.rank .rank_img li{margin-bottom: 20px;}
+.rank .prize_img img{display: block;margin: 0 auto;}
+.rank .prize_detail{float: left;margin-top: 25px;margin-left: 40px;color:#3fa5e3;}
+.rank .rank_show{background: url("../img/bg8.png") no-repeat;width: 505px;height: 593px;position: absolute;top: 184px;right: 35px;padding: 0px 13px 0px 14px;}
+.rank .rank_title{width: 100%;height: 48px;line-height: 48px;text-align: center;color:#fff000;font-size: 20px;font-weight: bold;}
+.rank .rank_list{width: 100%;height: 475px;overflow: hidden}
+.rank .list_title{height: 45px;line-height: 45px;background-color: #aee2fa;width: 100%;color:#3fa5e3;text-align: center}
+.rank table{width: 100%;color:#606060;font-size: 18px;}
+.rank tr{height: 43px;line-height: 43px;text-align: center;}
+.explain{background: url("../img/explain.png") no-repeat;width: 965px;height: 239px;margin: 60px auto 0;padding: 175px 0 0 60px;}
+.explain p{font-size: 22px;color:#606060;margin-bottom: 7px;}

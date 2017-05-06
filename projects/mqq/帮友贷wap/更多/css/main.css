@@ -1,0 +1,28 @@
+body{margin: 0px;padding: 0px;font-size: 16px;}img{max-width: 100%;outline-width: 0px;vertical-align: top;}ul{list-style: none;margin: 0px;padding: 0px;}a,p{margin: 0px;padding: 0px;}
+#header{width: 100%;height:40px;display: flex;display: -webkit-flex;align-items: center;-webkit-align-items: center;justify-content:space-between;-webkit-justify-content:space-between;border-bottom: 1px solid #DDDDDD;}
+.zuo{width: 8px;height: 12px;margin-left: 15px;display: block;}
+.title_xiaoxi{display: block;font-size: 1.0em;color: #333333;font-family: "微软雅黑";}
+#header_about{width: 100%;height:40px;display: flex;display: -webkit-flex;align-items: center;-webkit-align-items: center;border-bottom: 2px solid #DDDDDD;}
+.reload{font-family: "微软雅黑";color: #333333;font-size: 0.8em;text-decoration: none;margin-right:15px;}
+/*-----------section----------------*/
+#xiaoxi_info{width: 100%;}
+#xiaoxi_info ul li{width: 100%;min-height:40px;border-bottom: 1px solid #DDDDDD;padding-top:10px;padding-bottom: 10px;}
+.xiaoxi_tl{width: 100%;height: auto;overflow: hidden;display: -webkit-box;display: -moz-box;-webkit-box-align: center;-moz-box-align: center;-webkit-box-pack: justify;-moz-box-pack: justify;
+display: flex;display: -webkit-flex;-webkit-align-items: center;-webkit-justify-content: space-between;}
+.time{width: 100%;margin-top: 10px;}
+.time p{margin-left: 15px;font-size: 0.8em;color:#333333;font-family: "微软雅黑";}
+.title_list{font-size:0.9em;color:#333333;text-decoration: none;margin-left: 15px;font-family: "微软雅黑";width:86.187%;}
+.you{display: block;width: 10px;height: 12px;margin-right: 15px;}
+
+.about{width:100%;margin: auto;border-bottom: 1px solid #DDDDDD;}
+.logo_1{width: 27.24%;height: auto;margin: 15px auto;}
+.about_info{width: auto;margin-left: 7.812%;margin-right: 5%;}
+.about_info p{color: #666666;font-size: 0.75em;font-family: "微软雅黑";text-indent: 2em;line-height:27px;}
+
+.about_us{padding-left: 10px;}
+.lianxidizhi{font-size:0.8em;color:#333333;text-decoration: none;display: block;height: 40px;line-height: 40px;float: right;margin-right: 10px;}
+.left_list{font-size: 0.875em;color:#333333;text-decoration: none;font-family: "微软雅黑";float: left;margin-left: 2px;height: 40px;line-height: 40px;}
+
+.text-main{width: 100%;height: auto;}
+.text-main p{margin: 5px;text-align: justify;}
+

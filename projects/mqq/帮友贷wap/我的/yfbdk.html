@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    	<meta name="format-detection" content="telephone=no">
+		<title>已发布的贷款</title>
+		<link rel="stylesheet" href="css/style1.css" />
+	</head>
+	<body>
+		<header id="header">
+			<a href="" class="zuo">
+				<img src="img/zuo.png"/>
+			</a>
+			<p>已发布的贷款</p>
+		</header>
+		<div class="blank"></div>
+		<section class="main_sblb">
+					<div class="article2_list" style="margin-top: 10px;">
+						<div class="article2_content1 article3_tl">
+							<p>网贷中国</p>
+							<span>金额：<a>8.60万</a></span>
+						</div>
+						<div class="article2_content2">
+							<div class="shouyi_frame article3_sy">
+								<span>10.01<a>%</a></span>
+								<span>预期年化</span>
+							</div>
+							<div class="qixian">
+								<p><span>3</span>个月</p>
+								<p>期限</p>
+							</div>
+							<div id="myStat1" data-dimension="60" data-width="3" data-fontsize="16" data-percent="8" data-fgcolor="#ffb3b3"data-bgcolor="#dddddd" data-fill="#fff">
+								<a href="" class="jiaru_sb" style="background-color: #FFFFFF;color: #000000;">8%</a>
+							</div>
+						</div>
+					</div>
+			<div class="clr_btm"></div>
+		</section>
+		<script src="js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="js/jquery.circliful.min.js"></script>
+		<script type="text/javascript">
+			
+		    $( document ).ready(function() { 
+		        $('#myStat1,#myStat2').circliful(); 
+		        
+		    }); 
+
+		</script>
+	</body>
+</html>

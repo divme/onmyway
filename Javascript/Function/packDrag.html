@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>drag</title>
+    <style>
+        *{margin:0;padding:0}
+        .father{
+            position:relative;
+            border:1px solid #000;
+            text-align:center;
+            height:180px;
+            font-size:0;
+            /*line-height:180px;*/
+        }
+        .img{
+            /*width:150px;*/
+            height:100px;
+            vertical-align: middle;
+        }
+        .son{
+            background:red;
+            /*color:#fff;*/
+            /*padding:3px 5px;*/
+            /*height:20px;*/
+            display: inline-block;
+            line-height:30px;
+            /*vertical-align: bottom;*/
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="father" id="father">
+    <img class='img' id='img' src="img/abc.jpg">
+    <span class="son">我是谁</span>
+</div>
+
+<script src="js/drag.js"></script>
+<script src="js/jquery-2.1.1.min.js"></script>
+<script>
+
+</script>
+</body>
+</html>

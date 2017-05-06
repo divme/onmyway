@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	   <!--<script src="http://cdn.bootcss.com/Chart.js/2.1.6/Chart.min.js"></script>-->
+	   <script src="http://cdn.bootcss.com/Chart.js/2.0.0/Chart.min.js"></script>
+	   <style type="text/css">
+	   .container{width: 400px;height: 500px;}
+	   	#myChart{width: 400px;height:500px;}
+	   </style>
+	</head>
+
+	<body>
+		<div class="container">
+			<canvas id="myChart" width="400" height="300"></canvas>
+		</div>
+		
+		<script type="text/javascript">
+			var ctx = document.getElementById("myChart").getContext("2d");		
+			var myChart = new Chart(ctx, {
+//				第一:设置类型
+				type: 'line',
+//				第二:设置数据
+				data: {
+					labels: ["一月", "", "", "", "", "", "","八月"],
+					datasets: [{
+						label:'第一',
+						borderColor:'yellow',
+						borderWidth:2,
+						backgroundColor:'red',
+					
+//						lineTension: 1,
+//						fillColor: "red",
+//						strokeColor: "rgba(0,0,0,1)",
+//						pointColor: "rgba(120,120,120,1)",
+//						pointStrokeColor: "#2a45de",
+						data: [35, 15, 60, 81, 56, 55, 40,20]
+					}, {
+						label:'第二',
+						fillColor: "rgba(214,18,20,0.5)",
+						strokeColor: "rgba(215,18,20,1)",
+						pointColor: "rgba(215,18,20,1)",
+						pointStrokeColor: "red",
+						data: [48, 48, 40, 19, 96, 27, 100,56]
+					}]
+				},
+//				第三:设置其他选项内容
+				options: {
+					scales: {
+						yAxes: [{
+							ticks: {
+								beginAtZero: true
+							}
+						}]
+					},
+//					曲线图的标题
+					title: {
+                     display: true,
+                     text: 'Custom Chart Title',
+                     fontSize:30,
+                     position:'top'
+                   },
+//                 曲线名称
+                   legend: {
+                        display: true,
+                        labels: {
+                         fontColor: 'red',
+                         fontSize:16,
+                         boxWidth:'none'
+                        },
+                     position:'bottom'  
+				  },
+				    yAxisID: {  
+				     	 title: {  
+                           text: 'PH值'  
+                      },
+                      
+                  },  
+//				  工具提示
+				  tooltips:{
+				  	enabled:true,
+				  	backgroundColor:'rgba(110,110,110,0.6)',
+				  	titleFontColor:'red',
+				  	titleFontSize:25
+				  }
+				
+				}	
+			});
+		</script>
+
+         <canvas id="mychart1" width="400px" height="300px"></canvas>
+         <script type="text/javascript">
+         var ctx1= document.getElementById("mychart1").getContext("2d");
+         var myChart1 = new Chart(ctx1, {
+        	type:'doughnut',
+        	data:{
+        		labels: ["Red", "Blue", "Yellow","black"],
+	            datasets: [{
+		             data: [300, 50, 100,200],
+		             backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56",'black'],
+		             hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+	               }]
+        	}
+	
+       });
+         </script>
+	</body>
+
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/public.css"/>
+		<title>HTML5</title>
+		<link rel="stylesheet" type="text/css" href="css/html5.css"/>
+</head>
+<body style="background: url(img/deep-sky.png) repeat-y;background-size: 100%;">
+	<header>
+			<img src="img/banner.png" />
+			<nav>
+				<a href="home.html">Home</a>
+				<a href="#">HTML5</a>
+				<a href="css3.html">CSS3</a>
+				<a href="javascript.html">Javascript</a>
+				<a href="jquery.html">jQuery</a>
+			</nav>
+	</header>
+
+	<main>
+	  <section>
+	  	<h3></h3>
+	  </section>
+
+	  <section>
+	  	<h3>表格一</h3>
+	  	<div class="log">
+			<p class="log_head">获奖记录<a class="mylog">我的获奖记录</a></p>
+			<ul class="thead"><li>用户名</li><li>奖品</li><li>时间</li></ul>
+			<div class="jilutable">
+			 <table class="scroll" border="0" cellspacing="0" cellpadding="0">
+				<tr><td>Data1</td><td>Data</td><td>Data</td></tr>
+				<tr><td>Data2</td><td>Data</td><td>Data</td></tr>
+				<tr><td>Data3</td><td>Data</td><td>Data</td></tr>
+				<tr><td>Data4</td><td>Data</td><td>Data</td></tr>
+				<tr><td>Data5</td><td>Data</td><td>Data</td></tr>
+				<tr><td>Data6</td><td>Data</td><td>Data</td></tr>
+			 </table>
+			</div>
+		</div>
+		<p style="background:#fff;margin-top: 10px;text-indent: 20px;">
+			想让表格在不显示全部的情况下滚动，你就得给他包一个div，它不听话的，你设置高度它也要全部显示，th也不听话，把自己当tr，td也是，你设置宽度，它还非要跟着table自适应，这一家人桀骜不驯，跟猫一样，看着很乖，实际上不听话，然而对于它们自己而言，还是很团结的，不听话的标准就是自己人的样式表现为重。
+		</p>
+
+	  	<h3>表格二</h3>
+	  	<div class="details">
+			<div class="details_head">
+				<p>已邀请好友详情</p>
+				<div class="close_details">X</div>
+			</div>
+			<div class="table_top">
+				<p class="people_num">已获奖人数：<span class="people"><span class="real_people">60</span> 人</span>
+				</p>
+				<p class="score_num">累计获得现金奖励：<span class="score"><span class="real_score">18000</span> 元</span>
+				</p>
+			</div>
+			<div class="table_box">
+			<table class="tableself" border="0" cellspacing="0" cellpadding="0">
+				<th>序号</th>
+				<th>姓名</th>
+				<th>手机号</th>
+				<th>中奖日期</th>
+				<th>获奖金额</th>
+				<tr class="tr">
+					<td>1</td>
+					<td>刘德华</td>
+					<td>15888888881</td>
+					<td>06-10</td>
+					<td class="redscore">赠20元</td>
+				</tr>
+				<tr class="tr">
+					<td>2</td>
+					<td>刘德华</td>
+					<td>15888888881</td>
+					<td>06-10</td>
+					<td class="redscore">赠20元</td>
+				</tr>
+				<tr class="tr">
+					<td>3</td>
+					<td>刘德华</td>
+					<td>15888888881</td>
+					<td>06-10</td>
+					<td class="redscore">赠20元</td>
+				</tr>
+				<tr class="tr">
+					<td>4</td>
+					<td>刘德华</td>
+					<td>15888888881</td>
+					<td>06-10</td>
+					<td class="redscore">赠20元</td>
+				</tr>
+				<tr class="tr">
+					<td>5</td>
+					<td>刘德华</td>
+					<td>15888888881</td>
+					<td>06-10</td>
+					<td class="redscore">赠20元</td>
+				</tr>
+				<tr class="tr">
+					<td>6</td>
+					<td>刘德华</td>
+					<td>15888888881</td>
+					<td>06-10</td>
+					<td class="redscore">赠20元</td>
+				</tr>
+				<tr class="tr">
+					<td>7</td>
+					<td>刘德华</td>
+					<td>15888888881</td>
+					<td>06-10</td>
+					<td class="redscore">赠20元</td>
+				</tr>
+				<tr class="tr">
+					<td>8</td>
+					<td>刘德华</td>
+					<td>15888888881</td>
+					<td>06-10</td>
+					<td class="redscore">赠20元</td>
+				</tr>
+				<tr class="tr">
+					<td>9</td>
+					<td>刘德华</td>
+					<td>15888888881</td>
+					<td>06-10</td>
+					<td class="redscore">赠20元</td>
+				</tr>
+				<tr class="tr">
+					<td>10</td>
+					<td>刘德华</td>
+					<td>15888888881</td>
+					<td>06-10</td>
+					<td class="redscore">赠20元</td>
+				</tr>
+			</table>
+            </div>
+		</div>
+	  </section>
+
+	  <section>
+	  	<h3>表单</h3>
+	  </section>
+	  <section style="width: 320px;margin: 0 auto;">
+	  	<form class="information" name="form1">
+			<div class="box yongtu">
+				<label for="yongtu">贷款用途：</label>
+				<p class="use_right">请选择<img class="xiasanjiao" src="img/xiasanjiao.png"/></p>
+               
+			</div>
+			<div class="box chenghu">
+				<label for="chenghu">称呼：</label>
+				<input type="text" name="chenghu" id="" class="chenghu" placeholder="请输入" />
+			</div>
+			<div class="box tel">
+				<label for="tel">手机号码：</label>
+				<input type="tel" name="tel" id="" class="tel" placeholder="请输入" />
+			</div>
+			<div class="duanxin">
+				<label for="tel">短信验证码：</label>
+				<input type="button" name="getmark" id="" class="getmark" value="获取验证码" />
+				<input type="text" name="mark" id="" class="mark" placeholder="请输入" />
+			</div>
+			<div class="box jine">
+				<label for="jine">贷款金额：</label>
+				<p class="wan">万wawawa</p>
+				<input class="howmuch" type="tel" name="howmuch" id="jine" placeholder="请输入" />
+
+			</div>
+			<div class="box qixian">
+				<label for="qixian">贷款期限：</label>
+				<p class="time_right">请选择<img class="xiasanjiao" src="img/xiasanjiao.png"/></p>
+			</div>
+			<div class="next">
+				<input type="submit" value="下一步" />
+			</div>
+			<input class="get_attr" id="get_attr" type="text" name="" value="属性值" style="display: none;" />
+            <input class="get_text" id="get_text" type="text" name="" value="文本值" style="display: none;" />
+
+            <input class="get_attr1" id="get_attr" type="text" name="" value="属性值" style="display: none;" />
+            <input class="get_text1" id="get_text" type="text" name="" value="文本值" style="display: none;" />
+		</form>
+	  </section>
+
+	  <section class="kl">
+	  	<h2>教学意见调查表</h2>
+		<form action="canvas/mycanvas.html">
+		<fieldset>
+			<legend>个人及课程资料</legend>
+			<p>1.科目名称：<input  list="datali" />
+				         <datalist id="datali">
+				         	<option value="chinese"></option>
+				         	<option value="math"></option>
+				         	<option value="english"></option>
+				         </datalist>
+			</p> 
+			<p>2.请选择系别：<select size="1" name="subject" value="haha">
+				 <option>英文系</option>
+				  <option>中文系</option>
+				   <option>历史系</option>
+				    <option>生物系</option>
+			</select></p>
+			<p>3.讲师：<input type="text" name="teacher"  placeholder="something"  onfocus="this.style.background='red'"/> </p>
+			<p>4.性别：<input type="radio" value="man" />男生
+				       <input type="radio" value="women" />女生<br /></p>
+			<p>5.开课日期<input type="date" name="date" value="2018-01-01" /></p>
+			<p>6.作业上传<input type="file" name="file" value=" " /><input type="button" name="shang" value="确定上传" /></p>
+			<p>7.搜索科目<input type="search" name="search" value="nothing" /></p>
+			
+		</fieldset>
+		<input type="submit" value="提交" height="40px"/>
+		<input type="reset" value="重置" />
+		<button type="reset" value="something">我也要重置</button>
+		
+		</form>
+		<a href="mygeek/4.幽灵按钮.html"><button>下载幽灵按钮</button></a>
+	  </section>
+	 
+	    
+	</main>
+
+	<script src="js/jquery-2.1.1.min.js"></script>
+	<script src="js/public.js"></script>
+	<!--表格一有过渡过程的滚动-->
+	<script type="text/javascript">
+		$(document).ready(function(){
+		$('.scroll tr:even').css({'background':'#fd9f88'});
+		$('.scroll tr:odd').css({'background':'#fec8bb'});
+		function tableRun() {
+					var height = $(".scroll tr").height();
+					$(".scroll").animate({
+						marginTop: -height + "px"
+					}, 2000, function() {
+						$(".scroll").css({
+							marginTop: '0'
+						});
+						$(".scroll").find("tr:first").insertAfter($(".scroll").find("tr:last"));
+					})
+				}
+				var timer = setInterval(tableRun, 2000);
+	})
+	</script>
+	<!--表格二直接插入的js-->
+	<script type="text/javascript">
+			$(document).ready(function() {
+				$('.tr:odd').css('background','#e3e3e3');
+				$('.tr:even').css('background','#eaeaea');
+				var timer = setInterval(function() {
+					$('.tableself').find(".tr:first").insertAfter($('.tableself').find(".tr:last"));
+				}, 2000);
+				$('.close_details').click(function(){
+					$('.details,.details_back').css('display','none');
+				});
+//				console.log($('.tableself').height());                 
+			})
+	</script>
+	<script src="js/getmark.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

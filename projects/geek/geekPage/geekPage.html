@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>geekPage</title>
+    <link type="text/css" rel="stylesheet" href="css/geek.css">
+    <script src="js/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+<!--回到顶部-->
+<a style="display: none" href="javascript:void(0);" class="btn" title="回到顶端" id="btn">
+    <img src="img/back-top.png" />
+</a>
+<script>
+    $(function(){
+        var topbtn = document.getElementById("btn");
+        var timer = null;
+        var pagelookheight = window.screen.availHeight;
+        var sidepos = $('.adminMenuWarp').eq(0).offset().top;
+
+        window.onscroll = function(){
+            var backtop = document.body.scrollTop || document.documentElement.scrollTop;
+            if(backtop >=sidepos){
+                $('.adminMenuWarp').eq(0).css({'position':'fixed','top':'-30px','left':'0'})
+            }
+            if(backtop < sidepos){
+                $('.adminMenuWarp').eq(0).css({'position':'static'})
+            }
+            if(backtop >= pagelookheight/3){
+                topbtn.style.display = "block";
+            }else{
+                topbtn.style.display = "none";
+            }
+        }
+
+        topbtn.onclick = function () {
+            timer = setInterval(function () {
+                var backtop = document.body.scrollTop;
+                var speedtop = backtop/5;
+                document.body.scrollTop = backtop -speedtop;
+                if(backtop == 0){
+                    clearInterval(timer);
+                }
+            }, 30);
+        }
+    })
+</script>
+<!--topbar-->
+<header id="header">
+    <nav id="hd_nav">
+        <ul>
+            <li><a href="#">回旧版</a></li>
+            <li><a href="#">设为主页</a></li>
+            <li class="skin"><a href="#">换肤<span class="ico"></span></a></li>
+            <li class="login">
+                <img src="http://quc.qhimg.com/dm/20_20_80/t014987b2ab2e751b14.png" class="avatar">
+                <a class="a1" href="#">
+                    登录
+                </a>
+                <a class="a2" href="#">
+                    注册
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<!--navbar-->
+<script>
+    $(document).ready(function() {
+        $(".main-navigation li").hover(function(){
+            var itemwidth = $(this).width();
+            $(this).addClass('hover');
+            $(this).find("div").fadeIn('1000').css({'width' : itemwidth});
+            $(this).find("ul").fadeIn('1000').css("display", "block");
+        },function(){
+            $(this).find("div").slideUp('100').fadeOut('100');
+            $(this).removeClass('hover');
+            $(this).find("ul").fadeOut('100');
+        });
+
+        $(".search-input").focus(function(){
+            $(this).animate({width:'180px'}, 500);
+        });
+
+        $(".search-input").focusout(function(){
+            $(this).animate({width:'117px'}, 500);
+        });
+    });
+</script>
+<div class="nav-container">
+    <div class="main-navigation">
+        <ul>
+            <li><a href="#">首页</a>
+                <ul>
+                    <li><a href="#">Sub Menu Item 1</a></li>
+                    <li><a href="#">Sub Menu Item 2</a></li>
+                    <li><a href="#">Sub Menu Item 3</a></li>
+                    <li><a href="#">Sub Menu Item 4</a></li>
+                    <li><a href="#">Sub Menu Item 5</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">西风瘦马</a>
+                <ul>
+                    <li><a href="#">Sub Menu Item 1</a></li>
+                    <li><a href="#">Sub Menu Item 2</a></li>
+                    <li><a href="#">Sub Menu Item 3</a></li>
+                    <li><a href="#">Sub Menu Item 4</a></li>
+                    <li><a href="#">Sub Menu Item 5</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">小桥流水</a>
+                <ul>
+                    <li><a href="#">Sub Menu Item 1</a></li>
+                    <li><a href="#">Sub Menu Item 2</a></li>
+                    <li><a href="#">Sub Menu Item 3</a></li>
+                    <li><a href="#">Sub Menu Item 4</a></li>
+                    <li><a href="#">Sub Menu Item 5</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">古道人家</a>
+                <ul>
+                    <li><a href="#">Sub Menu Item 1</a></li>
+                    <li><a href="#">Sub Menu Item 2</a></li>
+                    <li><a href="#">Sub Menu Item 3</a></li>
+                    <li><a href="#">Sub Menu Item 4</a></li>
+                    <li><a href="#">Sub Menu Item 5</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var menuList = $('.menuList');
+        $('.listTitle').each(function(i) {
+            $(this).click(function(){
+                if($(menuList[i]).css('display') == 'none'){
+                    $(menuList[i]).slideDown(300);
+                    $(this).addClass('sidehover');
+                }
+                else{
+                    $(menuList[i]).slideUp(300);
+                    $(this).removeClass('sidehover');
+                }
+            });
+        });
+    });
+</script>
+<div class="adminMenuWarp">
+        <ul class="adminmenu">
+            <li class="menu">
+                <a href="#" class="listTitle">文章</a>
+                <div class="menuList">
+                    <div> <a href="#part1">列表切换</a></div>
+                    <div> <a href="#part2">系统通知 </a> </div>
+                    <div> <a href="#">短信息</a></div>
+                </div>
+            </li>
+            <li class="menu">
+                <a href="#" class="listTitle">网易</a>
+                <div class="menuList">
+                    <div> <a href="#">ta的信息</a></div>
+                    <div> <a href="#">通知</a> </div>
+                    <div> <a href="#">chao短信息</a></div>
+                </div>
+            </li>
+            <li class="menu"><a href="#">页面</a></li>
+            <li class="menu"><a href="#">评论</a></li>
+            <li class="menu"><a href="#">外观</a></li>
+            <li class="menu"><a href="#">插件</a></li>
+            <li class="menu"><a href="#">用户</a></li>
+        </ul>
+</div>
+
+<!--主体内容-->
+<div class="mainSection">
+  <div class="part part-1" id="part1">
+      <script>
+          $(document).ready(function(){
+              $(".lione").click(function(){
+                  $(".lione").css("background-position","0px -26px");
+                  $(".litwo").css("background-position","-30px -26px");
+                  $(".div-container").children().removeClass("mao").addClass("gou");
+              })
+              $(".litwo").click(function(){
+                  $(".lione").css("background-position","0px 0px");
+                  $(".litwo").css("background-position","-30px 0px");
+                  $(".div-container").children().removeClass("gou").addClass("mao");
+              })
+          })
+      </script>
+      <div class="box">
+          <div class="header">
+              <ul class="ul-container">
+                  <li class="lione"></li>
+                  <li class="litwo"></li>
+              </ul>
+          </div>
+          <div class="div-container clear">
+              <div class="gou">
+                  <img src="img/lesson.png" />
+                  <span>这只是重复的图文one这只是重复的图文one这只是重复的图文one这只是重复的图文one这只是重复的图文one这只是重复的图文one这只是重复的图文one这只是重复的图文one</span>
+              </div>
+              <div class="gou">
+                  <img src="img/lesson.png" />
+                  <span>这只是重复的图文two</span>
+              </div>
+              <div class="gou">
+                  <img src="img/lesson.png" />
+                  <span>这只是重复的图文three</span>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="part part-2" id="part2">
+      <script>
+         $(function(){
+             var alist = document.getElementsByClassName("titlea");
+             var divlist = document.getElementsByClassName("content");
+             for (var i=0;i<alist.length;i++) {
+                 alist[i].id=i;
+                 alist[i].onmouseover=function(){
+                     $(this).siblings().removeClass('titleaon');
+                     this.setAttribute('class','titlea titleaon');
+                     for (var j=0;j<alist.length;j++) {
+                         divlist[j].style.display="none";
+                     }
+                     divlist[this.id].style.display="block";
+                 }
+             }
+         })
+      </script>
+      <div class="box2" id="box2">
+          <div class="container-title">
+              <a href="#" class="titlea"><b>公告</b></a>
+              <a href="#" class="titlea"><b>规则</b></a>
+              <a href="#" class="titlea"><b>安全</b></a>
+              <a href="#" class="titlea"><b>公益</b></a>
+              <a href="#" class="titlea"><b>论坛</b></a>
+          </div>
+          <div class="container-content" id="container-content">
+              <div  class="content" style="display: block;">
+                  <ul>
+                      <li>天下第一又能怎样</li>
+                      <li>邮费争议问题汇总</li>
+                      <li>邮费争议问题汇总</li>
+                      <li>邮费争议问题汇总</li>
+                  </ul>
+              </div>
+              <div  class="content" style="display: none;">
+                  <ul>
+                      <li>广告法禁用语大全</li>
+                      <li>邮费争议问题汇总</li>
+                      <li>邮费争议问题汇总</li>
+                      <li>邮费争议问题汇总</li>
+                  </ul>
+              </div>
+              <div  class="content" style="display: none;">
+                  <ul>
+                      <li>叽里呱啦王者强</li>
+                      <li>邮费争议问题汇总</li>
+                      <li>邮费争议问题汇总</li>
+                      <li>邮费争议问题汇总</li>
+                  </ul>
+              </div>
+              <div  class="content" style="display: none;">
+                  <ul>
+                      <li>我从不管邮费争议</li>
+                      <li>邮费争议问题汇总</li>
+                      <li>邮费争议问题汇总</li>
+                      <li>邮费争议问题汇总</li>
+                  </ul>
+              </div>
+              <div  class="content" style="display: none;">
+                  <ul>
+                      <li>天下最末又有何妨</li>
+                      <li>邮费争议问题汇总</li>
+                      <li>邮费争议问题汇总</li>
+                      <li>邮费争议问题汇总</li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="part part-3" id="part3">
+      <div class="monsterbox">
+          <div class="pic pic-miss"></div>
+          <div class="moved">my mission
+              <div class="sj"></div>
+          </div>
+          <a href="#" type="button" class="mosterbtn">MISSION
+              <div class="link monsterleft"></div>
+              <div class="link monstertop"></div>
+              <div class="link monsterright"></div>
+              <div class="link monsterbottom"></div>
+          </a>
+      </div>
+      <div class="monsterbox">
+          <div class="pic pic-play"></div>
+          <div class="moved">my play<div class="sj"></div></div>
+          <a href="#" type="button" class="mosterbtn">
+              <div class="link monsterleft"></div>
+              <div class="link monstertop"></div>
+              <div class="link monsterright"></div>
+              <div class="link monsterbottom"></div>
+              PLAY</a>
+      </div>
+      <div class="monsterbox">
+          <div class="pic pic-touch"></div>
+          <div class="moved">my touch<div class="sj"></div></div>
+          <a href="#" type="button" class="mosterbtn">
+              <div class="link monsterleft"></div>
+              <div class="link monster"></div>
+              <div class="link monsterright"></div>
+              <div class="link monsterbottom"></div>
+              TOUCH</a>
+      </div>
+  </div>
+  <div class="part part-4" id="part4">
+      <div class="part4-container">
+          <h1>照片墙</h1>
+          <img src="img/0.jpg" class="p4-pic pic0" />
+          <img src="img/1.jpg" class="p4-pic pic1" />
+          <img src="img/2.jpg" class="p4-pic pic2" />
+          <img src="img/5.jpg" class="p4-pic pic5" />
+          <img src="img/6.jpg" class="p4-pic pic6" />
+          <img src="img/7.jpg" class="p4-pic pic7"/>
+      </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Table</title>
+    <style>
+        *{
+            font-family: "Microsoft YaHei", sans-serif;
+            font-size:14px;
+        }
+        body{
+            padding:20px;
+        }
+        table{
+            width: 500px;
+            margin:30px auto;
+            background: #f6f6f6;
+            border-collapse:collapse;
+        }
+        table td{
+            padding:10px;
+            border:1px solid #000;
+        }
+        pre{
+            padding:10px;
+            background: #424242;
+            color: #d3ae68;
+        }
+    </style>
+</head>
+<body>
+<pre>
+    table {
+            table-layout:fixed;
+            width: 500px;
+            margin:100px auto;
+            background: #f6f6f6;
+            border-collapse:collapse;
+    }
+    table td {
+            padding:10px;
+            border:1px solid #000;
+    }
+</pre>
+    <table>
+        <tr>
+           <td>第一项</td>
+           <td>第二项</td>
+           <td>第三项</td>
+        </tr>
+        <tr>
+            <td>第一项</td>
+            <td>第二项</td>
+            <td>第三项</td>
+        </tr>
+        <tr>
+            <td>第一项</td>
+            <td>第二项</td>
+            <td>第三项</td>
+        </tr>
+	</table>
+<h5>table 属性：可以并且应该完全用 css 代替</h5>
+<p>border="10"：给表格设置 10px 的 border 并且给 td 设置 1px 的 border，尽量用 css 代替</p>
+<p>cellspacing="0"：设置 td 之间的空隙为 0；可用 css 属性：border-spacing 代替</p>
+<p>cellpadding='0'：设置 td 内的 padding，尽量用 css 代替</p>
+<h5>table css</h5>
+<p>table-layout:fixed ：设置 table 及 td 宽度按照你设定的来</p>
+<p>border-collapse:collapse ：设置 td 边框重合，还会消除 td 之间 border-spacing</p>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>请登录</title>
+		<style type="text/css">
+			body {
+				/*background: url(img/thunder.gif);*/
+				/*background-size: 100% 100%;*/
+			}
+			
+			.container {
+				text-shadow: 1px 1px 1px darkgray;
+				margin: 50px auto;
+				width: 600px;
+				height: auto;
+				min-width: 310px;
+				text-align: center;
+				border: 2px skyblue solid;
+				background: #ebebeb;
+				background-image: url(img/thunder.gif);
+				box-shadow: 6px 6px 5px #87CEEB;
+			}
+			
+			input[type='button'] {
+				margin: 10px;
+				/*background-color: #4CAF50;*/
+				background-color: #51b0d7;
+				border: none;
+				color: white;
+				padding: 10px 20px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 16px;
+				margin: 10px 2px 5px 2px;
+				cursor: pointer;
+				border-radius: 5px;
+			}
+			
+			.container img {
+				width: 75%;
+				display: block;
+				margin: 8px auto;
+			}
+			
+			.denglu {
+				display: none;
+			}
+			
+			.zhuce {
+				display: none;
+			}
+			
+			.sure {
+				border: none;
+				outline: none;
+				background: #555555;
+				color: #FFFFFF;
+				margin: 5px;
+				padding: 6px 15px 6px 15px;
+				font-size: 15px;
+				letter-spacing: 5px;
+				font-weight: bold;
+				border-radius: 5px;
+			}
+			
+			@media screen and (max-width:445px) {
+				body {
+					font-size: 12px;
+				}
+				.container {
+					width: 90%;
+				}
+				input[type='button'] {
+					padding: 5px 10px;
+					font-size: 12px;
+				}
+				.sure {
+					font-size: 12px;
+					padding: 3px 10px;
+				}
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="container">
+			<input type="button" value="注册" onclick="zhucea()" />
+			<input type="button" value="登录" onclick="denglua()" />
+			<input type="button" value="注销" onclick="loggout()" />
+			<br />
+			<img src="img/login.jpg" alt="Please login" align="center" />
+
+			<!--登陆页面-->
+			<div class="denglu">
+				<form action="form.html">
+					<strong>用户名：</strong>
+					<input type="text" size="10" id="userid" name="userid" value="" placeholder="guess one" />
+					<strong>密码：</strong>
+					<input type="password" size="5" id="pw" value="" placeholder="****" /><br>
+					<input type="submit" id="denglu" class="sure" value="确定" onclick="dengluanniu();return false" />
+				</form>
+			</div>
+
+			<!--描述：注册页面-->
+			<div class="zhuce">
+				<b style="color: white;">注册用户名：</b>
+				<input type="text" size="10" id="zcuserid" value="" placeholder="please input" /><br/>
+				<b style="color: white;">注册密码：</b>
+				<input type="password" size="5" id="zcpw" value="" placeholder="****" /><br/>
+				<input type="submit" id="zhuce" class="sure" value="提交" onclick="tijiaoanniu();return false" />
+			</div>
+
+		</div>
+
+		<script>
+			var zhuce = document.getElementById("zhuce");
+			var zcuserid = document.getElementById("zcuserid");
+			var zcpw = document.getElementById("zcpw");
+			var denglu = document.getElementById("denglu");
+			var userid = document.getElementById("userid");
+			var pw = document.getElementById("pw");
+			var dldiv = document.getElementsByClassName("denglu");
+			var zcdiv = document.getElementsByClassName("zhuce");
+			//注册按钮按下之后，以及提交按钮;	
+			function zhucea() {
+				dldiv[0].style.display = "none";
+				zcdiv[0].style.display = "block";
+			}
+
+			function denglua() {
+				dldiv[0].style.display = "block";
+				zcdiv[0].style.display = "none";
+			}
+
+			function loggout() {
+				localStorage.clear();
+				localStorage.clear();
+			}
+
+			function tijiaoanniu() {
+				if (zcuserid.value != "" && zcpw.value != "") {
+					var user = new Object;
+					user.id = zcuserid.value;
+					user.pw = zcpw.value;
+					var str = JSON.stringify(user);
+					localStorage.setItem(user.id, str);
+					alert("恭喜你注册成功");
+				} else {
+					alert("请注册用户名和密码");
+				}
+			}
+
+			function dengluanniu() {
+				if (userid.value != "" && pw.value != "") {
+					var str = localStorage.getItem(userid.value);
+					if (str != null) {
+						var user = JSON.parse(str);
+						var one = user.id;
+						var two = user.pw;
+						if (pw.value == two) {
+							document.location = "home.html";
+						} else {
+							alert("请输入正确的密码");
+							return;
+						}
+					} else {
+						alert("用户名或密码不正确");
+					}
+				} else {
+					alert("用户名和密码都要填写哦");
+				}
+			}
+		</script>
+	</body>
+
+</html>
