@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas basic</title>
+    <style>
+        *{margin:0;padding:0;}
+        .container{
+            width: 80%;
+            max-width: 1000px;
+            margin:20px auto;
+            background: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+      <canvas id="canvas"></canvas>
+  </div>
+  <script>
+
+      var ball={
+          x: 20,
+          y: 10,
+          r:20,
+          vx:2,
+          vy:0,
+          g:2,
+          color:'#005588'
+      }
+      window.onload = function(){
+          var canvas = document.getElementById('canvas');
+          canvas.width = 1000;
+          canvas.height = 600;
+          if (canvas.getContext) {
+              var ctx = canvas.getContext('2d');
+          }
+
+          setInterval(function(){
+              render(ctx);
+              update();
+          },50)
+      };
+
+      function update(){
+          ball.x += ball.vx;
+          ball.y += ball.vy;
+          ball.vy += ball.g;
+
+          if(ball.y > 600 -ball.r){
+              ball.y = 600 -ball.r;
+              ball.vy = -ball.vy * 0.5;
+          }
+      }
+
+      function render(ctx){
+          ctx.clearRect(0,0,canvas.width,canvas.height);
+
+          ctx.fillStyle = ball.color;
+          ctx.beginPath();
+          ctx.arc(ball.x,ball.y,ball.r,0,2*Math.PI);
+          ctx.closePath();
+          ctx.fill()
+      }
+  </script>
+</body>
+</html>
+
+<script>
+
+</script>
