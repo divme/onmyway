@@ -18,6 +18,13 @@
       <canvas id="canvas"></canvas>
   </div>
   <script>
+      var canvas = document.getElementById('canvas');
+      canvas.width = 1000;
+      canvas.height = 600;
+      if (canvas.getContext) {
+          var ctx = canvas.getContext('2d');
+      }
+
 
       var ball={
           x: 20,
@@ -29,12 +36,6 @@
           color:'#005588'
       }
       window.onload = function(){
-          var canvas = document.getElementById('canvas');
-          canvas.width = 1000;
-          canvas.height = 600;
-          if (canvas.getContext) {
-              var ctx = canvas.getContext('2d');
-          }
 
           setInterval(function(){
               render(ctx);

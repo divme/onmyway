@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>炫酷倒计时</title>
+    <style>
+        *{margin:0;padding:0}
+        .container{
+            width: 80%;
+            max-width: 1000px;
+            min-height:600px;
+            margin:20px auto;
+            background: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <canvas id="canvas"></canvas>
+    </div>
+    <script src="digit.js"></script>
+    <script>
+//        canvas常规设置
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+
+        var radius = 4;
+        var endTime = new Date(2017,4,7,23,28,50);
+        var colorArr = ['yellowgreen','greenyellow','#1155cc','#d3ae68'];
+
+        canvas.width = 1000;
+        canvas.height = 600;
+
+        window.onload = function(){
+            setInterval(function(){
+                render(ctx);
+//                update();
+            },1000)
+        };
+        function update(){
+            for(var i = 0; i < digit[num].length;i++){
+                for(var j = 0; j < digit[num][i].length; j++){
+                    if (digit[num][i][j] == 1){
+                        ctx.fillStyle = colorArr[Math.floor(Math.random()*colorArr.length)];
+                        ctx.beginPath();
+                        ctx.arc( x + j*2*(radius + 1)+(radius+1), y + i*2*(radius+1)+(radius+1) , radius,0 ,Math.PI*2);
+                        ctx.closePath();
+                        ctx.fill();
+                    }
+                }
+            }
+        }
+
+        function render(ctx){
+             ctx.clearRect( 0, 0, canvas.width, canvas.height);
+
+             var date = new Date();
+             var time = Math.floor((endTime.getTime() - date.getTime())/1000);
+
+//               根据设定的 endTime 计算倒计时
+//             var hour = Math.floor( time/3600 );
+//             var minute = Math.floor((time - 3600*hour)/60);
+//             var second = time - 3600*hour - 60*minute;
+//             if (time <= 0){
+//                 hour = 0;
+//                 minute = 0;
+//                 second = 0;
+//             }
+
+//             时钟计时；
+             var hour  = date.getHours();
+             var minute = date.getMinutes();
+             var second = date.getSeconds();
+
+             drawNum(0,10,parseInt(hour/10),ctx);
+             drawNum(15*(radius+1),10,parseInt(hour%10),ctx);
+             drawNum(30*(radius+1),10,10,ctx);
+             drawNum(39*(radius+1),10,parseInt(minute/10),ctx);
+             drawNum(54*(radius+1),10,parseInt(minute%10),ctx);
+             drawNum(69*(radius+1),10,10,ctx);
+             drawNum(78*(radius+1),10,parseInt(second/10),ctx);
+             drawNum(93*(radius+1),10,parseInt(second%10),ctx);
+        }
+
+        function drawNum ( x, y, num, ctx ){
+            for(var i = 0; i < digit[num].length;i++){
+                for(var j = 0; j < digit[num][i].length; j++){
+                    if (digit[num][i][j] == 1){
+                        ctx.fillStyle = 'green';
+                        ctx.beginPath();
+                        ctx.arc( x + j*2*(radius + 1)+(radius+1), y + i*2*(radius+1)+(radius+1) , radius,0 ,Math.PI*2);
+                        ctx.closePath();
+                        ctx.fill();
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
