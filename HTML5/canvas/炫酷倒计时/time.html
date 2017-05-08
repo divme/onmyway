@@ -10,7 +10,7 @@
             max-width: 1000px;
             min-height:600px;
             margin:20px auto;
-            background: #f2f2f2;
+            /*background: #f2f2f2;*/
         }
     </style>
 </head>
@@ -24,53 +24,129 @@
         var canvas = document.getElementById('canvas');
         var ctx = canvas.getContext('2d');
 
-        var radius = 4;
-        var endTime = new Date(2017,4,7,23,28,50);
-        var colorArr = ['yellowgreen','greenyellow','#1155cc','#d3ae68'];
-
         canvas.width = 1000;
         canvas.height = 600;
 
+        MARGIN_LEFT = 10;
+        MARGIN_TOP = 10;
+
+        var radius = 8;
+        var endTime = new Date(2017,4,7,23,28,50);
+
+        var balls = [];
+        var colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"];
+
+        var now;
+        var nextSecond;
+
         window.onload = function(){
+            now = new Date();
             setInterval(function(){
                 render(ctx);
-//                update();
-            },1000)
+                update();
+            },50)
         };
+//        update 函数更新状态
         function update(){
-            for(var i = 0; i < digit[num].length;i++){
-                for(var j = 0; j < digit[num][i].length; j++){
-                    if (digit[num][i][j] == 1){
-                        ctx.fillStyle = colorArr[Math.floor(Math.random()*colorArr.length)];
-                        ctx.beginPath();
-                        ctx.arc( x + j*2*(radius + 1)+(radius+1), y + i*2*(radius+1)+(radius+1) , radius,0 ,Math.PI*2);
-                        ctx.closePath();
-                        ctx.fill();
-                    }
+            nextSecond = new Date();
+            var hour  = nextSecond.getHours();
+            var minute = nextSecond.getMinutes();
+            var second = nextSecond.getSeconds();
+
+            if( nextSecond.getTime() != now.getTime() ){
+                if( parseInt(hour/10) != parseInt(now.getHours()/10) ){
+                    addBalls( MARGIN_LEFT + 0 , MARGIN_TOP , parseInt(hour/10) );
+                }
+                if( parseInt(hour%10) != parseInt(now.getHours()%10) ){
+                    addBalls( MARGIN_LEFT + 15*(radius+1) , MARGIN_TOP , parseInt(hour/10) );
+                }
+
+                if( parseInt(minute/10) != parseInt(now.getMinutes()/10) ){
+                    addBalls( MARGIN_LEFT + 39*(radius+1) , MARGIN_TOP , parseInt(minute/10) );
+                }
+                if( parseInt(minute%10) != parseInt(now.getMinutes()%10) ){
+                    addBalls( MARGIN_LEFT + 54*(radius+1) , MARGIN_TOP , parseInt(minute%10) );
+                }
+
+                if( parseInt(second/10) != parseInt(now.getSeconds()/10) ){
+                    addBalls( MARGIN_LEFT + 78*(radius+1) , MARGIN_TOP , parseInt(second/10) );
+                }
+                if( parseInt(second%10) != parseInt(now.getSeconds()%10) ){
+                    addBalls( MARGIN_LEFT + 93*(radius+1) , MARGIN_TOP , parseInt(second%10) );
+                }
+            }
+            now = nextSecond;
+            updateBalls();
+
+        }
+
+        function updateBalls(){
+
+            for( var i = 0 ; i < balls.length ; i ++ ){
+
+                balls[i].x += balls[i].vx;
+                balls[i].y += balls[i].vy;
+                balls[i].vy += balls[i].g;
+
+                if( balls[i].y >= canvas.height-radius ){
+                    balls[i].y = canvas.height-radius;
+                    balls[i].vy = - balls[i].vy*0.75;
                 }
             }
         }
+//      function addBalls(x,y,num){
+////          画彩色球
+//            for(var i = 0; i < digit[num].length;i++){
+//                for(var j = 0; j < digit[num][i].length; j++){
+//                    if (digit[num][i][j] == 1){
+//                        ctx.fillStyle = colors[Math.floor(Math.random()*colors.length)];
+//                        ctx.beginPath();
+//                        ctx.arc( x + j*2*(radius + 1)+(radius+1), y + i*2*(radius+1)+(radius+1) , radius,0 ,Math.PI*2);
+//                        ctx.closePath();
+//                        ctx.fill();
+//                    }
+//                }
+//            }
+//        }
+//把彩色球添加进一个数组
 
+//      添加彩色小球进数组
+        function addBalls( x , y , num ){
+            for( var i = 0  ; i < digit[num].length ; i ++ )
+                for( var j = 0  ; j < digit[num][i].length ; j ++ )
+                    if( digit[num][i][j] == 1 ){
+                        var aBall = {
+                            x: x+j*2*(radius+1)+(radius+1),
+                            y: y+i*2*(radius+1)+(radius+1),
+                            g: 1.5 + Math.random(),
+                            vx: Math.pow( -1 , Math.ceil( Math.random()*1000 ) ) * 4,
+                            vy: -5,
+                            color: colors[ Math.floor( Math.random()*colors.length ) ]
+                        };
+
+                        balls.push( aBall )
+                    }
+        }
+
+//      先清除画布，再计时，然后挨个画出数字, 画彩色球
         function render(ctx){
              ctx.clearRect( 0, 0, canvas.width, canvas.height);
 
-             var date = new Date();
-             var time = Math.floor((endTime.getTime() - date.getTime())/1000);
+//           时钟计时：当前的时、分、秒；
+             var hour  = now.getHours();
+             var minute = now.getMinutes();
+             var second = now.getSeconds();
 
-//               根据设定的 endTime 计算倒计时
-//             var hour = Math.floor( time/3600 );
-//             var minute = Math.floor((time - 3600*hour)/60);
-//             var second = time - 3600*hour - 60*minute;
-//             if (time <= 0){
-//                 hour = 0;
-//                 minute = 0;
-//                 second = 0;
-//             }
-
-//             时钟计时；
-             var hour  = date.getHours();
-             var minute = date.getMinutes();
-             var second = date.getSeconds();
+//           根据设定的 endTime 计算倒计时
+//           var time = Math.floor((endTime.getTime() - now.getTime())/1000);
+//           var hour = Math.floor( time/3600 );
+//           var minute = Math.floor((time - 3600*hour)/60);
+//           var second = time - 3600*hour - 60*minute;
+//           if (time <= 0){
+//               hour = 0;
+//               minute = 0;
+//               second = 0;
+//           }
 
              drawNum(0,10,parseInt(hour/10),ctx);
              drawNum(15*(radius+1),10,parseInt(hour%10),ctx);
@@ -80,8 +156,20 @@
              drawNum(69*(radius+1),10,10,ctx);
              drawNum(78*(radius+1),10,parseInt(second/10),ctx);
              drawNum(93*(radius+1),10,parseInt(second%10),ctx);
+//          画彩色球
+            while(balls.length > 300){
+                balls.shift();
+            }
+            for( var i = 0 ; i < balls.length ; i ++ ){
+                ctx.beginPath();
+                ctx.fillStyle = balls[i].color;
+                ctx.arc( balls[i].x , balls[i].y , radius , 0 , 2*Math.PI , true );
+                ctx.fill();
+                ctx.closePath();
+            }
         }
 
+//      画数字的方法,需要位置坐标，哪个数字，以及ctx对象；
         function drawNum ( x, y, num, ctx ){
             for(var i = 0; i < digit[num].length;i++){
                 for(var j = 0; j < digit[num][i].length; j++){
