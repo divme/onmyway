@@ -126,7 +126,7 @@ window.requestAnimFrame = (function(){
 
 
 
-    window.harmony = function init() {
+    window.mouse = function init() {
         var hash, palette;
         container = document.createElement('div');
         document.body.appendChild(container);
