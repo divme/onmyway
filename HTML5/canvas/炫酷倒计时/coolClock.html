@@ -24,8 +24,10 @@
     canvas.width = 1000;
     canvas.height = 600;
 
-    var color = "yellowgreen"; // 数字球的颜色
+    var color = "green"; // 数字球的颜色
     var radius = 6; // 数字球的半径
+
+    var left = 50;
 
     var balls = [];
     var colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"];
@@ -46,14 +48,14 @@
         var minute = now.getMinutes();
         var second = now.getSeconds();
 
-        drawNum( 0, 10, Math.floor(hour/10), ctx);
-        drawNum( 15*(radius+1), 10, Math.floor(hour%10), ctx);
-        drawNum( 30*(radius+1), 10, 10,ctx);
-        drawNum( 39*(radius+1), 10, Math.floor(minute/10), ctx);
-        drawNum( 54*(radius+1), 10, Math.floor(minute%10), ctx);
-        drawNum( 69*(radius+1), 10, 10, ctx);
-        drawNum( 78*(radius+1), 10, Math.floor(second/10), ctx);
-        drawNum( 93*(radius+1), 10, Math.floor(second%10), ctx);
+        drawNum( left, 10, Math.floor(hour/10), ctx);
+        drawNum( left+15*(radius+1), 10, Math.floor(hour%10), ctx);
+        drawNum( left+30*(radius+1), 10, 10,ctx);
+        drawNum( left+39*(radius+1), 10, Math.floor(minute/10), ctx);
+        drawNum( left+54*(radius+1), 10, Math.floor(minute%10), ctx);
+        drawNum( left+69*(radius+1), 10, 10, ctx);
+        drawNum( left+78*(radius+1), 10, Math.floor(second/10), ctx);
+        drawNum( left+93*(radius+1), 10, Math.floor(second%10), ctx);
 
         while( balls.length > 324 ){
             balls.shift()
@@ -61,7 +63,7 @@
         for( var i = 0; i < balls.length; i++){
             ctx.beginPath();
             ctx.fillStyle = colors[Math.floor(Math.random()*colors.length)];
-            ctx.arc(balls[i].x, balls[i].y, radius, 0, 2*Math.PI);
+            ctx.arc(balls[i].x+left, balls[i].y, radius, 0, 2*Math.PI);
             ctx.fill();
             ctx.closePath();
         }
