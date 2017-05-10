@@ -8,7 +8,7 @@
 			body{padding: 0;}
 			#demo{width:600px;height:300px;background:rgb(245,245,245);margin-top:20px;margin-left:40px;}
 			/*.demo{width:300px;height:1000px;}*/
-			#big{height:1000px;background:yellowgreen;}
+			#big{height:1600px;background:yellowgreen;}
 		</style>
 	</head>
 	<body>
@@ -26,10 +26,21 @@
 			    console.log("window outerHeight:"+window.outerHeight);
 			    console.log("window innerWidth:"+window.innerWidth);
 			    console.log("window innerHeight:"+window.innerHeight);
+
+			    console.log("document.documentElement.scrollWidth:"+document.documentElement.scrollWidth);
+			    console.log("document.documentElement.scrollHeight:"+document.documentElement.scrollHeight);
 			    console.log("document.documentElement.clientWidth:"+document.documentElement.clientWidth);
 			    console.log("document.documentElement.clientHeight:"+document.documentElement.clientHeight);
+			    console.log("document.documentElement.offsetWidth:"+document.documentElement.offsetWidth);
+			    console.log("document.documentElement.offsetHeight:"+document.documentElement.offsetHeight);
+
 			    console.log("document.body.clientWidth:"+document.body.clientWidth);
 			    console.log("document.body.clientHeight:"+document.body.clientHeight);
+				console.log("document.body.scrollWidth:"+document.body.scrollWidth);
+				console.log("document.body.scrollHeight:"+document.body.scrollHeight);
+				console.log("document.body.offsetWidth:"+document.body.offsetWidth);
+				console.log("document.body.offsetHeight:"+document.body.offsetHeight);
+
 			    console.log("screen availWidth:"+screen.availWidth);
 			    console.log("screen availHeight:"+screen.availHeight);
 			    console.log("screen width:"+screen.width);
