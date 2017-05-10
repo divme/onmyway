@@ -38,6 +38,12 @@
       };
       function render(){
           ctx.clearRect(0,0,canvas.width,canvas.height);
+          var linear = ctx.createLinearGradient(0,0,0,600);
+          linear.addColorStop(0, '#035');
+          linear.addColorStop(1,'#000');
+          ctx.fillStyle = linear;
+          ctx.rect(0,0,canvas.width,canvas.height);
+          ctx.fill();
           for(var i = 0; i < 200; i++){
               state.x = Math.random()*canvas.width;
               state.y = Math.random()*canvas.height;
