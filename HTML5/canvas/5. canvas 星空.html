@@ -31,11 +31,11 @@
       };
       var colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"];
 
-      window.onload = function(){
-           setInterval(function(){
+//      window.onload = function(){
+//           setInterval(function(){
                render();
-           },1000)
-      };
+//           },1000)
+//      };
       function render(){
           ctx.clearRect(0,0,canvas.width,canvas.height);
           var linear = ctx.createLinearGradient(0,0,0,600);
@@ -68,8 +68,8 @@
           }
           ctx.restore();
           ctx.closePath();
-//          ctx.fillStyle = colors[Math.floor(Math.random()*colors.length)];
-          ctx.fillStyle = "yellow";
+          ctx.fillStyle = colors[Math.floor(Math.random()*colors.length)];
+//          ctx.fillStyle = "yellow";
           ctx.fill();
       }
 

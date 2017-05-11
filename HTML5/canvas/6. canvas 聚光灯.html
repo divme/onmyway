@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas basic</title>
+    <style>
+        *{margin:0;padding:0;}
+        .container{
+            width: 1000px;
+            height:600px;
+            margin:20px auto;
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+      <canvas id="canvas" width="1000px" height="600px"></canvas>
+  </div>
+  <script>
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+
+      var x = 500, y=300;
+      var vx = 10, vy = 10;
+      setInterval(function(){
+          draw();
+          updata()
+      },50);
+
+      function draw(){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          ctx.save();
+          ctx.beginPath();
+          ctx.fillStyle = 'rgba(0,0,0,.9)';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          ctx.beginPath();
+          ctx.arc(x, y, 100, 0 , 2*Math.PI, true);
+          ctx.fillStyle = '#fff';
+          ctx.fill();
+          ctx.clip();
+
+          ctx.font = '80px bold';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'center';
+          ctx.fillStyle = '#058';
+          ctx.fillText('', 500 ,100);
+          ctx.fillText('少小离家老大回', 500 ,200);
+          ctx.fillText('乡音无改鬓毛催', 500 ,300);
+          ctx.fillText('儿童相见不相识', 500 ,400);
+          ctx.fillText('笑问君从何处来', 500 ,500);
+          ctx.restore()
+
+      }
+
+      function updata(){
+          x += vx;
+          y += vy;
+
+          if( x > canvas.width-100){
+              vx = -1*(Math.random()*5 + 10);
+          }
+          if(x < 100){
+             vx = Math.random()*5 + 10;
+          }
+          if( y > canvas.height-100){
+              vy = -1*(Math.random()*5 + 10);
+          }
+          if(y < 100){
+              vy = Math.random()*5 + 10;
+          }
+      }
+
+  </script>
+</body>
+</html>
+
