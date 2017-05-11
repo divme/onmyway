@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>canvas basic</title>
+    <title>canvas 初次交互</title>
     <style>
         *{margin:0;padding:0;}
         .container{
@@ -21,19 +21,62 @@
   <script>
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
-      var linear = ctx.createLinearGradient(0,0,0,600);
-      linear.addColorStop(0, '#fff');
-      linear.addColorStop(1,'#000');
-      ctx.rect(0,0,1000,600);
-      ctx.fillStyle = linear;
-      ctx.fill();
 
-      ctx.beginPath();
-      ctx.moveTo(0,600);
-      ctx.bezierCurveTo(240,200,460,400,1000,300);
-      ctx.lineTo(1000,600);
-      ctx.fillStyle = 'green';
-      ctx.fill();
+      var balls = [];
+
+      function addBalls(){
+          for(var i = 0; i < 40; i++){
+              var ball = {
+                  x: canvas.width*Math.random(),
+                  y: canvas.height*Math.random(),
+                  r: 10 + Math.random()*20,
+                  opacity: Math.random()
+              };
+              balls.push(ball);
+          }
+      }
+
+      function render(){
+          for( var i = 0; i < balls.length; i++){
+              ctx.beginPath();
+              ctx.arc(balls[i].x, balls[i].y, balls[i].r, 0, Math.PI*2, true);
+              ctx.fillStyle = 'green';
+              ctx.fill();
+          }
+          var obj = {
+              a: '12rf',
+              b: 'ty',
+              c: 'ewe'
+          }
+          debugger;
+      }
+
+      window.onload = function(){
+          addBalls()
+          render();
+          canvas.addEventListener('mousemove',change);
+      };
+
+      function change(e){
+          var eventX = e.clientX - canvas.getBoundingClientRect().left;
+          var eventY = e.clientY - canvas.getBoundingClientRect().top;
+          for( var i = 0; i < balls.length; i++){
+              ctx.beginPath();
+              ctx.arc(balls[i].x, balls[i].y, balls[i].r, 0, Math.PI*2, true);
+
+//              if(ctx.isPointInPath(eventX,eventY)){
+//                 ctx.fillStyle = 'red';
+//                 ctx.fill();
+//             }
+              if(ctx.isPointInPath(eventX,eventY)){
+                 ctx.fillStyle = 'red';
+                 ctx.fill();
+             }else{
+                  ctx.fillStyle = 'yellow';
+                  ctx.fill();
+              }
+          }
+      }
   </script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>canvas basic</title>
+    <title>canvas 星空</title>
     <style>
         *{margin:0;padding:0;}
         .container{
@@ -31,28 +31,53 @@
       };
       var colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"];
 
-//      window.onload = function(){
-//           setInterval(function(){
+      window.onload = function(){
+           setInterval(function(){
                render();
-//           },1000)
-//      };
+           },1000)
+      };
+
       function render(){
           ctx.clearRect(0,0,canvas.width,canvas.height);
+//          画渐变全图背景
           var linear = ctx.createLinearGradient(0,0,0,600);
           linear.addColorStop(0, '#035');
-          linear.addColorStop(1,'#000');
+          linear.addColorStop(0.75,'#000');
           ctx.fillStyle = linear;
           ctx.rect(0,0,canvas.width,canvas.height);
           ctx.fill();
-          for(var i = 0; i < 200; i++){
+
+//          画很多星星
+          for(var i = 0; i < 100; i++){
               state.x = Math.random()*canvas.width;
               state.y = Math.random()*canvas.height;
-              state.r = 5 + Math.random()*10;
+              state.r = 5 + Math.random()*5;
               state.R = state.r*2;
               state.rotate = 10 + Math.random()*30;
               drawStar(ctx , state.x, state.y, state.r, state.R, state.rotate);
           }
+//          画月亮--贝塞尔曲线
+          ctx.beginPath();
+          ctx.moveTo(720,50);
+          ctx.quadraticCurveTo( 900,130, 740,250);
+          ctx.quadraticCurveTo(800,100, 720,50);
+          ctx.fillStyle = 'yellow';
+          ctx.fill();
+
+
+//          画绿地--三次贝塞尔曲线
+          ctx.beginPath();
+          ctx.moveTo( 0, 600);
+          ctx.lineTo( 0, 500);
+          ctx.bezierCurveTo( 400,400, 400,550, 1000,500);
+          ctx.lineTo(1000,600);
+          ctx.fillStyle = 'green';
+          ctx.fill();
+
+
       }
+
+//      画一颗五角星的方法，用了变形和状态API；
       function drawStar(ctx, x, y, r, R, rotate){
           ctx.beginPath();
           ctx.save();

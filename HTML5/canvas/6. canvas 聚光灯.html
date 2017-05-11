@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>canvas basic</title>
+    <title>canvas 聚光灯</title>
     <style>
         *{margin:0;padding:0;}
         .container{
@@ -14,6 +14,7 @@
     </style>
 </head>
 <body>
+ <h6>文字，阴影</h6>
   <div class="container">
       <canvas id="canvas" width="1000px" height="600px"></canvas>
   </div>
@@ -33,7 +34,7 @@
 
           ctx.save();
           ctx.beginPath();
-          ctx.fillStyle = 'rgba(0,0,0,.9)';
+          ctx.fillStyle = 'rgba(0,0,0,1)';
           ctx.fillRect(0, 0, canvas.width, canvas.height);
 
           ctx.beginPath();
@@ -42,17 +43,24 @@
           ctx.fill();
           ctx.clip();
 
+
+
+//          阴影
+          ctx.shadowColor = 'gray';
+          ctx.shadowOffsetX = 5;
+          ctx.shadowOffsetY = 5;
+          ctx.shadowBlur = 5;
+
           ctx.font = '80px bold';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'center';
           ctx.fillStyle = '#058';
-          ctx.fillText('', 500 ,100);
           ctx.fillText('少小离家老大回', 500 ,200);
           ctx.fillText('乡音无改鬓毛催', 500 ,300);
           ctx.fillText('儿童相见不相识', 500 ,400);
           ctx.fillText('笑问君从何处来', 500 ,500);
-          ctx.restore()
 
+          ctx.restore();
       }
 
       function updata(){
