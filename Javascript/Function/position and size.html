@@ -65,17 +65,10 @@
             console.groupEnd();
             console.group("窗口滚动高度");
 	            window.onscroll=function(){
-					setTimeout(function(){
-						alert("document.body.scrollTop:"+document.body.scrollTop);
-						alert("document.documentElement.scrollTop:"+document.documentElement.scrollTop);
-					},1000)
-//	            	console.log("document.body.scrollTop:"+document.body.scrollTop);
-//	            	console.log("document.documentElement.scrollTop:"+document.documentElement.scrollTop);
+	            	console.log("document.body.scrollTop:"+document.body.scrollTop);
+	            	console.log("document.documentElement.scrollTop:"+document.documentElement.scrollTop);
+	            	console.log("window.scrollTop:"+window.scrollTop);
 	            }
-//			$(window).scroll(function(){
-//				console.log("document.body.scrollTop:"+document.body.scrollTop);
-//				console.log("document.documentElement.scrollTop:"+document.documentElement.scrollTop);
-//			})
             console.groupEnd();
         console.groupEnd();    
 		</script>
@@ -92,9 +85,9 @@
 			    
 			    console.log("document width(不包含滚动条):"+$(document).width());
 			    console.log("document height:"+$(document).height());
-//			    console.log("document innerWidth(不包含滚动条):"+$(document).innerWidth());
+			    console.log("document innerWidth(不包含滚动条):"+$(document).innerWidth());
 //			    console.log("document innerHeight:"+$(document).innerHeight());
-//			    console.log("document outerWidth(不包含滚动条):"+$(document).outerWidth());
+			    console.log("document outerWidth(不包含滚动条):"+$(document).outerWidth());
 //			    console.log("document outerHeight:"+$(document).outerHeight());
 
 		        console.log("body width:"+$('body').width());
@@ -111,11 +104,13 @@
 		        console.log("positionTop:"+$("#demo").position().top);
             console.groupEnd();
             console.group("窗口滚动高度");
-//	            widnow.onscroll=function(){
+//	            window.onscroll=function(){
 	            	console.log("$('body').scrollTop():"+$("body").scrollTop());
+	            	console.log("$(window).scrollTop():"+$(window).scrollTop());
+	            	console.log("$(document).scrollTop():"+$(document).scrollTop());
 //            }
             console.groupEnd();
-        console.groupEnd();      
+        console.groupEnd();
 		</script>
 	</body>
 </html>
