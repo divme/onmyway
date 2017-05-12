@@ -64,14 +64,18 @@
 
             console.groupEnd();
             console.group("窗口滚动高度");
-//	            window.onscroll=function(){
+	            window.onscroll=function(){
+					setTimeout(function(){
+						alert("document.body.scrollTop:"+document.body.scrollTop);
+						alert("document.documentElement.scrollTop:"+document.documentElement.scrollTop);
+					},1000)
 //	            	console.log("document.body.scrollTop:"+document.body.scrollTop);
 //	            	console.log("document.documentElement.scrollTop:"+document.documentElement.scrollTop);
-//	            }
-			$(window).scroll(function(){
-				console.log("document.body.scrollTop:"+document.body.scrollTop);
-				console.log("document.documentElement.scrollTop:"+document.documentElement.scrollTop);
-			})
+	            }
+//			$(window).scroll(function(){
+//				console.log("document.body.scrollTop:"+document.body.scrollTop);
+//				console.log("document.documentElement.scrollTop:"+document.documentElement.scrollTop);
+//			})
             console.groupEnd();
         console.groupEnd();    
 		</script>
