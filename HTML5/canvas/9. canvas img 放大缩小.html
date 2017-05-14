@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas 尝试</title>
+    <style>
+        *{margin:0;padding:0;}
+        .container{
+            width: 1000px;
+            height:600px;
+            margin:10px auto;
+            /*background: #f2f2f2;*/
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+      <canvas id="canvas" width="1000px" height="600px"></canvas>
+  </div>
+  <input type="range" min="0.5" max="3.0" step="0.2" value="1" id="range" style="display: block;width: 800px;margin: 10px auto;"/>
+  <script>
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+
+      var range = document.getElementById('range');
+      var startX, startY;
+      var endX, endY;
+      var realdX, realdY;
+      var moving = true;
+
+      var img = new Image();
+      img.src ='img/abc.png';
+      img.onload = function () {
+          ctx.drawImage(img,0,0,canvas.width,canvas.height);
+      };
+      window.onload = function(){
+          range.onmousemove = function(){
+              var scale = range.value;
+//              console.log(scale);
+              drawrealimg(scale);
+          };
+          canvas.addEventListener('mousedown',mousedown);
+          canvas.addEventListener('mouseup', mouseup);
+      }
+
+      function drawrealimg(scale) {
+          img.width = 960 * scale;
+          img.height = 540 * scale;
+
+//          九个参数画scale图片
+//         var sx = img.width/2 - canvas.width/2;
+//         var sy = img.height/2 - canvas.height/2;
+//         ctx.clearRect(0, 0, canvas.width, canvas.height);
+//         if(sx < 0){
+//             ctx.drawImage(img, 0, 0, 1920, 1080, -sx, -sy, img.width, img.height);
+//         }else{
+//             ctx.drawImage(img, sx, sy, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+//         }
+
+//         四个参数画scale图片
+         var dx = canvas.width/2 - img.width/2;
+         var dy = canvas.height/2 - img.height/2;
+         ctx.clearRect(0,0,canvas.width,canvas.height);
+         ctx.drawImage(img, dx, dy, img.width, img.height);
+      }
+
+      function mousedown(e){
+          startX = e.clientX - canvas.getBoundingClientRect().left;
+          startY = e.clientY - canvas.getBoundingClientRect().top;
+
+          canvas.addEventListener('mousemove',move);
+      }
+      function mouseup(e){
+          canvas.removeEventListener('mousemove',move);
+          endX = e.clientX - canvas.getBoundingClientRect().left;
+          endY = e.clientY - canvas.getBoundingClientRect().top;
+
+          var moveX = endX - startX;
+          var moveY = endY - startY;
+          if( moving ){
+              var dx = canvas.width/2 - img.width/2;
+              var dy = canvas.height/2 - img.height/2;
+              realdX = dx + moveX;
+              realdY = dy + moveY;
+              moving = false;
+          } else{
+              realdX = realdX + moveX;
+              realdY  = realdY + moveY;
+          }
+
+      }
+      function move(e){
+          endX = e.clientX - canvas.getBoundingClientRect().left;
+          endY = e.clientY - canvas.getBoundingClientRect().top;
+
+          var moveX = endX - startX;
+          var moveY = endY - startY;
+
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          if( moving ){
+              var dx = canvas.width/2 - img.width/2;
+              var dy = canvas.height/2 - img.height/2;
+
+          } else{
+              var dx = realdX;
+              var dy = realdY;
+          }
+
+          ctx.drawImage(img, dx +  moveX, dy + moveY, img.width, img.height);
+      }
+  </script>
+</body>
+</html>
+

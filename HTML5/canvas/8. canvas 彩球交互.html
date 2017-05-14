@@ -6,34 +6,154 @@
     <style>
         *{margin:0;padding:0;}
         .container{
+            position: relative;
             width: 1000px;
             height:600px;
             margin:20px auto;
-            /*background: #f2f2f2;*/
             border:1px solid black;
+        }
+        .controll{
+            position: absolute;
+            top:10px;
+            left:10px;
+            width:200px;
+            height:100px;
+            padding:10px;
+            background: rgba(211,174,104,0.4);
+        }
+        #button{
+            display: block;
+            background: #1155c6;
+            color: #fff;
+            border:none;
+            padding:5px 10px;
+            margin:5px auto;
+            box-shadow: inset 0 0 5px #000;
+            cursor: pointer;
+        }
+        #white{
+            display: inline-block;
+            margin-top:20px;
+            background: #fff;
+            width:30px;
+            height:20px;
+            cursor: pointer;
+        }
+        #black{
+            display: inline-block;
+            margin-top:20px;
+            background: #000;
+            width: 30px;
+            height:20px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
   <div class="container">
       <canvas id="canvas" width="1000px" height="600px"></canvas>
+      <div class="controll">
+          <h3>canvas 绘图之旅</h3>
+          <button id="button">点击暂停</button>
+          <span id="white"></span>
+          <span id="black"></span>
+      </div>
   </div>
   <script>
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
-      var linear = ctx.createLinearGradient(0,0,0,600);
-      linear.addColorStop(0, '#fff');
-      linear.addColorStop(1,'#000');
-      ctx.rect(0,0,1000,600);
-      ctx.fillStyle = linear;
-      ctx.fill();
 
-      ctx.beginPath();
-      ctx.moveTo(0,600);
-      ctx.bezierCurveTo(240,200,460,400,1000,300);
-      ctx.lineTo(1000,600);
-      ctx.fillStyle = 'green';
-      ctx.fill();
+      var isMoving = true,
+          backColor = '#fff';
+      var colors =["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"];
+      var balls = [];
+
+      window.onload = function(){
+          addballs();
+          setInterval(function(){
+              render(ctx);
+              update();
+          },50)
+      };
+      function addballs( ){
+          for( var i = 0  ; i < 100 ; i ++ ){
+              var balla = {
+                  x: Math.random()*canvas.width,
+                  y: Math.random()*canvas.height,
+                  r: Math.max(50 * Math.random(),20),
+                  vx: Math.pow(-1,Math.floor(Math.random()*100))*Math.random()*20,
+                  vy: Math.pow(-1,Math.floor(Math.random()*100))*Math.random()*20,
+                  g: Math.max(Math.random()*5,Math.random()*6),
+                  color:colors[Math.floor(Math.random()*colors.length)]
+              };
+              balls.push(balla);
+          }
+
+      }
+
+      function update(){
+
+          if(isMoving){
+              for(var i = 0; i < 100; i++){
+                  balls[i].x += balls[i].vx;
+                  balls[i].y += balls[i].vy;
+
+                  if(balls[i].y > 600 -balls[i].r){
+                      balls[i].y = 600 -balls[i].r;
+                      balls[i].vy = -balls[i].vy;
+                  }
+                  if(balls[i].y < balls[i].r){
+                      balls[i].y = balls[i].r;
+                      balls[i].vy = -balls[i].vy;
+                  }
+                  if(balls[i].x > 1000 -balls[i].r){
+                      balls[i].x = 1000 -balls[i].r;
+                      balls[i].vx = -balls[i].vx;
+                  }
+                  if(balls[i].x < balls[i].r){
+                      balls[i].x = balls[i].r;
+                      balls[i].vx = -balls[i].vx;
+                  }
+              }
+          }
+      }
+
+      function render(ctx){
+          ctx.clearRect(0,0,canvas.width,canvas.height);
+          ctx.fillStyle = backColor;
+          ctx.fillRect(0,0, canvas.width,canvas.height);
+
+          ctx.globalAlpha = 0.7;
+//          ctx.globalCompositeOperation = 'source-out';
+          for(var i = 0; i < 100; i++){
+              ctx.fillStyle = balls[i].color ;
+              ctx.beginPath();
+              ctx.arc(balls[i].x,balls[i].y,balls[i].r,0,2*Math.PI);
+              ctx.closePath();
+              ctx.fill();
+          }
+      }
+
+  </script>
+  <script>
+      var btn = document.getElementById('button'),
+          white = document.getElementById('white'),
+          black = document.getElementById('black');
+      btn.onclick = function(){
+          isMoving = !isMoving;
+          if(isMoving){
+              this.innerText = '点击暂停'
+          }else{
+              this.innerText = 'start animation'
+          }
+      }
+      white.onclick = function(){
+          backColor = 'white'
+      }
+      black.onclick = function(){
+          backColor = 'black'
+      }
+
   </script>
 </body>
 </html>
