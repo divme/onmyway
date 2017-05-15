@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas 尝试</title>
+    <style>
+        *{margin:0;padding:0;}
+        .container{
+            float: left;
+            width: 480px;
+            height:270px;
+            margin:20px 50px;
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+      <canvas id="canvas" width="480px" height="270px"></canvas>
+  </div>
+  <div class="container">
+      <canvas id="tcanvas" width="480px" height="270px"></canvas>
+  </div>
+  <div class="btngroup">
+      <a href="javascript:noredEffect()">noredEffect</a>;
+      <a href="javascript:nogreenEffect()">nogreenEffect</a>;
+      <a href="javascript:noblackEffect()">noblackEffect</a>;
+
+      <a href="javascript:greyEffect()">greyEffect</a>;
+      <a href="javascript:blackEffect()">blackEffect</a>;
+      <a href="javascript:reverseEffect()">reserveEffect</a>;
+
+
+      <a href="javascript:blurEffect()">blurEffect</a>;
+      <a href="javascript:mosaicEffect()">mosaicEffect</a>;
+  </div>
+  <script>
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+
+      var tcanvas = document.getElementById('tcanvas');
+      var tctx = tcanvas.getContext('2d');
+
+      var img = new Image();
+      img.src = 'img/zy.png';
+      img.onload = function(){
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      }
+
+      function noredEffect(){
+          var imgdata = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          var pxdata = imgdata.data;
+          for(var i = 0, len = canvas.width*canvas.height; i<len; i++ ){
+              pxdata[4*i] = 0;
+          }
+          tctx.putImageData(imgdata, 0,0,0,0,tcanvas.width, tcanvas.height);
+      }
+      function nogreenEffect(){
+          var imgdata = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          var pxdata = imgdata.data;
+          for(var i = 0, len = canvas.width*canvas.height; i<len; i++ ){
+              pxdata[4*i+1] = 0;
+          }
+          tctx.putImageData(imgdata, 0,0,0,0,tcanvas.width, tcanvas.height);
+      }
+      function noblackEffect(){
+          var imgdata = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          var pxdata = imgdata.data;
+          for(var i = 0, len = canvas.width*canvas.height; i<len; i++ ){
+              pxdata[4*i+2] = 0;
+          }
+          tctx.putImageData(imgdata, 0,0,0,0,tcanvas.width, tcanvas.height);
+      }
+      function greyEffect(){
+          var imgdata = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          var pxdata = imgdata.data;
+          for(var i = 0, len = canvas.width*canvas.height; i<len; i++ ){
+              var r = pxdata[4*i];
+              var g = pxdata[4*i+1];
+              var b = pxdata[4*i+2];
+
+              var grey =pxdata[4*i]*0.3+pxdata[4*i+1]*0.59+pxdata[4*i+2]*0.11;
+              pxdata[4*i] = grey;
+              pxdata[4*i+1] = grey;
+              pxdata[4*i+2] = grey;
+          }
+          tctx.putImageData(imgdata, 0,0,0,0,tcanvas.width, tcanvas.height);
+      }
+      function blackEffect(){
+          var imgdata = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          var pxdata = imgdata.data;
+          for(var i = 0, len = canvas.width*canvas.height; i<len; i++ ){
+              var black = (pxdata[4*i]+pxdata[4*i+1]+pxdata[4*i+2])/3;
+              var grey = 0;
+              if( black > 122 ){ grey = 255}
+              pxdata[4*i] = grey;
+              pxdata[4*i+1] = grey;
+              pxdata[4*i+2] = grey;
+          }
+          tctx.putImageData(imgdata, 0,0,0,0,tcanvas.width, tcanvas.height);
+      }
+      function reverseEffect(){
+          var imgdata = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          var pxdata = imgdata.data;
+          for(var i = 0, len = canvas.width*canvas.height; i<len; i++ ){
+              var r = pxdata[4*i];
+              var g = pxdata[4*i+1];
+              var b = pxdata[4*i+2];
+
+              pxdata[4*i] = 255 - r;
+              pxdata[4*i+1] = 255 - g;
+              pxdata[4*i+2] = 255 - b;
+          }
+          tctx.putImageData(imgdata, 0,0,0,0,tcanvas.width, tcanvas.height);
+      }
+      var blurR = 6;
+      var totalnum = (blurR*2+1)*(blurR*2+1);
+      function blurEffect(){
+          var imgdata = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          var pxdata = imgdata.data;
+
+          for(var i = blurR, len = canvas.height; i<len-blurR; i++ ){
+              for(var j = blurR, leng = canvas.width; j<leng-blurR; j++ ){
+
+                  var totalr=0, totalg=0, totalb=0;
+                  for(var dx = -blurR; dx <= blurR; dx++){
+                      for(var dy = -blurR; dy <= blurR; dy++){
+                          totalr += pxdata[4*((i + dx)*canvas.width+(j+dy))];
+                          totalg += pxdata[4*((i + dx)*canvas.width+(j+dy))+1];
+                          totalb += pxdata[4*((i + dx)*canvas.width+(j+dy))+2];
+                      }
+                  }
+                  var p = 4*((i*canvas.width)+j);
+                  pxdata[p] = totalr/totalnum;
+                  pxdata[p+1] = totalg/totalnum;
+                  pxdata[p+2] = totalb/totalnum;
+              }
+          }
+          tctx.putImageData(imgdata, 0,0,0,0,tcanvas.width, tcanvas.height);
+      }
+
+      var size = 6;
+      var square = size*size;
+      function mosaicEffect(){
+          var imgdata = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          var pxdata = imgdata.data;
+
+          for(var i = 0, len = canvas.height; i<len; i+=size ){
+              for(var j = 0, leng = canvas.width; j<leng; j+=size ){
+
+//                  先得到像素半径内所有元素的 R,G,B 之和；
+                  var totalr=0, totalg=0, totalb=0;
+                  for(var dx = 0; dx <= size; dx++){
+                      for(var dy = 0; dy <= size; dy++){
+                          var p = (i + dx)*canvas.width+(j+dy);//数组中第几个元素
+                          totalr += pxdata[4*p];
+                          totalg += pxdata[4*p+1];
+                          totalb += pxdata[4*p+2];
+                      }
+                  }
+//                  分别为当前范围内所有像素点赋予平均的 R, G，B
+                  for(var cx = 0; cx <= size; cx++){
+                      for(var cy = 0; cy <= size; cy++){
+                          var m = (i + cx)*canvas.width+(j+cy);//数组中第几个元素
+                          pxdata[4*m] = totalr/square;
+                          pxdata[4*m+1] = totalg/square;
+                          pxdata[4*m+2] = totalb/square;
+                      }
+                  }
+              }
+          }
+          tctx.putImageData(imgdata, 0,0,0,0,tcanvas.width, tcanvas.height);
+      }
+  </script>
+</body>
+</html>
+

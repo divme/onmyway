@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas img 离屏水印和放大镜</title>
+    <style>
+        *{margin:0;padding:0;}
+        .container{
+            width: 960px;
+            height:540px;
+            margin:20px auto;
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+      <canvas id="canvas" width="960px" height="540px"></canvas>
+  </div>
+
+  <canvas id="watermark" width="200px" height="30px" style="display: none;border:1px solid red;margin:10px;"></canvas>
+  <canvas id="loupe" width="1920" height="1080" style="display:none"></canvas>
+  <script>
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+
+      var r = 100; //声明放大半径
+      var isMoving = false;
+
+      var img = new Image();
+      img.src = 'img/abc.png';
+      img.onload = function(){
+          console.log(img.width,img.height);
+          ctx.drawImage(img, canvas.width/2-img.width/2, canvas.height/2-img.height/2, img.width, img.height);
+          ctx.drawImage(mcanvas, canvas.width-mcanvas.width, canvas.height-mcanvas.height, mcanvas.width, mcanvas.height);
+          canvas.addEventListener('mousedown', mousedown);
+          canvas.addEventListener('mousemove', mousemove);
+          canvas.addEventListener('mouseup', mouseup);
+//          canvas.addEventListener('mouseleave', mouseleave);
+      };
+
+//      加水印
+      var mcanvas = document.getElementById('watermark');
+      var mctx = mcanvas.getContext('2d');
+
+      mctx.fillStyle = 'rgba(0,0,0,1)';
+      mctx.fillRect(0, 0, mcanvas.width, mcanvas.height);
+      mctx.beginPath();
+      mctx.font = '20px bold Arial';
+      mctx.fillStyle = '#fff';
+      mctx.textBaseline = 'middle';
+      mctx.fillText('== from omo ==', 10, 15);
+
+//      放大镜
+      var lcanvas = document.getElementById('loupe');
+      var lctx = lcanvas.getContext('2d');
+
+      var image = new Image();
+      image.src = 'img/abc-bg.png';
+      image.onload = function(){
+          lctx.drawImage(image, 0, 0);
+      };
+
+
+      function loupe(e){
+          if(isMoving){
+              ctx.drawImage(img, canvas.width/2-img.width/2, canvas.height/2-img.height/2, img.width, img.height);
+              ctx.drawImage(mcanvas, canvas.width-mcanvas.width, canvas.height-mcanvas.height, mcanvas.width, mcanvas.height);
+
+              var pointx = e.pageX - canvas.getBoundingClientRect().left;
+              var pointy = e.pageY - canvas.getBoundingClientRect().top;
+
+              var scale = image.width/img.width;
+
+              ctx.save();
+              ctx.beginPath();
+              ctx.arc(pointx, pointy, r, 0, 2*Math.PI);
+              ctx.strokeStyle = 'greenyellow';
+              ctx.lineWidth = 10;
+              ctx.stroke();
+              ctx.clip();
+
+              ctx.drawImage(lcanvas, pointx*scale-r, pointy*scale-r, 2*r, 2*r, pointx-r, pointy-r, 2*r ,2*r);
+
+              ctx.restore();
+          }
+      }
+
+      function mousedown(e){
+         isMoving = true;
+         loupe(e);
+      }
+      function mousemove(e){
+         loupe(e)
+      }
+      function mouseup(e){
+          isMoving = false;
+          ctx.drawImage(img, canvas.width/2-img.width/2, canvas.height/2-img.height/2, img.width, img.height);
+          ctx.drawImage(mcanvas, canvas.width-mcanvas.width, canvas.height-mcanvas.height, mcanvas.width, mcanvas.height);
+      }
+
+  </script>
+</body>
+</html>
+

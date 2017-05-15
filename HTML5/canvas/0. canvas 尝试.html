@@ -12,28 +12,46 @@
             /*background: #f2f2f2;*/
             border:1px solid black;
         }
+        #canvas{
+            display: block;
+            /*width:1000px;*/
+            /*height:600px;*/
+            border:1px solid red;
+            margin:0 auto;
+        }
     </style>
 </head>
 <body>
   <div class="container">
-      <canvas id="canvas" width="1000px" height="600px"></canvas>
+      <canvas id="canvas"  width="1000px" height="600px"></canvas>
   </div>
   <script>
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
-      var linear = ctx.createLinearGradient(0,0,0,600);
-      linear.addColorStop(0, '#fff');
-      linear.addColorStop(1,'#000');
-      ctx.rect(0,0,1000,600);
-      ctx.fillStyle = linear;
-      ctx.fill();
 
-      ctx.beginPath();
-      ctx.moveTo(0,600);
-      ctx.bezierCurveTo(240,200,460,400,1000,300);
-      ctx.lineTo(1000,600);
-      ctx.fillStyle = 'green';
-      ctx.fill();
+//      canvas.width = 1000;
+//      canvas.height = 600;
+
+      ctx.moveTo(100,100);
+      ctx.lineTo(900,500);
+      ctx.lineWidth = 10;
+      ctx.strokeStyle = 'red';
+      ctx.stroke()
+
+
+//      var linear = ctx.createLinearGradient(0,0,0,600);
+//      linear.addColorStop(0, '#fff');
+//      linear.addColorStop(1,'#000');
+//      ctx.rect(0,0,1000,600);
+//      ctx.fillStyle = linear;
+//      ctx.fill();
+//
+//      ctx.beginPath();
+//      ctx.moveTo(0,600);
+//      ctx.bezierCurveTo(240,200,460,400,1000,300);
+//      ctx.lineTo(1000,600);
+//      ctx.fillStyle = 'green';
+//      ctx.fill();
   </script>
 </body>
 </html>

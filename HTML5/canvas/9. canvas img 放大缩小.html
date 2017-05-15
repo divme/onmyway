@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>canvas 尝试</title>
+    <title>canvas img 缩放</title>
     <style>
         *{margin:0;padding:0;}
         .container{
@@ -24,23 +24,30 @@
       var ctx = canvas.getContext('2d');
 
       var range = document.getElementById('range');
-      var startX, startY;
-      var endX, endY;
-      var realdX, realdY;
-      var moving = true;
+      var startX, startY; // 鼠标移动开始位置
+      var endX, endY;     // 鼠标移动结束位置
+      var realdX, realdY; // 图片在画布上的起始位置
+      var moving = true; // 第一次移动过程中，决定坐标点计算方式的变量
+
 
       var img = new Image();
       img.src ='img/abc.png';
       img.onload = function () {
           ctx.drawImage(img,0,0,canvas.width,canvas.height);
       };
+      // 初始化图片坐标点
+      realdX = canvas.width/2 - img.width/2;
+      realdY = canvas.height/2 - img.height/2;
+
       window.onload = function(){
-          range.onmousemove = function(){
-              var scale = range.value;
-//              console.log(scale);
-              drawrealimg(scale);
+          range.onchange = function(){
+              range.onmousemove = function(){
+                  var scale = range.value;
+                  drawrealimg(scale);
+              };
           };
-          canvas.addEventListener('mousedown',mousedown);
+
+          canvas.addEventListener('mousedown', mousedown);
           canvas.addEventListener('mouseup', mouseup);
       }
 
@@ -59,10 +66,10 @@
 //         }
 
 //         四个参数画scale图片
-         var dx = canvas.width/2 - img.width/2;
-         var dy = canvas.height/2 - img.height/2;
+//         var dx = canvas.width/2 - img.width/2;
+//         var dy = canvas.height/2 - img.height/2;
          ctx.clearRect(0,0,canvas.width,canvas.height);
-         ctx.drawImage(img, dx, dy, img.width, img.height);
+         ctx.drawImage(img, realdX, realdY, img.width, img.height);
       }
 
       function mousedown(e){
@@ -97,16 +104,18 @@
           var moveX = endX - startX;
           var moveY = endY - startY;
 
+          var dx, dy;
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           if( moving ){
-              var dx = canvas.width/2 - img.width/2;
-              var dy = canvas.height/2 - img.height/2;
-
+                 dx = canvas.width/2 - img.width/2;
+                 dy = canvas.height/2 - img.height/2;
+              var scale =  range.value;
+              img.width = scale * 960;
+              img.height = scale * 540;
           } else{
-              var dx = realdX;
-              var dy = realdY;
+               dx = realdX;
+               dy = realdY;
           }
-
           ctx.drawImage(img, dx +  moveX, dy + moveY, img.width, img.height);
       }
   </script>
