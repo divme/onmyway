@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas 尝试</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        *{margin:0;padding:0;}
+        #canvas{
+            display: block;
+            margin:20px auto;
+        }
+        #btn{
+            display: block;
+            width: 200px;
+            margin:10px auto;
+            padding:10px;
+            background: yellowgreen;
+            color: #fff;
+            box-shadow: 0 0 10px #fff inset,0 5px 5px grey;
+            border:none;
+        }
+    </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <button id="btn">clear</button>
+  <script>
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+
+      canvas.width = 600;
+      canvas.height = 600;
+
+
+
+      canvas.addEventListener('mousedown', mousedown)
+      canvas.addEventListener('mousemove', mousemove)
+      canvas.addEventListener('mouseup', mouseup)
+      canvas.addEventListener('mouseout', mouseout)
+      canvas.addEventListener('touchstart', touchstart)
+      canvas.addEventListener('touchmove', touchmove)
+      canvas.addEventListener('touchend', touchend)
+
+      var isMoving = false;
+      var linewidth = 10;
+      var strokecolor = 'black';
+      var clear = document.querySelector('#btn');
+      var startX, startY;
+      var endX, endY;
+      if(window.innerWidth < 750){
+          var mobile = window.innerWidth * 0.8;
+          canvas.width = mobile;
+          canvas.height = mobile;
+          clear.style.width = mobile + 'px';
+          clear.style.height = '40px';
+      }
+      drawbox();
+      clear.addEventListener('click',click)
+      function click(){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          drawbox();
+      }
+      function drawbox(){
+          ctx.strokeStyle = '#069';
+          ctx.lineWidth = 3;
+          ctx.strokeRect(3,3,canvas.width-6,canvas.height-6);
+
+          ctx.beginPath();
+          ctx.moveTo(0,0);
+          ctx.lineTo(canvas.width,canvas.height);
+
+          ctx.moveTo(0,canvas.width);
+          ctx.lineTo(canvas.width,0);
+
+          ctx.moveTo(canvas.width/2, 0);
+          ctx.lineTo(canvas.width/2,canvas.width);
+
+          ctx.moveTo(0, canvas.width/2);
+          ctx.lineTo(canvas.width, canvas.width/2);
+
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = '#069';
+          ctx.stroke();
+      }
+      function windowToCanvas(pointX, pointY){
+          var dx = pointX - canvas.getBoundingClientRect().left;
+          var dy = pointY - canvas.getBoundingClientRect().top;
+          return {
+              x: dx,
+              y: dy
+          }
+      }
+
+      function mousedown(e){
+          e.preventDefault();
+          isMoving = true;
+          var current = windowToCanvas(e.clientX, e.clientY);
+          ctx.beginPath();
+          ctx.moveTo(current.x, current.y);
+
+      }
+      function mouseup(e){
+          e.preventDefault();
+          isMoving = false;
+          var current = windowToCanvas(e.clientX, e.clientY);
+
+      }
+      function mouseout(e){
+          e.preventDefault();
+          isMoving = false;
+          var current = windowToCanvas(e.clientX, e.clientY);
+
+      }
+      function mousemove(e){
+          e.preventDefault();
+          var current = windowToCanvas(e.clientX, e.clientY);
+          if(isMoving){
+              ctx.lineWidth = linewidth;
+              ctx.lineTo(current.x, current.y);
+              ctx.strokeStyle = strokecolor;
+              ctx.stroke();
+          }
+      }
+
+
+      function touchstart(e){
+          e.preventDefault();
+          isMoving = true;
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+          var current = windowToCanvas(startX, startY);
+          ctx.beginPath();
+          ctx.moveTo(current.x, current.y);
+      }
+      function touchmove(e){
+          e.preventDefault();
+          endX = e.touches[0].clientX;
+          endY = e.touches[0].clientY;
+          var current = windowToCanvas(endX, endY);
+          if(isMoving){
+              ctx.lineWidth = linewidth;
+              ctx.lineTo(current.x, current.y);
+              ctx.strokeStyle = strokecolor;
+              ctx.stroke();
+          }
+      }
+      function touchend(e){
+          e.preventDefault();
+          isMoving = false;
+      }
+
+  </script>
+</body>
+</html>
+
