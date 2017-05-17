@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板</title>
+    <style>
+        *{margin:0;padding:0}
+        #d{
+            width:1000px;height:800px;
+            background:red;
+        }
+
+        /*类内样式hack*/
+        /*#d {_width:100px;}            !* IE6专用*!*/
+        /*#d {*+width:200px;}           !* IE7专用*!*/
+        /*#d {*width:100px;}            !* IE6、IE7共用*!*/
+        /*#d {width:100px\0;}           !* IE8、IE9/IE10/IE11/Edge共用;IE8以上都认识啊*!*/
+        /*#d {width:100px\9;}             !* IE6、IE7、IE8、IE9、IE10共用;IE10以下都认识*!*/
+        /*#d {width:300px\9\0;}              !*IE8~IE10*!*/
+
+
+    </style>
+
+
+
+</head>
+<body>
+    <div id="d"></div>
+    <!--[if IE]> 所有的IE可识别 <![endif]-->
+    <!--[if !IE]> 除IE外都可识别 <![endif]-->
+
+    <!--[if lt IE 9]>  IE9以下版本可识别 <![endif]-->
+    <!--[if gte IE 9]> IE9及IE9以上版本可识别 <![endif]-->
+
+    <!--[if IE 8]> 仅IE8可识别 <![endif]-->
+    <!--[if lte IE 8]> IE8及IE8以下版本可识别 <![endif]-->
+
+    <!--[if gt IE 6]> IE6以上版本可识别 <![endif]-->
+
+   <h4>用法实例</h4>
+    <!--[if IE 8]> <![endif]-->
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

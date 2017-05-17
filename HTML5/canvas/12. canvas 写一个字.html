@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>canvas 尝试</title>
+    <title>canvas 写一个字</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <style>
         *{margin:0;padding:0;}
@@ -32,8 +32,6 @@
       canvas.width = 600;
       canvas.height = 600;
 
-
-
       canvas.addEventListener('mousedown', mousedown)
       canvas.addEventListener('mousemove', mousemove)
       canvas.addEventListener('mouseup', mouseup)
@@ -56,11 +54,14 @@
           clear.style.height = '40px';
       }
       drawbox();
+
       clear.addEventListener('click',click)
+
       function click(){
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           drawbox();
       }
+
       function drawbox(){
           ctx.strokeStyle = '#069';
           ctx.lineWidth = 3;
@@ -83,6 +84,7 @@
           ctx.strokeStyle = '#069';
           ctx.stroke();
       }
+
       function windowToCanvas(pointX, pointY){
           var dx = pointX - canvas.getBoundingClientRect().left;
           var dy = pointY - canvas.getBoundingClientRect().top;
@@ -92,6 +94,7 @@
           }
       }
 
+//      鼠标事件函数
       function mousedown(e){
           e.preventDefault();
           isMoving = true;
@@ -123,7 +126,7 @@
           }
       }
 
-
+//      手指事件函数
       function touchstart(e){
           e.preventDefault();
           isMoving = true;
