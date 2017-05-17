@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新canvas 写一个字</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        *{margin:0;padding:0;}
+        #canvas{
+            display: block;
+            margin: 5px auto;
+        }
+        #btn{
+            display: block;
+            width: 200px;
+            margin:10px auto;
+            padding:10px;
+            background: yellowgreen;
+            color: #fff;
+            box-shadow: 0 0 10px #fff inset,0 5px 5px grey;
+            border:none;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<button id="btn">clear</button>
+<script>
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+
+    canvas.width = 600;
+    canvas.height = 600;
+
+    var isMousedown = false;
+    var lastLine = -1;
+    var strokecolor = 'black';
+    var clear = document.querySelector('#btn');
+    var startX, startY;
+    var endX, endY;
+    var lastLocation, lastTime;
+    if(window.innerWidth < 750){
+        var mobile = window.innerWidth * 0.8;
+        canvas.width = mobile;
+        canvas.height = mobile;
+        clear.style.width = mobile + 'px';
+        clear.style.height = '40px';
+    }
+    drawbox();
+
+    canvas.addEventListener('mousedown', mousedown)
+    canvas.addEventListener('mousemove', mousemove)
+    canvas.addEventListener('mouseup', mouseup)
+    canvas.addEventListener('mouseout', mouseout)
+    canvas.addEventListener('touchstart', touchstart)
+    canvas.addEventListener('touchmove', touchmove)
+    canvas.addEventListener('touchend', touchend)
+
+//      点击清除
+    clear.addEventListener('click',click)
+    function click(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawbox();
+    }
+
+//      画米字格
+    function drawbox(){
+        ctx.strokeStyle = '#069';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(3,3,canvas.width-6,canvas.height-6);
+
+        ctx.beginPath();
+        ctx.moveTo(0,0);
+        ctx.lineTo(canvas.width,canvas.height);
+
+        ctx.moveTo(0,canvas.width);
+        ctx.lineTo(canvas.width,0);
+
+        ctx.moveTo(canvas.width/2, 0);
+        ctx.lineTo(canvas.width/2,canvas.width);
+
+        ctx.moveTo(0, canvas.width/2);
+        ctx.lineTo(canvas.width, canvas.width/2);
+
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#069';
+        ctx.stroke();
+    }
+
+//      得到canvas上的位置
+    function windowToCanvas(pointX, pointY){
+        var dx = pointX - canvas.getBoundingClientRect().left;
+        var dy = pointY - canvas.getBoundingClientRect().top;
+        return {
+            x: dx,
+            y: dy
+        }
+    }
+
+//      鼠标事件函数
+    function mousedown(e){
+        e.preventDefault();
+        isMousedown = true;
+        lastLocation = windowToCanvas(e.clientX, e.clientY);
+        lastTime = new Date().getTime();
+    }
+    function mouseup(e){
+        e.preventDefault();
+        isMousedown = false;
+    }
+    function mouseout(e){
+        e.preventDefault();
+        isMousedown = false;
+    }
+    function mousemove(e){
+        e.preventDefault();
+        if(isMousedown){
+            var current = windowToCanvas(e.clientX, e.clientY);
+            var now = new Date().getTime();
+            var s = getLocation(current, lastLocation);
+            var t = now - lastTime;
+
+            var linewidth = getLinewidth(s, t);
+
+            ctx.beginPath();
+            ctx.moveTo(lastLocation.x, lastLocation.y);
+            ctx.lineWidth = linewidth;
+            ctx.lineCap = 'round';
+            ctx.lineTo(current.x, current.y);
+            ctx.strokeStyle = strokecolor;
+            ctx.stroke();
+
+            lastLocation = current;
+            lastTime = now;
+            lastLine = linewidth;
+        }
+
+    }
+    function getLocation(current, old){
+        return Math.sqrt((current.x-old.x)*(current.x-old.x)+(current.y-old.y)*(current.y-old.y))
+    }
+    function getLinewidth(s, t){
+        var v = s/t;
+        var result;
+        if( v < 0.1)
+            result = 30;
+        else if (v >= 10)
+            result = 1;
+        else
+            result = 30-29 * ((v-0.1)/9.9);
+        if(lastLine == -1)
+            return result;
+//        return lastLine*2/3+result*1/3;
+       return Math.sqrt(Math.pow(result,2)*1/3 + lastLine*lastLine*2/3);
+    }
+
+//      手指事件函数
+    function touchstart(e){
+        e.preventDefault();
+        isMousedown = true;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        var current = windowToCanvas(startX, startY);
+        ctx.beginPath();
+        ctx.moveTo(current.x, current.y);
+    }
+    function touchmove(e){
+        e.preventDefault();
+        endX = e.touches[0].clientX;
+        endY = e.touches[0].clientY;
+        var current = windowToCanvas(endX, endY);
+        if(isMousedown){
+            ctx.lineWidth = linewidth;
+            ctx.lineCap = "round";
+            ctx.lineTo(current.x, current.y);
+            ctx.strokeStyle = strokecolor;
+            ctx.stroke();
+        }
+    }
+    function touchend(e){
+        e.preventDefault();
+        isMousedown = false;
+    }
+
+</script>
+</body>
+</html>
+

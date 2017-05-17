@@ -8,7 +8,7 @@
         *{margin:0;padding:0;}
         #canvas{
             display: block;
-            margin:20px auto;
+            margin: 5px auto;
         }
         #btn{
             display: block;
@@ -32,20 +32,13 @@
       canvas.width = 600;
       canvas.height = 600;
 
-      canvas.addEventListener('mousedown', mousedown)
-      canvas.addEventListener('mousemove', mousemove)
-      canvas.addEventListener('mouseup', mouseup)
-      canvas.addEventListener('mouseout', mouseout)
-      canvas.addEventListener('touchstart', touchstart)
-      canvas.addEventListener('touchmove', touchmove)
-      canvas.addEventListener('touchend', touchend)
-
-      var isMoving = false;
-      var linewidth = 10;
+      var isMousedown = false;
+      var linewidth = 30;
       var strokecolor = 'black';
       var clear = document.querySelector('#btn');
       var startX, startY;
       var endX, endY;
+      var lastLocation, lastTime;
       if(window.innerWidth < 750){
           var mobile = window.innerWidth * 0.8;
           canvas.width = mobile;
@@ -55,13 +48,22 @@
       }
       drawbox();
 
-      clear.addEventListener('click',click)
+      canvas.addEventListener('mousedown', mousedown)
+      canvas.addEventListener('mousemove', mousemove)
+      canvas.addEventListener('mouseup', mouseup)
+      canvas.addEventListener('mouseout', mouseout)
+      canvas.addEventListener('touchstart', touchstart)
+      canvas.addEventListener('touchmove', touchmove)
+      canvas.addEventListener('touchend', touchend)
 
+//      点击清除
+      clear.addEventListener('click',click)
       function click(){
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           drawbox();
       }
 
+//      画米字格
       function drawbox(){
           ctx.strokeStyle = '#069';
           ctx.lineWidth = 3;
@@ -85,6 +87,7 @@
           ctx.stroke();
       }
 
+//      得到canvas上的位置
       function windowToCanvas(pointX, pointY){
           var dx = pointX - canvas.getBoundingClientRect().left;
           var dy = pointY - canvas.getBoundingClientRect().top;
@@ -97,29 +100,26 @@
 //      鼠标事件函数
       function mousedown(e){
           e.preventDefault();
-          isMoving = true;
-          var current = windowToCanvas(e.clientX, e.clientY);
-          ctx.beginPath();
-          ctx.moveTo(current.x, current.y);
+          isMousedown = true;
+          lastLocation = windowToCanvas(e.clientX, e.clientY);
 
+          ctx.beginPath();
+          ctx.moveTo(lastLocation.x, lastLocation.y);
       }
       function mouseup(e){
           e.preventDefault();
-          isMoving = false;
-          var current = windowToCanvas(e.clientX, e.clientY);
-
+          isMousedown = false;
       }
       function mouseout(e){
           e.preventDefault();
-          isMoving = false;
-          var current = windowToCanvas(e.clientX, e.clientY);
-
+          isMousedown = false;
       }
       function mousemove(e){
           e.preventDefault();
           var current = windowToCanvas(e.clientX, e.clientY);
-          if(isMoving){
+          if(isMousedown){
               ctx.lineWidth = linewidth;
+              ctx.lineCap = "round"
               ctx.lineTo(current.x, current.y);
               ctx.strokeStyle = strokecolor;
               ctx.stroke();
@@ -129,7 +129,7 @@
 //      手指事件函数
       function touchstart(e){
           e.preventDefault();
-          isMoving = true;
+          isMousedown = true;
           startX = e.touches[0].clientX;
           startY = e.touches[0].clientY;
           var current = windowToCanvas(startX, startY);
@@ -141,7 +141,7 @@
           endX = e.touches[0].clientX;
           endY = e.touches[0].clientY;
           var current = windowToCanvas(endX, endY);
-          if(isMoving){
+          if(isMousedown){
               ctx.lineWidth = linewidth;
               ctx.lineTo(current.x, current.y);
               ctx.strokeStyle = strokecolor;
@@ -150,7 +150,7 @@
       }
       function touchend(e){
           e.preventDefault();
-          isMoving = false;
+          isMousedown = false;
       }
 
   </script>
