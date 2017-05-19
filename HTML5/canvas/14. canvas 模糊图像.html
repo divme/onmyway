@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模糊图像</title>
+    <style>
+        *{margin:0;padding:0;}
+        .container{
+            position: relative;
+            width:1000px;
+            height:600px;
+            margin:0 auto;
+        }
+        .container img{
+            position: absolute;
+            width:1000px;
+            height:600px;
+            top:0;bottom:0;
+            left:0;right:0;
+            filter:blur(10px);
+            -webkit-filter: blur(10px);
+            z-index:1;
+        }
+        #canvas{
+            position: absolute;
+            border:1px solid red;
+            margin:0 auto;
+            z-index:100;
+        }
+        .btn{
+            position: absolute;
+            bottom:20px;
+            width: 100px;
+            height:40px;
+            line-height:40px;
+            color: #fff;
+            z-index:101;
+            border:none;
+            border-radius: 5px;
+            text-shadow: 2px 2px 8px  #000;
+            box-shadow: 0 0 5px rgba(255,255,255,0.6) inset;
+        }
+        #reset-btn{
+            background: #069;
+            left:200px;
+        }
+        #reset-btn:hover{
+            background: #059;
+        }
+        #show-btn{
+            background: #086;
+            right:200px;
+        }
+        #show-btn:hover{
+            background: #076;
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+      <img src="img/iter.png" alt="">
+      <canvas id="canvas"></canvas>
+      <button class="btn" id="reset-btn">reset</button>
+      <button class="btn" id="show-btn">show</button>
+  </div>
+  
+  <script>
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+
+      canvas.width = 1000;
+      canvas.height = 600;
+
+      var reset = document.getElementById('reset-btn');
+      var show = document.getElementById('show-btn');
+      var Timer;
+      var count = 1;
+
+      var img =  new Image();
+          img.src = 'img/iter.png';
+      img.onload = function(){
+          init();
+          reset.addEventListener('click',resetImg);
+          show.addEventListener('click',showImg);
+      };
+
+      var circle ={
+          x: Math.random()*(canvas.width-200)+100,
+          y: Math.random()*(canvas.height-200)+100,
+          r:100
+      };
+
+      function init(){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(circle.x, circle.y, circle.r, 0, 2*Math.PI, true);
+          ctx.clip();
+
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+          ctx.restore();
+          count++;
+          console.log(count)
+      }
+
+      function resetImg(){
+          circle.r = 100;
+          circle.x =  Math.random()*(canvas.width-200)+100;
+          circle.y =  Math.random()*(canvas.height-200)+100;
+
+//          console.log(circle.x, circle.y, circle.r);
+
+          if(Timer){
+              clearInterval(Timer);
+          }
+
+          init();
+
+      }
+
+      function showImg(){
+          Timer =  setInterval(function(){
+                      circle.r += 10;
+                      if(circle.r >canvas.width){
+                          clearInterval(Timer);
+                      }
+                      init();
+                  },30)
+
+      }
+  </script>
+</body>
+</html>
+

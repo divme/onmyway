@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>手指刮刮乐</title>
+    <style>
+        *{margin:0;padding:0;}
+        .container{
+            position: relative;
+            width:1000px;
+            max-width:100%;
+            height:600px;
+            margin:0 auto;
+        }
+        .container img{
+            position: absolute;
+            width:1000px;
+            max-width:100%;
+            height:600px;
+            top:0;bottom:0;
+            left:0;right:0;
+            filter:blur(10px);
+            -webkit-filter: blur(10px);
+            z-index:1;
+        }
+        #canvas{
+            position: absolute;
+            border:1px solid red;
+            margin:0 auto;
+            z-index:100;
+        }
+        .btn{
+            position: absolute;
+            bottom:20px;
+            width: 100px;
+            height:40px;
+            line-height:40px;
+            color: #fff;
+            z-index:101;
+            border:none;
+            border-radius: 5px;
+            text-shadow: 2px 2px 8px  #000;
+            box-shadow: 0 0 5px rgba(255,255,255,0.6) inset;
+        }
+        #reset-btn{
+            background: #069;
+            left:200px;
+        }
+        #reset-btn:hover{
+            background: #059;
+        }
+        #show-btn{
+            background: #086;
+            right:200px;
+        }
+        #show-btn:hover{
+            background: #076;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img src="img/iter.png" alt="">
+    <canvas id="canvas"></canvas>
+</div>
+
+<script>
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+
+    canvas.width = 1000;
+    canvas.height = 600;
+    if(window.innerWidth < 750){
+        var mobile = window.innerWidth * 0.8;
+        canvas.width = mobile;
+        canvas.height = mobile;
+    }
+
+    var isMousedown = false; //判断是否鼠标按下
+    var lastLine = -1;   //上一个单位时间内线条宽度
+    var strokecolor = 'black'; //线条颜色
+    var clear = document.querySelector('#btn');
+    var lastLocation, lastTime; // 上一个单位时间内的位置和时间戳
+
+    var img =  new Image();
+    img.src = 'img/iter.png';
+    img.onload = function(){
+
+        canvas.addEventListener('mousedown',mousedown);
+        canvas.addEventListener('mousemove',mousemove);
+        canvas.addEventListener('mouseup',mouseup);
+
+        canvas.addEventListener('touchstart',touchstart);
+        canvas.addEventListener('touchmove',touchmove);
+        canvas.addEventListener('touchend',touchend);
+    };
+
+
+
+//      得到canvas上的位置
+    function windowToCanvas(pointX, pointY){
+        var dx = pointX - canvas.getBoundingClientRect().left;
+        var dy = pointY - canvas.getBoundingClientRect().top;
+        return {
+            x: dx,
+            y: dy
+        }
+    }
+
+//      鼠标事件函数
+    function mousedown(e){
+        e.preventDefault();
+        isMousedown = true;
+        lastLocation = windowToCanvas(e.clientX, e.clientY);
+
+    }
+    function mouseup(e){
+        e.preventDefault();
+        isMousedown = false;
+    }
+
+    function mousemove(e){
+        e.preventDefault();
+        var current = windowToCanvas(e.clientX, e.clientY);
+        if(isMousedown){
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(lastLocation.x, lastLocation.y, 50, 0, 2*Math.PI,true);
+
+            ctx.clip();
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            ctx.restore();
+        }
+        lastLocation = current;
+    }
+
+//    手指事件
+    function touchstart(e){
+        e.preventDefault();
+        isMousedown = true;
+        lastLocation = windowToCanvas(e.touches[0].clientX, e.touches[0].clientY);
+
+    }
+    function touchend(e){
+        e.preventDefault();
+        isMousedown = false;
+    }
+
+    function touchmove(e){
+        e.preventDefault();
+        var current = windowToCanvas(e.touches[0].clientX, e.touches[0].clientY);
+        if(isMousedown){
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(lastLocation.x, lastLocation.y, 50, 0, 2*Math.PI,true);
+
+            ctx.clip();
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            ctx.restore();
+        }
+        lastLocation = current;
+    }
+</script>
+</body>
+</html>
+

@@ -6,33 +6,47 @@
     <style>
         *{margin:0;padding:0;}
         .container{
-            float: left;
-            width: 480px;
+            width: 1000px;
             height:270px;
-            margin:20px 50px;
-            border:1px solid black;
+            margin:20px auto;
+        }
+        .container canvas{
+            border:rgba(0, 102, 136, 0.5) 1px solid;
+        }
+        .btngroup{
+            width:1000px;
+            margin:10px auto;
+        }
+        .btngroup a{
+            display: inline-block;
+            padding:10px 20px;
+            margin:10px;
+            background: #585858;
+            color: #fff;
+            text-decoration: none;
+            border-radius:6px;
+            box-shadow: 0 0 5px #fff inset,0 0 5px #eee;
         }
     </style>
 </head>
 <body>
   <div class="container">
       <canvas id="canvas" width="480px" height="270px"></canvas>
-  </div>
-  <div class="container">
       <canvas id="tcanvas" width="480px" height="270px"></canvas>
   </div>
+
   <div class="btngroup">
-      <a href="javascript:noredEffect()">noredEffect</a>;
-      <a href="javascript:nogreenEffect()">nogreenEffect</a>;
-      <a href="javascript:noblackEffect()">noblackEffect</a>;
+      <a href="javascript:noredEffect()">noredEffect</a>
+      <a href="javascript:nogreenEffect()">nogreenEffect</a>
+      <a href="javascript:noblackEffect()">noblackEffect</a>
 
-      <a href="javascript:greyEffect()">greyEffect</a>;
-      <a href="javascript:blackEffect()">blackEffect</a>;
-      <a href="javascript:reverseEffect()">reserveEffect</a>;
+      <a href="javascript:greyEffect()">greyEffect</a>
+      <a href="javascript:blackEffect()">blackEffect</a>
+      <a href="javascript:reverseEffect()">reserveEffect</a>
 
 
-      <a href="javascript:blurEffect()">blurEffect</a>;
-      <a href="javascript:mosaicEffect()">mosaicEffect</a>;
+      <a href="javascript:blurEffect()">blurEffect</a>
+      <a href="javascript:mosaicEffect()">mosaicEffect</a>
   </div>
   <script>
       var canvas = document.getElementById('canvas');

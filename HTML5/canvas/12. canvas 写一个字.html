@@ -40,7 +40,8 @@
       var endX, endY;
       var lastLocation, lastTime;
       if(window.innerWidth < 750){
-          var mobile = window.innerWidth * 0.8;
+          linewidth = 20
+          var mobile = window.innerWidth * 0.95;
           canvas.width = mobile;
           canvas.height = mobile;
           clear.style.width = mobile + 'px';
@@ -70,21 +71,39 @@
           ctx.strokeRect(3,3,canvas.width-6,canvas.height-6);
 
           ctx.beginPath();
-          ctx.moveTo(0,0);
-          ctx.lineTo(canvas.width,canvas.height);
+          drawDashed(0, 0, canvas.width, canvas.height);
+          drawDashed(0, canvas.width, canvas.width, 0);
+          drawDashed(canvas.width/2, 0, canvas.width/2, canvas.width);
+          drawDashed(0, canvas.width/2, canvas.width, canvas.width/2);
 
-          ctx.moveTo(0,canvas.width);
-          ctx.lineTo(canvas.width,0);
+//          ctx.moveTo(0,0);
+//          ctx.lineTo(canvas.width,canvas.height);
 
-          ctx.moveTo(canvas.width/2, 0);
-          ctx.lineTo(canvas.width/2,canvas.width);
+//          ctx.moveTo(0,canvas.width);
+//          ctx.lineTo(canvas.width,0);
 
-          ctx.moveTo(0, canvas.width/2);
-          ctx.lineTo(canvas.width, canvas.width/2);
+//          ctx.moveTo(canvas.width/2, 0);
+//          ctx.lineTo(canvas.width/2,canvas.width);
+//
+//          ctx.moveTo(0, canvas.width/2);
+//          ctx.lineTo(canvas.width, canvas.width/2);
 
           ctx.lineWidth = 2;
           ctx.strokeStyle = '#069';
           ctx.stroke();
+      }
+
+//      画虚线
+      function drawDashed(sx, sy, ex, ey){
+          var x = ex - sx;
+          var y = ey - sy;
+          var s = Math.sqrt(x*x+y*y);
+          for(var i = 1; i < 100; i++){
+              if(i%2 == 1){
+                  ctx.moveTo(sx+x*(i-1)/100, sy+y*(i-1)/100);
+                  ctx.lineTo(sx+x*i/100, sy+y*i/100);
+              }
+          }
       }
 
 //      得到canvas上的位置

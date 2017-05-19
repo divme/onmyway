@@ -32,13 +32,13 @@
     canvas.width = 600;
     canvas.height = 600;
 
-    var isMousedown = false;
-    var lastLine = -1;
-    var strokecolor = 'black';
+    var isMousedown = false; //判断是否鼠标按下
+    var lastLine = -1;   //上一个单位时间内线条宽度
+    var strokecolor = 'black'; //线条颜色
     var clear = document.querySelector('#btn');
-    var startX, startY;
-    var endX, endY;
-    var lastLocation, lastTime;
+    var lastLocation, lastTime; // 上一个单位时间内的位置和时间戳
+
+//    判断手机时，改变canvas大小
     if(window.innerWidth < 750){
         var mobile = window.innerWidth * 0.8;
         canvas.width = mobile;
@@ -70,21 +70,27 @@
         ctx.strokeRect(3,3,canvas.width-6,canvas.height-6);
 
         ctx.beginPath();
-        ctx.moveTo(0,0);
-        ctx.lineTo(canvas.width,canvas.height);
-
-        ctx.moveTo(0,canvas.width);
-        ctx.lineTo(canvas.width,0);
-
-        ctx.moveTo(canvas.width/2, 0);
-        ctx.lineTo(canvas.width/2,canvas.width);
-
-        ctx.moveTo(0, canvas.width/2);
-        ctx.lineTo(canvas.width, canvas.width/2);
+        drawDashed(0, 0, canvas.width, canvas.height);
+        drawDashed(0, canvas.width, canvas.width, 0);
+        drawDashed(canvas.width/2, 0, canvas.width/2, canvas.width);
+        drawDashed(0, canvas.width/2, canvas.width, canvas.width/2);
 
         ctx.lineWidth = 2;
         ctx.strokeStyle = '#069';
         ctx.stroke();
+    }
+
+//      画虚线
+    function drawDashed(sx, sy, ex, ey){
+        var x = ex - sx;
+        var y = ey - sy;
+        var s = Math.sqrt(x*x+y*y);
+        for(var i = 1; i < 100; i++){
+            if(i%2 == 1){
+                ctx.moveTo(sx+x*(i-1)/100, sy+y*(i-1)/100);
+                ctx.lineTo(sx+x*i/100, sy+y*i/100);
+            }
+        }
     }
 
 //      得到canvas上的位置
@@ -136,6 +142,8 @@
         }
 
     }
+
+//    得到当前位移距离，据此计算当前线宽
     function getLocation(current, old){
         return Math.sqrt((current.x-old.x)*(current.x-old.x)+(current.y-old.y)*(current.y-old.y))
     }
@@ -150,31 +158,37 @@
             result = 30-29 * ((v-0.1)/9.9);
         if(lastLine == -1)
             return result;
-//        return lastLine*2/3+result*1/3;
-       return Math.sqrt(Math.pow(result,2)*1/3 + lastLine*lastLine*2/3);
+       return Math.sqrt(result*result/3 + lastLine*lastLine*2/3);
     }
 
 //      手指事件函数
     function touchstart(e){
         e.preventDefault();
         isMousedown = true;
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-        var current = windowToCanvas(startX, startY);
-        ctx.beginPath();
-        ctx.moveTo(current.x, current.y);
+        lastLocation = windowToCanvas(e.touches[0].clientX, e.touches[0].clientY);
+        lastTime = new Date().getTime();
     }
     function touchmove(e){
         e.preventDefault();
-        endX = e.touches[0].clientX;
-        endY = e.touches[0].clientY;
-        var current = windowToCanvas(endX, endY);
         if(isMousedown){
+            var current = windowToCanvas(e.touches[0].clientX, e.touches[0].clientY);
+            var now = new Date().getTime();
+            var s = getLocation(current, lastLocation);
+            var t = now - lastTime;
+
+            var linewidth = getLinewidth(s, t);
+
+            ctx.beginPath();
+            ctx.moveTo(lastLocation.x, lastLocation.y);
             ctx.lineWidth = linewidth;
-            ctx.lineCap = "round";
+            ctx.lineCap = 'round';
             ctx.lineTo(current.x, current.y);
             ctx.strokeStyle = strokecolor;
             ctx.stroke();
+
+            lastLocation = current;
+            lastTime = now;
+            lastLine = linewidth;
         }
     }
     function touchend(e){

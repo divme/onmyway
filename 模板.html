@@ -18,15 +18,15 @@
              border:2px solid red;
              filter: blur(25px);
              -webkit-filter: grayscale(1);
-             -webkit-filter: invert(1);
-             -webkit-filter: invert(1);
+             /*-webkit-filter: invert(1);*/
+             /*-webkit-filter: invert(1);*/
          }
         .anima{
             width:100px;
             height:100px;
             margin:20px;
             background: #000;
-            animation:key 5s step-start infinite;
+            animation:key 5s linear infinite;
         }
         @keyframes key {
             0%,40%,80%{
@@ -39,8 +39,9 @@
     </style>
 </head>
 <body>
-    <div class="anima"></div>
-    <!--<div id="d"><img src="CSS/img/xhr.png" alt="nothing"></div>-->
+    <img src="CSS/img/xhr.png"/>
+    <!--<div class="anima"></div>-->
+    <!--<div id="d"><img src="CSS/img/xhr.png" alt="nothing"></div>				-->
     <!--<script>-->
         <!--var div = document.getElementById('d');-->
         <!--var html = "<span>我是sspan</span><p>我是个p</p>"-->
@@ -48,6 +49,8 @@
         <!--localStorage.setItem('zy','bigman')-->
     <!--</script>-->
     <!--<script>-->
+
+    
         <!--(function() {-->
             <!--if(!window.localStorage) {-->
                 <!--console.log('当前浏览器不支持localStorage!')-->
