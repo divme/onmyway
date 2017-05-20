@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>entrance</title>
+    <style>
+        *{margin:0;padding:0}
+        #d{
+            position: relative;
+            width:1000px;
+            height:600px;
+        }
+        #d img{
+             position: absolute;
+             width: 500px;
+             top:0;
+             left:0;
+             border:2px solid red;
+             filter: blur(25px);
+             -webkit-filter: grayscale(1);
+             /*-webkit-filter: invert(1);*/
+             /*-webkit-filter: invert(1);*/
+         }
+        .anima{
+            width:100px;
+            height:100px;
+            margin:20px;
+            background: #000;
+            animation:key 5s linear infinite;
+        }
+        @keyframes key {
+            0%,40%,80%{
+                transform: translateX(0);
+              }
+            20%,60%,100%{
+                transform: translateX(500px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="CSS/img/xhr.png"/>
+    <!--<div class="anima"></div>-->
+    <!--<div id="d"><img src="CSS/img/xhr.png" alt="nothing"></div>				-->
+    <!--<script>-->
+        <!--var div = document.getElementById('d');-->
+        <!--var html = "<span>我是sspan</span><p>我是个p</p>"-->
+        <!--div.innerHTML = html;-->
+        <!--localStorage.setItem('zy','bigman')-->
+    <!--</script>-->
+    <!--<script>-->
+
+    
+        <!--(function() {-->
+            <!--if(!window.localStorage) {-->
+                <!--console.log('当前浏览器不支持localStorage!')-->
+            <!--}-->
+            <!--var test = '0123456789';-->
+            <!--var add = function(num) {-->
+                <!--num += num;-->
+                <!--if(num.length == 10240) {-->
+                    <!--test = num;-->
+                    <!--return;-->
+                <!--}-->
+                <!--add(num);-->
+            <!--};-->
+            <!--add(test);-->
+            <!--var sum = test;-->
+            <!--var show = setInterval(function(){-->
+                <!--sum += test;-->
+                <!--try {-->
+                    <!--window.localStorage.removeItem('test');-->
+                    <!--window.localStorage.setItem('test', sum);-->
+                    <!--console.log(sum.length / 1024 + 'KB');-->
+                <!--} catch(e) {-->
+                    <!--alert(sum.length / 1024 + 'KB超出最大限制');-->
+                    <!--clearInterval(show);-->
+                <!--}-->
+            <!--}, 0.1)-->
+        <!--})()-->
+    <!--</script>-->
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
