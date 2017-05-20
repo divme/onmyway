@@ -13,7 +13,6 @@
 </head>
 <body>
   <canvas id="canvas" width="40" height="40"></canvas>
-  <img src="icon.png" style="width: 44px;border-radius: 50%" alt="">
   <script>
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
@@ -28,7 +27,7 @@
 
 
           var img = new Image();
-          img.src = 'icon.png';
+          img.src = 'img/icon.png';
           img.onload = function(){
               ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
           }

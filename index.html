@@ -3,82 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <title>entrance</title>
+    <link rel="stylesheet" href="https://divme.github.io/onmyway/CSS/css/reset.css">
     <style>
-        *{margin:0;padding:0}
-        #d{
-            position: relative;
-            width:1000px;
-            height:600px;
+        .wrapper{
+            width:600px;
+            /*min-width:1000px;*/
+            margin:20px auto;
         }
-        #d img{
-             position: absolute;
-             width: 500px;
-             top:0;
-             left:0;
-             border:2px solid red;
-             filter: blur(25px);
-             -webkit-filter: grayscale(1);
-             /*-webkit-filter: invert(1);*/
-             /*-webkit-filter: invert(1);*/
-         }
-        .anima{
-            width:100px;
-            height:100px;
-            margin:20px;
-            background: #000;
-            animation:key 5s linear infinite;
+        h2{
+            text-align: left;
         }
-        @keyframes key {
-            0%,40%,80%{
-                transform: translateX(0);
-              }
-            20%,60%,100%{
-                transform: translateX(500px);
-            }
+        ul li a{
+            display: inline-block;
+            line-height:1.8;
+            text-indent: 5em;
+            font-size:14px;
+            color: #424242;
         }
+        ul li a:hover{
+            color: #d3ae68;
+        }
+        .list-title{border-bottom: 1px solid #005E9C;  margin:20px;}
+        .list-title h5{display: inline-block;border-bottom: 1px solid #005E9C;padding:0 5px;}
     </style>
 </head>
 <body>
-    <img src="CSS/img/xhr.png"/>
-    <!--<div class="anima"></div>-->
-    <!--<div id="d"><img src="CSS/img/xhr.png" alt="nothing"></div>				-->
-    <!--<script>-->
-        <!--var div = document.getElementById('d');-->
-        <!--var html = "<span>我是sspan</span><p>我是个p</p>"-->
-        <!--div.innerHTML = html;-->
-        <!--localStorage.setItem('zy','bigman')-->
-    <!--</script>-->
-    <!--<script>-->
+    <!--<img src="CSS/img/xhr.png"/>-->
+   <div class="wrapper">
+       <div class="list-title"><h5>CSS 实用技巧</h5></div>
+       <ul>
+           <li><a target="_blank" href="https://divme.github.io/Html+Css/index.html">github.io</a></li>
+           <li><a target="_blank" href="https://divme.github.io/Html+Css/CSS小技巧.html">CSS小技巧</a></li>
 
-    
-        <!--(function() {-->
-            <!--if(!window.localStorage) {-->
-                <!--console.log('当前浏览器不支持localStorage!')-->
-            <!--}-->
-            <!--var test = '0123456789';-->
-            <!--var add = function(num) {-->
-                <!--num += num;-->
-                <!--if(num.length == 10240) {-->
-                    <!--test = num;-->
-                    <!--return;-->
-                <!--}-->
-                <!--add(num);-->
-            <!--};-->
-            <!--add(test);-->
-            <!--var sum = test;-->
-            <!--var show = setInterval(function(){-->
-                <!--sum += test;-->
-                <!--try {-->
-                    <!--window.localStorage.removeItem('test');-->
-                    <!--window.localStorage.setItem('test', sum);-->
-                    <!--console.log(sum.length / 1024 + 'KB');-->
-                <!--} catch(e) {-->
-                    <!--alert(sum.length / 1024 + 'KB超出最大限制');-->
-                    <!--clearInterval(show);-->
-                <!--}-->
-            <!--}, 0.1)-->
-        <!--})()-->
-    <!--</script>-->
+       </ul>
+
+       <div class="list-title"><h5>CSS 动画</h5></div>
+       <ul>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/CSS 2D动画函数">CSS 2D跳帧动画</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/CSS 2D小黄人">CSS 2D小黄人</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/CSS 实用动画特效">CSS 实用动画特效</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/CSS 全屏背景切换">CSS 全屏背景切换</a></li>
+       </ul>
+
+       <div class="list-title"><h5>CSS 3D动画</h5></div>
+       <ul>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/CSS 3D立体导航栏">CSS 3D立体导航栏</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/CSS 3D六边形--正方体">CSS 3D六边形--正方体</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/CSS 3D旋转图片">CSS 3D旋转图片</a></li>
+
+       </ul>
+
+       <div class="list-title"><h5>Canvas</h5></div>
+       <ul>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/0. canvas 尝试">canvas 模板</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/1. canvas 图表">canvas 图表</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/2. canvas 弹力球">2.canvas 弹力球</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/3. canvas 弹力球们">3.canvas 弹力球们</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/4. canvas 雪花">4. canvas 雪花</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/5. canvas 星空">5. canvas 星空</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/6. canvas 聚光灯">6. canvas 聚光灯</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/7. canvas 初次交互">7. canvas 初次交互</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/8. canvas 彩球交互">8. canvas 彩球交互</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/9. canvas img 放大缩小">9. canvas img 放大缩小</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/10. canvas img 离屏水印和放大镜">10. canvas img 离屏水印和放大镜</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/11. canvas img 像素处理">11. canvas img 像素处理</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/13. canvas 写一个字2">13. canvas 写一个字</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/14. canvas 模糊图像">14. canvas 模糊图像</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/15. canvas 手指刮刮乐">15. canvas 手指刮刮乐</a></li>
+           <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/16. canvas  回归基础 动态时钟">16. canvas  回归基础 动态时钟</a></li>
+       </ul>
+   </div>
 </body>
 </html>
 
