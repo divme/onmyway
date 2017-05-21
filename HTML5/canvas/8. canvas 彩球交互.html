@@ -54,7 +54,7 @@
       <canvas id="canvas" width="1000px" height="600px"></canvas>
       <div class="controll">
           <h3>canvas 绘图之旅</h3>
-          <button id="button">点击暂停</button>
+          <button id="button">stop animation</button>
           <span id="white"></span>
           <span id="black"></span>
       </div>
@@ -142,7 +142,7 @@
       btn.onclick = function(){
           isMoving = !isMoving;
           if(isMoving){
-              this.innerText = '点击暂停'
+              this.innerText = 'stop animation'
           }else{
               this.innerText = 'start animation'
           }
