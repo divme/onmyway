@@ -5,50 +5,63 @@
     <title>三次贝塞尔曲线生成器</title>
     <style>
         *{margin:0;padding:0;}
+        body{
+            background: #dedede;
+            font-family: "Helvetica Neue", '微软雅黑', Verdana, Arial, Helvetica, sans-serif;
+        }
+        .container{
+            width:1200px;
+            margin:0 auto;
+        }
+        .leftCanvas{
+            float: left;
+            background: #fff;
+        }
         #canvas{
             display: block;
-            border:1px solid red;
             margin:0 auto;
+        }
+        .rightText{
+            margin: 20px 0 0 620px;
+            padding:10px 0;
+            background: #282828;
+            color: #d3ae68;
+            box-shadow:0 0 15px #fff inset;
+        }
+        .rightText p{
+            text-indent: 2em;
+            line-height:30px;
         }
     </style>
 </head>
 <body>
-<canvas id="canvas"></canvas>
-<div class="text">
-     <pre>
-         ctx.moveTo(x1,y1);
-         ctx.quadraticCurveTo(x2, y2, x3, y3);
-     </pre>
-</div>
-<div>
-    <div>第一个点坐标：</div>
-    <span id="oneX">100</span>
-    <span id="oneY">400</span>
-</div>
-<div>
-    <div>第二个点坐标：</div>
-    <span id="twoX">300</span>
-    <span id="twoY">200</span>
-</div>
-<div>
-    <div>第三个点坐标：</div>
-    <span id="threeX">450</span>
-    <span id="threeY">270</span>
-</div>
-<div>
-    <div>第四个点坐标：</div>
-    <span id="fourX">520</span>
-    <span id="fourY">420</span>
+<div class="container">
+    <div class="leftCanvas">
+        <canvas id="canvas"></canvas>
+    </div>
+    <div class="rightText">
+        <p>var canvas = document.getElementById("canvas") ;</p>
+        <p>  var ctx = canvas.getContext("2d");</p>
+        <p>  ctx.beginPath();</p>
+        <p>  ctx.moveTo(<span id="oneX">100</span>,<span id="oneY">400</span>);</p>
+        <p>  ctx.quadraticCurveTo(<span id="twoX">190</span>,<span id="twoY">200</span>,<span id="threeX">420</span>,<span id="threeY">170</span>,<span id="fourX">520</span>,<span id="fourY">380</span>);</p>
+        <p>  ctx.lineWidth = 3;</p>
+        <p>  ctx.strokeStyle = "#333";</p>
+        <p>  ctx.stroke( )</p>
+    </div>
 </div>
 <script>
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
 
-    canvas.width = 1000;
+    canvas.width = 600;
     canvas.height = 600;
 
     var circle = {
-        r: 8
+        r: 8,
+        lineStyle: '#800000',
+        circleStyle:'#800000',
+        bezier:'#424242'
     };
     var isMouseInCircle = false;
     var whichCircle = 0;
@@ -72,27 +85,30 @@
     var x4 = parseInt(fourX.innerText);
     var y4 = parseInt(fourY.innerText);
 
-    drawCurve( x1,y1, x2,y2, x3,y3, x4,y4);
+    bezier( x1,y1, x2,y2, x3,y3, x4,y4);
     canvas.addEventListener('mousedown', mousedown);
     canvas.addEventListener('mousemove', mousemove);
     canvas.addEventListener('mouseup', mouseup);
 
 
-    function drawCurve(x1, y1, x2, y2, x3, y3, x4, y4){
+    function bezier(x1, y1, x2, y2, x3, y3, x4, y4){
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+        ctx.save()
         ctx.beginPath();
         ctx.moveTo(x1,y1);
         ctx.bezierCurveTo(x2, y2, x3, y3, x4, y4);
-        ctx.strokeStyle = '#424242'
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = circle.bezier
         ctx.stroke();
+        ctx.restore()
 
         ctx.beginPath()
         ctx.moveTo(x1, y1)
         ctx.lineTo(x2, y2)
         ctx.moveTo(x3, y3)
         ctx.lineTo(x4, y4)
-        ctx.strokeStyle = '#ffbb88';
+        ctx.strokeStyle = circle.lineStyle;
         ctx.stroke()
 
         renderOne(x1, y1);
@@ -104,26 +120,26 @@
     function renderOne(x1, y1){
         ctx.beginPath();
         ctx.arc(x1, y1, circle.r, 0, 2*Math.PI, false);
-        ctx.fillStyle = '#fb8';
+        ctx.fillStyle = circle.circleStyle;
         ctx.fill();
 
     }
     function renderTwo(x2, y2){
         ctx.beginPath();
         ctx.arc(x2, y2, circle.r, 0, 2*Math.PI, false);
-        ctx.fillStyle = '#fb8';
+        ctx.fillStyle = circle.circleStyle;
         ctx.fill()
     }
     function renderThree(x3, y3){
         ctx.beginPath();
         ctx.arc(x3, y3, circle.r, 0, 2*Math.PI, false);
-        ctx.fillStyle = '#fb8';
+        ctx.fillStyle = circle.circleStyle;
         ctx.fill()
     }
     function renderFour(x4, y4){
         ctx.beginPath();
         ctx.arc(x4, y4, circle.r, 0, 2*Math.PI, false);
-        ctx.fillStyle = '#fb8';
+        ctx.fillStyle = circle.circleStyle;
         ctx.fill()
     }
 
@@ -175,28 +191,28 @@
                 y1 = y1 + moveDistanceY ;
                 oneX.innerText = x1;
                 oneY.innerText = y1;
-                drawCurve(x1, y1, x2, y2, x3, y3, x4, y4)
+                bezier(x1, y1, x2, y2, x3, y3, x4, y4)
             }
             if(whichCircle == 2){
                 x2 = x2 + moveDistanceX ;
                 y2 = y2 + moveDistanceY ;
                 twoX.innerText = x2;
                 twoY.innerText = y2;
-                drawCurve(x1, y1, x2, y2, x3, y3, x4, y4)
+                bezier(x1, y1, x2, y2, x3, y3, x4, y4)
             }
             if(whichCircle == 3){
                 x3 = x3 + moveDistanceX ;
                 y3 = y3 + moveDistanceY ;
                 threeX.innerText = x3;
                 threeY.innerText = y3;
-                drawCurve(x1, y1, x2, y2, x3, y3, x4, y4)
+                bezier(x1, y1, x2, y2, x3, y3, x4, y4)
             }
             if(whichCircle == 4){
                 x4 = x4 + moveDistanceX ;
                 y4 = y4 + moveDistanceY ;
                 fourX.innerText = x4;
                 fourY.innerText = y4;
-                drawCurve(x1, y1, x2, y2, x3, y3, x4, y4)
+                bezier(x1, y1, x2, y2, x3, y3, x4, y4)
             }
         }
     }
