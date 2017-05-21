@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>贝塞尔曲线生成器</title>
+    <style>
+        *{margin:0;padding:0;}
+        .container{
+            width:1000px;
+            margin:0 auto;
+        }
+        .leftCanvas{
+            float: left;
+            background: #f6f6f6;
+            border-right:1px dashed #dedede;
+        }
+        #canvas{
+            display: block;
+            margin:0 auto;
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+      <div class="leftCanvas">
+          <canvas id="canvas"></canvas>
+      </div>
+      <div class="rightText">
+          <div class="text">
+     <pre>
+         ctx.moveTo(x1,y1);
+         ctx.quadraticCurveTo(x2, y2, x3, y3);
+     </pre>
+          </div>
+          <div>
+              <div>第一个点坐标：</div>
+              <span id="oneX">100</span>
+              <span id="oneY">400</span>
+          </div>
+          <div>
+              <div>第二个点坐标：</div>
+              <span id="twoX">300</span>
+              <span id="twoY">200</span>
+          </div>
+          <div>
+              <div>第三个点坐标：</div>
+              <span id="threeX">400</span>
+              <span id="threeY">500</span>
+          </div>
+      </div>
+  </div>
+
+  <script>
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+
+      canvas.width = 600;
+      canvas.height = 600;
+
+      var circle = {
+          r: 8
+      };
+      var isMouseInCircle = false;
+      var whichCircle = 0;
+      var startX, startY;
+      var oneX = document.getElementById('oneX');
+      var oneY = document.getElementById('oneY');
+      var twoX = document.getElementById('twoX');
+      var twoY = document.getElementById('twoY');
+      var threeX = document.getElementById('threeX');
+      var threeY = document.getElementById('threeY');
+
+      var x1 = parseInt(oneX.innerText);
+      var y1 = parseInt(oneY.innerText);
+      var x2 = parseInt(twoX.innerText);
+      var y2 = parseInt(twoY.innerText);
+      var x3 = parseInt(threeX.innerText);
+      var y3 = parseInt(threeY.innerText);
+
+      drawCurve( x1,y1, x2,y2, x3,y3);
+      canvas.addEventListener('mousedown', mousedown);
+      canvas.addEventListener('mousemove', mousemove);
+      canvas.addEventListener('mouseup', mouseup);
+
+
+      function drawCurve(x1, y1, x2, y2, x3, y3){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          ctx.beginPath();
+          ctx.moveTo(x1,y1);
+          ctx.quadraticCurveTo(x2, y2, x3, y3);
+          ctx.strokeStyle = '#424242'
+          ctx.stroke();
+
+          ctx.beginPath()
+          ctx.moveTo(x1, y1)
+          ctx.lineTo(x2, y2)
+          ctx.lineTo(x3, y3)
+          ctx.strokeStyle = '#ffbb88';
+          ctx.stroke()
+
+          renderOne(x1, y1);
+          renderTwo(x2, y2);
+          renderThree(x3, y3);
+      }
+
+      function renderOne(x1, y1){
+          ctx.beginPath();
+          ctx.arc(x1, y1, circle.r, 0, 2*Math.PI, false);
+          ctx.fillStyle = '#fb8';
+          ctx.fill();
+
+      }
+      function renderTwo(x2, y2){
+          ctx.beginPath();
+          ctx.arc(x2, y2, circle.r, 0, 2*Math.PI, false);
+          ctx.fillStyle = '#fb8';
+          ctx.fill()
+      }
+      function renderThree(x3, y3){
+          ctx.beginPath();
+          ctx.arc(x3, y3, circle.r, 0, 2*Math.PI, false);
+          ctx.fillStyle = '#fb8';
+          ctx.fill()
+      }
+
+      function changeOne(x, y ){
+
+      }
+      function mousedown(e){
+          e.preventDefault();
+          startX = e.clientX - canvas.getBoundingClientRect().left;
+          startY = e.clientY - canvas.getBoundingClientRect().top;
+          ctx.beginPath()
+          ctx.arc(x1, y1, circle.r, 0, 2*Math.PI, false);
+          if(ctx.isPointInPath(startX, startY)){
+              isMouseInCircle = true;
+              whichCircle = 1;
+          }
+          ctx.beginPath()
+          ctx.arc(x2, y2, circle.r, 0, 2*Math.PI, false);
+          if(ctx.isPointInPath(startX, startY)){
+              isMouseInCircle = true;
+              whichCircle = 2;
+          }
+          ctx.beginPath()
+          ctx.arc(x3, y3, circle.r, 0, 2*Math.PI, false);
+          if(ctx.isPointInPath(startX, startY)){
+              isMouseInCircle = true;
+              whichCircle = 3;
+          }
+      }
+      function mouseup(e){
+          e.preventDefault();
+          isMouseInCircle = false;
+      }
+      function mousemove(e){
+          e.preventDefault()
+          var x = e.clientX - canvas.getBoundingClientRect().left;
+          var y = e.clientY - canvas.getBoundingClientRect().top;
+          var moveDistanceX, moveDistanceY;
+          moveDistanceX = x - startX;
+          moveDistanceY = y - startY;
+          startX = x
+          startY = y
+          if(isMouseInCircle){
+              if(whichCircle == 1){
+                 x1 = x1 + moveDistanceX ;
+                 y1 = y1 + moveDistanceY ;
+                 oneX.innerText = x1;
+                 oneY.innerText = y1;
+                 drawCurve(x1, y1, x2, y2, x3, y3)
+              }
+              if(whichCircle == 2){
+                  x2 = x2 + moveDistanceX ;
+                  y2 = y2 + moveDistanceY ;
+                  twoX.innerText = x2;
+                  twoY.innerText = y2;
+                  drawCurve(x1, y1, x2, y2, x3, y3)
+              }
+              if(whichCircle == 3){
+                  x3 = x3 + moveDistanceX ;
+                  y3 = y3 + moveDistanceY ;
+                  threeX.innerText = x3;
+                  threeY.innerText = y3;
+                  drawCurve(x1, y1, x2, y2, x3, y3)
+              }
+          }
+      }
+
+
+  </script>
+</body>
+</html>
+
