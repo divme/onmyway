@@ -40,7 +40,7 @@
 
 //    判断手机时，改变canvas大小
     if(window.innerWidth < 750){
-        var mobile = window.innerWidth * 0.8;
+        var mobile = window.innerWidth * 0.95;
         canvas.width = mobile;
         canvas.height = mobile;
         clear.style.width = mobile + 'px';
@@ -158,7 +158,8 @@
             result = 30-29 * ((v-0.1)/9.9);
         if(lastLine == -1)
             return result;
-       return Math.sqrt(result*result/3 + lastLine*lastLine*2/3);
+//       return Math.sqrt(result*result/3 + lastLine*lastLine*2/3);
+       return result/3 + lastLine*2/3;
     }
 
 //      手指事件函数

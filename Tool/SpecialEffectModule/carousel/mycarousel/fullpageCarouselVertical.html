@@ -37,7 +37,9 @@
 	<script>
 		$(function(){
 			var height = window.innerHeight,
-				count = $('.inner-container').length,
+				$inner =	$('.inner-container'),
+				$wrapper = 	$('.wrapper'),
+				count = $inner.length,
 				index = 0,
 				Timer;
 
@@ -47,12 +49,12 @@
 				btn += "<span class='btn'></span>"
 			}
 			btn += "</div>";
-			$('.wrapper').append(btn);
+			$wrapper.append(btn);
 			$(".btn").eq(0).addClass('on');
 
 
 			// 设置宽度
-			$('.inner-container').css('height',height);
+			$inner.css('height',height);
 			$('.container').css('height',count*height);
 
 			// 基础函数
@@ -63,7 +65,7 @@
 			}
 
 			// 自动carousel
-			$('.wrapper').hover(function(){
+			$wrapper.hover(function(){
 				clearInterval(Timer);
 			},function(){
 				Timer = setInterval(function(){
