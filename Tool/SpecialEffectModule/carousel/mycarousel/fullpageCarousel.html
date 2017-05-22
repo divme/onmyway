@@ -45,7 +45,9 @@
 	<script>
 		$(function(){
 			var width = window.innerWidth,
-				count = $(".inner-container").length,
+				$inner = $(".inner-container"),
+				$con  = $('.container'),
+				count = $inner.length,
 				index = 0,
 				Timer;
 
@@ -60,8 +62,8 @@
 
 			$('.btn').eq(0).addClass('on');
 			// 设置宽度
-			$('.inner-container').css('width',width);
-			$('.container').css('width',count*width);
+			$inner.css('width',width);
+			$con.css('width',count*width);
 
 			// 基础函数
 			function carousel(index){
@@ -73,7 +75,7 @@
 //			function hide(obj){obj.stop(true,false).fadeOut()}
 
 			// 自动carousel
-			$('.container').hover(function(){
+			$con.hover(function(){
 				clearInterval(Timer);
 //				show($('.prenext'));
 			},function(){
