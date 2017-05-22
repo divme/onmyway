@@ -29,33 +29,6 @@
             margin:0 auto;
             z-index:100;
         }
-        .btn{
-            position: absolute;
-            bottom:20px;
-            width: 100px;
-            height:40px;
-            line-height:40px;
-            color: #fff;
-            z-index:101;
-            border:none;
-            border-radius: 5px;
-            text-shadow: 2px 2px 8px  #000;
-            box-shadow: 0 0 5px rgba(255,255,255,0.6) inset;
-        }
-        #reset-btn{
-            background: #069;
-            left:200px;
-        }
-        #reset-btn:hover{
-            background: #059;
-        }
-        #show-btn{
-            background: #086;
-            right:200px;
-        }
-        #show-btn:hover{
-            background: #076;
-        }
     </style>
 </head>
 <body>
@@ -77,9 +50,6 @@
     }
 
     var isMousedown = false; //判断是否鼠标按下
-    var lastLine = -1;   //上一个单位时间内线条宽度
-    var strokecolor = 'black'; //线条颜色
-    var clear = document.querySelector('#btn');
     var lastLocation, lastTime; // 上一个单位时间内的位置和时间戳
 
     var img =  new Image();

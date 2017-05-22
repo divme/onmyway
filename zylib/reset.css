@@ -1,0 +1,29 @@
+      *{margin:0;padding:0; }
+   body{position:relative;font-family:"Helvetica Neue",'微软雅黑', Verdana, Arial, Helvetica, sans-serif;}
+   input{border:none}
+   input:focus{border:none;outline:none;}
+   img{border:none;outline:none;}
+   select{border:none;
+         /*-moz-appearance:none;*/
+         /*-webkit-appearance:none;*/
+         font-family:"Helvetica Neue",'微软雅黑', Verdana, Arial, Helvetica, sans-serif;
+   }
+   input, textarea, keygen, select, button{
+       font-family:"Helvetica Neue",'微软雅黑', Verdana, Arial, Helvetica, sans-serif;
+   }
+   select:focus{border:none;outline:none;}
+   button{border:none}
+   button:focus{border:none;outline:none;}
+   a{color:#424242;text-decoration: none}
+   a:hover{color:#424242;text-decoration: none}
+   ul,li{list-style: none}
+  .clear:after{
+      content: ".";
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+      zoom:1;
+  }
+  .left{float: left;}
+  .right{float:right;}

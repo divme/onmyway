@@ -25,8 +25,8 @@
       var state ={
           x:0,
           y:0,
-          r:40,
-          R:80,
+          r:20,
+          R:40,
           rotate:0
       };
       var colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"];
@@ -94,68 +94,8 @@
           ctx.restore();
           ctx.closePath();
           ctx.fillStyle = colors[Math.floor(Math.random()*colors.length)];
-//          ctx.fillStyle = "yellow";
           ctx.fill();
       }
-
-
   </script>
 </body>
 </html>
-
-<!--<script>-->
-    <!--ctx.beginPath(); // 开始路径绘制-->
-    <!--ctx.moveTo(20, 20);-->
-    <!--ctx.lineTo(20, 200);-->
-    <!--ctx.lineTo(200, 200);-->
-    <!--ctx.moveTo(20,50);-->
-    <!--ctx.lineTo(40, 150);-->
-    <!--ctx.lineTo(60, 126);-->
-    <!--ctx.lineTo(80, 35);-->
-    <!--ctx.lineTo(100, 98);-->
-    <!--ctx.lineTo(120, 98);-->
-    <!--ctx.lineTo(140, 98);-->
-    <!--ctx.lineTo(150, 98);-->
-
-    <!--ctx.lineWidth = 1.0; // 设置线宽-->
-    <!--ctx.strokeStyle = '#424242';-->
-    <!--ctx.stroke();-->
-    <!--//      ctx.fillStyle = '#424242';-->
-    <!--//      ctx.fill();-->
-
-
-
-    <!--ctx.beginPath();-->
-    <!--ctx.fillStyle="#ffffff";-->
-    <!--ctx.arc(200, 350, 100, 0, Math.PI*2, true);-->
-    <!--ctx.fill();-->
-    <!--ctx.closePath();-->
-
-    <!--ctx.beginPath();-->
-    <!--ctx.fillStyle="#d3ae68";-->
-    <!--ctx.arc(200, 350, 100, 0, Math.PI*1.8, true);-->
-    <!--ctx.lineTo(200,350);-->
-    <!--ctx.fill();-->
-    <!--ctx.closePath();-->
-
-    <!--ctx.beginPath();-->
-    <!--ctx.fillStyle="#657422";-->
-    <!--ctx.arc(200, 350, 100,  Math.PI*1.8,Math.PI*1.5, true);-->
-    <!--ctx.lineTo(200,350);-->
-    <!--ctx.fill();-->
-    <!--ctx.closePath();-->
-
-    <!--//      var myGradient = ctx.createLinearGradient(0, 0, 0, 160);-->
-    <!--//      myGradient.addColorStop(0, "#ffffff");-->
-    <!--//      myGradient.addColorStop(1, "#d3ae68");-->
-    <!--//      ctx.fillStyle = myGradient;-->
-    <!--//      ctx.fillRect(50,50,100,40);-->
-    <!--//-->
-    <!--//      ctx.beginPath();-->
-    <!--//      ctx.lineWidth = 10;-->
-    <!--//      ctx.fillStyle = 'red';-->
-    <!--//      ctx.strokeStyle = 'green';-->
-    <!--//-->
-    <!--//      ctx.strokeRect(10,10,100,100);-->
-    <!--//      ctx.fillRect  (10,10,100,100);-->
-<!--</script>-->
