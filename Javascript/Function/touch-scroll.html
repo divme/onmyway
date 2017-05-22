@@ -5,15 +5,41 @@
     <meta name="viewport" content="width=device-width,initial-scale=1 user-scalable=0"/>
     <title>touch-scroll</title>
     <style>
-        * {margin: 0;  padding: 0;}
-        #outer{ width:90%; height: 490px; background: #000; margin: auto;  overflow: hidden;}
-        #inner{width:80%;  background: #e4e4e4; margin: auto; position:relative; top:0; font-size: 1em; padding: 30px 10px;  }
-        #inner p{line-height: 30px; letter-spacing: 3px; text-indent:2em;}
-        #text{ height: 40px; width: 100%;border:1px solid red;}
-        h2{ width: 100%; text-align: center; }
-        h3{ width: 100%; padding-left:60%;}
+            * {margin: 0;  padding: 0;}
+        #outer{
+            width:100%;
+            height:490px;
+            background: #000;
+            overflow: hidden;
+        }
+        #inner{
+            position:relative;
+            width:100%;
+            top:0;
+            padding: 30px 20px;
+            background: #e4e4e4;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        #inner p{
+            line-height: 30px;
+            letter-spacing: 3px;
+            text-indent:2em;
+        }
+        #text{
+            width: 100%;
+            height: 40px;
+            border: 1px solid red;
+        }
+        h2{
+            width: 100%;
+            text-align: center;
+        }
+        h3{
+            width: 100%;
+            padding-left:60%;
+        }
     </style>
-    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
 <div id="text"></div>
@@ -32,37 +58,28 @@
     </div>
 </div>
 <script>
-    jQuery.extend({
-        foo:function(){
-            console.log("jquery.extend-foo");
-        },
-        bar:function(){
-            console.log("jquery.extend-bar");
-        }
-    });
-</script>
-<script>
     var startX,//触摸时的坐标
         startY,
             x, //滑动的距离
             y,
-            aboveY=0; // 设一个全局变量记录上一次内部块滑动的位置
+            aboveY = 0; // 设一个全局变量记录上一次内部块滑动的位置
+    var inner = document.getElementById('inner');
+    var outer = document.getElementById('outer');
 
-    var documentHeight=$("#inner").height();//内部滑动模块的高度
-    var wapperHeight=$("#outer").height(); //外部盒子的高度
-    var inner = document.getElementById("inner");
+    var documentHeight = inner.clientHeight;//内部滑动模块的高度
+    var wapperHeight = outer.clientHeight; //外部盒子的高度
 
     function touchStart(e){
         var touch = e.touches[0];
-        startY = touch.pageY;
+            startY = touch.pageY;
     }
 
     function touchMove(e){
         e.preventDefault();
         var touch = e.touches[0];
-        y = touch.pageY - startY;
-        inner.style.top = aboveY + y +"px";
-        document.getElementById("text").innerHTML = inner.style.top;
+            y = touch.pageY - startY;
+            inner.style.top = aboveY + y +"px";
+            document.getElementById("text").innerHTML = inner.style.top;
     }
 
     function touchEnd(e){
