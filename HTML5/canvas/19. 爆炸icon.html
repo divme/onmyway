@@ -48,20 +48,20 @@
       btn.addEventListener('click',reset);
       function reset(){
           ctx.drawImage(img, canvasX, canvasY, img.width, img.height);
-          ctx.drawImage(image, canvasX + 400, canvasY, image.width, image.height);
+          ctx.drawImage(image, canvasX + 200, canvasY, image.width, image.height);
       }
 
       var img = new Image();
-          img.src = 'img/logo.png';
+          img.src = 'img/icon.png';
       img.onload = function(){
           ctx.drawImage(img, canvasX, canvasY, img.width, img.height);
           canvas.addEventListener('click', boom)
       };
 
       var image = new Image();
-          image.src = 'img/icon.png';
+          image.src = 'img/logo.png';
       image.onload = function(){
-          ctx.drawImage(image, canvasX + 400, canvasY, image.width, image.height);
+          ctx.drawImage(image, canvasX + 200, canvasY, image.width, image.height);
           canvas.addEventListener('click', boom)
       };
 
@@ -73,33 +73,40 @@
           ctx.rect(canvasX, canvasY, img.width, img.height);
           if(ctx.isPointInPath(pointX, pointY)){
 
-//              图像摇晃
-//                shake();
+//           图像摇晃：500ms
+              shake(img);
+
+              setTimeout(function(){
+
 //              将图像分割，相关值以对象形式，存入一个数组
-                divide(img);
+                  divide(img);
 
 //              将数组中的图像分割块渲染出来,并添加动作
-                var Timer = setInterval(function(){
-                    if(areas.length > 0){
+                  var Timer = setInterval(function(){
+                      if(areas.length > 0){
+                          updateArea();
+                          renderArea(img);
+                      }else{
+                          clearInterval(Timer)
+                      }
+                  },30)
 
-                        updateArea();
-                        renderArea(img);
-                    }else{
-                        clearInterval(Timer)
-                    }
-                },30)
+              },500)
+
           }
       }
 
 //      图像摇晃
-      function shake(){
-          ctx.save();
-          setInterval(function(){
-              ctx.drawImage(img, canvasX, canvasY, img.width, img.height);
-              ctx.translate(canvasX + img.width/2, canvasY + img.height/2);
-              ctx.rotate(30);
-          },30)
-          ctx.restore()
+      function shake(imgObj){
+          var startTime = new Date().getTime();
+          var shakeTimer = setInterval(function(){
+              ctx.clearRect(canvasX-30, canvasY-30, imgObj.width+80, imgObj.height+80);
+              ctx.drawImage(imgObj,  canvasX+Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*3+3), canvasY + Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*3), imgObj.width, imgObj.height);
+              var currentTime = new Date().getTime();
+              if(currentTime - startTime > 500){
+                  clearInterval(shakeTimer);
+              }
+          },50)
       }
 //图像进行爆炸小分队分组
       function divide(imgObj){

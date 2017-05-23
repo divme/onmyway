@@ -5,94 +5,278 @@
     <title>爆炸icon</title>
     <style>
         *{margin:0;padding:0;}
-        #canvas{
-            display: block;
-            border:1px dashed #424242;
+        .container{
+            width:540px;
             margin:10px auto;
-            box-shadow:0 0 20px #000 inset,0 0 15px #101010 ;
+            font-size:0;
+        }
+        canvas{
+            display: inline-block;
+            /*border:1px dashed #424242;*/
+            margin:10px;
+            /*box-shadow:0 0 20px #000 inset,0 0 15px #101010 ;*/
+        }
+        #btn{
+            display: block;
+            width: 300px;
+            height:50px;
+            line-height:50px;
+            margin:10px auto;
+            background: #f9dfc8;
+            color: #bdae85 ;
+            font-size:20px;
+            word-spacing: 10px;
+            letter-spacing: 6px;
+            border:none;
+            box-shadow: 0 0 10px rgba(66,66,66,.8), 0 0 20px #ffffff inset;
+        }
+        #btn:focus{
+            outline:none;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <canvas id="canvas0" width="100" height="100"></canvas>
-    <canvas id="canvas1" width="100" height="100"></canvas>
-    <canvas id="canvas2" width="100" height="100"></canvas>
-    <canvas id="canvas3" width="100" height="100"></canvas>
-    <canvas id="canvas4" width="100" height="100"></canvas>
-    <canvas id="canvas5" width="100" height="100"></canvas>
+    <canvas id="canvas0" width="150" height="150"></canvas>
+    <canvas id="canvas1" width="150" height="150"></canvas>
+    <canvas id="canvas2" width="150" height="150"></canvas>
+    <canvas id="canvas3" width="150" height="150"></canvas>
+    <canvas id="canvas4" width="150" height="150"></canvas>
+    <canvas id="canvas5" width="150" height="150"></canvas>
 </div>
-
+<button id="btn"> 全部还原</button>
 
   <script>
       var canvas0 = document.getElementById('canvas0');
-      var ctx0 = canvas.getContext('2d');
+      var ctx0 = canvas0.getContext('2d');
 
       var canvas1 = document.getElementById('canvas1');
-      var ctx1 = canvas.getContext('2d');
+      var ctx1 = canvas1.getContext('2d');
 
       var canvas2 = document.getElementById('canvas2');
-      var ctx2 = canvas.getContext('2d');
+      var ctx2 = canvas2.getContext('2d');
 
       var canvas3 = document.getElementById('canvas3');
-      var ctx3 = canvas.getContext('2d');
+      var ctx3 = canvas3.getContext('2d');
 
       var canvas4 = document.getElementById('canvas4');
-      var ctx4 = canvas.getContext('2d');
+      var ctx4 = canvas4.getContext('2d');
 
       var canvas5 = document.getElementById('canvas5');
-      var ctx5 = canvas.getContext('2d');
+      var ctx5 = canvas5.getContext('2d');
 
 
       var areas  = [];  //存放爆炸小分队队员
       var counts = 10; //每行分为几份，总共counts*counts份
-      var canvasX = 50, canvasY = 50;
+      var canvasX = 15,
+          canvasY = 15;
 
       var img = new Image();
-          img.src = 'img/icon.png';
+          img.src = 'img/icon0.png';
       img.onload = function(){
-          ctx.drawImage(img, canvasX, canvasY, img.width, img.height);
-          canvas.addEventListener('click', boom)
+          ctx0.drawImage(img, canvasX, canvasY, img.width, img.height);
+          canvas0.addEventListener('click', boom0)
       };
 
+      var img1 = new Image();
+          img1.src = 'img/icon1.png';
+      img1.onload = function(){
+          ctx1.drawImage(img1, canvasX, canvasY, img1.width, img1.height);
+          canvas1.addEventListener('click', boom1)
+      };
 
-      function boom(e){
-          var pointX = e.clientX - canvas.getBoundingClientRect().left;
-          var pointY = e.clientY - canvas.getBoundingClientRect().top;
+      var img2 = new Image();
+          img2.src = 'img/icon2.png';
+      img2.onload = function(){
+          ctx2.drawImage(img2, canvasX, canvasY, img2.width, img2.height);
+          canvas2.addEventListener('click', boom2)
+      };
 
-          ctx.rect(canvasX, canvasY, img.width, img.height);
-          if(ctx.isPointInPath(pointX, pointY)){
+      var img3 = new Image();
+          img3.src = 'img/icon3.png';
+      img3.onload = function(){
+          ctx3.drawImage(img3, canvasX, canvasY, img3.width, img3.height);
+          canvas3.addEventListener('click', boom3)
+      }
 
-//              图像摇晃
-//                shake();
-//              将图像分割，相关值以对象形式，存入一个数组
-                divide(img);
+      var img4 = new Image();
+          img4.src = 'img/icon4.png';
+      img4.onload = function(){
+          ctx4.drawImage(img4, canvasX, canvasY, img4.width, img4.height);
+          canvas4.addEventListener('click', boom4)
+      }
 
-//              将数组中的图像分割块渲染出来,并添加动作
-                var Timer = setInterval(function(){
-                    if(areas.length > 0){
+      var img5 = new Image();
+          img5.src = 'img/icon5.png';
+      img5.onload = function(){
+          ctx5.drawImage(img5, canvasX, canvasY, img5.width, img5.height);
+          canvas5.addEventListener('click', boom5)
+      }
 
-                        updateArea();
-                        renderArea(img);
-                    }else{
-                        clearInterval(Timer)
-                    }
-                },30)
+
+
+
+      var btn = document.getElementById("btn");
+      btn.addEventListener('click',init)
+      function init(){
+          ctx0.drawImage(img,  canvasX, canvasY, img.width,  img.height);
+          ctx1.drawImage(img1, canvasX, canvasY, img1.width, img1.height);
+          ctx2.drawImage(img2, canvasX, canvasY, img2.width, img2.height);
+          ctx3.drawImage(img3, canvasX, canvasY, img3.width, img3.height);
+          ctx4.drawImage(img4, canvasX, canvasY, img4.width, img5.height);
+          ctx5.drawImage(img5, canvasX, canvasY, img5.width, img5.height);
+          canvas0.addEventListener('click', boom0)
+          canvas1.addEventListener('click', boom1)
+          canvas2.addEventListener('click', boom2)
+          canvas3.addEventListener('click', boom3)
+          canvas4.addEventListener('click', boom4)
+          canvas5.addEventListener('click', boom5)
+      }
+
+
+
+      function boom0(e) {
+          var pointX = e.clientX - canvas0.getBoundingClientRect().left;
+          var pointY = e.clientY - canvas0.getBoundingClientRect().top;
+
+          ctx0.rect(canvasX, canvasY, img.width, img.height);
+          if (ctx0.isPointInPath(pointX, pointY)) {
+              shake(img,ctx0);
+              setTimeout(function () {
+                  divide(img,ctx0);
+                  var Timer = setInterval(function () {
+                      if (areas.length > 0) {
+                          updateArea();
+                          renderArea(img,ctx0);
+                      } else {
+                          clearInterval(Timer)
+                      }
+                  }, 30)
+
+              }, 500)
+          }
+      }
+      function boom1(e) {
+          var pointX = e.clientX - canvas1.getBoundingClientRect().left;
+          var pointY = e.clientY - canvas1.getBoundingClientRect().top;
+
+          ctx1.rect(canvasX, canvasY, img1.width, img1.height);
+          if (ctx1.isPointInPath(pointX, pointY)) {
+              shake(img1,ctx1);
+              setTimeout(function () {
+                  divide(img1,ctx1);
+                  var Timer = setInterval(function () {
+                      if (areas.length > 0) {
+                          updateArea1();
+                          renderArea(img1,ctx1);
+                      } else {
+                          clearInterval(Timer)
+                      }
+                  }, 30)
+
+              }, 500)
+          }
+      }
+      function boom2(e) {
+          var pointX = e.clientX - canvas2.getBoundingClientRect().left;
+          var pointY = e.clientY - canvas2.getBoundingClientRect().top;
+
+          ctx2.rect(canvasX, canvasY, img.width, img.height);
+          if (ctx2.isPointInPath(pointX, pointY)) {
+              shake(img2,ctx2);
+              setTimeout(function () {
+                  divide(img2,ctx2);
+                  var Timer = setInterval(function () {
+                      if (areas.length > 0) {
+                          updateArea();
+                          renderArea(img2,ctx2);
+                      } else {
+                          clearInterval(Timer)
+                      }
+                  }, 30)
+
+              }, 500)
+          }
+      }
+      function boom3(e) {
+          var pointX = e.clientX - canvas3.getBoundingClientRect().left;
+          var pointY = e.clientY - canvas3.getBoundingClientRect().top;
+
+          ctx3.rect(canvasX, canvasY, img.width, img.height);
+          if (ctx3.isPointInPath(pointX, pointY)) {
+              shake(img3,ctx3);
+              setTimeout(function () {
+                  divide(img3,ctx3);
+                  var Timer = setInterval(function () {
+                      if (areas.length > 0) {
+                          updateArea();
+                          renderArea(img3,ctx3);
+                      } else {
+                          clearInterval(Timer)
+                      }
+                  }, 30)
+
+              }, 500)
+          }
+      }
+      function boom4(e) {
+          var pointX = e.clientX - canvas4.getBoundingClientRect().left;
+          var pointY = e.clientY - canvas4.getBoundingClientRect().top;
+
+          ctx4.rect(canvasX, canvasY, img.width, img.height);
+          if (ctx4.isPointInPath(pointX, pointY)) {
+              shake(img4,ctx4);
+              setTimeout(function () {
+                  divide(img4,ctx4);
+                  var Timer = setInterval(function () {
+                      if (areas.length > 0) {
+                          updateArea();
+                          renderArea(img4,ctx4);
+                      } else {
+                          clearInterval(Timer)
+                      }
+                  }, 30)
+
+              }, 500)
+          }
+      }
+      function boom5(e) {
+          var pointX = e.clientX - canvas5.getBoundingClientRect().left;
+          var pointY = e.clientY - canvas5.getBoundingClientRect().top;
+
+          ctx5.rect(canvasX, canvasY, img.width, img.height);
+          if (ctx5.isPointInPath(pointX, pointY)) {
+              shake(img5,ctx5);
+              setTimeout(function () {
+                  divide(img5,ctx5);
+                  var Timer = setInterval(function () {
+                      if (areas.length > 0) {
+                          updateArea();
+                          renderArea(img5,ctx5);
+                      } else {
+                          clearInterval(Timer)
+                      }
+                  }, 30)
+
+              }, 500)
           }
       }
 
 //      图像摇晃
-      function shake(){
-          ctx.save();
-          setInterval(function(){
-              ctx.drawImage(img, canvasX, canvasY, img.width, img.height);
-              ctx.translate(canvasX + img.width/2, canvasY + img.height/2);
-              ctx.rotate(30);
-          },30)
-          ctx.restore()
+      function shake(imgObj,ctx){
+          var startTime = new Date().getTime();
+          var shakeTimer = setInterval(function(){
+              ctx.clearRect(canvasX-30, canvasY-30, imgObj.width+80, imgObj.height+80);
+              ctx.drawImage(imgObj,  canvasX+Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*3+3), canvasY + Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*3), imgObj.width, imgObj.height);
+              var currentTime = new Date().getTime();
+              if(currentTime - startTime > 500){
+                  clearInterval(shakeTimer);
+              }
+          },50)
       }
+
 //图像进行爆炸小分队分组
-      function divide(imgObj){
+      function divide(imgObj,ctx){
           for(var i = 0; i < counts; i++){
               for(var j = 0; j< counts; j++){
                   var area = {
@@ -103,8 +287,9 @@
                       x : canvasX + i*imgObj.width/counts,
                       y : canvasY + j*imgObj.height/counts, //第一列，x为50，y递增
 //                      运动速度
-//                      vx: Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*5+3),
-//                      vy: Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*5+3),
+                      vx0: Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*5+3),
+                      vy0: Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*5+3),
+
                       vx: Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*3),
                       vy: Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*5+3),
                       g: 2,
@@ -119,7 +304,7 @@
       }
 
 //图像转换为爆炸小分队组图
-      function renderArea(imgObj){
+      function renderArea(imgObj,ctx){
           ctx.clearRect(canvasX-30, canvasY-30, imgObj.width+80, imgObj.height+80);
 
           for(var m = 0, len = areas.length; m < len; m++){
@@ -139,6 +324,21 @@
                       areas.splice(m,1);
                       m = m-1
                   }
+
+          }
+      }
+
+      function updateArea1(){
+
+          for(var m = 0; m < areas.length; m++){
+
+              areas[m].x += areas[m].vx0;
+              areas[m].y += areas[m].vy0;
+
+              if (areas[m].x > img.width+80 || areas[m].x < 30 || areas[m].y > img.height+80 || areas[m].y <30){
+                  areas.splice(m,1);
+                  m = m-1
+              }
 
           }
       }
