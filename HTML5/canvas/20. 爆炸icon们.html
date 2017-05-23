@@ -11,57 +11,47 @@
             margin:10px auto;
             box-shadow:0 0 20px #000 inset,0 0 15px #101010 ;
         }
-        #btn{
-            display: block;
-            width: 300px;
-            height:50px;
-            line-height:50px;
-            margin:10px auto;
-            background: #d3ae68;
-            color: #fff ;
-            font-size:20px;
-            word-spacing: 10px;
-            letter-spacing: 6px;
-            border:none;
-            box-shadow: 0 0 10px #424242, 0 0 20px #ffffff inset;
-        }
-        #btn:focus{
-            outline:none;
-        }
     </style>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
-    <button id="btn">还原</button>
+<div class="container">
+    <canvas id="canvas0" width="100" height="100"></canvas>
+    <canvas id="canvas1" width="100" height="100"></canvas>
+    <canvas id="canvas2" width="100" height="100"></canvas>
+    <canvas id="canvas3" width="100" height="100"></canvas>
+    <canvas id="canvas4" width="100" height="100"></canvas>
+    <canvas id="canvas5" width="100" height="100"></canvas>
+</div>
+
 
   <script>
-      var canvas = document.getElementById('canvas');
-      var ctx = canvas.getContext('2d');
+      var canvas0 = document.getElementById('canvas0');
+      var ctx0 = canvas.getContext('2d');
 
-      canvas.width = 600;
-      canvas.height = 600;
+      var canvas1 = document.getElementById('canvas1');
+      var ctx1 = canvas.getContext('2d');
+
+      var canvas2 = document.getElementById('canvas2');
+      var ctx2 = canvas.getContext('2d');
+
+      var canvas3 = document.getElementById('canvas3');
+      var ctx3 = canvas.getContext('2d');
+
+      var canvas4 = document.getElementById('canvas4');
+      var ctx4 = canvas.getContext('2d');
+
+      var canvas5 = document.getElementById('canvas5');
+      var ctx5 = canvas.getContext('2d');
+
 
       var areas  = [];  //存放爆炸小分队队员
       var counts = 10; //每行分为几份，总共counts*counts份
       var canvasX = 50, canvasY = 50;
-      var btn = document.getElementById("btn");
-      btn.addEventListener('click',reset);
-      function reset(){
-          ctx.drawImage(img, canvasX, canvasY, img.width, img.height);
-          ctx.drawImage(image, canvasX + 400, canvasY, image.width, image.height);
-      }
 
       var img = new Image();
-          img.src = 'img/logo.png';
+          img.src = 'img/icon.png';
       img.onload = function(){
           ctx.drawImage(img, canvasX, canvasY, img.width, img.height);
-          canvas.addEventListener('click', boom)
-      };
-
-      var image = new Image();
-          image.src = 'img/icon.png';
-      image.onload = function(){
-          ctx.drawImage(image, canvasX + 400, canvasY, image.width, image.height);
           canvas.addEventListener('click', boom)
       };
 
