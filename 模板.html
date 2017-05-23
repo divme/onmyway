@@ -39,7 +39,7 @@
     </style>
 </head>
 <body>
-    <img src="CSS/img/xhr.png"/>
+
     <!--<div class="anima"></div>-->
     <!--<div id="d"><img src="CSS/img/xhr.png" alt="nothing"></div>				-->
     <!--<script>-->
@@ -79,6 +79,20 @@
             <!--}, 0.1)-->
         <!--})()-->
     <!--</script>-->
+    <script src="zylib/jquery-2.1.1.min.js"></script>
+    <p><b>Values: </b></p>
+    <form>
+        <input type="text" name="name" value="John"/>
+        <input type="text" name="password" value="password"/>
+        <input type="text" name="url" value="http://ejohn.org/"/>
+    </form>
+    <script>
+        $(function(){
+            $("p").append( $("input").map(function(){
+                return $(this).val();
+            }).get().join(", ") );
+        })
+    </script>
 </body>
 </html>
 
