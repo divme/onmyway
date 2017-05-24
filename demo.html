@@ -2,349 +2,117 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>垂直居中对齐</title>
-    <link rel="stylesheet" href="CSS/css/reset.css">
+    <title>模板</title>
     <style>
-         *{margin:0;padding:0}
-         ul li{list-style:none}
-         h1,h3{text-align: center;padding:10px;}
-        .container{height:100px;overflow:hidden;background: #f2f2f2;}
-        .container>div{
+        *{margin:0;padding:0}
+        #d{
+            position: relative;
             width:1000px;
-            height:80px;
-            line-height:80px;
-            margin:10px auto;
-            background: #e5edff;
-            border:1px solid red;
-            text-align: center;
+            height:600px;
+        }
+        #d img{
+            position: absolute;
+            width: 500px;
+            top:0;
+            left:0;
+            border:2px solid red;
+            filter: blur(25px);
+            -webkit-filter: grayscale(1);
+            /*-webkit-filter: invert(1);*/
+            /*-webkit-filter: invert(1);*/
+        }
+        .anima{
+            width:100px;
+            height:100px;
+            margin:20px;
+            background: #000;
+            animation:key 5s linear infinite;
+        }
+        @keyframes key {
+            0%,40%,80%{
+                transform: translateX(0);
+            }
+            20%,60%,100%{
+                transform: translateX(500px);
+            }
         }
     </style>
 </head>
 <body>
-<h1>vertical-align 垂直居中对齐！！！</h1>
 
-<h3>img 与 inline、inline-block</h3>
-<div class="father" id="father">
-    <img src="CSS/img/abc.jpg">
-    <span>我是谁</span>
-</div>
-<style>
-    .father{
-        position:relative;
-        border:1px solid #000;
-        text-align:center;
-        height:180px;
-        /*font-size:0;*/
-        line-height:180px;
-    }
-    .father img{
-        width:150px;
-        vertical-align: middle;
-    }
-    .father span{
-        display: inline-block;
-        line-height:50px;
-
-        vertical-align: middle;
-        padding:0 10px;
-        background:red;
-        color:#fff;
-    }
-    /*.father:after{*/
-    /*content: '';*/
-    /*!*height: 180px;*!*/
-    /*line-height:180px;*/
-    /*font-size:0;*/
-    /*width:2px;*/
-    /*background:red;*/
-    /*!*display: inline-block;*!*/
-    /*!*vertical-align: middle;*!*/
-    /*}*/
-</style>
-
-<h3> inline 和 inline-block 垂直居中</h3>
-<div class="container">
-    <div  class="inlineandblock">
-        <span>inline：宽高设置都无效;左右margin/全方向padding有效</span>
-        <span>只有一个inline-block<br>两行的inline-block</span>
-    </div>
-    <style>
-        .inlineandblock span:first-of-type{
-            margin-top:10px;
-            background: #000;
-            color: #fff;
-            vertical-align: middle;
-        }
-        .inlineandblock span:last-of-type{
-            display: inline-block;
-            line-height:1.5;
-            background: red;
-            color: #fff;
-            vertical-align: middle;
-        }
-    </style>
-</div>
-
-<h3>0. 单图片垂直居中</h3>
-<div class="container">
-    <div class="onlyimg" >
-        <img src="logo.png">
-    </div>
-    <style>
-        .onlyimg{line-height:60px;}
-        .onlyimg img{height:40px;vertical-align: middle}
-    </style>
-</div>
-
-<h3>0. 单 inline 元素垂直居中</h3>
-<div class="container">
-    <div  class="onlyinline">
-        <span>只有一个inline<br>是吗</span>
-    </div>
-    <style>
-        .onlyinline span{
-            line-height:1.2em;
-            vertical-align: middle;
-            background: #000;
-            color: #fff;
-        }
-    </style>
-</div>
-
-<h3>0. 单inline-block 垂直居中 </h3>
-<div class="container">
-    <div  class="onlyinlineblock">
-        <span>inline-block:得设置高，不然会跟父元素一样高</br>我是谁</span>
-    </div>
-    <style>
-        .onlyinlineblock span{
-            display: inline-block;
-            /*height:1.6em;*/
-            line-height:1.6em;
-            vertical-align: middle;
-            background: #000;
-            color: #fff;
-        }
-    </style>
-</div>
-
-<h3>01.img 和 img</h3>
-<div class="container">
-    <div class='bothimg' >
-        <img style="" src="CSS/img/abc.jpg">
-        <img style="" src="logo.png">
-    </div>
-    <style>
-
-        .bothimg img:first-of-type{
-            height:20px;
-            vertical-align: middle;
-        }
-        .bothimg img:last-of-type{
-            height:36px;
-            vertical-align: middle;
-        }
-    </style>
-</div>
-
-<h3>01. inline 和 inline</h3>
-<div class="container">
-    <div class="bothinline">
-        <span>第一个span</span>
-        <span>第二个span</span>
-        <style>
-            .bothinline span{
-                background: #000;
-                color: #fff;
-            }
-        </style>
-    </div>
-</div>
-
-<h3>01.inline-block 和 inline-block</h3>
-<div class="container">
-    <div class="bothinlineblock">
-        <span>第一个span</span>
-        <span>第二个span</span>
-    </div>
-    <style>
-        .bothinlineblock span{
-            display: inline-block;
-            min-height:30px;
-            line-height:1.5;
-            background: #000;
-            color: #fff;
-        }
-    </style>
-</div>
+<!--<div class="anima"></div>-->
+<!--<div id="d"><img src="CSS/img/xhr.png" alt="nothing"></div>				-->
+<!--<script>-->
+<!--var div = document.getElementById('d');-->
+<!--var html = "<span>我是sspan</span><p>我是个p</p>"-->
+<!--div.innerHTML = html;-->
+<!--localStorage.setItem('zy','bigman')-->
+<!--</script>-->
+<!--<script>-->
 
 
-
-<h3>02.inline 和 float</h3>
-<div class="container">
-     <div class="inlinefloat">
-         <span>inline 与 float：float没设置高度和line-height</span>
-         <span>float:float出当前文档流，只是作为子元素继承line-height，但是并不会执行vertical-align，因为不作为当前文档当前行的内容了</span>
-     </div>
-    <style>
-        .inlinefloat span:first-of-type{
-            padding:5px;
-            background: #000;
-            color: #fff;
-        }
-        .inlinefloat span:last-of-type{
-            float: right;
-            background: red;
-            color: #fff;
-        }
-    </style>
-</div>
-
-<h3>02.inline-block 和 float</h3>
-<div class="container">
-    <div class="inlineblockfloat">
-        <span>一个inline-block的span</span>
-        <div class="right">float继承了line-height，所以会变现为起码父元素那么高，除非并且最好给它设置一个高度以及自身的line-height</div>
-    </div>
-    <style>
-        .inlineblockfloat span{
-            display: inline-block;
-            height:40px;
-            line-height:40px;
-            background: #000;
-            color: #fff;
-            vertical-align: middle;
-        }
-        .inlineblockfloat .right{
-            height:20px;
-            line-height:20px;
-            vertical-align: middle;
-            background: red;
-            color: #ffffff;
-        }
-    </style>
-</div>
-
-
-
-<h3>02.img 和 float</h3>
-<div class="container">
-    <div class="imgfloat">
-        <img src="logo.png" alt="">
-        <div class="left">左边只设置line-height，没设置高度</div>
-        <div class="right">右边只有高度，没设置line-height</div>
-    </div>
-    <style>
-        .imgfloat img{
-            vertical-align: middle;
-        }
-        .imgfloat .left{
-            line-height:40px;
-            background: red;
-            color: #fff;
-            vertical-align: middle;
-            margin-left:20px;
-        }
-        .imgfloat .right {
-            height:40px;
-            background: #fff;
-            color: #000;
-            vertical-align: middle;
-            margin-right:20px;
-        }
-    </style>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--分页-->
+<!--(function() {-->
+<!--if(!window.localStorage) {-->
+<!--console.log('当前浏览器不支持localStorage!')-->
+<!--}-->
+<!--var test = '0123456789';-->
+<!--var add = function(num) {-->
+<!--num += num;-->
+<!--if(num.length == 10240) {-->
+<!--test = num;-->
+<!--return;-->
+<!--}-->
+<!--add(num);-->
+<!--};-->
+<!--add(test);-->
+<!--var sum = test;-->
+<!--var show = setInterval(function(){-->
+<!--sum += test;-->
+<!--try {-->
+<!--window.localStorage.removeItem('test');-->
+<!--window.localStorage.setItem('test', sum);-->
+<!--console.log(sum.length / 1024 + 'KB');-->
+<!--} catch(e) {-->
+<!--alert(sum.length / 1024 + 'KB超出最大限制');-->
+<!--clearInterval(show);-->
+<!--}-->
+<!--}, 0.1)-->
+<!--})()-->
+<!--</script>-->
+<script src="zylib/jquery-2.1.1.min.js"></script>
+<p><b>Values: </b></p>
+<form>
+    <input type="text" name="name" value="John"/>
+    <input type="text" name="password" value="password"/>
+    <input type="text" name="url" value="http://ejohn.org/"/>
+</form>
+<div style="height: 2000px;"></div>
 <script>
-    function showPageCommon(config) {
-        return function (page, total) {
-            var str = '<a>' + page + '</a>';
+    document.attachEvent('onmousewheel',function(e){
+        var Timer;
+        alert(e.wheelDelta);
+//            clearTimeout(Timer);
+//            Timer = setTimeout(function(){
+//                alert(e.wheelDelta);
+//            },500)
+    })
+    //        $(function(){
+    //            $("p").append( $("input").map(function(){
+    //                return $(this).val();
+    //            }).get().join(", ") );
+    //        })
 
-            for (var i = 1; i <= 3; i++) {
-                if (page - i > 1) {
-                    str = '<a class="' + config.color + '">' + (page - i) + '</a> ' + str;
-                }
-                if (page + i < total) {
-                    str = str + ' ' + (page + i);
-                }
-            }
 
-            if (page - 4 > 1) {
-                str = '... ' + str;
-            }
 
-            if (page > 1) {
-                str = '上一页 ' + 1 + ' ' + str;
-            }
-
-            if (page + 4 < total) {
-                str = str + ' ...';
-            }
-
-            if (page < total) {
-                str = str + ' ' + total + ' 下一页';
-            }
-
-            return str;
-
-        }
-    }
-
-    var showPages = showPageCommon({
-        color: 'red'
-    });
-
-    var total = 110;
-//    for (var i = 1; i <= total; i++) {
-//        var ret = showPages(6, total);
-//        $('body').append(ret)
-//    }
-
-    var showPages = showPageCommon({
-        color: 'blue'
-    });
-
-    var total = 110;
-    for (var i = 1; i <= total; i++) {
-        var ret = showPages(i, total);
-
-    }
+    //        document.addEventListener('mousewheel',function(e){
+    //
+    //            var Timer;
+    //            clearTimeout(Timer);
+    //            Timer = setTimeout(function(){
+    //                alert(e.wheelDelta);
+    //            },500)
+    //        })
 </script>
-
-
-<h3>line-height之baseline与最后一个子元素的一致，如果没有行内块元素的子元素，以margin-bottom为准</h3>
-<div class="line">
-    <span class="dib-baseline"></span>
-    <span class="dib-baseline">x-baseline</span>
-</div>
-<style>
-    .line{
-        position:relative;
-        background:yellowgreen;
-    }
-    .dib-baseline {
-        display: inline-block; width: 100px; height: 100px;
-        border: 1px solid #cad5eb; background-color: #f0f3f9;
-        margin-bottom:20px;
-    }
-</style>
-
 </body>
 </html>
 

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3D-transform</title>
+    <style>
+        *{margin:0;padding:0}
+        .container{
+            -webkit-perspective: 800px;
+            perspective :800px;
+        }
+        .target{
+            width:200px;
+            height:200px;
+            margin:50px auto;
+            background: #69c;
+            -webkit-transform-style: preserve-3d ;
+            transform-style: preserve-3d;
+        }
+        .controller{
+            width:800px;
+            margin:auto;
+        }
+        .controller input{
+            display: block;
+            width: 100%;
+            margin:20px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="target" id="target"></div>
+</div>
+<div class="controller">
+    <p>translate:translateX(<span id="writeRotateX"></span>px)</p>
+    <input type="range" oninput="change()" min="-360" max="360"  value="1" id="rotateX" name="rotateX" />
+
+    <p>translate:translateY(<span id="writeRotateY"></span>px)</p>
+    <input type="range" oninput="change()" min="-360" max="360"  value="0" id="rotateY" name="rotateX" />
+
+    <p>translate:translateZ(<span id="writeRotateZ"></span>px)</p>
+    <input type="range" oninput="change()" min="-360" max="360" value="0" id="rotateZ" name="rotateX" />
+</div>
+<script>
+    function change(){
+        var x = document.getElementById("rotateX").value;
+        var y = document.getElementById("rotateY").value;
+        var z = document.getElementById("rotateZ").value;
+
+        var wRotateX = document.getElementById("writeRotateX");
+        var wRotateY = document.getElementById("writeRotateY");
+        var wRotateZ = document.getElementById("writeRotateZ");
+
+        var target = document.getElementById("target");
+
+        target.style.webkitTransform = "translateX(" + x + "px) translateY(" + y + "px) translateZ(" + z + "px)";
+
+        wRotateX.innerText = x
+
+        wRotateY.innerText = y;
+
+        wRotateZ.innerText = z;
+    }
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

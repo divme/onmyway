@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>css 动画实战</title>
-    <script src="../geek/jquery-2.1.1.min.js"></script>
     <style>
         *{margin:0;padding:0}
         .wrapper{width:75%;margin:10px auto}
+        .box{max-width:500px;margin:0 auto;overflow:hidden;padding:10px; border:1px solid #d3ae68;}
         h3{margin:30px;text-align: center}
+        p{text-align:center;margin:10px;font-family: "Microsoft YaHei", sans-serif}
         /*border 试验*/
         .border{
             width:0;
             height:0;
+            margin:auto;
             border-top:20px solid red;
             border-right:20px solid greenyellow;
             border-bottom:20px solid yellow;
@@ -61,6 +63,7 @@
         .radius{
             width:200px;
             height:100px;
+            margin:auto;
             background:greenyellow;
             border-bottom-left-radius: 100px;
             border-bottom-right-radius: 100px;
@@ -75,15 +78,27 @@
 </head>
 <body>
 <div class="wrapper">
-    <h3>border 宽度试验</h3>
-    <p>谁为0，就去掉谁的那一边</p>
-    <div class="border"></div>
-    <h3>border 颜色妙用</h3>
-    <div class="bordercolor"></div>
-    <h3>border 宽度妙用</h3>
-    <div class="borderwidth"></div>
-    <h3>border-radius 结合动画</h3>
-    <div class="radius"></div>
+    <div class="box">
+        <h3>border 宽度试验</h3>
+        <p>谁为0，就去掉谁的那一边</p>
+        <div class="border"></div>
+    </div>
+
+    <div class="box">
+        <h3>border 颜色妙用</h3>
+        <div class="bordercolor"></div>
+    </div>
+
+    <div class="box">
+        <h3>border 宽度妙用</h3>
+        <div class="borderwidth"></div>
+    </div>
+
+    <div class="box">
+        <h3>border-radius 结合动画</h3>
+        <div class="radius"></div>
+    </div>
+
 </div>
 
 </body>
