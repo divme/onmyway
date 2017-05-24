@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>canvas 尝试</title>
+    <title>dom彩球交互</title>
+    <!--<meta name="viewport" content="width=divece-width,initial-scale=1">-->
     <style>
         *{margin:0;padding:0;}
         .container{
@@ -47,6 +48,29 @@
             height:20px;
             cursor: pointer;
         }
+        /*@media screen and (max-width:750px){*/
+            /*.controll{*/
+                /*width:50%;*/
+                /*height:50%;*/
+                /*padding:10px;*/
+                /*font-size:48px;*/
+            /*}*/
+            /*#button{*/
+                /*width:60%;*/
+                /*height:30%;*/
+                /*padding:5px 10px;*/
+                /*margin:5px auto;*/
+                /*font-size:36px;*/
+            /*}*/
+            /*#white{*/
+                /*width:30%;*/
+                /*height:20%;*/
+            /*}*/
+            /*#black{*/
+                /*width: 30%;*/
+                /*height:20%;*/
+            /*}*/
+        /*}*/
     </style>
 </head>
 <body>
@@ -67,6 +91,7 @@
           backColor = '#fff';
       var colors =["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"];
       var balls = [];
+
 
       window.onload = function(){
           addballs();

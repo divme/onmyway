@@ -86,12 +86,32 @@
         <input type="text" name="password" value="password"/>
         <input type="text" name="url" value="http://ejohn.org/"/>
     </form>
+    <div style="height: 2000px;"></div>
     <script>
-        $(function(){
-            $("p").append( $("input").map(function(){
-                return $(this).val();
-            }).get().join(", ") );
+        document.attachEvent('onmousewheel',function(e){
+            var Timer;
+            alert(e.wheelDelta);
+//            clearTimeout(Timer);
+//            Timer = setTimeout(function(){
+//                alert(e.wheelDelta);
+//            },500)
         })
+//        $(function(){
+//            $("p").append( $("input").map(function(){
+//                return $(this).val();
+//            }).get().join(", ") );
+//        })
+
+
+
+//        document.addEventListener('mousewheel',function(e){
+//
+//            var Timer;
+//            clearTimeout(Timer);
+//            Timer = setTimeout(function(){
+//                alert(e.wheelDelta);
+//            },500)
+//        })
     </script>
 </body>
 </html>

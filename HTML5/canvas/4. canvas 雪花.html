@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Canvas 雪花</title>
+    <meta name="viewport" content="width=divece-width,initial-scale=1">
     <style>
         *{margin:0;padding:0;}
-        .container{
-            width:600px;
-            height:600px;
-            margin: 20px auto;
-            border:2px solid #d3ae68;
+        #canvas{
+            display: block;
+            border:1px dashed #424242;
             background: #424242;
+            margin:10px auto;
+            box-shadow:0 0 20px #000 inset,0 0 15px #101010 ;
         }
     </style>
 </head>
 <body>
-<div class="container">
     <canvas id="canvas">
         您的浏览器不支持canvas！
     </canvas>
-</div>
 <script>
     var canvas=document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
@@ -33,22 +32,36 @@
     var real = true;
     var arr = [];
     var add = true;
+    var snowR = 2;
+    var point = 200;
+    var minVx = 0.125;
+    var minVy = 0.025;
+
+    if(window.innerWidth < 750){
+        var mobile = window.innerWidth * 0.95;
+        canvas.width = mobile;
+        canvas.height = mobile;
+        snowR = 2;
+        point = 50;
+        minVx = 0.3;
+        minVy = 0.5;
+    }
 
 //    初始化函数
     function init(){
         for(var i = 0; i < 30; i++){
             posx = 10 + canvas.width * Math.random();
             var truey = canvas.height * Math.random();
-            posy = (truey > 200 ? 10 : truey);
+            posy = (truey > point ? 10 : truey);
             newpos = [posx,posy];
             arr.push(newpos);
             ctx.beginPath();
-            ctx.arc(posx, posy, 2, 0, Math.PI*2, true);
+            ctx.arc(posx, posy, snowR, 0, Math.PI*2, true);
             ctx.fillStyle = "rgba(255,255,255,.5)";
             ctx.fill();
         }
 
-        console.table(arr);
+//        console.table(arr);
         var img = new Image();
         img.src = 'img/smoke.png';
         img.onload = function(){
@@ -60,12 +73,13 @@
     function draw(){
         for(var i = 0;i<arr.length;i++){
             if(add){
-                arr[i][0] = arr[i][0] +  Math.random()*0.05+0.125;
+                arr[i][0] = arr[i][0] +  Math.random()*0.05+minVx;
             }
-            arr[i][0] = arr[i][0]-Math.random()*0.15;
-            arr[i][1] = arr[i][1] +  Math.random()*0.15+0.025;
+            arr[i][0] = arr[i][0] -  Math.random()*0.3;
+            arr[i][1] = arr[i][1] +  Math.random()*0.3+minVy;
+
             ctx.beginPath();
-            ctx.arc(arr[i][0], arr[i][1], 2, 0, Math.PI*2, true);
+            ctx.arc(arr[i][0], arr[i][1], snowR, 0, Math.PI*2, true);
             ctx.fillStyle = "rgba(255,255,255,0.6)";
             ctx.fill();
         }

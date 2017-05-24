@@ -3,23 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>canvas 图表</title>
+    <meta name="viewport" content="width=divece-width,initial-scale=1">
     <style>
         *{margin:0;padding:0;}
-        .container{
-            width: 1000px;
-            height:600px;
-            margin:20px auto;
-            background: #f2f2f2;
+        #canvas{
+            display: block;
+            border:1px dashed #424242;
+            margin:10px auto;
+            box-shadow:0 0 20px #000 inset,0 0 15px #101010 ;
         }
     </style>
 </head>
 <body>
-  <div class="container">
-      <canvas id="canvas" width="1000px" height="600px"></canvas>
-  </div>
+ <canvas id="canvas"></canvas>
   <script>
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
+
+      canvas.width = 1000;
+      canvas.height = 600;
+      if(window.innerWidth < 750){
+          var mobile = window.innerWidth * 0.95;
+          canvas.width = mobile;
+          canvas.height = mobile;
+      }
+
 //折线图
       ctx.moveTo(20, 20);
       ctx.lineTo(20, 200);
@@ -51,7 +59,7 @@
 
 //圆形比例图
       ctx.beginPath();
-      ctx.fillStyle="#ffffff";
+      ctx.fillStyle="#f6f6f6";
       ctx.arc(200, 350, 100, 0, Math.PI*2, true);
       ctx.fill();
       ctx.closePath();

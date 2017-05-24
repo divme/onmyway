@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>模糊图像</title>
+    <meta name="viewport" content="width=divece-width,initial-scale=1">
     <style>
         *{margin:0;padding:0;}
         .container{
@@ -13,8 +14,7 @@
         }
         .container img{
             position: absolute;
-            width:1000px;
-            height:600px;
+            width:100%;
             top:0;bottom:0;
             left:0;right:0;
             filter:blur(10px);
@@ -54,6 +54,7 @@
         #show-btn:hover{
             background: #076;
         }
+
     </style>
 </head>
 <body>
@@ -71,10 +72,32 @@
       canvas.width = 1000;
       canvas.height = 600;
 
+
+
       var reset = document.getElementById('reset-btn');
       var show = document.getElementById('show-btn');
       var Timer;
       var count = 1;
+      var realR = 100;
+      var circle ={
+          x: Math.random()*(canvas.width-200)+100,
+          y: Math.random()*(canvas.height-200)+100,
+          r: realR
+      };
+
+      if(window.innerWidth < 750){
+          var mobile = window.innerWidth * 0.95;
+
+          var container = document.getElementsByClassName("container")[0];
+
+          container.style.width = mobile + 'px';
+          container.style.height = mobile*0.6 + 'px';
+
+          canvas.width = mobile;
+          canvas.height = mobile*0.6;
+          realR = 20;
+          circle.r = realR;
+      }
 
       var img =  new Image();
           img.src = 'img/iter.png';
@@ -84,11 +107,7 @@
           show.addEventListener('click',showImg);
       };
 
-      var circle ={
-          x: Math.random()*(canvas.width-200)+100,
-          y: Math.random()*(canvas.height-200)+100,
-          r:100
-      };
+
 
       function init(){
           ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -98,6 +117,7 @@
           ctx.clip();
 
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+//          ctx.drawImage(img, canvas.width - img.width, canvas.height - img.height, img.width, img.height);
 
           ctx.restore();
           count++;
@@ -105,7 +125,7 @@
       }
 
       function resetImg(){
-          circle.r = 100;
+          circle.r = realR;
           circle.x =  Math.random()*(canvas.width-200)+100;
           circle.y =  Math.random()*(canvas.height-200)+100;
 

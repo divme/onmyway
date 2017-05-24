@@ -3,28 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>canvas 弹力球</title>
+    <meta name="viewport" content="width=divece-width,initial-scale=1">
     <style>
         *{margin:0;padding:0;}
-        .container{
-            width: 80%;
-            max-width: 1000px;
-            margin:20px auto;
-            background: #f2f2f2;
+        #canvas{
+            display: block;
+            border:1px dashed #424242;
+            margin:10px auto;
+            box-shadow:0 0 20px #000 inset,0 0 15px #101010 ;
         }
     </style>
 </head>
 <body>
-  <div class="container">
-      <canvas id="canvas"></canvas>
-  </div>
+  <canvas id="canvas"></canvas>
   <script>
       var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+
       canvas.width = 1000;
       canvas.height = 600;
-      if (canvas.getContext) {
-          var ctx = canvas.getContext('2d');
-      }
-
 
       var ball={
           x: 20,
@@ -33,14 +30,24 @@
           vx:2,
           vy:0,
           g:2,
+          time:50,
           color:'#005588'
       }
+
+      if(window.innerWidth < 750){
+          var mobile = window.innerWidth * 0.95;
+          canvas.width = mobile;
+          canvas.height = mobile;
+          ball.r = 10;
+          ball.time = 30;
+      }
+
       window.onload = function(){
 
           setInterval(function(){
-              render(ctx);
+              render();
               update();
-          },50)
+          }, ball.time)
       };
 
       function update(){
@@ -48,13 +55,13 @@
           ball.y += ball.vy;
           ball.vy += ball.g;
 
-          if(ball.y > 600 -ball.r){
-              ball.y = 600 -ball.r;
+          if(ball.y > canvas.height -ball.r){
+              ball.y = canvas.height -ball.r;
               ball.vy = -ball.vy * 0.5;
           }
       }
 
-      function render(ctx){
+      function render(){
           ctx.clearRect(0,0,canvas.width,canvas.height);
 
           ctx.fillStyle = ball.color;

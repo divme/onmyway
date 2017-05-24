@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>爆炸icon</title>
+    <meta name="viewport" content="width=divece-width,initial-scale=1">
     <style>
         *{margin:0;padding:0;}
         #canvas{
@@ -44,11 +45,21 @@
       var areas  = [];  //存放爆炸小分队队员
       var counts = 10; //每行分为几份，总共counts*counts份
       var canvasX = 50, canvasY = 50;
+
+
       var btn = document.getElementById("btn");
       btn.addEventListener('click',reset);
       function reset(){
           ctx.drawImage(img, canvasX, canvasY, img.width, img.height);
-          ctx.drawImage(image, canvasX + 200, canvasY, image.width, image.height);
+//          ctx.drawImage(image, canvasX + 200, canvasY, image.width, image.height);
+      }
+
+
+      if(window.innerWidth < 600){
+          var mobile = window.innerWidth ;
+
+          canvas.width = mobile;
+          canvas.height = mobile/1.5;
       }
 
       var img = new Image();
@@ -58,12 +69,12 @@
           canvas.addEventListener('click', boom)
       };
 
-      var image = new Image();
-          image.src = 'img/logo.png';
-      image.onload = function(){
-          ctx.drawImage(image, canvasX + 200, canvasY, image.width, image.height);
-          canvas.addEventListener('click', boom)
-      };
+//      var image = new Image();
+//          image.src = 'img/logo.png';
+//      image.onload = function(){
+//          ctx.drawImage(image, canvasX + 200, canvasY, image.width, image.height);
+//          canvas.addEventListener('click', boom)
+//      };
 
 
       function boom(e){

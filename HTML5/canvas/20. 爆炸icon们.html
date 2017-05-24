@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>爆炸icon</title>
+    <meta name="viewport" content="width=divece-width,initial-scale=1">
     <style>
         *{margin:0;padding:0;}
         .container{
             width:540px;
             margin:10px auto;
             font-size:0;
+            text-align: center;
         }
         canvas{
             display: inline-block;
             /*border:1px dashed #424242;*/
-            margin:10px;
+            /*margin:0;*/
             /*box-shadow:0 0 20px #000 inset,0 0 15px #101010 ;*/
         }
         #btn{
@@ -36,7 +38,7 @@
     </style>
 </head>
 <body>
-<div class="container">
+<div class="container" id="container">
     <canvas id="canvas0" width="150" height="150"></canvas>
     <canvas id="canvas1" width="150" height="150"></canvas>
     <canvas id="canvas2" width="150" height="150"></canvas>
@@ -70,6 +72,15 @@
       var counts = 10; //每行分为几份，总共counts*counts份
       var canvasX = 15,
           canvasY = 15;
+
+      if(window.innerWidth < 600){
+          var container = document.getElementById('container');
+          var mobile = window.innerWidth ;
+
+          container.style.width = mobile + 'px';
+          canvas4.style.display = 'none'
+          canvas5.style.display = 'none'
+      }
 
       var img = new Image();
           img.src = 'img/icon0.png';

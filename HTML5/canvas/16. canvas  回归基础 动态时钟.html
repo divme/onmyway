@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>canvas时钟</title>
+    <meta name="viewport" content="width=divece-width,initial-scale=1">
     <style>
         *{margin:0;padding:0;}
         #canvas{
@@ -21,12 +22,21 @@
     canvas.height = 500;
 
     var clock = {
-        r:100
+        r:200
     };
+
+    if(window.innerWidth < 600){
+        var mobile = window.innerWidth;
+
+        canvas.width = mobile;
+        canvas.height = mobile;
+        clock.r = 100;
+    }
 
     window.onload = function(){
         setInterval(renderClock,1000);
     };
+
 
     function renderClock(){
 
@@ -66,7 +76,7 @@
              }
              var x = Math.cos((6*i)/180*Math.PI)
              var y = Math.sin((6*i)/180*Math.PI)
-             ctx.arc((clock.r-10)*x, (clock.r-10)*y, 2, 0, 2*Math.PI,true);
+             ctx.arc((clock.r-10)*x, (clock.r-10)*y, clock.r/50, 0, 2*Math.PI,true);
 
              ctx.fill();
          }
@@ -78,7 +88,12 @@
         for(var i = 0; i < 12; i++){
             var x = Math.cos((30*i)/180*Math.PI)
             var y = Math.sin((30*i)/180*Math.PI)
-            ctx.font = '14px bold yahei';
+//            var fontSize = 14;
+            var fontSize = Math.floor(clock.r/7);
+            if(window.innerWidth < 750){
+                fontSize = window.innerWidth/750*36;
+            }
+            ctx.font = fontSize + 'px bold yahei';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillStyle = 'black';
