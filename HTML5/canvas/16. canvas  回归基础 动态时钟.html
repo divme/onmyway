@@ -27,7 +27,6 @@
 
     if(window.innerWidth < 600){
         var mobile = window.innerWidth;
-
         canvas.width = mobile;
         canvas.height = mobile;
         clock.r = 100;
@@ -52,6 +51,7 @@
           renderContent();
           renderNum();
 
+//          画表盘分秒针中心固定点
           ctx.beginPath();
           ctx.arc(0, 0, 5, 0, 2*Math.PI, true);
           ctx.fillStyle = 'rgba(0,0,0,0.6)';

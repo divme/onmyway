@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>canvas 图表</title>
-    <meta name="viewport" content="width=divece-width,initial-scale=1">
     <style>
         *{margin:0;padding:0;}
         #canvas{
@@ -22,11 +21,6 @@
 
       canvas.width = 1000;
       canvas.height = 600;
-      if(window.innerWidth < 750){
-          var mobile = window.innerWidth * 0.95;
-          canvas.width = mobile;
-          canvas.height = mobile;
-      }
 
 //折线图
       ctx.moveTo(20, 20);

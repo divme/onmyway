@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>canvas 弹力球</title>
-    <meta name="viewport" content="width=divece-width,initial-scale=1">
     <style>
         *{margin:0;padding:0;}
         #canvas{
@@ -34,13 +33,6 @@
           color:'#005588'
       }
 
-      if(window.innerWidth < 750){
-          var mobile = window.innerWidth * 0.95;
-          canvas.width = mobile;
-          canvas.height = mobile;
-          ball.r = 10;
-          ball.time = 30;
-      }
 
       window.onload = function(){
 
