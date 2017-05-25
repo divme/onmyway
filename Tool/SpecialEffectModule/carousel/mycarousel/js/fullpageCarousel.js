@@ -46,7 +46,7 @@ var Timer,
             }
                
 addLoadEvent(autoplay);
-var con = document.getElementsByClassName('jsauto-container-2')[0];
+var con = document.getElementsByClassName('container')[0];
 var left =document.getElementsByClassName('left')[0];
 var right =document.getElementsByClassName('right')[0];
 var icon=document.getElementById('icon');

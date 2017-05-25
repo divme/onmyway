@@ -23,6 +23,7 @@ var Timer,
             }
             pic[num].style.display="block";
             one[num].style.background="white";
+            index = num;
     }   
 
             //图片自动轮播的函数  
@@ -35,18 +36,18 @@ var Timer,
             //点击左箭头
            function clickleft(){
                 index--;
-                if ( index<0 ){ index = pic.length-1 }
+                if ( index < 0 ){ index = pic.length-1 }
                 gallery(index);
             }
             //点击右箭头
             function clickright(){
                 index++;
-                if ( index == pic.length){index = 0};
+                if ( index >= pic.length){index = 0}
                 gallery(index);
             }
                
 addLoadEvent(autoplay);
-var con = document.getElementsByClassName('container-2')[0];
+var con = document.getElementsByClassName('container2')[0];
 var left =document.getElementsByClassName('left')[0];
 var right =document.getElementsByClassName('right')[0];
 var icon=document.getElementById('icon');
@@ -64,8 +65,8 @@ icon.onmouseover = function(e){
             break;  
 
         case "two":
-        gallery(1);
-        break; 
+           gallery(1);
+           break;
 
         case "three":
             gallery(2);

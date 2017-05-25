@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>jquery动画和Dom</title>
+    <title>jquery</title>
     <link rel="stylesheet" href="css/reset.css">
     <style>
         .container{
+            position: relative;
             width:80%;
             min-width:1000px;
             margin:20px auto;
@@ -20,6 +21,9 @@
         }
         .hidden{
             display: none;
+            text-indent: 2em;
+            font-size:12px;
+            color: #d3ae68;
         }
     </style>
 </head>
@@ -27,7 +31,6 @@
 <div class="container">
     <div class="box left">
         <ul>
-
             <li>canvas 基础API</li>
             <li>canvas 基础API应用之图表</li>
             <li>canvas 基础API应用之时钟</li>
@@ -42,7 +45,7 @@
                 <div class="title">jquery DOM相关</div>
                 <div class="hidden">
                     <p>jquery DOM 捕获、设置</p>
-                    <p>jquery DOM 插入、删除</p>
+                    <p class="ademo">jquery DOM 插入、删除</p>
                     <p>jquery DOM 遍历</p>
                 </div>
             </li>
@@ -65,7 +68,7 @@
                     <p>jquery 其他事件</p>
                 </div>
             </li>
-            <li>
+            <li class="toggle">
                 <div class="title">jquery HTML和CSS方法</div>
                 <div class="hidden">
                     <p>jquery 获取宽高</p>
@@ -75,7 +78,7 @@
                     <p>jquery </p>
                 </div>
             </li>
-            <li>
+            <li class="toggle">
                 <div class="title">jquery 杂项方法</div>
                 <div class="hidden">
                     <p>jquery 事件绑定</p>
@@ -87,11 +90,51 @@
             </li>
         </ul>
     </div>
-    <div class="box right"></div>
+    <div class="box right">
+        <ul>
+            <li>canvas 基础API</li>
+            <li>canvas 基础API应用之图表</li>
+            <li>canvas 基础API应用之时钟</li>
+            <li>canvas 图像处理</li>
+            <li>canvas 图像像素级处理</li>
+            <li>canvas 贝塞尔曲线</li>
+        </ul>
+    </div>
 </div>
 <script src="js/jquery-2.1.1.min.js"> </script>
 <script>
+   $(function(){
 
+//       Dom 操作26法
+         var $li = $('li');
+         $li.parent().css('margin','10px');
+         $('li:first-of-type').closest('.center').css({'background':'#f6f6f6'})
+         console.log($li.parentsUntil('div'));
+         console.log($li.parents('div'));
+         console.log($li.offsetParent());
+
+         $hidden = $('.hidden');
+         $hidden.children().css({'padding':'5px'});
+         $hidden.find('.ademo').css('background','#424242').click(function(){
+             $(this).next().css({'transition':'all 1s','color':'#fff','background':'#d3ae68'}).append('next() append()');
+
+             $(this).prev().animate({
+                 'background':'#69c',
+                 'color':'#fff'
+             })
+         });
+
+
+
+//       效果方法
+         var $center = $('.center');
+         $center.find('.title').eq(0).click(function(){
+             $(this).next().toggle();
+         });
+         $center.find('.toggle').eq(1).find('.title').on('click',function(){
+             $(this).next().fadeToggle()
+         })
+   })
 </script>
 </body>
 </html>

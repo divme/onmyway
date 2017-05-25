@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>canvas 尝试</title>
+    <title>贪吃蛇</title>
     <style>
         *{margin:0;padding:0;}
         #canvas{
             display: block;
-            border:1px solid red;
-            margin:0 auto;
+            margin:8px auto;
+            border:1px solid #424242;
+            box-shadow:0 0 20px #000 inset,0 0 15px #101010;
         }
     </style>
 </head>
@@ -18,10 +19,185 @@
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
 
-      canvas.width = 1000;
-      canvas.height = 600;
+      canvas.width = 630;
+      canvas.height = 630;
+
+      var checkNum = 21;
+      var checkSize = canvas.width/checkNum;
+
+//存放吃豆人位置
+      var positions = [
+              [Math.floor(checkNum/2)*checkSize + checkSize/2, Math.floor(checkNum/2)*checkSize + checkSize/2]
+      ];
+      var keyNum = 37; //判断当前方向，37:左；38：上；39：右；40：下；
+      var updateBall = false; // 是否更新被吃小球位置；吃了球就重置一个
+//      豆豆位置
+      var sourceBall = {
+           sourceX : Math.floor(Math.random()*checkNum)*checkSize + checkSize/2,
+           sourceY : Math.floor(Math.random()*checkNum)*checkSize + checkSize/2
+
+      };
+      var Timer;
+      var colors = ['green', '#069', "#33B5E5", "#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"]
+
+      window.onload = function(){
+          init();
+          Timer = setInterval(function(){
+              detection();
+              update();
+              init();
+          },500)
+      };
+      document.addEventListener('keydown',function(e){
+          if( (e.which == 37 && keyNum == 39) ||
+               (e.which == 39 && keyNum == 37) ||
+                  (e.which == 38 && keyNum == 40) ||
+                  (e.which == 40 && keyNum == 38)
+          ){
+              return ;
+          }
+          keyNum = e.which;
+      });
 
 
+//      初始化画布，画背景，化蛇，画豆豆
+      function init(){
+
+           ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+           drawBackground(); //画布背景
+
+           drawEater(); // 吃豆豆的家伙
+
+           drawBall();  // 画豆豆
+      }
+
+//      更新位置数组positions,并进行边界判断
+      function update(){
+          if( positions[0][0] < checkSize/2 || positions[0][0] > canvas.width - checkSize/2 || positions[0][1] < checkSize/2 || positions[0][1] > canvas.height - checkSize/2){
+              clearInterval(Timer);
+              alert("gameOver")
+          }
+          var firstX, firstY;
+          switch (keyNum){
+              case 37:
+                  firstX = positions[0][0] - checkSize;
+                  firstY = positions[0][1];
+                  break;
+              case 39:
+                  firstX = positions[0][0] + checkSize;
+                  firstY = positions[0][1];
+                  break;
+              case 38:
+                  firstX = positions[0][0];
+                  firstY = positions[0][1] - checkSize;
+                  break;
+              case 40:
+                  firstX = positions[0][0];
+                  firstY = positions[0][1] + checkSize;
+                  break;
+          }
+          positions.pop();
+          positions.unshift([firstX, firstY]);
+      }
+
+//    吃豆豆检测：如果吃到豆豆，就添加一个球
+      function detection(){
+          if(sourceBall.sourceX == positions[0][0] && sourceBall.sourceY == positions[0][1]){
+               updateBall = true;
+               var lastX = positions[positions.length-1][0];
+               var lastY = positions[positions.length-1][1];
+               switch (keyNum){
+                   case 37:
+                       positions.push([ lastX+checkSize, lastY ]);
+                       break;
+                   case 39:
+                       positions.push([ lastX-checkSize, lastY ]);
+                       break;
+                   case 38:
+                       positions.push([ lastX, lastY+checkSize ]);
+                       break;
+                   case 40:
+                       positions.push([ lastX, lastY-checkSize ]);
+                       break;
+               }
+          }
+      }
+
+
+//      背景
+      function drawBackground(){
+          ctx.beginPath();
+          ctx.strokeStyle = '#424242';
+          for(var i = 1; i < checkNum ; i++){
+              ctx.moveTo( 0, i*checkSize);
+              ctx.lineTo( canvas.width, i*checkSize);
+
+              ctx.moveTo( i*checkSize, 0);
+              ctx.lineTo( i*checkSize, canvas.height);
+          }
+          ctx.stroke();
+      }
+
+//      吃豆豆的家伙
+      function drawEater(){
+          var x = positions[0][0];
+          var y = positions[0][1];
+          var endRadian1, endRadian2;
+          ctx.save();
+//          画头
+          ctx.beginPath();
+          switch(keyNum){
+              case 37:
+                  ctx.arc(x, y, 15, 1.1*Math.PI, 0.9*Math.PI, false);
+                  ctx.lineTo(x, y);
+                  break;
+              case 39:
+                  ctx.arc(x, y, 15, 0.1*Math.PI, 1.9*Math.PI, false);
+                  ctx.lineTo(x, y);
+                  break;
+              case 38:
+                  ctx.arc(x, y, 15, 1.6*Math.PI, 1.4*Math.PI, false);
+                  ctx.lineTo(x, y);
+                  break;
+              case 40:
+                  ctx.arc(x, y, 15, 0.6*Math.PI, 0.4*Math.PI, false);
+                  ctx.lineTo(x, y);
+                  break;
+          }
+          ctx.fillStyle = '#000';
+          ctx.fill();
+//          画身子
+          if(positions.length > 1){
+              for(var i = 1, len = positions.length; i < len; i++){
+              ctx.beginPath();
+              ctx.arc(positions[i][0], positions[i][1], 15, 0, 2*Math.PI, false);
+              ctx.fillStyle = '#000';
+              ctx.fill();
+              }
+          }
+
+          ctx.restore();
+      }
+
+//      画豆豆
+      function drawBall(){
+          if(updateBall){
+              sourceBall.sourceX = Math.floor(Math.random()*checkNum)*checkSize + 15;
+              sourceBall.sourceY = Math.floor(Math.random()*checkNum)*checkSize + 15;
+              updateBall = false;
+          }
+          ctx.save();
+          ctx.beginPath();
+          ctx.translate(sourceBall.sourceX, sourceBall.sourceY);
+          ctx.arc(0, 0, 10, 0, 2*Math.PI, false);
+          var linear = ctx.createLinearGradient(-10, -10, 10, 10);
+          linear.addColorStop(0, colors[Math.floor(Math.random()*colors.length)]);
+          linear.addColorStop(1, colors[Math.floor(Math.random()*colors.length)]);
+          ctx.fillStyle = linear;
+          ctx.fill();
+          ctx.restore();
+      }
   </script>
 </body>
 </html>
