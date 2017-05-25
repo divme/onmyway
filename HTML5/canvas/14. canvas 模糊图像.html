@@ -25,9 +25,12 @@
         #canvas{
             position: absolute;
             margin:0 auto;
-            z-index:100;
             border:1px solid #424242;
             box-shadow:0 0 20px #000 inset,0 0 15px #101010;
+            z-index:100;
+
+            /*background: url(img/iter.png) no-repeat center center;*/
+            /*background-size:100% 100%;*/
 
         }
         .btn{
@@ -42,6 +45,7 @@
             border-radius: 5px;
             text-shadow: 2px 2px 8px  #000;
             box-shadow: 0 0 5px rgba(255,255,255,0.6) inset;
+            outline:none;
         }
         #reset-btn{
             background: #069;
@@ -61,97 +65,102 @@
     </style>
 </head>
 <body>
-  <div class="container">
-      <img src="img/iter.png" alt="">
-      <canvas id="canvas"></canvas>
-      <button class="btn" id="reset-btn">reset</button>
-      <button class="btn" id="show-btn">show</button>
-  </div>
-  
-  <script>
-      var canvas = document.getElementById('canvas');
-      var ctx = canvas.getContext('2d');
+<div class="container">
+    <img src="img/iter.png" alt="">
+    <canvas id="canvas"></canvas>
+    <button class="btn" id="reset-btn">reset</button>
+    <button class="btn" id="show-btn">show</button>
+</div>
 
-      canvas.width = 1000;
-      canvas.height = 600;
+<script>
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
 
-
-
-      var reset = document.getElementById('reset-btn');
-      var show = document.getElementById('show-btn');
-      var Timer;
-      var count = 1;
-      var realR = 100;
-      var circle ={
-          x: Math.random()*(canvas.width-200)+100,
-          y: Math.random()*(canvas.height-200)+100,
-          r: realR
-      };
-
-      if(window.innerWidth < 750){
-          var mobile = window.innerWidth * 0.95;
-
-          var container = document.getElementsByClassName("container")[0];
-
-          container.style.width = mobile + 'px';
-          container.style.height = mobile*0.6 + 'px';
-
-          canvas.width = mobile;
-          canvas.height = mobile*0.6;
-          realR = 20;
-          circle.r = realR;
-      }
-
-      var img =  new Image();
-          img.src = 'img/iter.png';
-      img.onload = function(){
-          init();
-          reset.addEventListener('click',resetImg);
-          show.addEventListener('click',showImg);
-      };
+    canvas.width = 1000;
+    canvas.height = 600;
 
 
 
-      function init(){
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.save();
-          ctx.beginPath();
-          ctx.arc(circle.x, circle.y, circle.r, 0, 2*Math.PI, true);
-          ctx.clip();
+    var reset = document.getElementById('reset-btn');
+    var show = document.getElementById('show-btn');
+    var Timer;
+    var count = 1;
+    var realR = 100;
+    var circle ={
+        x: Math.random()*(canvas.width-200)+100,
+        y: Math.random()*(canvas.height-200)+100,
+        r: realR
+    };
 
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    if(window.innerWidth < 750){
+        var mobile = window.innerWidth * 0.95;
+
+        var container = document.getElementsByClassName("container")[0];
+
+        container.style.width = mobile + 'px';
+        container.style.height = mobile*0.6 + 'px';
+
+        canvas.width = mobile;
+        canvas.height = mobile*0.6;
+        realR = 20;
+        circle.r = realR;
+    }
+
+    var img =  new Image();
+    img.src = 'img/iter.png';
+    img.onload = function(){
+        init();
+        reset.addEventListener('click',resetImg);
+        show.addEventListener('click',showImg);
+    };
+
+
+
+    function init(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+//          应用背景图像，需要自己添加类模糊效果
+//          ctx.fillStyle = 'rgba(0,0,0,0.8)';
+//          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(circle.x, circle.y, circle.r, 0, 2*Math.PI, true);
+        ctx.clip();
+
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 //          ctx.drawImage(img, (canvas.width - img.width)/2, (canvas.height - img.height)/2, img.width, img.height);
 
-          ctx.restore();
-          count++;
-          console.log(count)
-      }
+        ctx.restore();
+        count++;
+        console.log(count)
+    }
 
-      function resetImg(){
-          circle.r = realR;
-          circle.x =  Math.random()*(canvas.width-200)+100;
-          circle.y =  Math.random()*(canvas.height-200)+100;
+    function resetImg(){
+        circle.r = realR;
+        circle.x =  Math.random()*(canvas.width-200)+100;
+        circle.y =  Math.random()*(canvas.height-200)+100;
 
 //          console.log(circle.x, circle.y, circle.r);
 
-          if(Timer){
-              clearInterval(Timer);
-          }
+        if(Timer){
+            clearInterval(Timer);
+        }
 
-          init();
+        init();
 
-      }
+    }
 
-      function showImg(){
-          Timer =  setInterval(function(){
-                      circle.r += 10;
-                      if(circle.r >canvas.width){
-                          clearInterval(Timer);
-                      }
-                      init();
-                  },30)
-      }
-  </script>
+    function showImg(){
+        Timer =  setInterval(function(){
+            circle.r += 10;
+            if(circle.r >canvas.width){
+                clearInterval(Timer);
+            }
+            init();
+        },30)
+    }
+</script>
 </body>
 </html>
 

@@ -22,7 +22,7 @@
     canvas.height = 500;
 
     var clock = {
-        r:200
+        r:150
     };
 
     if(window.innerWidth < 600){
@@ -44,7 +44,7 @@
           ctx.beginPath();
           ctx.translate(canvas.width/2, canvas.height/2);
           ctx.arc(0, 0, clock.r, 0, 2*Math.PI, true);
-          ctx.lineWidth = 10;
+          ctx.lineWidth = clock.r/20;
           ctx.strokeStyle = '#000';
           ctx.stroke();
 
@@ -76,7 +76,7 @@
              }
              var x = Math.cos((6*i)/180*Math.PI)
              var y = Math.sin((6*i)/180*Math.PI)
-             ctx.arc((clock.r-10)*x, (clock.r-10)*y, clock.r/50, 0, 2*Math.PI,true);
+             ctx.arc((clock.r-clock.r/20-5)*x, (clock.r-10)*y, clock.r/50, 0, 2*Math.PI,true);
 
              ctx.fill();
          }
@@ -89,7 +89,7 @@
             var x = Math.cos((30*i)/180*Math.PI)
             var y = Math.sin((30*i)/180*Math.PI)
 //            var fontSize = 14;
-            var fontSize = Math.floor(clock.r/7);
+            var fontSize = Math.floor(clock.r/7) < 12? 12:Math.floor(clock.r/7);
             if(window.innerWidth < 750){
                 fontSize = window.innerWidth/750*36;
             }
@@ -97,6 +97,7 @@
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillStyle = 'black';
+//            ctx.fillText(hours[i], (clock.r-clock.r/20-clock.r/50-clock.r/10)*x, (clock.r-clock.r/20-clock.r/50-clock.r/10)*y);
             ctx.fillText(hours[i], (clock.r-25)*x, (clock.r-25)*y);
         }
     }

@@ -26,6 +26,12 @@
             width: 100%;
             margin:20px 0;
         }
+        .reset{
+            padding:2px 10px;
+            border-radius: 3px;
+            background: #d3ae68;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -33,34 +39,47 @@
     <div class="target" id="target"></div>
 </div>
 <div class="controller">
-    <p>translate:translateX(<span id="writeRotateX"></span>px)</p>
-    <input type="range" oninput="change()" min="-360" max="360"  value="1" id="rotateX" name="rotateX" />
+    <p>
+        translate:translateX(<span id="writetranslateX"></span>px)
+        <span class="reset" onclick="change('translateX')">resetX</span>
+    </p>
+    <input type="range" oninput="change()" min="-360" max="360"  value="1" id="translateX" name="translateX" />
 
-    <p>translate:translateY(<span id="writeRotateY"></span>px)</p>
-    <input type="range" oninput="change()" min="-360" max="360"  value="0" id="rotateY" name="rotateX" />
+    <p>
+        translate:translateY(<span id="writetranslateY"></span>px)
+        <span class="reset" onclick="change('translateY')">resetY</span>
+    </p>
+    <input type="range" oninput="change()" min="-360" max="360"  value="0" id="translateY" name="translateX" />
 
-    <p>translate:translateZ(<span id="writeRotateZ"></span>px)</p>
-    <input type="range" oninput="change()" min="-360" max="360" value="0" id="rotateZ" name="rotateX" />
+    <p>
+        translate:translateZ(<span id="writetranslateZ"></span>px)
+        <span class="reset" onclick="change('translateZ')">resetZ</span>
+    </p>
+    <input type="range" oninput="change()" min="-360" max="360" value="0" id="translateZ" name="translateX" />
 </div>
 <script>
-    function change(){
-        var x = document.getElementById("rotateX").value;
-        var y = document.getElementById("rotateY").value;
-        var z = document.getElementById("rotateZ").value;
+    function change(str){
+        if(str != null){
+            document.getElementById(str).value = 0
+        }
 
-        var wRotateX = document.getElementById("writeRotateX");
-        var wRotateY = document.getElementById("writeRotateY");
-        var wRotateZ = document.getElementById("writeRotateZ");
+        var x = document.getElementById("translateX").value;
+        var y = document.getElementById("translateY").value;
+        var z = document.getElementById("translateZ").value;
+
+        var wtranslateX = document.getElementById("writetranslateX");
+        var wtranslateY = document.getElementById("writetranslateY");
+        var wtranslateZ = document.getElementById("writetranslateZ");
 
         var target = document.getElementById("target");
 
         target.style.webkitTransform = "translateX(" + x + "px) translateY(" + y + "px) translateZ(" + z + "px)";
 
-        wRotateX.innerText = x
+        wtranslateX.innerText = x
 
-        wRotateY.innerText = y;
+        wtranslateY.innerText = y;
 
-        wRotateZ.innerText = z;
+        wtranslateZ.innerText = z;
     }
 
 </script>
