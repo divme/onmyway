@@ -11,19 +11,33 @@
             min-width:1000px;
             margin:20px auto;
         }
+        .container:after{
+            content: '';
+            display: block;
+            height:0;
+            clear: both;
+        }
         .box{
             float: left;
             width:33%;
             box-sizing: border-box;
-        }
-        .left{
-            
         }
         .hidden{
             display: none;
             text-indent: 2em;
             font-size:12px;
             color: #d3ae68;
+        }
+        .btnGroup{
+            margin-top:20px;
+            text-align: center;
+        }
+        .btn{
+            display: inline-block;
+            padding:10px 30px;
+            background: #058;
+            color: #fff;
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -101,28 +115,47 @@
         </ul>
     </div>
 </div>
+
+<div class="btnGroup">
+    <p class="btn" id="btn1">btn1</p>
+    <p class="btn" id="btn2">btn2</p>
+</div>
 <script src="js/jquery-2.1.1.min.js"> </script>
 <script>
    $(function(){
 
-//       Dom 操作26法
+//       Dom 操作 26,HTML/CSS方法
+//         祖先元素（5）
          var $li = $('li');
-         $li.parent().css('margin','10px');
-         $('li:first-of-type').closest('.center').css({'background':'#f6f6f6'})
+         $li.parent().parent().css('padding','10px');
+         $li.parent().css({'background':'#424242','color':'#fff','padding':'10px 0 10px 20px'});
+         $('li:first-of-type').closest('.center').css({'background':'#fff'});
+//         $li.eq(0).offsetParent().animate({top:'20px','fontSize':'20px'},500,function(){
+//             $(this).animate({'top':'0','fontSize':'16px'})
+//         });
          console.log($li.parentsUntil('div'));
          console.log($li.parents('div'));
          console.log($li.offsetParent());
 
-         $hidden = $('.hidden');
+//         子元素及兄弟元素（9）
+         var $hidden = $('.hidden');
          $hidden.children().css({'padding':'5px'});
-         $hidden.find('.ademo').css('background','#424242').click(function(){
-             $(this).next().css({'transition':'all 1s','color':'#fff','background':'#d3ae68'}).append('next() append()');
+         $hidden.find('.ademo').css('background','#068').append(' click me').click(function(){
+             $(this).next().css({
+                 'transition':'all 1s',
+                 'color':'#fff',
+                 'background':'#d3ae68'}).append('next() append()');
 
-             $(this).prev().animate({
+             $(this).prev().css({
                  'background':'#69c',
                  'color':'#fff'
-             })
+             }).prepend('prev() prepend() ');
+             console.log($(this).prevAll())
          });
+
+         $hidden.first().prevAll().css('color','#fff').append('<span>first prevAll</span>');
+
+
 
 
 
@@ -132,8 +165,37 @@
              $(this).next().toggle();
          });
          $center.find('.toggle').eq(1).find('.title').on('click',function(){
-             $(this).next().fadeToggle()
-         })
+             $(this).next().fadeToggle();
+         });
+         $center.find('.toggle').eq(2).find('.title').on('click',function(){
+             $(this).next().slideToggle();
+         });
+         $center.find('.toggle').css({'borderBottom':'1px solid #fff','marginLeft':'-20px','background':'#424242','color':'#d3ae68','minHeight':'40px','lineHeight':'40px','paddingLeft':'20px'})
+         $center.find('.hidden').css({'background':'#d3ae68','color':'#fff','marginLeft':'-20px'});
+         $center.find('.hidden').has('.ademo').prev().css('position','relative').animate({'top':'200px'},1500,function(){
+             $(this).animate({'top':'0'}, 500);
+         });
+
+
+//        事件
+       var $btn1 = $('#btn1');
+       var $btn2 = $('#btn2');
+         $btn1.dblclick(function(){
+            $hidden.add($('.title').eq(0)).each(function(){
+                $(this).css('color','red')
+            })
+         });
+         $btn2.click(function(){
+           $hidden.add($('.title').eq(0)).each(function(){
+               $(this).css('color','#fff')
+           })
+         });
+
+
+
+           $(document).keydown(function(e){
+               console.log(e.which)
+           })
    })
 </script>
 </body>

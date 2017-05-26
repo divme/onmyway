@@ -25,6 +25,11 @@
     </style>
 </head>
 <body>
+  <div>
+      <h4>贪吃蛇</h4>
+      <p>得分：  <span id="score">0</span></p>
+      <p>最高分：<span id="high">0</span></p>
+  </div>
   <canvas id="canvas"></canvas>
   <a id="btn" href="javascript:reset()">reset</a>
   <script>
@@ -36,6 +41,9 @@
 
       var checkNum = 15;
       var checkSize = canvas.width/checkNum;
+
+      var score = 0;
+      var scoreBox = document.getElementById('score');
 
 //存放吃豆人位置
       var positions = [
@@ -88,6 +96,8 @@
 
       function reset(){
           updateBall = true;
+          score = 0;
+          scoreBox.innerText = score;
           positions = [
               [Math.floor(checkNum/2)*checkSize + checkSize/2, Math.floor(checkNum/2)*checkSize + checkSize/2]
           ];
@@ -139,6 +149,8 @@
       function detection(){
           if(sourceBall.sourceX == positions[0][0] && sourceBall.sourceY == positions[0][1]){
                updateBall = true;
+               score += 10;
+               scoreBox.innerText = score;
                var lastX = positions[positions.length-1][0];
                var lastY = positions[positions.length-1][1];
                switch (keyNum){
