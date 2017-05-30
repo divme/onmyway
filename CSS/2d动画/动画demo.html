@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画demo</title>
+    <style>
+        *{margin:0;padding:0}
+        .rotate{
+            position: relative;
+            width:100px;
+            height: 100px;
+            margin:20px auto;
+            border:5px solid #069;
+            border-top-color: transparent;
+            border-bottom-color:transparent;
+            border-radius:40px / 50%;
+            animation: rotate .5s ease-out infinite;
+        }
+        .rotate:before{
+            content: '';
+            position: absolute;
+            top:0;bottom:0;
+            left:0;right:0;
+            margin:auto;
+            width:60%;
+            height:60%;
+            border-radius:50%;
+            background: #069;
+            animation:scale .5s linear infinite alternate;
+        }
+        @keyframes rotate {
+            0%{transform:rotate(0deg)}
+            80%{transform:rotate(180deg)}
+            100%{transform:rotate(180deg)}
+        }
+        @keyframes scale {
+            0%{transform: scale(1)}
+            80%{transform: scale(.1)}
+            100%{transform: scale(.1)}
+        }
+    </style>
+</head>
+<body>
+<!--回旋镖-->
+<div class="rotate" id="rotate">
+
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

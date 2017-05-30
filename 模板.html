@@ -5,10 +5,34 @@
     <title>模板</title>
     <style>
         *{margin:0;padding:0}
+        .we{
+            height:100px;
+            background: #dedede;
+        }
+        span{
+            padding:10px;
+            background: red;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
-
+<div class="we" id="ty">
+   我是div
+</div>
+<script src="zylib/jquery-2.1.1.min.js"></script>
+<script>
+  var div = document.getElementsByClassName('we')[0];
+  var span = document.createElement('span');
+      span.innerText = div.id;
+//      div.appendChild(span)
+//      div.append(span)
+</script>
+<script>
+    $(function(){
+        $('.we').append(span)
+    })
+</script>
 </body>
 </html>
 

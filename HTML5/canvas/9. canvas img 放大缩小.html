@@ -40,7 +40,7 @@
       realdY = canvas.height/2 - img.height/2;
 
       window.onload = function(){
-          range.onchange = function(){
+          range.oninput = function(){
               range.onmousemove = function(){
                   var scale = range.value;
                   drawrealimg(scale);

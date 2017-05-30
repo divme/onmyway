@@ -7,8 +7,9 @@
         *{margin:0;padding:0;}
         #canvas{
             display: block;
-            border:1px solid red;
-            margin:0 auto;
+            margin:8px auto;
+            border:1px solid #424242;
+            box-shadow:0 0 20px #000 inset,0 0 15px #101010;
         }
     </style>
 </head>
@@ -18,9 +19,31 @@
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
 
-      canvas.width = 1000;
+      canvas.width = 600;
       canvas.height = 600;
 
+      var sourceWidth = 30;
+      var sourceHeight = 10;
+      var sourceCol = Math.floor(canvas.width/sourceWidth);
+      var sourceRow = 5;
+
+      window.onload = function(){
+          init()
+      }
+//      初始化画布
+      function init(){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          var x, y;
+          for(var i = 0; i < sourceCol; i++){
+              for(var j = 0; j < sourceRow; j++){
+                  ctx.beginPath();
+                  x = i * sourceWidth;
+                  y = j * sourceHeight;
+                  ctx.strokeStyle = '#000';
+                  ctx.strokeRect(x, y, sourceWidth, sourceHeight)
+              }
+          }
+      }
 
   </script>
 </body>
