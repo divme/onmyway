@@ -5,16 +5,49 @@
     <title>打方块</title>
     <style>
         *{margin:0;padding:0;}
+        .container{
+            position: relative;
+            width:600px;
+            height:600px;
+            margin:10px auto;
+        }
         #canvas{
             display: block;
             margin:8px auto;
             border:1px solid #424242;
             box-shadow:0 0 20px #000 inset,0 0 15px #101010;
         }
+        .score{
+            position: absolute;
+            top:0;
+            left:0;
+            padding:10px 30px;
+            font-size:20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #424242;
+        }
+        .gg{
+            position: absolute;
+            top:0; bottom:0;
+            left:0; right:0;
+            margin:auto;
+            font-size:24px;
+            background:rgba(255, 255, 255, .5);
+            text-align: center;
+            height:600px;
+            line-height: 600px;
+            display: none;
+        }
     </style>
 </head>
 <body>
-  <canvas id="canvas"></canvas>
+<div class="container">
+    <canvas id="canvas"></canvas>
+    <div class="score">分数：<span id="score"></span></div>
+    <div class="miss" id="miss"></div>
+    <div class="gg" id="gg">GAME OVER</div>
+</div>
+
   <script>
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
@@ -22,27 +55,206 @@
       canvas.width = 600;
       canvas.height = 600;
 
-      var sourceWidth = 30;
-      var sourceHeight = 10;
-      var sourceCol = Math.floor(canvas.width/sourceWidth);
-      var sourceRow = 5;
+      var fighter = {
+          w1 : 100,
+          h1 : 16,
+          w2 : 20,
+          h2 : 20,
+          speed : 5
+      };// 战机大小
+      fighter.x1 = canvas.width/2 - fighter.w1/2;
+      fighter.y1 = canvas.height - fighter.h1;
+      fighter.x2 = canvas.width/2 - fighter.w2/2;
+      fighter.y2 = canvas.height - fighter.h1 - fighter.h2;
+
+      var sources = [];  // 打击目标
+      var ammo = [];   // 子弹
+      var score = 0;  // 分数
+      var lastTime = new Date().getTime();
+      var key = [32, 37, 39];
+      var moveNum ; // 键盘按键：移动开关
+      var sendNum;  // 键盘按键：发射开关
+      var ifBullet = false;
+      var Timer;
+      var colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"];
+
+      var gg = document.getElementById('gg');
+      var currentScore = document.getElementById('score');
 
       window.onload = function(){
-          init()
+
+          document.addEventListener('keydown',keydown);
+          document.addEventListener('keyup',keyup);
+
+          reset();
+      };
+
+      function reset(){
+          Timer = setInterval(function(){
+              init();
+              updateFighter();
+              addSources();
+              updateSources();
+              addAmmo();
+              updateAmmo();
+              detection();
+          },30)
       }
-//      初始化画布
+
+//      初始化画布：战斗机，敌人，子弹
       function init(){
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-          var x, y;
-          for(var i = 0; i < sourceCol; i++){
-              for(var j = 0; j < sourceRow; j++){
+//          document.addEventListener('keydown',keydown);
+
+//          战机
+          ctx.beginPath();
+          ctx.fillStyle = '#9dcece';
+          ctx.fillRect(fighter.x1, fighter.y1, fighter.w1, fighter.h1);
+          ctx.fillRect(fighter.x2, fighter.y2, fighter.w2, fighter.h2);
+          ctx.fill();
+
+//          如果数组有数据，就渲染敌人
+          if(sources.length > 0){
+              for(var i = 0; i < sources.length; i++){
                   ctx.beginPath();
-                  x = i * sourceWidth;
-                  y = j * sourceHeight;
-                  ctx.strokeStyle = '#000';
-                  ctx.strokeRect(x, y, sourceWidth, sourceHeight)
+                  ctx.fillStyle = sources[i].color;
+                  ctx.fillRect(sources[i].x, sources[i].y, sources[i].w, sources[i].h);
+                  ctx.fill();
+
+
               }
           }
+
+//          如果有子弹，就渲染子弹
+          if(ammo.length > 0){
+              for(var m = 0; m < ammo.length; m++){
+                  ctx.beginPath();
+                  ctx.fillStyle = "#058";
+                  ctx.fillRect(ammo[m].x, ammo[m].y, ammo[m].w, ammo[m].h);
+                  ctx.fill();
+              }
+          }
+      }
+
+//      添加敌人到sources数组
+      function addSources(){
+          var currentTime = new Date().getTime();
+          var newSource;
+          if(currentTime - lastTime > 2000){
+              newSource = {
+                   x: Math.floor(canvas.width*Math.random()),
+                  vx: Math.pow(-1, Math.floor(Math.random()*100))*(0.5 + Math.random()*2),
+                  vy: Math.random()*2+1,
+                  color: colors[Math.floor(Math.random()*colors.length)]
+              };
+              newSource.w = Math.min(Math.floor(canvas.width*Math.random()+10),50);
+              newSource.h = newSource.w;
+              newSource.y = -1*newSource.h;
+
+              sources.push(newSource);
+              lastTime = currentTime;
+          }
+      }
+
+//      更新目标数组位置
+      function updateSources(){
+          for(var i = 0, len = sources.length; i < len; i++){
+              sources[i].x += sources[i].vx;
+              sources[i].y += sources[i].vy;
+
+              if(sources[i].x < 0 || sources[i].x > canvas.width - sources[i].w){
+                  sources[i].vx = -1*sources[i].vx
+              }
+              if(sources[i].y > canvas.height - sources[i].h){
+                  sources.splice(i, 1);
+                  len = sources.length;
+              }
+//              战斗机与目标的碰撞检测
+
+              if( Math.abs(fighter.x1 - sources[i].x) < Math.max(fighter.w1, sources[i].w) && Math.abs(fighter.y1 - sources[i].y) < sources[i].h ||
+                  Math.abs(fighter.x2 - sources[i].x) < Math.min(fighter.w2, sources[i].w) && Math.abs(fighter.y2 - sources[i].y) < sources[i].h){
+                  clearInterval(Timer);
+                  gg.style.display = 'block'
+              }
+
+          }
+      }
+
+//      键盘事件：按左右键使战斗机移动，但是缺少一个终止移动的合理途径
+      function keydown(e){
+          if(key.indexOf(e.which) > 0){
+              moveNum = e.which;
+          }
+//          document.removeEventListener('keydown', keydown);
+      }
+//      键盘事件：松开空格键才可发射子弹，避免连续过快发弹问题
+      function keyup(e){
+          if(key.indexOf(e.which) == 0){
+              ifBullet = true;
+          }
+      }
+
+//      根据键盘交互，更新战斗机位置
+      function updateFighter(){
+          if(moveNum == 37){
+              fighter.x1 -= fighter.speed;
+              fighter.x2 -= fighter.speed;
+              if(fighter.x1 < 0 ){
+                  fighter.x1 = 0;
+                  fighter.x2 += fighter.speed;
+              }
+          }
+          if(moveNum == 39){
+              fighter.x1 += fighter.speed;
+              fighter.x2 += fighter.speed;
+              if(fighter.x1 > canvas.width - fighter.w1 ){
+                  fighter.x1 = canvas.width - fighter.w1;
+                  fighter.x2 -= fighter.speed;
+              }
+          }
+          ifMove = false;
+      }
+
+//      根据键盘交互，添加子弹数组
+      function addAmmo(){
+          var bullet ;
+          if( ifBullet){ //空格发子弹
+              bullet = {
+                  w: fighter.w2 ,
+                  h: fighter.h2 ,
+                  x: fighter.x2 ,
+                  vy : 5
+              };
+              bullet.y = fighter.y2 - bullet.h;
+              ammo.push(bullet);
+              ifBullet = false;
+          }
+      }
+
+//      更新子弹位置
+      function updateAmmo(){
+          for(var i = 0; i < ammo.length; i++){
+              ammo[i].y -= ammo[i].vy;
+              if(ammo[i].y < 0){
+                  ammo.splice(i, 1);
+              }
+          }
+      }
+
+//      检测
+      function detection(){
+//        先检测子弹是否命中目标
+          ammo.forEach(function(value, index){
+              for(var i = 0, len = sources.length; i < len; i++){
+                     if(Math.abs(value.x - sources[i].x) < Math.max(value.w, sources[i].w) && Math.abs(value.y - sources[i].y) < Math.max(value.h, sources[i].h)){
+                         ammo.splice(index, 1);
+                         sources.splice(i, 1);
+                         len = sources.length;
+                         score += 10;
+                         currentScore.innerText = score;
+                     }
+              }
+          });
       }
 
   </script>
