@@ -10,7 +10,7 @@
             -webkit-perspective: 1000px;
             -moz-perspective: 1000px;
             -ms-perspective: 1000px;
-            perspective: 500px;
+            perspective: 1000px;
         }
         /*piece盒子*/
         .piece-box {
@@ -19,7 +19,7 @@
             height: 200px;
             margin: 200px auto;
             /*background: yellowgreen;*/
-            perspective-origin: 50% 50%;
+            /*perspective-origin: 50% 50%;*/
             -webkit-transform-style: preserve-3d;
             -moz-transform-style: preserve-3d;
             -ms-transform-style: preserve-3d;
@@ -28,8 +28,8 @@
             -moz-animation: pieceRotate 5s; /* Firefox */
             -webkit-animation: pieceRotate 5s; /* Safari and Chrome */
             -o-animation: pieceRotate 5s ; /* Opera */
-            -webkit-animation-fill-mode: forwards; /* Chrome, Safari, Opera */
-            animation-fill-mode: forwards;
+            /*-webkit-animation-fill-mode: forwards; !* Chrome, Safari, Opera *!*/
+            /*animation-fill-mode: forwards;*/
         }
         /*走马灯动画*/
         @keyframes pieceRotate
@@ -41,7 +41,7 @@
             100% {-webkit-transform: rotateY(340deg);
                 -ms-transform: rotateY(340deg);
                 -o-transform: rotateY(340deg);
-                transform: rotateY(340deg);}
+                transform: rotateY(360deg);}
         }
         /* Firefox */
         @-moz-keyframes pieceRotate
@@ -83,8 +83,8 @@
         /*piece通用样式*/
         .piece {
             position: absolute;
-            width: 100px;
-            height: 50px;
+            width: 200px;
+            height: 200px;
             background: red;
             opacity: 0.5;
 

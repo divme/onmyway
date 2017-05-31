@@ -74,7 +74,7 @@
       var key = [32, 37, 39];
       var moveNum ; // 键盘按键：移动开关
       var sendNum;  // 键盘按键：发射开关
-      var ifBullet = false;
+      var ifBullet = false; //是否添加子弹
       var Timer;
       var colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"];
 
@@ -120,8 +120,6 @@
                   ctx.fillStyle = sources[i].color;
                   ctx.fillRect(sources[i].x, sources[i].y, sources[i].w, sources[i].h);
                   ctx.fill();
-
-
               }
           }
 
@@ -142,12 +140,12 @@
           var newSource;
           if(currentTime - lastTime > 2000){
               newSource = {
-                   x: Math.floor(canvas.width*Math.random()),
                   vx: Math.pow(-1, Math.floor(Math.random()*100))*(0.5 + Math.random()*2),
                   vy: Math.random()*2+1,
                   color: colors[Math.floor(Math.random()*colors.length)]
               };
               newSource.w = Math.min(Math.floor(canvas.width*Math.random()+10),50);
+              newSource.x = Math.floor((canvas.width - newSource.w)*Math.random());
               newSource.h = newSource.w;
               newSource.y = -1*newSource.h;
 
@@ -170,13 +168,17 @@
                   len = sources.length;
               }
 //              战斗机与目标的碰撞检测
-
               if( Math.abs(fighter.x1 - sources[i].x) < Math.max(fighter.w1, sources[i].w) && Math.abs(fighter.y1 - sources[i].y) < sources[i].h ||
                   Math.abs(fighter.x2 - sources[i].x) < Math.min(fighter.w2, sources[i].w) && Math.abs(fighter.y2 - sources[i].y) < sources[i].h){
                   clearInterval(Timer);
                   gg.style.display = 'block'
               }
+              if(sources[i].x < fighter.x1){
 
+              }
+              if(sources[i].x > fighter.x1){
+
+              }
           }
       }
 
