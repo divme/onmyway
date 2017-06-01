@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3d图形</title>
+    <style>
+        *{margin:0;padding:0}
+        .container{
+            width:600px;
+            height:120px;
+            margin:10px auto;
+            /*border:1px solid #c98;*/
+        }
+        .box{
+            -webkit-perspective:500px;
+            perspective:1000px;
+            -webkit-perspective-origin: top left;
+            perspective-origin: 25px 25px;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+
+            position: relative;
+            width:100px;
+            height:100px;
+            margin-top:10px;
+            transform: rotateX(30deg);
+        }
+        .box1{
+            animation:box1 3s ease-in infinite;
+        }
+        @keyframes box1 {
+            0%{transform: rotateX(30deg) rotateY(0deg)}
+            100%{transform:rotateX(30deg) rotateY(360deg)}
+        }
+        .circle{
+            position: absolute;
+            top:0;bottom:0;
+            left:0;right:0;
+            background: radial-gradient(transparent 30%,rgba(0,0,0,.3) 100%);
+            box-shadow: 0 0 5px #fff inset;
+            border-radius:50%;
+        }
+        .circle1{
+            transform: rotateY(60deg);
+        }
+        .circle2{
+            transform: rotateY(120deg);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="box box1">
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+        <div class="circle circle3"></div>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

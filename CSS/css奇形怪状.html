@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>奇形怪状</title>
+    <style>
+        *{margin:0;padding:0;position:relative}
+         body{
+             /*background:radial-gradient(, #ccf, #f6f6f6);*/
+         }
+        .container{
+            width:600px;
+            max-width:1000px;
+            min-height:120px;
+            border:1px solid darksalmon;
+            margin:20px auto;
+            padding-left:10px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 200px;
+            font-size:0;
+        }
+        .container h3{
+            text-align: center;
+            margin-bottom:20px;
+            font-size:15px;
+        }
+        .basic{
+            display: inline-block;
+            width:40px;
+            height:40px;
+            line-height:40px;
+            margin-left:5px;
+            background: #098;
+            font-size:12px;
+            color: #fff;
+            text-align: center;
+        }
+
+        /*圆形*/
+        @media (min-width:10px){
+            .circle .basic{
+                background:repeating-radial-gradient(#9cf, #ccf 10%, #f6f6f6 10%);
+            }
+            .roundness{
+                border-radius:50%;
+            }
+            .cylinder{
+                width:80px;
+                border-radius:40px / 50%;
+            }
+            .oval{
+                width:80px;
+                border-radius:10px / 50%;
+            }
+            .halfoval{
+                /*border-radius:50% 50% 0 0 / 100% 100% 30% 30%;*/
+                border-radius:50% / 100% 100% 0 0 ;
+            }
+            .halfoval2{
+                border-radius:100%  0 0 100% / 50%;
+            }
+        }
+
+        /*梯形*/
+        @media (min-width:10px){
+            .trapezoid{
+                padding:0 10px;
+            }
+            .trapezoid1{
+                position: relative;
+                margin-left:20px;
+                background: none;
+                text-align: center;
+            }
+            .trapezoid1::before{
+                content:'';
+                position: absolute;
+                top:0;bottom:0;
+                left:0;right:0;
+                background: #068;
+                z-index:-1;
+
+                transform-origin: bottom left;
+                transform: perspective(.5em) scaleY(1.5) rotateX(6deg);
+            }
+
+            .trapezoid2{
+                position: relative;
+                margin-left:20px;
+                background: none;
+            }
+            .trapezoid2::before{
+                content:'';
+                position: absolute;
+                top:0;bottom:0;
+                left:0;right:0;
+                background: #068;
+                z-index:-1;
+
+                transform-origin: bottom;
+                transform: perspective(.5em) scaleY(1.5) rotateX(5deg);
+            }
+
+            .trapezoid3{
+                position: relative;
+                margin-left:20px;
+                background: none;
+            }
+            .trapezoid3::before{
+                content:'';
+                position: absolute;
+                top:0;bottom:0;
+                left:0;right:0;
+                background: #068;
+                z-index:-1;
+
+                transform-origin: bottom right;
+                transform: perspective(.5em) scaleY(1.5) rotateX(5deg);
+            }
+        }
+
+        /*平行四边形*/
+        @media (min-width:10px){
+            .parallel{
+                position:relative;
+                width:100px;
+                background: none;
+            }
+            .parallel:first-of-type{
+                margin-left:20px;
+            }
+            .parallel::before{
+                content:'';
+                position: absolute;
+                top:0;bottom:0;
+                left:0;right:0;
+                background: linear-gradient(0deg, #098 , #068, #f0efee) no-repeat;
+                z-index:-1;
+
+                transform: skew(-30deg, 0deg);
+            }
+        }
+        
+        /*菱形*/
+        @media (min-width:10px){
+            .shape-lx{
+                transform: rotate(45deg);
+            }
+            .shape-lx::before{
+                content: '菱形';
+                position: absolute;
+                top:0;bottom:0;
+                left:0;right:0;
+                transform: rotate(-45deg);
+
+            }
+            .shape-lximg{
+                transform: rotate(45deg);
+                margin-left:20px;
+                vertical-align: top;
+            }
+            .shape-lximg img{
+                width:100%;
+                transform: rotate(-45deg);
+            }
+        }
+
+        /*切角效果*/
+        @media (min-width:10px){
+            .radius1{
+                width:100px;
+                height:60px;
+                background:linear-gradient(-45deg, transparent 8px, yellowgreen 0) bottom right,
+                           linear-gradient(45deg, transparent 8px, yellowgreen 0) bottom left,
+                           linear-gradient(135deg, transparent 8px, yellowgreen 0) top left,
+                           linear-gradient(-135deg, transparent 8px, yellowgreen 0) top right;
+                background-size:50% 50%;
+                background-repeat:no-repeat;
+            }
+            .radius2{
+                width:100px;
+                height:60px;
+                background:radial-gradient(circle at bottom right, transparent 8px, yellowgreen 0) bottom right,
+                           radial-gradient(circle at bottom left, transparent 8px, yellowgreen 10px) bottom left,
+                           radial-gradient(circle at top left, transparent 8px, yellowgreen 0) top left,
+                           radial-gradient(circle at top right, transparent 8px, yellowgreen 0) top right;
+                background-size:50% 50%;
+                background-repeat:no-repeat;
+            }
+        }
+
+        /* 扇形 */
+        @media (min-width:10px){
+             .sector-container{
+                height:200px;
+             }
+             .sector{
+                 width:100px;
+                 height:100px;
+                 border-radius:50%;
+                 background: linear-gradient(90deg, #f6f6f6 50%, yellowgreen 50%) ;
+                 overflow: hidden;
+             }
+              .sector1::before{
+                  position: absolute;
+                  content: '';
+                  width:50%;
+                  height:100px;
+                  right:0;
+                  top:0;
+                  background: #f6f6f6;
+                  transform-origin: left;
+                  transform: rotate(45deg);
+                  /*animation: sector1 2s linear infinite alternate;*/
+              }
+              @keyframes sector1 {
+                  0%{transform:rotate(0deg)}
+                  100%{transform:rotate(180deg)}
+              }
+
+              .sector2::before{
+                  content: '';
+                  display: block;
+                  height: 100%;
+                  margin-left: 50%;
+                  background: yellowgreen;
+                  transform-origin: left;
+                  transform: rotate(40deg);
+              }
+
+        }
+    </style>
+</head>
+<body>
+<div class="container circle">
+      <h3>圆，椭圆，上半椭圆，左半椭圆，1/4椭圆</h3>
+      <div class="basic roundness">圆</div>
+      <div class="basic cylinder">椭圆</div>
+      <div class="basic oval">圆柱</div>
+      <div class="basic halfoval">半椭</div>
+      <div class="basic halfoval2">半椭</div>
+</div>
+
+<div class="container">
+    <h3>梯形(X)</h3>
+    <div class="basic trapezoid trapezoid1">梯形</div>
+    <div class="basic trapezoid trapezoid2">梯形</div>
+    <div class="basic trapezoid trapezoid3">梯形</div>
+</div>
+
+<div class="container">
+    <h3>平行四边形</h3>
+    <div class="basic parallel">首页</div>
+    <div class="basic parallel">JAVA</div>
+    <div class="basic parallel">JavaScript</div>
+</div>
+
+<div class="container">
+    <h3>菱形，菱形图片</h3>
+    <div class="basic shape-lx"></div>
+    <div class="basic shape-lximg"><img src="img/mission.png" alt=""></div>
+</div>
+
+<div class="container">
+    <h3>切角效果</h3>
+    <div class="basic radius1"></div>
+    <div class="basic radius2"></div>
+</div>
+
+<div class="container sector-container">
+    <h3>扇形</h3>
+    <div class="basic sector sector1"></div>
+    <div class="basic sector sector2"></div>
+    <div class="basic sector sector3"></div>
+    <div class="basic sector sector4"></div>
+    <div class="basic sector sector5"></div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

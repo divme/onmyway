@@ -26,6 +26,17 @@
             background: rgba(255, 255, 255, 0.2);
             color: #424242;
         }
+        .miss{
+            position: absolute;
+            top:0;
+            right:0;
+            min-width:3em;
+            min-height:1.5em;
+            padding:10px 30px;
+            font-size:20px;
+            background: rgba(255, 255, 255, .3);
+            color: #d3ae68;
+        }
         .gg{
             position: absolute;
             top:0; bottom:0;
@@ -67,24 +78,26 @@
       fighter.x2 = canvas.width/2 - fighter.w2/2;
       fighter.y2 = canvas.height - fighter.h1 - fighter.h2;
 
-      var sources = [];  // 打击目标
+      var sources = [];  // 目标
       var ammo = [];   // 子弹
       var score = 0;  // 分数
-      var lastTime = new Date().getTime();
+      var lastTime = new Date().getTime(); // 添加目标的时间戳
+      var interval = 1000; // 多久添加一个目标，后续可以据此增加游戏难度
       var key = [32, 37, 39];
       var moveNum ; // 键盘按键：移动开关
-      var sendNum;  // 键盘按键：发射开关
       var ifBullet = false; //是否添加子弹
       var Timer;
+      var missCount = 0; // miss的目标数量，当不小于3时，game over;
       var colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"];
 
       var gg = document.getElementById('gg');
+      var miss = document.getElementById('miss');
       var currentScore = document.getElementById('score');
 
       window.onload = function(){
 
-          document.addEventListener('keydown',keydown);
-          document.addEventListener('keyup',keyup);
+          document.addEventListener('keydown', keydown);
+          document.addEventListener('keyup', keyup);
 
           reset();
       };
@@ -100,6 +113,11 @@
               detection();
           },30)
       }
+//      gameOver:1.当目标与战斗机相撞时；2.当miss三个战斗机以上时
+      function gameOver(){
+          clearInterval(Timer);
+          gg.style.display = 'block'
+      }
 
 //      初始化画布：战斗机，敌人，子弹
       function init(){
@@ -108,7 +126,8 @@
 
 //          战机
           ctx.beginPath();
-          ctx.fillStyle = '#9dcece';
+//          ctx.fillStyle = '#9dcece';
+          ctx.fillStyle = '#424242';
           ctx.fillRect(fighter.x1, fighter.y1, fighter.w1, fighter.h1);
           ctx.fillRect(fighter.x2, fighter.y2, fighter.w2, fighter.h2);
           ctx.fill();
@@ -127,8 +146,10 @@
           if(ammo.length > 0){
               for(var m = 0; m < ammo.length; m++){
                   ctx.beginPath();
-                  ctx.fillStyle = "#058";
-                  ctx.fillRect(ammo[m].x, ammo[m].y, ammo[m].w, ammo[m].h);
+//                  ctx.fillStyle = "#058";
+                  ctx.fillStyle = "#d3ae68";
+                  ctx.arc(ammo[m].x + ammo[m].w/2, ammo[m].y + ammo[m].h/2, ammo[m].w/2, 0 ,2*Math.PI, false);
+//                  ctx.fillRect(ammo[m].x, ammo[m].y, ammo[m].w, ammo[m].h);
                   ctx.fill();
               }
           }
@@ -138,13 +159,13 @@
       function addSources(){
           var currentTime = new Date().getTime();
           var newSource;
-          if(currentTime - lastTime > 2000){
+          if(currentTime - lastTime > interval){
               newSource = {
                   vx: Math.pow(-1, Math.floor(Math.random()*100))*(0.5 + Math.random()*2),
                   vy: Math.random()*2+1,
                   color: colors[Math.floor(Math.random()*colors.length)]
               };
-              newSource.w = Math.min(Math.floor(canvas.width*Math.random()+10),50);
+              newSource.w = Math.min(Math.floor(canvas.width*Math.random()+20),50);
               newSource.x = Math.floor((canvas.width - newSource.w)*Math.random());
               newSource.h = newSource.w;
               newSource.y = -1*newSource.h;
@@ -154,7 +175,7 @@
           }
       }
 
-//      更新目标数组位置
+//      更新目标数组位置，同时进行目标碰撞与边缘检测
       function updateSources(){
           for(var i = 0, len = sources.length; i < len; i++){
               sources[i].x += sources[i].vx;
@@ -166,19 +187,23 @@
               if(sources[i].y > canvas.height - sources[i].h){
                   sources.splice(i, 1);
                   len = sources.length;
+                  missCount += 1;
+                  miss.innerText += "O";
+                  if(missCount >= 3){
+                      gameOver();
+                  }
               }
-//              战斗机与目标的碰撞检测
+//              战斗机与目标的碰撞检测（还不完善）
               if( Math.abs(fighter.x1 - sources[i].x) < Math.max(fighter.w1, sources[i].w) && Math.abs(fighter.y1 - sources[i].y) < sources[i].h ||
                   Math.abs(fighter.x2 - sources[i].x) < Math.min(fighter.w2, sources[i].w) && Math.abs(fighter.y2 - sources[i].y) < sources[i].h){
-                  clearInterval(Timer);
-                  gg.style.display = 'block'
+                  gameOver();
               }
-              if(sources[i].x < fighter.x1){
-
-              }
-              if(sources[i].x > fighter.x1){
-
-              }
+//              if(sources[i].x < fighter.x1 && fighter.x1 - sources[i].x < source[i].x && Math.abs(sources[i].y - fighter.y1) < sources[i].h){
+//
+//              }
+//              if(sources[i].x > fighter.x1){
+//
+//              }
           }
       }
 
@@ -187,7 +212,6 @@
           if(key.indexOf(e.which) > 0){
               moveNum = e.which;
           }
-//          document.removeEventListener('keydown', keydown);
       }
 //      键盘事件：松开空格键才可发射子弹，避免连续过快发弹问题
       function keyup(e){
@@ -196,25 +220,24 @@
           }
       }
 
-//      根据键盘交互，更新战斗机位置
+//      根据键盘交互，更新战斗机位置，并进行战斗机边缘判断
       function updateFighter(){
           if(moveNum == 37){
               fighter.x1 -= fighter.speed;
               fighter.x2 -= fighter.speed;
-              if(fighter.x1 < 0 ){
-                  fighter.x1 = 0;
+              if(fighter.x1 < 0 - (fighter.w1/2 - fighter.w2/2) ){
+                  fighter.x1 = 0 - (fighter.w1/2 - fighter.w2/2);
                   fighter.x2 += fighter.speed;
               }
           }
           if(moveNum == 39){
               fighter.x1 += fighter.speed;
               fighter.x2 += fighter.speed;
-              if(fighter.x1 > canvas.width - fighter.w1 ){
-                  fighter.x1 = canvas.width - fighter.w1;
+              if(fighter.x1 > canvas.width - (fighter.w1/2 + fighter.w2/2) ){
+                  fighter.x1 = canvas.width - (fighter.w1/2 + fighter.w2/2);
                   fighter.x2 -= fighter.speed;
               }
           }
-          ifMove = false;
       }
 
 //      根据键盘交互，添加子弹数组
@@ -222,18 +245,20 @@
           var bullet ;
           if( ifBullet){ //空格发子弹
               bullet = {
-                  w: fighter.w2 ,
-                  h: fighter.h2 ,
-                  x: fighter.x2 ,
+//                  w: fighter.w2 ,
+//                  h: fighter.h2 ,
+                  w: 10,
+                  h: 10 ,
                   vy : 5
               };
+              bullet.x = fighter.x2 + (fighter.w2/2 - bullet.w/2);
               bullet.y = fighter.y2 - bullet.h;
               ammo.push(bullet);
               ifBullet = false;
           }
       }
 
-//      更新子弹位置
+//      更新子弹位置，并进行子弹边缘检测
       function updateAmmo(){
           for(var i = 0; i < ammo.length; i++){
               ammo[i].y -= ammo[i].vy;
@@ -243,18 +268,41 @@
           }
       }
 
-//      检测
+//      子弹碰撞检测
       function detection(){
-//        先检测子弹是否命中目标
+//        先检测子弹是否命中目标：要根据它们的左右相对位置来进行检测，相对位置由左上角顶点确定
           ammo.forEach(function(value, index){
               for(var i = 0, len = sources.length; i < len; i++){
-                     if(Math.abs(value.x - sources[i].x) < Math.max(value.w, sources[i].w) && Math.abs(value.y - sources[i].y) < Math.max(value.h, sources[i].h)){
-                         ammo.splice(index, 1);
-                         sources.splice(i, 1);
-                         len = sources.length;
-                         score += 10;
-                         currentScore.innerText = score;
-                     }
+//                  最开始的碰撞检测方法，比较粗糙，但是大多数情况下还能行得通
+//                     if(Math.abs(value.x - sources[i].x) < Math.max(value.w, sources[i].w) && Math.abs(value.y - sources[i].y) < Math.max(value.h, sources[i].h)){
+//                         ammo.splice(index, 1);
+//                         sources.splice(i, 1);
+//                         len = sources.length;
+//                         score += 10;
+//                         currentScore.innerText = score;
+//                     }
+//                   当子弹在目标的左边,（但是我发现上下两边也需要判断）
+//                   if( (value.x < sources[i].x && sources[i].x - value.x < value.w && Math.abs(sources[i].y - value.y) < sources[i].h) ||
+//                       (value.x > sources[i].x && value.x - sources[i].x < sources[i].w && Math.abs(sources[i].y - value.y) < sources[i].h )
+//                   ){
+//                       ammo.splice(index, 1);
+//                       sources.splice(i, 1);
+//                       len = sources.length;
+//                       score += 10;
+//                       currentScore.innerText = score;
+//                   }
+
+//                   这样检测：两个正方形中心点的位置小于它们对角线之和的一半，就判定为碰撞
+                    var pointDistance = Math.sqrt( Math.pow((sources[i].x + sources[i].w/2)-(value.x + value.w/2),2) + Math.pow((sources[i].y + sources[i].h/2)-(value.y + value.h/2),2) )
+                    var maxDistance = Math.sqrt( 2*(value.w/2 + sources[i].w/2)*(value.w/2 + sources[i].w/2) );
+                    if( pointDistance < maxDistance){
+                       ammo.splice(index, 1);
+                       sources.splice(i, 1);
+                       len = sources.length;
+                       score += 10;
+                       currentScore.innerText = score;
+                    }
+
               }
           });
       }
@@ -263,3 +311,32 @@
 </body>
 </html>
 
+<!--子弹：{-->
+   <!--x: 左上顶点x坐标，-->
+   <!--y: 左上顶点y坐标,-->
+   <!--w: 宽,-->
+   <!--h: 高,-->
+   <!--vy: 子弹单向移动速度-->
+<!--}-->
+
+<!--目标：{-->
+    <!--x:,-->
+    <!--y:,-->
+    <!--w:,-->
+    <!--h:,-->
+    <!--vx: Math.pow(-1, Math.floor(Math.random()*100))*(0.5 + Math.random()*2),-->
+    <!--vy: Math.random()*2+1,-->
+    <!--color: colors[Math.floor(Math.random()*colors.length)]-->
+<!--}-->
+
+<!--战斗机：{-->
+    <!--x1:,-->
+    <!--y1:,-->
+    <!--x2:,-->
+    <!--y2:,-->
+    <!--w1 : 100,-->
+    <!--h1 : 16,-->
+    <!--w2 : 20,-->
+    <!--h2 : 20,-->
+    <!--speed : 5-->
+<!--}-->

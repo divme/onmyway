@@ -6,15 +6,20 @@
     <style>
         *{margin:0;padding:0}
         /*回旋镖*/
+        .container{
+            height:100px;
+            margin:20px auto
+        }
         .rotate{
+            display: block;
             position: relative;
-            width:100px;
-            height: 100px;
+            width:50px;
+            height: 50px;
             margin:20px auto;
-            border:5px solid #069;
+            border:5px solid #d3ae68;
             border-top-color: transparent;
             border-bottom-color:transparent;
-            border-radius:40px / 50%;
+            border-radius:20px / 50%;
             animation: rotate .5s ease-out infinite;
         }
         .rotate:before{
@@ -26,7 +31,7 @@
             width:60%;
             height:60%;
             border-radius:50%;
-            background: #069;
+            background: #d3ae68;
             animation:scale .5s linear infinite alternate;
         }
         @keyframes rotate {
@@ -46,7 +51,7 @@
             width:50px;
             height: 50px;
             border-radius: 50%;
-            margin:20px auto;
+            margin:100px auto;
             background:radial-gradient(transparent 10%, rgba(0,0,0,.1) 98%);
         }
         .c{
@@ -85,9 +90,9 @@
 </head>
 <body>
 <!--回旋镖-->
-<!--<div class="box">-->
-    <!--<div class="rotate" id="rotate">-->
-<!--</div>-->
+<div class="container">
+    <div class="rotate" id="rotate">
+</div>
 
 <!--扩散波纹 -->
 <div class="box">
