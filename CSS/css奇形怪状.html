@@ -211,14 +211,17 @@
                   top:0;
                   background: #f6f6f6;
                   transform-origin: left;
-                  transform: rotate(45deg);
+                  transform: rotate(90deg);
                   /*animation: sector1 2s linear infinite alternate;*/
               }
               @keyframes sector1 {
-                  0%{transform:rotate(0deg)}
+                  /*0%{transform:rotate(0deg)}*/
                   100%{transform:rotate(180deg)}
               }
-
+              @keyframes bg{
+                  50%{background:yellowgreen;}
+                  /*100%{background:#f6f6f6}*/
+              }
               .sector2::before{
                   content: '';
                   display: block;
@@ -228,6 +231,17 @@
                   transform-origin: left;
                   transform: rotate(40deg);
               }
+              .sector3::before{
+                  content: '渐变';
+                  color: #000;
+                  display: block;
+                  height: 100%;
+                  margin-left: 50%;
+                  background: #f6f6f6;
+                  transform-origin: left;
+                  animation: sector1 3s linear infinite, bg 6s step-end infinite;
+              }
+
 
         }
     </style>
@@ -270,7 +284,7 @@
 
 <div class="container sector-container">
     <h3>扇形</h3>
-    <div class="basic sector sector1"></div>
+    <div class="basic sector sector1">只能50%</div>
     <div class="basic sector sector2"></div>
     <div class="basic sector sector3"></div>
     <div class="basic sector sector4"></div>
