@@ -14,7 +14,7 @@
             min-height:200px;
             border:1px solid darksalmon;
             margin:20px auto;
-            padding:0 10px;
+            padding:10px 10px;
             overflow: hidden;
             transform-style: preserve-3d;
             perspective: 200px;
@@ -22,7 +22,7 @@
         }
         .container h3{
             text-align: center;
-            margin-bottom:20px;
+            margin:10px 0 20px;
             font-size:15px;
         }
         .basic{
@@ -117,6 +117,7 @@
             }
             .radius2{
                 width:150px;
+                height:100px;
                 margin-left:50px;
                 border-radius:10px;
                 background:tan;
@@ -164,13 +165,15 @@
             .lgradient6{
                 background-image:linear-gradient(90deg, rgba(255, 255, 255, .5) 50%, transparent 0),linear-gradient(rgba(255, 255, 255, .5) 50%, transparent 0);
                 background-size:30px 30px;
+                /*background-repeat:no-repeat;*/
             }
             
             .rgradient1{
                 background:radial-gradient(#fff, red 40%, #d3ae68 60%, #424242 80%);
             }
             .rgradient2{
-                background-image: radial-gradient(tan 20%, #655 20%), radial-gradient(tan 20%, #655 20%);
+                background: #655;
+                background-image: radial-gradient(tan 20%, transparent 20%) ,radial-gradient(tan 20%, transparent 20%);
                 background-size: 30px 30px;
                 background-position: 0 0, 15px 15px;
             }
@@ -189,33 +192,48 @@
             }
 
         }
+        /*蚂蚁行军边框*/
+        @media (min-width:10px){
+            .antBorder{
+                width:200px;
+                height:150px;
+                padding: 10px;
+                border:2px solid transparent;
+                background: linear-gradient(white, white) padding-box,
+                            repeating-linear-gradient(45deg, black 0, black 25%, white 0, white 50%) 0/ 10px 10px;
+                animation: ants 12s linear infinite;
+            }
+            @keyframes ants {
+                100% { background-position:100% }
+            }
+        }
     </style>
 </head>
 <body>
 
-<!--<div class="container fixed">-->
-      <!--<h3>半透明边框与背景定位</h3>-->
-      <!--<div class="basic border">-->
-          <!--<div class="borderContent">他强任他强，我是尼克扬</div>-->
-      <!--</div>-->
-      <!--<div class="basic backfixed">背景定位：背景色不受影响，只影响背景图片;另外background-origin与background-clip</div>-->
-<!--</div>-->
+<div class="container fixed">
+      <h3>半透明边框与背景定位</h3>
+      <div class="basic border">
+          <div class="borderContent">他强任他强，我是尼克扬</div>
+      </div>
+      <div class="basic backfixed">背景定位：背景色不受影响，只影响背景图片;另外background-origin与background-clip</div>
+</div>
 
-<!--<div class="container bContainer">-->
-    <!--<h3>多重边框:box-shadow,outline</h3>-->
-    <!--<div class="basic bs1"></div>-->
-    <!--<div class="basic ol1"></div>-->
-    <!--<div class="basic bs2"></div>-->
-    <!--<div class="basic ol2"></div>-->
-<!--</div>-->
+<div class="container bContainer">
+    <h3>多重边框:box-shadow,outline</h3>
+    <div class="basic bs1"></div>
+    <div class="basic ol1"></div>
+    <div class="basic bs2"></div>
+    <div class="basic ol2"></div>
+</div>
 
-<!--<div class="container radius">-->
-    <!--<h3>边框内圆角</h3>-->
-    <!--<div class="basic radius1">-->
-        <!--<div class="radiusContent">两个元素</div>-->
-    <!--</div>-->
-    <!--<div class="basic radius2">利用 outline 和 box-shadow </div>-->
-<!--</div>-->
+<div class="container radius">
+    <h3>边框内圆角</h3>
+    <div class="basic radius1">
+        <div class="radiusContent">两个元素</div>
+    </div>
+    <div class="basic radius2">利用 outline 和 box-shadow </div>
+</div>
 
 <div class="container gradient">
     <h3>条纹背景</h3>
@@ -228,10 +246,15 @@
     <br>
     <div class="basic rgradient1">radial1</div>
     <div class="basic rgradient2">radial2</div>
-    <div class="basic rgradient3">reRadial3</div>
+    <div class="basic rgradient3">radial3</div>
     <div class="basic rgradient4">reRadial4</div>
     <div class="basic rgradient5">reRadial5</div>
     <div class="basic rgradient6">reRadial6</div>
+</div>
+
+<div class="container">
+    <h3>蚂蚁行军边框</h3>
+    <div class="antBorder"></div>
 </div>
 
 </body>

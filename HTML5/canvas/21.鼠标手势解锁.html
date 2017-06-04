@@ -19,10 +19,92 @@
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
 
-      canvas.width = 1000;
+      canvas.width = 600;
       canvas.height = 600;
 
+      var points = [];
+      var r = canvas.width/10;
+      var bColor = "red"; // 未选中时圆颜色
+      var aColor = "red"; //选中时圆颜色
 
+      var ifRender = false;
+      var ifSure = false;
+      var currentPoint = 0;
+
+      window.onload = function(){
+          addPoints();
+          init();
+
+//          先绘制图案
+//          确认图案
+//          监听事件解锁
+          canvas.addEventListener('mousedown',mousedown);
+          canvas.addEventListener('mousemove',mousemove);
+          canvas.addEventListener('mouseup',mouseup);
+      };
+
+//      画出九个主要点；监听mouse事件
+      function init(){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          renderPoints();
+      }
+
+//      添加九个点的位置
+      function addPoints(){
+          var m, n, point;
+          for(var i = 0; i < 9; i++){
+              m = Math.floor(i/3);
+              n = Math.floor(i%3);
+              point = {
+                  x: (n+1)*r + n*2*r + r,
+                  y: (m+1)*r + m*2*r +r,
+                  color: bColor
+              };
+              points.push(point);
+          }
+      }
+
+//      画点
+      function renderPoints(){
+          for(var i = 0, len = points.length; i < len; i++){
+              ctx.beginPath();
+              ctx.arc(points[i].x, points[i].y, r, 0, 2*Math.PI, false);
+              ctx.fillStyle = points[i].color;
+              ctx.fill();
+          }
+      }
+
+//     检测点的位置
+      function detection(x, y){
+          for(var i = 0, len = points.length; i < len; i++){
+              ctx.beginPath();
+              ctx.arc(points[i].x, points[i].y, r, 0, 2*Math.PI, false);
+              if(ctx.isPointInPath(x,y)){
+                  currentPoint = i;
+              }
+          }
+      }
+
+//      确认起始点位置，开始绘制
+      function mousedown(e){
+          var x = e.pageX - canvas.getBoundingClientRect().left;
+          var y = e.pageY - canvas.getBoundingClientRect().top;
+
+          detection(x, y);
+
+      }
+
+//      不停判断点的位置，并画线，如果在圆圈之内，就连线圆心；
+      function mousemove(e){
+
+      }
+
+//      如果是第一次绘制，储存起来；
+//      如果是确认密码，进行比较确认，一致，存储，不一致，重新绘制；
+//      如果是解锁，进行比较，一致，开锁，不一致，重新绘制；
+      function mouseup(e){
+
+      }
   </script>
 </body>
 </html>

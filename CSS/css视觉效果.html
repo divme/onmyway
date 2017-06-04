@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>视觉效果</title>
+    <style>
+        *{margin:0;padding:0}
+        .container{
+            width:600px;
+            max-width:1000px;
+            min-height:200px;
+            border:1px solid darksalmon;
+            margin:20px auto;
+            padding:10px 10px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 200px;
+            font-size:0;
+        }
+        .container h3{
+            text-align: center;
+            margin:10px 0 20px;
+            font-size:15px;
+        }
+        .basic{
+            display: inline-block;
+            width:80px;
+            height:80px;
+            line-height:2;
+            margin-left:20px;
+            background: #eee;
+            font-size:12px;
+            color: #d3ae68;
+            text-align: center;
+            vertical-align: top;
+        }
+        /*单侧投影*/
+        @media (min-width:10px){
+            .sideshadow{
+                box-shadow: 0 10px 10px -10px #000;
+            }
+            .sideshadow1{
+                box-shadow: 5px 5px 10px -5px #000;
+            }
+            .sideshadow2{
+                box-shadow:  10px 0 10px -10px #000,
+                            -10px 0 10px -10px #000;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h3>单侧投影</h3>
+    <div class="basic sideshadow">单侧投影</div>
+    <div class="basic sideshadow1">临侧投影</div>
+    <div class="basic sideshadow2">对侧投影</div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
