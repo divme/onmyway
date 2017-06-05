@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>鼠标手势解锁</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <style>
         *{margin:0;padding:0;}
         #canvas{
@@ -10,6 +11,7 @@
             margin:0 auto;
             border:1px solid #424242;
             box-shadow:0 0 20px #000 inset,0 0 15px #101010;
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -21,15 +23,26 @@
 
       canvas.width = 600;
       canvas.height = 600;
+      if(window.innerWidth < 750){
+          canvas.width = window.innerWidth-10;
+          canvas.height = window.innerWidth-10;
+      }
 
-      var points = [];
-      var r = canvas.width/10;
-      var bColor = "red"; // 未选中时圆颜色
-      var aColor = "red"; //选中时圆颜色
+      var points = []; // 九个绘制点位置及颜色信息：obj存储
+      var passPoints = []; //途经绘制点的index数组
+      var password = []; //存放密码的数组
+      var r = Math.floor(canvas.width/20); // 绘制点半径
+      var distance = (canvas.width - 6*r)/4; // 绘制点间距离
+      var bColor = "#f6f6f6"; // 未选中时圆颜色
+      var aColor = "#d3ae68"; //选中时圆颜色
 
-      var ifRender = false;
-      var ifSure = false;
-      var currentPoint = 0;
+      var ifHavePs = false;  // 是否有密码
+      var ifSure = false;   //是否确认密码
+      var ifStart = false; //是否开始划线
+      var currentPoint = 100; //判断当前在哪个圆内
+      var lastPoint = 100; //判断是否还在同一个圆内
+
+      var lastX, lastY;
 
       window.onload = function(){
           addPoints();
@@ -41,9 +54,13 @@
           canvas.addEventListener('mousedown',mousedown);
           canvas.addEventListener('mousemove',mousemove);
           canvas.addEventListener('mouseup',mouseup);
+
+          canvas.addEventListener('touchstart',touchstart);
+          canvas.addEventListener('touchmove',touchmove);
+          canvas.addEventListener('touchend',touchend);
       };
 
-//      画出九个主要点；监听mouse事件
+//     清除画布，画出九个主要点,画连线
       function init(){
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           renderPoints();
@@ -56,16 +73,19 @@
               m = Math.floor(i/3);
               n = Math.floor(i%3);
               point = {
-                  x: (n+1)*r + n*2*r + r,
-                  y: (m+1)*r + m*2*r +r,
+                  x: (n+1)*distance + n*2*r + r,
+                  y: (m+1)*distance + m*2*r +r,
                   color: bColor
               };
               points.push(point);
           }
       }
 
-//      画点
+//      画出九个主要点
       function renderPoints(){
+          for(var m = 0, leng = passPoints.length; m < leng; m++ ){
+              points[passPoints[m]].color = aColor;
+          }
           for(var i = 0, len = points.length; i < len; i++){
               ctx.beginPath();
               ctx.arc(points[i].x, points[i].y, r, 0, 2*Math.PI, false);
@@ -74,36 +94,194 @@
           }
       }
 
-//     检测点的位置
+//      画连线
+      function renderLines(lastX, lastY){
+          ctx.beginPath();
+          var len = passPoints.length;
+          if(len >= 1){
+              ctx.moveTo(points[passPoints[0]].x, points[passPoints[0]].y);
+              for(var i = 1; i < len; i++){
+                  ctx.lineTo(points[passPoints[i]].x, points[passPoints[i]].y)
+              }
+              ctx.lineTo(lastX, lastY);
+              ctx.lineWidth = 10;
+              ctx.strokeStyle = aColor;
+              ctx.stroke();
+          }
+      }
+
+//     判断鼠标是否在某个圆圈内
       function detection(x, y){
           for(var i = 0, len = points.length; i < len; i++){
               ctx.beginPath();
               ctx.arc(points[i].x, points[i].y, r, 0, 2*Math.PI, false);
               if(ctx.isPointInPath(x,y)){
                   currentPoint = i;
+                  break;
               }
           }
       }
 
 //      确认起始点位置，开始绘制
       function mousedown(e){
+
           var x = e.pageX - canvas.getBoundingClientRect().left;
           var y = e.pageY - canvas.getBoundingClientRect().top;
 
           detection(x, y);
+          if(currentPoint < 100){
+              passPoints.push(currentPoint);
+              lastPoint = currentPoint;
+          }
 
+          init(); //  先绘制圆;
+          renderLines(x, y); //  再绘制线
+
+          ifStart = true;
       }
 
 //      不停判断点的位置，并画线，如果在圆圈之内，就连线圆心；
       function mousemove(e){
 
+          var x = e.pageX - canvas.getBoundingClientRect().left;
+          var y = e.pageY - canvas.getBoundingClientRect().top;
+
+          if(ifStart){
+
+              detection(x, y);
+              if(currentPoint < 100 && currentPoint != lastPoint){
+                  passPoints.push(currentPoint);
+                  lastPoint = currentPoint;
+              }
+
+              init();
+              renderLines(x, y); //  再绘制线
+
+          }
       }
 
 //      如果是第一次绘制，储存起来；
 //      如果是确认密码，进行比较确认，一致，存储，不一致，重新绘制；
 //      如果是解锁，进行比较，一致，开锁，不一致，重新绘制；
       function mouseup(e){
+          ifStart = false;
 
+          if(ifHavePs && ifSure){
+              var str3 = passPoints.join('-');
+              var str4 = password.join('-');
+              if( str3 == str4 ){
+                  console.log('密码正确，我要跳转了');
+                  location.assign('http://www.baidu.com')
+              }else{
+                  console.log("密码错误，请重新绘制");
+
+              }
+          }
+
+//          没有密码，则存储为密码
+          if( !ifHavePs ){
+              var str = passPoints.join('-');
+              password = str.split('-');
+              ifHavePs = true;
+              console.log('密码已存储，请再次绘制进行确认');
+          }else if(!ifSure){   //有密码但是没确认，进行确认
+                  var str1 = passPoints.join('-');
+                  var str2 = password.join('-');
+                  if( str1 == str2 ){
+                      console.log('密码已确认');
+                      ifSure = true;
+                  }else{
+                      console.log("两次密码不一致，请重新绘制");
+                      password.length = 0;
+                      ifHavePs = false;
+                  }
+          }
+          reset();
+      }
+
+      function reset(){
+          for(var i = 0, len = points.length; i < len; i++){
+              points[i].color = bColor;
+          }
+          passPoints.length = 0;
+          init();
+      }
+
+
+      function touchstart(e){
+
+          var x = e.touches[0].pageX - canvas.getBoundingClientRect().left;
+          var y = e.touches[0].pageY - canvas.getBoundingClientRect().top;
+
+          detection(x, y);
+          if(currentPoint < 100){
+              passPoints.push(currentPoint);
+              lastPoint = currentPoint;
+          }
+
+          init(); //  先绘制圆;
+          renderLines(x, y); //  再绘制线
+
+          ifStart = true;
+      }
+
+      //      不停判断点的位置，并画线，如果在圆圈之内，就连线圆心；
+      function touchmove(e){
+
+          var x = e.touches[0].pageX - canvas.getBoundingClientRect().left;
+          var y = e.touches[0].pageY - canvas.getBoundingClientRect().top;
+
+          if(ifStart){
+
+              detection(x, y);
+              if(currentPoint < 100 && currentPoint != lastPoint){
+                  passPoints.push(currentPoint);
+                  lastPoint = currentPoint;
+              }
+
+              init();
+              renderLines(x, y); //  再绘制线
+
+          }
+      }
+
+      //      如果是第一次绘制，储存起来；
+      //      如果是确认密码，进行比较确认，一致，存储，不一致，重新绘制；
+      //      如果是解锁，进行比较，一致，开锁，不一致，重新绘制；
+      function touchend(e){
+          ifStart = false;
+
+          if(ifHavePs && ifSure){
+              var str3 = passPoints.join('-');
+              var str4 = password.join('-');
+              if( str3 == str4 ){
+                  console.log('密码正确，我要跳转了');
+                  location.assign('http://www.baidu.com')
+              }else{
+                  console.log("密码错误，请重新绘制");
+              }
+          }
+
+//          没有密码，则存储为密码
+          if( !ifHavePs ){
+              var str = passPoints.join('-');
+              password = str.split('-');
+              ifHavePs = true;
+              console.log('密码已存储，请再次绘制进行确认');
+          }else if(!ifSure){   //有密码但是没确认，进行确认
+              var str1 = passPoints.join('-');
+              var str2 = password.join('-');
+              if( str1 == str2 ){
+                  console.log('密码已确认');
+                  ifSure = true;
+              }else{
+                  console.log("两次密码不一致，请重新绘制");
+                  password.length = 0;
+                  ifHavePs = false;
+              }
+          }
+
+          reset();
       }
   </script>
 </body>
