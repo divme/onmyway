@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>接住碰碰球</title>
+    <style>
+        *{margin:0;padding:0;}
+        #canvas{
+            display: block;
+            margin:0 auto;
+            border:1px solid #424242;
+            box-shadow:0 0 20px #000 inset,0 0 15px #101010;
+        }
+    </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+
+      canvas.width = 800;
+      canvas.height = 600;
+
+      var sources = []; //目标数组
+
+      var tool = {
+          x: 10, //占位
+          y: 10, //占位
+          w: 100,
+          h: 15,
+          v : 10,
+          color: '#d3ae68'
+      };
+      tool.x = canvas.width/2 - tool.w/2;
+      tool.y = canvas.height - tool.h;
+
+      var ball = {
+          x: canvas.width/2,  //占位
+          y: canvas.height, //占位
+          vx: 10,
+          vy: 10,
+          r: 10,
+          color: '#d3ae68'
+      };
+      ball.y = canvas.height - ball.r - tool.h;
+
+      var Timer;
+
+      window.onload = function(){
+          addSources();
+          Timer = setInterval(function(){
+              render();
+              update();
+          },30)
+      };
+
+//      初始化：渲染整个初期页面，目标物体，球，移动条
+      function render(){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          renderBack();
+          renderSources();
+          renderBall();
+          renderTool()
+      }
+
+//      画背景
+      function renderBack(){
+
+      }
+
+//      添加目标进目标数组
+      function addSources(){
+
+      }
+//      绘制目标
+      function renderSources(){
+
+      }
+//      画球
+      function renderBall(){
+         ctx.beginPath();
+         ctx.arc(ball.x, ball.y, ball.r, 0, 2*Math.PI, false);
+         ctx.fillStyle = ball.color;
+         ctx.fill()
+      }
+
+//      画移动条
+      function renderTool(){
+          ctx.beginPath();
+          ctx.fillStyle = tool.color;
+          ctx.fillRect(tool.x, tool.y, tool.w, tool.h);
+      }
+
+//      球是否碰到目标，碰到就消除目标；即在此函数更新目标数组
+      function detectionSources(){
+
+      }
+
+//      移动条是否接住小球，没接住，gg；接住，改变运动方向，继续
+      function detectionTool(){
+
+      }
+
+//      更新移动条的移动方向
+//      更新球的位置
+      function update(){
+
+      }
+  </script>
+</body>
+</html>
+
