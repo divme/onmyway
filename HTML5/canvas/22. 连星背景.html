@@ -29,7 +29,8 @@
           offsety: 50,
           minR : 3,
           maxR : 7,
-          color: 'pink',
+//          color: 'pink',
+          color: 'rgba(255, 228, 225, .5)',
           colors: 'rgba(255, 255, 255,'
       };
 
@@ -48,12 +49,12 @@
 
       window.onload = function(){
 
-          renderBack();
+//          Timer = setInterval(function(){
+              renderBack();
+//          },30)
 
           document.addEventListener('mousemove', mousemove);
       };
-
-
 
 //      移动出发重绘：移动到哪，哪附近产生星星
 //      还得设置一个时间间隔，超过才发生，限制事件出发的频率
@@ -72,7 +73,7 @@
               ctx.clearRect(0, 0, canvas.width, canvas.height);
               renderBack();
               renderStars();
-//              renderLines();
+              renderLines();
 //              update();
 
               startTime = currentTime;
@@ -97,7 +98,7 @@
                   x: currentx + Math.pow(-1, Math.floor(Math.random()*100))*Math.floor(Math.random()*defaultStar.offsetx),
                   y: currenty + Math.pow(-1, Math.floor(Math.random()*100))*Math.floor(Math.random()*defaultStar.offsety),
                   r: Math.floor(defaultStar.minR + Math.random()*(defaultStar.maxR-defaultStar.minR)),
-                  opaicty: Math.floor(Math.random()*10)/10
+                  opacity: Math.floor(Math.random()*5)/10
               };
               stars.push(star);
           }
@@ -107,26 +108,30 @@
       function renderStars(){
           for(var i = 0; i < stars.length; i++){
               ctx.beginPath();
-              drawStar(stars[i].x, stars[i].y, stars[i].r, 0);
+              ctx.arc(stars[i].x, stars[i].y, stars[i].r, 0, 2*Math.PI, false);
+              ctx.fillStyle = defaultStar.color;
+              ctx.fill()
+//              drawStar(stars[i].x, stars[i].y, stars[i].r, 0, stars[i].opacity);
           }
       }
 
 //      更新星星的位置
        function update(){
            for(var i = 0, len = stars.length; i <len; i++){
-               stars[i].x += Math.floor(Math.random()*5);
-               stars[i].y += Math.floor(Math.random()*5);
+//               stars[i].x += Math.floor(Math.random()*5);
+//               stars[i].y += Math.floor(Math.random()*5);
+               stars[i].r -= 1;
+
            }
        }
-
 
 //      画连线
       function renderLines(){
           if(stars.length >=1 ){
               ctx.beginPath();
               ctx.moveTo(stars[0].x, stars[0].y);
-              for(var m = 1; m < stars.length; m++){
-                  ctx.lineTo(stars[m].x, stars[m].y)
+              for(var m = 0; m < stars.length; m++){
+                      ctx.lineTo(stars[m].x, stars[m].y)
               }
               ctx.lineWidth = 1;
               var opacity = 0.1;
@@ -136,7 +141,7 @@
       }
 
 //      画一颗五角星的方法，用了变形和状态API
-      function drawStar(x, y, r, rotate){
+      function drawStar(x, y, r, rotate, opacity){
           ctx.beginPath();
           ctx.save();
           ctx.translate( x, y);
@@ -152,14 +157,15 @@
           ctx.restore();
           ctx.closePath();
           var linear = ctx.createLinearGradient(x-r, y-r, x-r, y+r);
-              linear.addColorStop(0, "white");
-              linear.addColorStop(1, "red");
+              linear.addColorStop(0, "rgba(255, 255, 255, 0.5)");
+              linear.addColorStop(1, "rgba(211, 174, 104, 0.8)");
           var radial = ctx.createRadialGradient(0, 0, 0.2*r, 0.4*r, 0.4*r, 2*r);
           radial.addColorStop(0.3, "white");
           radial.addColorStop(1, "red");
 
-//          ctx.fillStyle = linear;
-          ctx.fillStyle = "rgba(255, 255, 255, .4)";
+          ctx.fillStyle = linear;
+//          ctx.fillStyle = "rgba(255, 255, 255, .4)";
+//          ctx.fillStyle = defaultStar.colors + opacity + ')' ;
           ctx.fill();
       }
   </script>
