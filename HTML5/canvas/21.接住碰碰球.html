@@ -7,7 +7,7 @@
         *{margin:0;padding:0;}
         #canvas{
             display: block;
-            margin:0 auto;
+            margin:20px auto;
             border:1px solid #424242;
             box-shadow:0 0 20px #000 inset,0 0 15px #101010;
         }
@@ -27,7 +27,7 @@
       var tool = {
           x: 10, //占位
           y: 10, //占位
-          w: 100,
+          w: 80,
           h: 15,
           v : 10,
           color: '#d3ae68'
@@ -36,23 +36,31 @@
       tool.y = canvas.height - tool.h;
 
       var ball = {
-          x: canvas.width/2,  //占位
-          y: canvas.height, //占位
-          vx: 10,
-          vy: 10,
-          r: 10,
+           x: canvas.width/2,  //占位
+           y: canvas.height, //占位
+          vx: Math.pow(-1, Math.floor(Math.random()*100))*(5 + Math.random()*5),
+          vy: 5,
+           r: 10,
           color: '#d3ae68'
       };
       ball.y = canvas.height - ball.r - tool.h;
 
       var Timer;
+      var keyNum = false;
+
+//      目标宽高数量
+      var sourceWidth = 80;
+      var sourceHeight = 40;
+      var rows = 5;
+      var cols = Math.floor(canvas.width/sourceWidth);
 
       window.onload = function(){
           addSources();
           Timer = setInterval(function(){
               render();
               update();
-          },30)
+          },30);
+          document.addEventListener('keydown', keydown);
       };
 
 //      初始化：渲染整个初期页面，目标物体，球，移动条
@@ -62,7 +70,24 @@
           renderBack();
           renderSources();
           renderBall();
-          renderTool()
+          renderTool();
+      }
+
+//      重置
+      function reset(){
+          clearInterval(Timer);
+
+          tool.x = canvas.width/2 - tool.w/2;
+          tool.y = canvas.height - tool.h;
+
+          ball.x = canvas.width/2;
+          ball.y = canvas.height - ball.r - tool.h;
+
+          var keyNum = false;
+
+          addSources();
+
+          render();
       }
 
 //      画背景
@@ -72,11 +97,26 @@
 
 //      添加目标进目标数组
       function addSources(){
-
+           for(var i = 0; i < cols; i++){
+              for(var j = 0; j < rows; j++){
+                 var source = {
+                      x: i*sourceWidth,
+                      y: j*sourceHeight
+                 };
+                 sources.push(source);
+              }
+           }
       }
 //      绘制目标
       function renderSources(){
-
+          for (var i = 0, len = sources.length; i < len; i++){
+              ctx.beginPath();
+              ctx.fillStyle = '#069';
+              ctx.fillRect( sources[i].x, sources[i].y, sourceWidth, sourceHeight);
+              ctx.lineWidth = 5;
+              ctx.strokeStyle = 'rgba(255, 255, 255, .4)';
+              ctx.strokeRect( sources[i].x, sources[i].y, sourceWidth, sourceHeight);
+          }
       }
 //      画球
       function renderBall(){
@@ -95,18 +135,81 @@
 
 //      球是否碰到目标，碰到就消除目标；即在此函数更新目标数组
       function detectionSources(){
+//      球是否碰到目标，碰到就消除目标；即在此函数更新目标数组;x y都要检测
+          if(ball.y <= rows*sourceHeight + ball.r){
+              for(var i = 0, len = sources.length; i < len; i++){
+//                  y轴的判断：球圆心的x在目标之间，并且它们的y轴方向中点的y值之差的绝对值小于最小值
+                  if(ball.x > sources[i].x && ball.x < sources[i].x + sourceWidth && Math.abs(ball.y - sources[i].y - sourceHeight/2) <= sourceHeight/2 + ball.r){
 
-      }
+//                      ball.y = sources[i].y + ball.r + sourceHeight;
+                      ball.vy = -ball.vy;
 
-//      移动条是否接住小球，没接住，gg；接住，改变运动方向，继续
-      function detectionTool(){
+                      sources.splice(i, 1);
+                      len = sources.length;
+                  }
+//                  x轴的判断:球圆心的y在目标之间，并且它们的x之差
+                  if(ball.y > sources[i].y && ball.y < sources[i].y + sourceHeight && Math.abs(ball.x - sources[i].x - sourceWidth/2) <= sourceWidth/2 + ball.r){
+//                      ball.x = sources[i].y + ball.r +sourceHeight;
+                      ball.vx = -ball.vx;
 
+                      sources.splice(i, 1);
+                      len = sources.length;
+                  }
+
+              }
+
+          }
       }
 
 //      更新移动条的移动方向
 //      更新球的位置
+//      进行边缘碰撞判断
       function update(){
+          switch (keyNum){
+              case 37:
+                  tool.x -= tool.v;
+                  if(tool.x <= 0 - tool.v){
+                      tool.x += tool.v;
+                  }
+                  break;
+              case 39:
+                  tool.x += tool.v;
+                  if(tool.x >= canvas.width + tool.v - tool.w){
+                      tool.x -= tool.v;
+                  }
+                  break;
+          }
 
+          ball.x += ball.vx;
+          ball.y -= ball.vy;
+
+//      移动条是否接住小球，没接住，gg；接住，改变运动方向，继续
+          if(ball.y > canvas.height - tool.h - ball.r){
+              if(ball.x+ball.r < tool.x || ball.x-ball.r > tool.x+tool.w){
+                  reset();
+              }
+              ball.y = canvas.height - tool.h-ball.r;
+              ball.vy = -ball.vy;
+          }
+          if(ball.y <= ball.r){
+              ball.y = ball.r;
+              ball.vy = -ball.vy;
+          }
+//          x轴判断
+          if(ball.x > canvas.width - ball.r){
+              ball.x = canvas.width - ball.r;
+              ball.vx = -ball.vx;
+          }
+          if(ball.x < ball.r){
+              ball.x = ball.r;
+              ball.vx = -ball.vx;
+          }
+          detectionSources();
+      }
+
+      function keydown(e){
+          if(e.which<37 || e.which>40) return;
+          keyNum = e.which;
       }
   </script>
 </body>

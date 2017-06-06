@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>canvas 尝试</title>
+    <title>动态星空背景</title>
     <style>
         *{margin:0;padding:0;}
         #canvas{
             display: block;
             margin:0 auto;
-            border:1px solid #424242;
+            /*border:1px solid #424242;*/
             box-shadow:0 0 20px #000 inset,0 0 15px #101010;
         }
     </style>
@@ -19,10 +19,149 @@
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
 
-      canvas.width = 1000;
-      canvas.height = 600;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      var startTime = new Date().getTime();
+      var stars = [];
+      var defaultStar = {
+          offsetx: 50,
+          offsety: 50,
+          minR : 3,
+          maxR : 7,
+          color: 'pink',
+          colors: 'rgba(255, 255, 255,'
+      };
+
+      var Timer;
+      window.addEventListener("resize",resize);
+      function resize(){
+          if(Timer){
+              clearTimeout(Timer);
+          }
+          Timer = setTimeout(function(){
+              canvas.width = window.innerWidth;
+              canvas.height = window.innerHeight;
+              renderBack();
+          },300)
+      }
+
+      window.onload = function(){
+
+          renderBack();
+
+          document.addEventListener('mousemove', mousemove);
+      };
 
 
+
+//      移动出发重绘：移动到哪，哪附近产生星星
+//      还得设置一个时间间隔，超过才发生，限制事件出发的频率
+      function mousemove(e){
+
+          var x = e.clientX - canvas.getBoundingClientRect().left;
+          var y = e.clientY - canvas.getBoundingClientRect().top;
+
+          var currentTime = new Date().getTime();
+          if(currentTime - startTime > 100){
+              while(stars.length > 50){
+                  stars.shift();
+              }
+              addStars(x, y);
+
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+              renderBack();
+              renderStars();
+//              renderLines();
+//              update();
+
+              startTime = currentTime;
+          }
+
+      }
+
+//      画背景
+      function renderBack(){
+          var linear = ctx.createLinearGradient(0, 0, 0, canvas.height);
+          linear.addColorStop(0.2, '#424242');
+          linear.addColorStop(1, '#3d5fb1');
+          ctx.fillStyle = linear;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+
+//      添加星星
+      function addStars(currentx, currenty){
+          var count = Math.ceil(Math.random()*5);
+          for(var i = 0; i < count; i++){
+              var star = {
+                  x: currentx + Math.pow(-1, Math.floor(Math.random()*100))*Math.floor(Math.random()*defaultStar.offsetx),
+                  y: currenty + Math.pow(-1, Math.floor(Math.random()*100))*Math.floor(Math.random()*defaultStar.offsety),
+                  r: Math.floor(defaultStar.minR + Math.random()*(defaultStar.maxR-defaultStar.minR)),
+                  opaicty: Math.floor(Math.random()*10)/10
+              };
+              stars.push(star);
+          }
+      }
+
+//      画星星
+      function renderStars(){
+          for(var i = 0; i < stars.length; i++){
+              ctx.beginPath();
+              drawStar(stars[i].x, stars[i].y, stars[i].r, 0);
+          }
+      }
+
+//      更新星星的位置
+       function update(){
+           for(var i = 0, len = stars.length; i <len; i++){
+               stars[i].x += Math.floor(Math.random()*5);
+               stars[i].y += Math.floor(Math.random()*5);
+           }
+       }
+
+
+//      画连线
+      function renderLines(){
+          if(stars.length >=1 ){
+              ctx.beginPath();
+              ctx.moveTo(stars[0].x, stars[0].y);
+              for(var m = 1; m < stars.length; m++){
+                  ctx.lineTo(stars[m].x, stars[m].y)
+              }
+              ctx.lineWidth = 1;
+              var opacity = 0.1;
+              ctx.strokeStyle = defaultStar.colors + opacity + ')' ;
+              ctx.stroke();
+          }
+      }
+
+//      画一颗五角星的方法，用了变形和状态API
+      function drawStar(x, y, r, rotate){
+          ctx.beginPath();
+          ctx.save();
+          ctx.translate( x, y);
+          ctx.rotate(rotate/180*Math.PI);
+          ctx.scale(r, r);
+
+          for(var i = 0; i < 5; i++){
+              ctx.lineTo(Math.cos((18+i*72-rotate)/180*Math.PI),
+                      -Math.sin((18+i*72-rotate)/180*Math.PI));
+              ctx.lineTo(Math.cos((54+i*72-rotate)/180*Math.PI)*0.5,
+                      -Math.sin((54+i*72-rotate)/180*Math.PI)*0.5);
+          }
+          ctx.restore();
+          ctx.closePath();
+          var linear = ctx.createLinearGradient(x-r, y-r, x-r, y+r);
+              linear.addColorStop(0, "white");
+              linear.addColorStop(1, "red");
+          var radial = ctx.createRadialGradient(0, 0, 0.2*r, 0.4*r, 0.4*r, 2*r);
+          radial.addColorStop(0.3, "white");
+          radial.addColorStop(1, "red");
+
+//          ctx.fillStyle = linear;
+          ctx.fillStyle = "rgba(255, 255, 255, .4)";
+          ctx.fill();
+      }
   </script>
 </body>
 </html>

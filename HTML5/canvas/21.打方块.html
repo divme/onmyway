@@ -193,7 +193,7 @@
                       gameOver();
                   }
               }
-//              战斗机与目标的碰撞检测（还不完善）
+//              战斗机与目标的碰撞检测(还不完善):y轴上接触了，x差值小于它们之间的最大宽度，太不对了，重新弄
               if( Math.abs(fighter.x1 - sources[i].x) < Math.max(fighter.w1, sources[i].w) && Math.abs(fighter.y1 - sources[i].y) < sources[i].h ||
                   Math.abs(fighter.x2 - sources[i].x) < Math.min(fighter.w2, sources[i].w) && Math.abs(fighter.y2 - sources[i].y) < sources[i].h){
                   gameOver();
