@@ -119,7 +119,7 @@
       function update(){
           if( positions[0][0] < checkSize/2 || positions[0][0] > canvas.width - checkSize/2 || positions[0][1] < checkSize/2 || positions[0][1] > canvas.height - checkSize/2){
               clearInterval(Timer);
-              alert("gameOver");
+              console("gameOver");
           }
           var firstX, firstY;
           switch (keyNum){
@@ -143,7 +143,7 @@
           positions.forEach(function(value,index){
               if(positions[index][0] == firstX && positions[index][1] == firstY){
                   clearInterval(Timer);
-                  alert("gameOver");
+                  console("gameOver");
               }
           });
           positions.pop();

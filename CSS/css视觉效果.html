@@ -58,6 +58,85 @@
     <div class="basic sideshadow2">对侧投影</div>
 </div>
 
+<div class="container" style="height:600px">
+    <h3>canvas 径向渐变</h3>
+    <canvas id="canvas" width="200" height="200" style="border:1px solid pink"></canvas>
+    <canvas id="canvas1" width="200" height="200" style="border:1px solid pink"></canvas>
+    <canvas id="canvas2" width="200" height="200" style="border:1px solid pink"></canvas>
+    <canvas id="canvas3" width="200" height="200" style="border:1px solid pink"></canvas>
+</div>
+<script>
+    var c = document.getElementById('canvas').getContext('2d');
+    var radial;
+        radial = c.createRadialGradient(100,100,20,120,120,90);
+
+    radial.addColorStop(0,'white');
+    radial.addColorStop(.9,'red');  // 颜色值 #FF0188 == rgba(255,1,136,1)
+    radial.addColorStop(1,'rgba(255,1,136,0)');
+
+    c.fillStyle = radial;
+    c.fillRect(0,0,200,200);
+
+    c.arc(100, 100, 20, 0, 2*Math.PI, false);
+    c.moveTo(170,120);
+    c.arc(120, 120, 50, 0, 2*Math.PI, false);
+    c.strokeStyle = 'black';
+    c.stroke()
+
+    var c1 = document.getElementById('canvas1').getContext('2d');
+    var radial1;
+        radial1 = c1.createRadialGradient(100,100,20,130,130,50);
+
+    radial1.addColorStop(0,'#EE84AA');
+    radial1.addColorStop(0.9,'#FF0188   ');  // 颜色值 #FF0188 == rgba(255,1,136,1)
+    radial1.addColorStop(1,'rgba(255,1,136,0)');
+
+    c1.beginPath();
+    c1.fillStyle = radial1;
+    c1.fillRect(0,0,200,200);
+
+    c1.arc(100, 100, 20, 0, 2*Math.PI, false);
+    c1.moveTo(180,130);
+    c1.arc(130, 130, 50, 0, 2*Math.PI, false);
+    c1.strokeStyle = 'black';
+    c1.stroke()
+
+    var c2 = document.getElementById('canvas2').getContext('2d');
+    var radial2;
+        radial2 = c.createRadialGradient(80,80,20,120,120,50)
+
+    radial2.addColorStop(0,'#EE84AA');
+    radial2.addColorStop(0.9,'#FF0188');  // 颜色值 #FF0188 == rgba(255,1,136,1)
+    radial2.addColorStop(1,'rgba(255,1,136,0)');
+
+    c2.beginPath();
+    c2.fillStyle = radial2;
+    c2.fillRect(0,0,200,200);
+
+    c2.arc(80, 80, 20, 0, 2*Math.PI, false);
+    c2.moveTo(170,120);
+    c2.arc(120, 120, 50, 0, 2*Math.PI, false);
+    c2.strokeStyle = 'black';
+    c2.stroke()
+
+
+    var c3 = document.getElementById('canvas3').getContext('2d');
+    var radial3 = c3.createRadialGradient(70,70,20,130,130,50);
+    radial3.addColorStop(0,'#EE84AA');
+    radial3.addColorStop(0.9,'#FF0188');
+    radial3.addColorStop(1,'rgba(255,1,136,0)');
+
+    c3.beginPath();
+    c3.fillStyle = radial3;
+    c3.fillRect(0,0,500,500);
+
+    //以下是添加的辅助线
+    c3.arc(70,70,20,0,2*Math.PI);
+    c3.moveTo(180,130);
+    c3.arc(130,130,50,0,2*Math.PI);
+    c3.stroke();
+
+</script>
 </body>
 </html>
 
