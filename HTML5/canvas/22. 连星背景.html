@@ -24,6 +24,7 @@
 
       var startTime = new Date().getTime();
       var stars = [];
+      var freeBalls = [];
       var defaultStar = {
           offsetx: 50,
           offsety: 50,
@@ -31,7 +32,8 @@
           maxR : 10,
           color: 'rgba(255, 228, 225, .5)',
 //          colors: 'rgba(255, 255, 255,'
-          colors: 'rgba(255,192,203,'
+          colors: 'rgba(255,192,203,',
+          colors1: 'rgba(255,255,255,'
       };
 
       var ResizeTimer;
@@ -76,6 +78,7 @@
       function init(){
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           renderBack();
+          renderFreeBalls();
           renderStars();
           renderLines();
 //          window.requestAnimationFrame(function(){
@@ -111,13 +114,31 @@
           ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
 
-      function renderFreeBall(){
+//      添加自由球
+      function renderFreeBalls(){
+          if(freeBalls.length < 60){
+              var count = Math.ceil(Math.random()*8);
+              for(var i = 0; i < count; i++){
+                  var freeball = {
+                      x: Math.floor(Math.random()*canvas.width),
+                      y: Math.floor(Math.random()*canvas.height),
+                      vy:Math.min(Math.random(),0.3),
+                      r: Math.floor(Math.random()*defaultStar.minR),
+                      opacity: 0.2 + Math.floor(Math.random()*5)/10
+                  };
+                  freeBalls.push(freeball);
+              }
+          }
+          for(var m = 0; m < freeBalls.length; m++){
+              ctx.beginPath();
+              drawStar(freeBalls[m].x, freeBalls[m].y, freeBalls[m].r, 0, freeBalls[m].opacity, defaultStar.colors);
+          }
 
       }
 
 //      添加星星
       function addStars(currentx, currenty){
-          var count = Math.ceil(Math.random()*5);
+          var count = Math.ceil(Math.random()*8);
           for(var i = 0; i < count; i++){
               var star = {
                   x: currentx + Math.pow(-1, Math.floor(Math.random()*100))*Math.floor(Math.random()*defaultStar.offsetx),
@@ -135,7 +156,7 @@
       function renderStars(){
           for(var i = 0; i < stars.length; i++){
               ctx.beginPath();
-              drawStar(stars[i].x, stars[i].y, stars[i].r, 0, stars[i].opacity);
+              drawStar(stars[i].x, stars[i].y, stars[i].r, 0, stars[i].opacity, defaultStar.colors);
 //              ctx.arc(stars[i].x, stars[i].y, stars[i].r, 0, 2*Math.PI, false);
 //              ctx.fillStyle = defaultStar.color;
 //              ctx.fill();
@@ -155,11 +176,24 @@
                    stars.splice(i, 1);
                    len = stars.length
                }
-               lineOpacity -= 0.001;
-               if(lineOpacity <0){
-                   lineOpacity = 0;
-               }
            }
+           lineOpacity -= 0.01;
+           if(lineOpacity < 0){
+               lineOpacity = 0;
+           }
+           for(var m = 0; m < freeBalls.length; m++){
+              freeBalls[m].y -= freeBalls[m].vy;
+              if(freeBalls[m].y <= 0){
+                  freeBalls.splice(m, 1)
+              }
+              if(freeBalls[m].opacity >= 0.4){
+                  freeBalls[m].opacity -= 0.01;
+              }else{
+                  freeBalls[m].opacity += 0.01;
+              }
+
+           }
+
        }
 
 //      画连线
@@ -178,7 +212,7 @@
       }
 
 //      画一颗五角星的方法，用了变形和状态API
-      function drawStar(x, y, r, rotate, opacity){
+      function drawStar(x, y, r, rotate, opacity, color){
           ctx.beginPath();
           ctx.save();
           ctx.translate( x, y);
@@ -202,7 +236,7 @@
 //          ctx.fillStyle = linear;
 //          ctx.fillStyle = radial;
 //          ctx.fillStyle = "rgba(255, 255, 255, .4)";
-          ctx.fillStyle = defaultStar.colors + opacity + ')' ;
+          ctx.fillStyle = color + opacity + ')' ;
           ctx.fill();
           ctx.restore();
       }
