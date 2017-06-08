@@ -25,6 +25,7 @@
       var startTime = new Date().getTime();
       var stars = [];
       var freeBalls = [];
+      var freeBallsMax = 200;
       var defaultStar = {
           offsetx: 50,
           offsety: 50,
@@ -116,7 +117,7 @@
 
 //      添加自由球
       function renderFreeBalls(){
-          if(freeBalls.length < 60){
+          if(freeBalls.length < freeBallsMax){
               var count = Math.ceil(Math.random()*8);
               for(var i = 0; i < count; i++){
                   var freeball = {

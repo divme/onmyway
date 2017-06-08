@@ -84,6 +84,7 @@
       var lastTime = new Date().getTime(); // 添加目标的时间戳
       var interval = 1000; // 多久添加一个目标，后续可以据此增加游戏难度
       var key = [32, 37, 39];
+      var keyDownArr = []; //存储按下的键的数组;能让我们的战斗机停下就靠它了
       var moveNum ; // 键盘按键：移动开关
       var ifBullet = false; //是否添加子弹
       var Timer;
@@ -210,11 +211,26 @@
 //      键盘事件：按左右键使战斗机移动，但是缺少一个终止移动的合理途径
       function keydown(e){
           if(key.indexOf(e.which) > 0){
+//              控制战斗机停下的步骤一：
+//              if(keyDownArr.indexOf(e.which) < 0){
+//                  keyDownArr.push(e.which);
+//              }
+//              停不下的战斗机步骤一：
               moveNum = e.which;
           }
       }
+
 //      键盘事件：松开空格键才可发射子弹，避免连续过快发弹问题
       function keyup(e){
+
+//          控制战斗机停下的步骤二：
+//          if(key.indexOf(e.which) > 0){
+//              var index = keyDownArr.indexOf(e.which);
+//              if(index >= 0){
+//                  keyDownArr.splice(index, 1);
+//              }
+//          }
+
           if(key.indexOf(e.which) == 0){
               ifBullet = true;
           }
@@ -222,6 +238,15 @@
 
 //      根据键盘交互，更新战斗机位置，并进行战斗机边缘判断
       function updateFighter(){
+
+//          控制战斗机停下的步骤三：
+//          if(keyDownArr.length > 0){
+//              moveNum = keyDownArr[keyDownArr.length -1];
+//          }else{
+//              moveNum = false;
+//          }
+
+
           if(moveNum == 37){
               fighter.x1 -= fighter.speed;
               fighter.x2 -= fighter.speed;
