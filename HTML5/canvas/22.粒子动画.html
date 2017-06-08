@@ -15,13 +15,126 @@
 </head>
 <body>
   <canvas id="canvas"></canvas>
+  <script src="js/tween.js"></script>
   <script>
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
 
-      canvas.width = 1000;
+      canvas.width = 600;
       canvas.height = 600;
 
+      var particles = [];
+      var startx, starty;  //图片绘制的左上角坐标
+      var startTime, ifStart = true;
+
+      (function() {
+          var lastTime = 0;
+          var vendors = ['webkit', 'moz'];
+          for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+              window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+              window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] ||    // Webkit中此取消方法的名字变了
+                  window[vendors[x] + 'CancelRequestAnimationFrame'];
+          }
+
+          if (!window.requestAnimationFrame) {
+              window.requestAnimationFrame = function(callback) {
+                  var currTime = new Date().getTime();
+                  var timeToCall = Math.max(0, 16.7 - (currTime - lastTime));
+                  console.log(currTime);
+                  var id = window.setTimeout(function() {
+                      callback();
+                  }, timeToCall);
+                  lastTime = currTime + timeToCall;
+                  return id;
+              };
+          }
+          if (!window.cancelAnimationFrame) {
+              window.cancelAnimationFrame = function(id) {
+                  clearTimeout(id);
+              };
+          }
+      }());
+
+      var img = new Image();
+          img.src = 'img/isux.png';
+          img.onload = function(){
+              ctx.drawImage(img, canvas.width/2 - img.width/2, canvas.height/2 - img.height/2, img.width, img.height);
+                  startx = canvas.width/2 - img.width/2;
+                  starty = canvas.height/2 - img.height/2;
+              addParticle();
+
+              render();
+              update();
+          };
+
+
+
+//      图片粒子化
+      function  addParticle(){
+          var data = ctx.getImageData( startx, starty, img.width, img.height).data;
+          var rows = 300,
+              cols = 300;
+          var particleWidth = img.width/cols,
+              particleHeight = img.height/rows;
+          var pos = 0;  //用于保存每一单元块的第一个点在粒子数组中的位置
+
+//          循环每行每列的粒子的像素点
+//            i 行， j 列
+          for( var i = 0; i < rows; i++){
+              for( var  j = 0; j < cols; j++){
+                 pos = ((i+1)*particleHeight*img.width + j*particleWidth)*4;
+
+                 if(data[pos] > 0 || data[pos + 1] > 100){
+                     var particle = {
+                         st: 0,
+
+                         x: canvas.width/2,
+                         y: canvas.height,
+
+                         endx: startx + j*particleWidth,
+                         endy: starty + (i+1)*particleHeight,
+
+                         dt:Math.min(500*Math.random(),300),
+//                         dt:500*Math.random(),
+//                         dt:100*Math.random(),
+
+                         fillstyle:'red'
+                     };
+                     particles.push(particle);
+                 }
+              }
+          }
+      }
+
+      function update(){
+           var currentTime = new Date().getTime();
+           for(var i = 0, len = particles.length; i < len; i++){
+
+               particles[i].x = Math.tween['Bounce']['easeInOut'](particles[i].st, particles[i].x, particles[i].endx - particles[i].x, particles[i].dt);
+               particles[i].y = Math.tween['Quad']['easeInOut'](particles[i].st, particles[i].y, particles[i].endy - particles[i].y, particles[i].dt);
+               particles[i].st = currentTime - startTime;
+           }
+           startTime = currentTime
+      }
+
+
+//      渲染画布
+      function  render(){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          if(ifStart){
+              startTime = new Date().getTime();
+              ifStart = false;
+          }
+
+          for( var i = 0, len = particles.length; i < len; i++){
+              ctx.fillStyle = particles[i].fillstyle;
+              ctx.fillRect(particles[i].x , particles[i].y, 1, 1);
+          }
+
+          update();
+
+          window.requestAnimationFrame(render);
+      }
 
   </script>
 </body>
