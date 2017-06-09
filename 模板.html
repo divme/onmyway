@@ -5,10 +5,17 @@
     <title>模板</title>
     <style>
         *{margin:0;padding:0}
+        .demo{
+            width:100px;
+            height:100px;
+            border-radius: 50%;
+            background:#690;
+        }
     </style>
 </head>
 <body>
-<div style="height:4000px"></div>
+<div class="demo"></div>
+<script src="zylib/tween.js"></script>
 <script>
     // 简单的防抖动函数
     function debounce(func, wait, immediate) {
@@ -64,18 +71,26 @@
             };
         }
     }());
-var count = 0;
-//    window.requestAnimationFrame(
+
+   var demo = document.getElementsByClassName('demo')[0];
+   var distance = 10;
+   var st = 0;
 
    function tryone(){
-       for(var i = 0; i < 1000000; i++){
-          var ne =  i+1000*232890-302810832018+127332*273;
+
+//       distance = Math.tween['Bounce']['easeIn'](st, distance, 1000 - distance, 100);
+       distance = Math.tween['Linear'](st, distance, 1000 - distance, 100);
+//       distance = Math.tween['Linear'](st, 0, 1000, 100);
+
+       demo.style.cssText = 'transform: translate(' + distance + 'px)';
+       st += 1;
+       if(st >= 10){
+           st = 0
        }
-       for(var j = 0; j < 1000000; j++){
-           var nee =  Math.floor(Math.sqrt(i+1000*232890+302810832018+127332*273));
+       if(distance >= 990){
+           st = 0;
+           distance = 0;
        }
-        count++;
-//        console.log(count);
         window.requestAnimationFrame(tryone)
     }
     tryone()

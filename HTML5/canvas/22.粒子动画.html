@@ -7,25 +7,64 @@
         *{margin:0;padding:0;}
         #canvas{
             display: block;
-            margin:0 auto;
+            margin: 0 auto;
             border:1px solid #424242;
             box-shadow:0 0 20px #000 inset,0 0 15px #101010;
+        }
+        #reset{
+            width:100px;
+            height:36px;
+            line-height:36px;
+            background: #d3ae68;
+            color: #fff;
+            margin:10px auto;
+            text-align: center;
         }
     </style>
 </head>
 <body>
   <canvas id="canvas"></canvas>
+  <div id="reset">again</div>
+  <ul>
+      <li>粒子周期相同</li>
+      <li>粒子周期不同且无最小值</li>
+      <li>粒子周期不同且有最小值</li>
+
+      <li>粒子一起喷出</li>
+      <li>粒子分批喷出，且可控制每次喷出粒子数量，如此：较少</li>
+      <li>粒子分批喷出，且可控制每次喷出粒子数量，如此：较多</li>
+
+      <li></li>
+      <li></li>
+      <li></li>
+  </ul>
   <script src="js/tween.js"></script>
   <script>
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
 
-      canvas.width = 600;
-      canvas.height = 600;
+      canvas.width = window.innerWidth-10;
+      canvas.height = window.innerHeight-100;
 
       var particles = [];
-      var startx, starty;  //图片绘制的左上角坐标
-      var startTime, ifStart = true;
+      var imgx, imgy;  //图片绘制的左上角坐标
+      var Timer;
+
+//      duration：每个粒子运动周期不一样，则表现为一起出来，有快有慢
+//      delay：每个粒子出来的时间是不一样的，批次性出来,addcount控制每次增加的数多的数
+      var option = {
+          delay:0, //值为1或者0；第一个粒子的延时时间，如果不需要延时设置为0，此延时可以让粒子从一个小口出来
+          addDelay:0, //值为1或者0；每个粒子相对前一个增加的延时时间，如果不需要延时设置为0
+          initialCount: 10, // 第一次执行动画喷出粒子数量
+          addCount: 100, //  每次执行动画增加的喷出粒子数量
+
+          duration0:Math.min(Math.floor(300*Math.random()),100), //周期相同且有最小值
+          duration1:100*Math.random(),  // 周期不同且较小
+          duration2:50, //周期相同
+          duration3:300*Math.random(), //周期不同且较大
+
+          scale : 2
+      };
 
       (function() {
           var lastTime = 0;
@@ -55,85 +94,155 @@
           }
       }());
 
+      renderBack();
       var img = new Image();
           img.src = 'img/isux.png';
-          img.onload = function(){
-              ctx.drawImage(img, canvas.width/2 - img.width/2, canvas.height/2 - img.height/2, img.width, img.height);
-                  startx = canvas.width/2 - img.width/2;
-                  starty = canvas.height/2 - img.height/2;
+      img.onload = function(){
+              ctx.drawImage(img, 0, 0, img.width, img.height, canvas.width/2 - option.scale*img.width/2, canvas.height/2 - option.scale*img.height/2, option.scale*img.width, option.scale*img.height);
+                  imgx = canvas.width/2 - option.scale*img.width/2;
+                  imgy = canvas.height/2 - option.scale*img.height/2;
+
               addParticle();
-
               render();
-              update();
-          };
 
+               var reset = document.getElementById('reset');
+               reset.onclick = function(){
 
+                   renderBack();
+                   option.initialCount = 10;// 第一次执行动画喷出粒子数量
+                   option.addCount = 100; //  每次执行动画增加的喷出粒子数量
+                   option.delay = 0; //第一个粒子的延时时间，如果不需要延时设置为0，此延时可以让粒子从一个小口出来
+                   option.addDelay = 0; //每个粒子相对前一个增加的延时时间，如果不需要延时设置为0
+                   option.scale = 2;
 
+                   ctx.drawImage(img, 0, 0, img.width, img.height, canvas.width/2 - option.scale*img.width/2, canvas.height/2 - option.scale*img.height/2, option.scale*img.width, option.scale*img.height);
+
+                   particles.length = 0;
+                   ifStart = true;
+
+                   addParticle();
+                   render();
+               }
+
+      };
+      
 //      图片粒子化
       function  addParticle(){
-          var data = ctx.getImageData( startx, starty, img.width, img.height).data;
+          var data = ctx.getImageData( imgx, imgy, option.scale*img.width, option.scale*img.height).data;
           var rows = 300,
               cols = 300;
-          var particleWidth = img.width/cols,
-              particleHeight = img.height/rows;
+          var particleWidth = option.scale*img.width/cols,
+              particleHeight = option.scale*img.height/rows;
           var pos = 0;  //用于保存每一单元块的第一个点在粒子数组中的位置
 
 //          循环每行每列的粒子的像素点
 //            i 行， j 列
           for( var i = 0; i < rows; i++){
               for( var  j = 0; j < cols; j++){
-                 pos = ((i+1)*particleHeight*img.width + j*particleWidth)*4;
+                 pos = (i*particleHeight*img.width*option.scale + j*particleWidth)*4;
 
-                 if(data[pos] > 0 || data[pos + 1] > 100){
+                 if( data[pos] != 66 || data[pos+1] != 66 || data[pos+2] != 66){
                      var particle = {
-                         st: 0,
+//                         当前时间
+                         currentTime: 0,
 
-                         x: canvas.width/2,
-                         y: canvas.height,
+//                         延时时间：以及一次喷几个
+                         delayTime: option.delay,
+                         delayCount: option.initialCount,
 
-                         endx: startx + j*particleWidth,
-                         endy: starty + (i+1)*particleHeight,
+//                         初始位置
+                         startx: canvas.width/2,
+                         starty: canvas.height,
 
-                         dt:Math.min(500*Math.random(),300),
-//                         dt:500*Math.random(),
-//                         dt:100*Math.random(),
+//                         结束位置
+                         endx: imgx + j*particleWidth,
+                         endy: imgy + i*particleHeight,
 
-                         fillstyle:'red'
+//                         当前位置
+                         currentX: canvas.width/2,
+                         currentY: canvas.height,
+
+//                          偏移位置，蓬松爆炸
+                         offsetx: Math.random() * 5 * particleWidth,
+                         offsety: Math.random() * 5 * particleHeight,
+
+//                         持续时间：粒子归位所需时间，归位速度快慢控制
+//                         duration: Math.min(Math.floor(300*Math.random()),100),
+                         duration:100*Math.random(),
+//                         duration:50,
+//                         duration:300*Math.random(),
+
+                         fillStyle : 'red'
                      };
+                     // 根据图像不同的色值来设定粒子色值
+                     if(data[pos] > 250 && data[ pos+2] == 0) {
+                         particle.fillStyle = 'rgb(255, 169, 0)';
+                     } else if(data[pos] > 250 && data[ pos+2] > 0) {
+                         particle.fillStyle = 'rgb(255, 64, 133)';
+                     } else if(data[pos + 2] > 250 && data[ pos] == 0) {
+                         particle.fillStyle = 'rgb(0, 207, 255)';
+                     } else if(data[pos] > 100 && data[ pos+2] < 30) {
+                         particle.fillStyle = 'rgb(154, 188, 29)';
+                     }
                      particles.push(particle);
+                     option.delay += option.addDelay;
                  }
+
               }
           }
       }
 
+//      更新粒子位置
       function update(){
-           var currentTime = new Date().getTime();
            for(var i = 0, len = particles.length; i < len; i++){
 
-               particles[i].x = Math.tween['Bounce']['easeInOut'](particles[i].st, particles[i].x, particles[i].endx - particles[i].x, particles[i].dt);
-               particles[i].y = Math.tween['Quad']['easeInOut'](particles[i].st, particles[i].y, particles[i].endy - particles[i].y, particles[i].dt);
-               particles[i].st = currentTime - startTime;
+               if(particles[i].delayCount >= particles[i].delayTime){
+
+                   if(particles[i].currentTime <= particles[i].duration){
+
+                       particles[i].currentX = Math.tween['Quad']['easeInOut'](particles[i].currentTime, particles[i].startx, particles[i].endx - particles[i].startx, particles[i].duration);
+//                       particles[i].currentY = Math.tween['Quad']['easeInOut'](particles[i].currentTime, particles[i].starty, particles[i].endy - particles[i].starty, particles[i].duration);
+                       particles[i].currentY = Math.tween['Bounce']['easeInOut'](particles[i].currentTime, particles[i].starty, particles[i].endy - particles[i].starty, particles[i].duration);
+
+
+//                       particles[i].currentX = Math.tween['Linear'](particles[i].currentTime, particles[i].startx, particles[i].endx - particles[i].startx, particles[i].duration);
+//                       particles[i].currentY = Math.tween['Linear'](particles[i].currentTime, particles[i].starty, particles[i].endy - particles[i].starty, particles[i].duration);
+
+                       particles[i].currentTime++;
+
+                   }else if( particles[i].currentX != particles[i].endx || particles[i].currentY != particles[i].endy ){
+                       particles[i].currentX = particles[i].endx;
+                       particles[i].currentY = particles[i].endy;
+                   }else{
+                       window.cancelAnimationFrame(Timer)
+                   }
+
+               }
+
+               particles[i].delayCount += option.addCount;
+
            }
-           startTime = currentTime
       }
 
+//      渲染背景
+      function renderBack(){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = '#424242';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
 
 //      渲染画布
-      function  render(){
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          if(ifStart){
-              startTime = new Date().getTime();
-              ifStart = false;
-          }
+      function render(){
+          renderBack();
 
           for( var i = 0, len = particles.length; i < len; i++){
-              ctx.fillStyle = particles[i].fillstyle;
-              ctx.fillRect(particles[i].x , particles[i].y, 1, 1);
+              ctx.fillStyle = particles[i].fillStyle;
+              ctx.fillRect(particles[i].currentX + particles[i].offsetx  , particles[i].currentY + particles[i].offsety, 1, 1);
           }
 
           update();
 
-          window.requestAnimationFrame(render);
+          Timer = window.requestAnimationFrame(render);
       }
 
   </script>
