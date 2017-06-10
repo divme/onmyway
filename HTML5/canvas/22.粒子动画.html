@@ -70,12 +70,12 @@
 //      duration：每个粒子运动周期不一样，则表现为一起出来，有快有慢
 //      delay：每个粒子出来的时间是不一样的，批次性出来,addcount控制每次增加的数多的数
       var option = {
-          delay: 0, //值为1或者0；第一个粒子的延时时间，如果不需要延时设置为0，此延时可以让粒子从一个小口出来
-          addDelay: 0, //值为1或者0；每个粒子相对前一个增加的延时时间，如果不需要延时设置为0
+          delay: 1, //值为1或者0；第一个粒子的延时时间，如果不需要延时设置为0，此延时可以让粒子从一个小口出来
+          addDelay: 1, //值为1或者0；每个粒子相对前一个增加的延时时间，如果不需要延时设置为0
           initialCount: 10, // 第一次执行动画喷出粒子数量
           addCount: 100, //  每次执行动画增加的喷出粒子数量
 
-          duration :0 , //0:相同；1：不同且有最小值；2：周期不同且较小；3：周期不同且较大
+          duration :1 , //0:相同；1：不同且有最小值；2：周期不同且较小；3：周期不同且较大
           duration0: 50, //周期相同
           duration1: Math.min(Math.floor(300*Math.random()),100), //周期不同且有最小值
           duration2: 100*Math.random(),  // 周期不同且较小
@@ -273,6 +273,7 @@
           var particleWidth = option.scale*img.width/cols,
               particleHeight = option.scale*img.height/rows;
           var pos = 0;  //用于保存每一单元块的第一个点在粒子数组中的位置
+          var realdelay = option.delay;
 
 //          循环每行每列的粒子的像素点
 //            i 行， j 列
@@ -286,7 +287,7 @@
                          currentTime: 0,
 
 //                         延时时间：以及一次喷几个
-                         delay: option.delay,
+                         delay: realdelay,
                          delayCount: option.initialCount,
 
 //                         初始位置
@@ -336,11 +337,10 @@
                          particle.fillStyle = 'rgb(154, 188, 29)';
                      }
                      particles.push(particle);
-                     option.delay += option.addDelay;
+                     realdelay += option.addDelay;
                  }
 
               }
-              option.delay = 1;
           }
       }
 
