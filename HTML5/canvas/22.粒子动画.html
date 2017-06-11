@@ -70,12 +70,12 @@
 //      duration：每个粒子运动周期不一样，则表现为一起出来，有快有慢
 //      delay：每个粒子出来的时间是不一样的，批次性出来,addcount控制每次增加的数多的数
       var option = {
-          delay: 1, //值为1或者0；第一个粒子的延时时间，如果不需要延时设置为0，此延时可以让粒子从一个小口出来
-          addDelay: 1, //值为1或者0；每个粒子相对前一个增加的延时时间，如果不需要延时设置为0
+          delay: 0, //值为1或者0；第一个粒子的延时时间，如果不需要延时设置为0，此延时可以让粒子从一个小口出来
+          addDelay: 0, //值为1或者0；每个粒子相对前一个增加的延时时间，如果不需要延时设置为0
           initialCount: 10, // 第一次执行动画喷出粒子数量
           addCount: 100, //  每次执行动画增加的喷出粒子数量
 
-          duration :1 , //0:相同；1：不同且有最小值；2：周期不同且较小；3：周期不同且较大
+          duration : 0 , //0:相同；1：不同且有最小值；2：周期不同且较小；3：周期不同且较大
           duration0: 50, //周期相同
           duration1: Math.min(Math.floor(300*Math.random()),100), //周期不同且有最小值
           duration2: 100*Math.random(),  // 周期不同且较小
@@ -136,15 +136,15 @@
                        window.cancelAnimationFrame(Timer);
                    }
 
-                   renderBack();
-                   if( !ifChoose ){
-                       option.initialCount = 10;// 第一次执行动画喷出粒子数量
-                       option.addCount = 100; //  每次执行动画增加的喷出粒子数量
-                       option.delay = 0; //第一个粒子的延时时间，如果不需要延时设置为0，此延时可以让粒子从一个小口出来
-                       option.addDelay = 0; //每个粒子相对前一个增加的延时时间，如果不需要延时设置为0
-                       option.scale = 1;
-                       ifChoose = false;
-                   }
+//                   renderBack();
+//                   if( !ifChoose ){
+//                       option.initialCount = 10;// 第一次执行动画喷出粒子数量
+//                       option.addCount = 100; //  每次执行动画增加的喷出粒子数量
+//                       option.delay = 0; //第一个粒子的延时时间，如果不需要延时设置为0，此延时可以让粒子从一个小口出来
+//                       option.addDelay = 0; //每个粒子相对前一个增加的延时时间，如果不需要延时设置为0
+//                       option.scale = 1;
+//                       ifChoose = false;
+//                   }
 
                    ctx.drawImage(img, 0, 0, img.width, img.height, imgx, imgy, option.scale*img.width, option.scale*img.height);
                    particles.length = 0;
@@ -215,6 +215,7 @@
                little.onclick = function(){
                    option.delay = 1;
                    option.addDelay = 1;
+                   option.addCount = 100;
 
                    addClass(little);
                    if(ifAgain) {
@@ -225,6 +226,7 @@
               more.onclick = function(){
                   option.delay = 1;
                   option.addDelay = 1;
+                  option.addCount = 300;
 
                   addClass(more);
                   if(ifAgain) {
