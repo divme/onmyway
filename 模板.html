@@ -5,96 +5,27 @@
     <title>模板</title>
     <style>
         *{margin:0;padding:0}
-        .demo{
-            width:100px;
-            height:100px;
-            border-radius: 50%;
-            background:#690;
-        }
+
     </style>
 </head>
 <body>
-<div class="demo"></div>
-<script src="zylib/tween.js"></script>
+
+<div id="box" class="wrapper">
+    <div class="content">一</div>
+    <div class="content">二</div>
+    <div class="content">三</div>
+    <div class="content">四</div>
+    <div class="content">五</div>
+</div>
+
+<!--<script src="zylib/zepto.min.js"></script>-->
+<script src="zylib/jquery-2.1.1.min.js"></script>
 <script>
-    // 简单的防抖动函数
-    function debounce(func, wait, immediate) {
-        // 定时器变量
-        var timeout;
-        return function() {
-            // 每次触发 scroll handler 时先清除定时器
-            clearTimeout(timeout);
-            // 指定 xx ms 后触发真正想进行的操作 handler
-            timeout = setTimeout(func, wait);
-        };
-    }
-
-    // 实际想绑定在 scroll 事件上的 handler
-    function realFunc(){
-        console.log("Success");
-    }
-
-    // 采用了防抖动
-    window.addEventListener('scroll',debounce(realFunc,500));
-    // 没采用防抖动
-    window.addEventListener('scroll',realFunc);
+     $('#box').css({'background':'red','color':'white'});
+     var p = $('<p />' ,{text :'hello',id:'wow',css:{'background':'#424242'}})
+     $('#box').append(p)
 </script>
-<script>
-//    window.requestAnimationFrame = window.requestAnimationFrame ||
-//            window.mozRequestAnimationFrame ||
-//            window.webkitRequestAnimationFrame ||
-//            window.msRequestAnimationFrame;
-    (function() {
-        var lastTime = 0;
-        var vendors = ['webkit', 'moz'];
-        for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-            window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
-            window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] ||    // Webkit中此取消方法的名字变了
-                    window[vendors[x] + 'CancelRequestAnimationFrame'];
-        }
 
-        if (!window.requestAnimationFrame) {
-            window.requestAnimationFrame = function(callback) {
-                var currTime = new Date().getTime();
-                var timeToCall = Math.max(0, 16.7 - (currTime - lastTime));
-                console.log(currTime);
-                var id = window.setTimeout(function() {
-                    callback();
-                }, timeToCall);
-                lastTime = currTime + timeToCall;
-                return id;
-            };
-        }
-        if (!window.cancelAnimationFrame) {
-            window.cancelAnimationFrame = function(id) {
-                clearTimeout(id);
-            };
-        }
-    }());
-
-   var demo = document.getElementsByClassName('demo')[0];
-   var distance = 10;
-   var st = 0;
-
-   function tryone(){
-
-//       distance = Math.tween['Bounce']['easeIn'](st, distance, 1000 - distance, 100);
-       distance = Math.tween['Linear'](st, distance, 1000 - distance, 100);
-//       distance = Math.tween['Linear'](st, 0, 1000, 100);
-
-       demo.style.cssText = 'transform: translate(' + distance + 'px)';
-       st += 1;
-       if(st >= 10){
-           st = 0
-       }
-       if(distance >= 990){
-           st = 0;
-           distance = 0;
-       }
-        window.requestAnimationFrame(tryone)
-    }
-    tryone()
-</script>
 </body>
 </html>
 
