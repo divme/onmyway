@@ -11,7 +11,7 @@
             border:1px solid #424242;
             box-shadow:0 0 20px #000 inset,0 0 15px #101010;
         }
-        #reset{
+        .btn{
             width:100px;
             height:36px;
             line-height:36px;
@@ -45,7 +45,8 @@
 </head>
 <body>
   <canvas id="canvas"></canvas>
-  <div id="reset">again</div>
+  <div class="btn" id="again">again</div>
+  <!--<div class="btn" id="reset">reset</div>-->
   <div class="box">
       <ul><li class="on" id="common">粒子周期相同</li><li id="haveMin">粒子周期不同且有固定最小值</li><li id="noMinLittle">粒子周期不同且值均较小</li><li id="noMinMore">粒子周期不同且值均较大</li></ul>
 
@@ -62,7 +63,7 @@
 
       canvas.width = window.innerWidth -100;
 //      canvas.height = window.innerHeight -100;
-      canvas.height = 500;
+      canvas.height = 400;
 
       var particles = [];
       var Timer;  //requestAnimationFrame定时器
@@ -80,8 +81,8 @@
           scale : 1 //图片放大倍数
 
       };
-      var ifChoose = false ; //判断again是否是由选项激活
-      var ifAgain = true; //判断是否保持状态刷新
+
+      var ifAgain = true; //判断是否当前保持状态进行刷新
       (function() {
           var lastTime = 0;
           var vendors = ['webkit', 'moz'];
@@ -116,38 +117,38 @@
       var imgx, imgy;  //图片绘制的左上角坐标
       img.onload = function(){
               imgx = canvas.width/2 - option.scale*img.width/2;
-              imgy = canvas.height/2 - option.scale*img.height/2;
-//              imgy = 10;
-              ctx.drawImage(img, 0, 0, img.width, img.height, imgx, imgy, option.scale*img.width, option.scale*img.height);
+//              imgy = canvas.height/2 - option.scale*img.height/2;
+              imgy = 10;
 
-
-              addParticle();
+              imgToParticles();
               render();
-
-               var reset = document.getElementById('reset');
-               reset.addEventListener('click', again);
 
                function again(){
                    if(Timer){
                        window.cancelAnimationFrame(Timer);
                    }
-
-//                   renderBack();
-//                   if( !ifChoose ){
-//                       option.initialCount = 10;// 第一次执行动画喷出粒子数量
-//                       option.addCount = 100; //  每次执行动画增加的喷出粒子数量
-//                       option.delay = 0; //第一个粒子的延时时间，如果不需要延时设置为0，此延时可以让粒子从一个小口出来
-//                       option.addDelay = 0; //每个粒子相对前一个增加的延时时间，如果不需要延时设置为0
-//                       option.scale = 1;
-//                       ifChoose = false;
-//                   }
-
-                   ctx.drawImage(img, 0, 0, img.width, img.height, imgx, imgy, option.scale*img.width, option.scale*img.height);
                    particles.length = 0;
-
-                   addParticle();
+                   imgToParticles();
                    render();
                }
+
+               function reset(){
+                   if(Timer){
+                       window.cancelAnimationFrame(Timer);
+                   }
+                   option.delay = 0; //第一个粒子的延时时间，如果不需要延时设置为0，此延时可以让粒子从一个小口出来
+                   option.addDelay = 0; //每个粒子相对前一个增加的延时时间，如果不需要延时设置为0
+                   option.initialCount = 10;// 第一次执行动画喷出粒子数量
+                   option.addCount = 100; //  每次执行动画增加的喷出粒子数量
+                   option.duration = 0;
+                   option.scale = 1;
+
+                   particles.length = 0;
+
+                   imgToParticles();
+                   render();
+               }
+
 
                var common = document.getElementById('common');
                var haveMin = document.getElementById('haveMin');
@@ -158,13 +159,17 @@
                var little = document.getElementById('little');
                var more = document.getElementById('more');
 
+//               var re = document.getElementById('reset');
+//               re.addEventListener('click', reset);
+               var ag = document.getElementById('again');
+               ag.addEventListener('click', again);
+
 //               运动周期
                common.onclick = function(){
                     option.duration = 0;
 
                     addClass(common);
                     if(ifAgain) {
-                        ifChoose = true;
                         again()
                     }
                };
@@ -173,7 +178,6 @@
 
                    addClass(haveMin);
                    if(ifAgain) {
-                       ifChoose = true;
                        again()
                    }
                };
@@ -182,7 +186,6 @@
 
                    addClass(noMinLittle);
                    if(ifAgain) {
-                       ifChoose = true;
                        again()
                    }
                };
@@ -191,7 +194,6 @@
 
                    addClass(noMinMore);
                    if(ifAgain) {
-                       ifChoose = true;
                        again()
                    }
                };
@@ -203,7 +205,6 @@
 
                    addClass(together);
                    if(ifAgain) {
-                       ifChoose = true;
                        again()
                    }
                };
@@ -214,7 +215,6 @@
 
                    addClass(little);
                    if(ifAgain) {
-                       ifChoose = true;
                        again()
                    }
                };
@@ -225,7 +225,6 @@
 
                   addClass(more);
                   if(ifAgain) {
-                      ifChoose = true;
                       again()
                   }
               };
@@ -263,7 +262,9 @@
       }
       
 //      图片粒子化
-      function  addParticle(){
+      function  imgToParticles(){
+          renderBack();
+          ctx.drawImage(img, 0, 0, img.width, img.height, imgx, imgy, option.scale*img.width, option.scale*img.height);
           var data = ctx.getImageData( imgx, imgy, option.scale*img.width, option.scale*img.height).data;
           var rows = 300,
               cols = 300;
@@ -288,8 +289,10 @@
                          delayCount: option.initialCount,
 
 //                         初始位置
-                         startx: canvas.width/2,
+//                         startx: canvas.width/2,
                          starty: canvas.height,
+                         startx: imgx + option.scale*img.width/2,
+//                         starty: imgy + option.scale*img.height/2,
 
 //                         结束位置
                          endx: imgx + j*particleWidth,
@@ -369,7 +372,6 @@
                }
 
                particles[i].delayCount += option.addCount;
-
            }
       }
 
@@ -383,14 +385,12 @@
 //      渲染画布
       function render(){
           renderBack();
-
           for( var i = 0, len = particles.length; i < len; i++){
               ctx.fillStyle = particles[i].fillStyle;
               ctx.fillRect(particles[i].currentX + particles[i].offsetx  , particles[i].currentY + particles[i].offsety, 1, 1);
           }
 
           update();
-
           Timer = window.requestAnimationFrame(render);
       }
 
