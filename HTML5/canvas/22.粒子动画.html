@@ -75,17 +75,13 @@
           initialCount: 10, // 第一次执行动画喷出粒子数量
           addCount: 100, //  每次执行动画增加的喷出粒子数量
 
-          duration : 0 , //0:相同；1：不同且有最小值；2：周期不同且较小；3：周期不同且较大
-          duration0: 50, //周期相同
-          duration1: Math.min(Math.floor(300*Math.random()),100), //周期不同且有最小值
-          duration2: 100*Math.random(),  // 周期不同且较小
-          duration3: 300*Math.random(), //周期不同且较大
+          duration : 0 , //默认值；0:相同；1：不同且有最小值；2：周期不同且较小；3：周期不同且较大
 
           scale : 1 //图片放大倍数
 
       };
       var ifChoose = false ; //判断again是否是由选项激活
-      var ifAgain = true; //判断是否刷新
+      var ifAgain = true; //判断是否保持状态刷新
       (function() {
           var lastTime = 0;
           var vendors = ['webkit', 'moz'];
@@ -120,8 +116,8 @@
       var imgx, imgy;  //图片绘制的左上角坐标
       img.onload = function(){
               imgx = canvas.width/2 - option.scale*img.width/2;
-//              imgy = canvas.height/2 - option.scale*img.height/2;
-              imgy = 10;
+              imgy = canvas.height/2 - option.scale*img.height/2;
+//              imgy = 10;
               ctx.drawImage(img, 0, 0, img.width, img.height, imgx, imgy, option.scale*img.width, option.scale*img.height);
 
 
@@ -148,7 +144,6 @@
 
                    ctx.drawImage(img, 0, 0, img.width, img.height, imgx, imgy, option.scale*img.width, option.scale*img.height);
                    particles.length = 0;
-
 
                    addParticle();
                    render();
@@ -223,7 +218,7 @@
                        again()
                    }
                };
-              more.onclick = function(){
+               more.onclick = function(){
                   option.delay = 1;
                   option.addDelay = 1;
                   option.addCount = 300;

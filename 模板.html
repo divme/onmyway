@@ -3,33 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <title>模板</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+
     <style>
         *{margin:0;padding:0}
-
+        .demo{
+           width:200px;
+           height:200px;
+            margin:20px auto;
+           border:1px solid red;
+           /*transition: all 2s;*/
+        }
     </style>
+    <!--<script src="zylib/transform.js"></script>-->
+    <script src="zylib/alloy_finger.js"></script>
 </head>
 <body>
-
-<div id="box" class="wrapper">
-    <div class="content">一</div>
-    <div class="content">二</div>
-    <div class="content">三</div>
-    <div class="content">四</div>
-    <div class="content">五</div>
-</div>
-
-<!--<script src="zylib/zepto.min.js"></script>-->
-<script src="zylib/jquery-2.1.1.min.js"></script>
+<div id="tap" class="demo">tap</div>
+<div id="pinch" class="demo">pinch</div>
+<div id="rotate" class="demo">rotate</div>
+<div id="pressmove" class="demo">pressmove</div>
+<div id="doubletap" class="demo">doubletap</div>
 <script>
-     $('#box').css({'background':'red','color':'white'});
-     var p = $('<p />' ,{text :'hello',id:'wow',css:{'background':'#424242'}})
-     $('#box').append(p)
+    var tap = document.getElementById('tap');
+    var double = document.getElementById('doubletap');
+    var pinch = document.getElementById('pinch');
+    var rotate = document.getElementById('rotate');
+    var pressmove = document.getElementById('pressmove');
+    new AlloyFinger('#tap', {
+        tap: function () {
+            tap.innerText = 'you touch me';
+        }
+    });
+    new AlloyFinger(pinch, {
+        pinch: function (evt) {
+            pinch.style.width = '300px';
+        }
+    });
+    new AlloyFinger(rotate, {
+        rotate: function (evt) {
+            rotate.style.cssText +='transform:rotate(30deg)'
+        }
+    });
+    new AlloyFinger(pressmove, {
+        pressMove: function (evt) {
+            pressmove.style.cssText +='transform:translate(30px)'
+        }
+    });
+    new AlloyFinger(double, {
+        doubleTap: function (evt) {
+            double.style.cssText += 'width:300px;height:300px;position:fixed;background:yellowgreen;color:#fff;z-index:3;top:0;bottom:0;left:0;right:0;margin:auto;';
+        }
+    });
 </script>
 
 </body>
 </html>
 
-
+<!---->
 
 
 
