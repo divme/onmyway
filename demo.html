@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>模板</title>
+    <title>demo</title>
     <style>
         *{margin:0;padding:0}
         #d{
@@ -12,14 +12,13 @@
         }
         #d img{
             position: absolute;
-            width: 500px;
+            height: 500px;
             top:0;
             left:0;
             border:2px solid red;
             filter: blur(25px);
-            -webkit-filter: grayscale(1);
-            /*-webkit-filter: invert(1);*/
-            /*-webkit-filter: invert(1);*/
+            /*-webkit-filter: grayscale(1);*/
+            -webkit-filter: invert(1);
         }
         .anima{
             width:100px;
@@ -40,8 +39,8 @@
 </head>
 <body>
 
-<!--<div class="anima"></div>-->
-<!--<div id="d"><img src="CSS/img/xhr.png" alt="nothing"></div>				-->
+<div class="anima"></div>
+<div id="d"><img src="CSS/img/xhr.png" alt="nothing"></div>
 <!--<script>-->
 <!--var div = document.getElementById('d');-->
 <!--var html = "<span>我是sspan</span><p>我是个p</p>"-->
@@ -82,36 +81,37 @@
 <script src="zylib/jquery-2.1.1.min.js"></script>
 <p><b>Values: </b></p>
 <form>
-    <input type="text" name="name" value="John"/>
+    <input type="text" name="name" value="Johdsan"/>
     <input type="text" name="password" value="password"/>
     <input type="text" name="url" value="http://ejohn.org/"/>
 </form>
 <div style="height: 2000px;"></div>
 <script>
-    document.attachEvent('onmousewheel',function(e){
-        var Timer;
-        alert(e.wheelDelta);
-//            clearTimeout(Timer);
-//            Timer = setTimeout(function(){
-//                alert(e.wheelDelta);
-//            },500)
-    })
-    //        $(function(){
-    //            $("p").append( $("input").map(function(){
-    //                return $(this).val();
-    //            }).get().join(", ") );
-    //        })
+    $(function(){
+        $("p").append( $("input").map(function(){
+            return $(this).val();
+        }).get().join(", ") );
+    });
 
-
-
-    //        document.addEventListener('mousewheel',function(e){
-    //
-    //            var Timer;
-    //            clearTimeout(Timer);
-    //            Timer = setTimeout(function(){
-    //                alert(e.wheelDelta);
-    //            },500)
-    //        })
+    var Timer;
+    if(document.attachEvent){
+        document.attachEvent('onmousewheel',function(e){
+            var Timer;
+            alert(e.wheelDelta);
+            clearTimeout(Timer);
+            Timer = setTimeout(function(){
+                $('p').append(e.wheelDelta);
+            },500)
+        })
+    }
+    document.addEventListener('mousewheel',function(e){
+        if(Timer){
+            clearTimeout(Timer);
+        }
+        Timer = setTimeout(function(){
+            $('p').append('wheel');
+        },500)
+     })
 </script>
 </body>
 </html>

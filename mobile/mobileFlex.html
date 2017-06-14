@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mobileFlex</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <!--<link rel="stylesheet" href="css/reset.css">-->
+    <style>
+            *{margin:0;padding:0}
+         body{
+            background: #f2f2f2;
+            font-size:14px;
+        }
+         .pageInfo{
+             height: 40px;
+             line-height:40px;
+             margin-top:10px;
+             padding:0 10px;
+             background: #fff;
+             text-align: center;
+         }
+         /*搜索框*/
+         @media (min-width:10px){
+             .searchbox{
+                 display: flex;
+                 justify-content: space-between;
+                 align-items: center;
+
+                 height:60px;
+                 margin-bottom: 10px;
+                 padding-left:10px;
+                 background: #fff;
+             }
+             .searchbox > span{
+                 order:1;
+                 flex:0 0 4em;
+                 text-align: center;
+             }
+             .search{
+                 order:0;
+                 flex:1 1 auto;
+
+                 display: flex;
+                 justify-content: flex-start;
+                 align-items: center;
+                 height:30px;
+                 border:1px solid #ddd;
+                 border-radius: 5px;
+                 background: #f6f6f6;
+             }
+             .search label{
+                 flex:0 0 4em;
+
+                 height:36px;
+                 line-height:36px;
+                 text-align: center;
+                 border-right:1px solid #fff;
+
+             }
+             .search input{
+                 position: relative;
+                 background: #f6f6f6;
+                 left:5px;
+             }
+         }
+
+         /*列表头部*/
+         @media (min-width:10px){
+             .listHead{
+                 display: flex;
+                 justify-content: space-between;
+                 align-items: center;
+                 height: 42px;
+                 padding:0 10px;
+                 background: #fff;
+                 border-top:1px solid #dedede;
+                 border-bottom:1px solid #dedede;
+             }
+             .listHead div:first-of-type{
+                 flex:1 0 50%;
+
+                 display: flex;
+                 justify-content: space-around;
+
+             }
+             .listHead div:first-of-type span:first-of-type{
+                 flex:0 0 3em;
+                 border-right:1px solid #d3ae68;
+             }
+             .listHead div:first-of-type span:last-of-type{
+                 flex:1 0 auto;
+                 text-indent: 1em;
+             }
+             .listHead div:nth-of-type(2){
+                 flex:1 0 25%;
+                 text-align: left;
+             }
+             .listHead div:last-of-type{
+                 flex:1 0 25%;
+                 text-align: center;;
+             }
+         }
+
+         /*列表card*/
+         @media (min-width:10px){
+             .listGroup {
+                 background: #fff;
+             }
+             .listGroup li {
+                 display: flex;
+                 justify-content: space-between;
+
+                 padding:10px;
+                 border-bottom:1px solid #dedede;
+             }
+             .group1 {
+                 flex:1 0 50%;
+
+                 display: flex;
+                 flex-direction: column;
+                 text-indent: 1em;
+             }
+             .group2 {
+                 flex:1 0 25%;
+
+                 display: flex;
+                 flex-direction: column;
+             }
+             .group3{
+                 flex:1 0 25%;
+                 text-align: center;
+             }
+         }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="searchbox">
+            <div class="search">
+                <label for="nothing">请输入</label>
+                <input type="text" name="id" id="nothing" value="" placeholder="名称 / 代码"/>
+            </div>
+            <span>确定</span>
+        </div>
+
+        <div class="listHead">
+            <div>
+                <span>自选</span>
+                <span>基金名称</span>
+            </div>
+            <div>基金净值</div>
+            <div>日涨幅</div>
+        </div>
+
+        <ul class="listGroup">
+            <li>
+               <div class="group1">
+                   <span>很长的基金名称</span>
+                   <span>110443</span>
+               </div>
+               <div class="group2">
+                   <span>1.365</span>
+                   <span>2014-10-22</span>
+               </div>
+               <div class="group3">
+                   <span>2.42%</span>
+               </div>
+            </li>
+            <li>
+                <div class="group1">
+                    <span>也许会很长基金名称</span>
+                    <span>110443</span>
+                </div>
+                <div class="group2">
+                    <span>1.046</span>
+                    <span>2016-10-24</span>
+                </div>
+                <div class="group3">
+                    <span>5.20%</span>
+                </div>
+            </li>
+            <li>
+                <div class="group1">
+                    <span>如果真的很长就截断</span>
+                    <span>基金代码</span>
+                </div>
+                <div class="group2">
+                    <span>格式化净值</span>
+                    <span>格式化日期</span>
+                </div>
+                <div class="group3">
+                    <span>格式化</span>
+                </div>
+            </li>
+        </ul>
+        <div class="pageInfo">这个用 flex 很自然，感觉还可以</div>
+    </div>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

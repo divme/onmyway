@@ -33,6 +33,9 @@
     new AlloyFinger('#tap', {
         tap: function () {
             tap.innerText = 'you touch me';
+        },
+        singleTap:function(){
+            tap.innerText +='you singleTap me'
         }
     });
     new AlloyFinger(pinch, {

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>articleList</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <style>
+        *{margin:0;padding:0;}
+         body{
+             background: #f6f6f6;
+             color: #424242;
+         }
+        .container{
+            position: relative;
+            overflow: hidden;
+        }
+        #list{
+            position: relative;
+            background: #fff;
+        }
+        #list div{
+            line-height:1.8;
+            padding:5px 10px;
+            border-bottom:1px solid #dedede;
+            box-sizing: border-box;
+        }
+        #list div p:first-of-type{
+            min-height:1.8em;
+            font-size:16px;
+        }
+        #list div p:last-of-type{
+            display: -webkit-flex;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size:14px;
+            color: #acacac;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div id="list"><div>
+                <p>移动端布局，事件与框架的应用</p>
+                <p>
+                    <span>午夜游民</span>
+                    <span>午夜游击队</span>
+                </p>
+            </div>
+
+            <div>
+                <p>something about articleList</p>
+                <p>
+                    <span>作者</span>
+                    <span>单位</span>
+                </p>
+            </div>
+
+            <div>
+                <p>something about articleList</p>
+                <p>
+                    <span>作者</span>
+                    <span>单位</span>
+                </p>
+            </div>
+
+            <div>
+                <p>something about articleList</p>
+                <p>
+                    <span>作者</span>
+                    <span>单位</span>
+                </p>
+            </div>
+
+            <div>
+                <p>something about articleList</p>
+                <p>
+                    <span>作者</span>
+                    <span>单位</span>
+                </p>
+            </div>
+
+            <div>
+                <p>something about articleList</p>
+                <p>
+                    <span>作者</span>
+                    <span>单位</span>
+                </p>
+            </div>
+
+            <div>
+                <p>something about articleList</p>
+                <p>
+                    <span>作者</span>
+                    <span>单位</span>
+                </p>
+            </div>
+
+            <div>
+                <p>something about articleList</p>
+                <p>
+                    <span>作者</span>
+                    <span>单位</span>
+                </p>
+            </div>
+
+            <div>
+                <p>something about articleList</p>
+                <p>
+                    <span>作者</span>
+                    <span>单位</span>
+                </p>
+            </div>
+
+            <div>
+                <p>something about articleList</p>
+                <p>
+                    <span>作者</span>
+                    <span>单位</span>
+                </p>
+            </div>
+
+            <div>
+                <p>移动端布局，事件与框架的应用</p>
+                <p>
+                    <span>午夜游民</span>
+                    <span>午夜游击队</span>
+                </p>
+            </div>
+
+            <div>
+                <p>移动端布局，事件与框架的应用</p>
+                <p>
+                    <span>午夜游民</span>
+                    <span>午夜游击队</span>
+                </p>
+            </div>
+
+            <div>
+                <p>移动端布局，事件与框架的应用</p>
+                <p>
+                    <span>午夜游民</span>
+                    <span>午夜游击队</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var ctn  = document.getElementById("container");
+        var list = document.getElementById("list");
+        list.style.top = '0';//有的手机浏览器，默认top为auto;
+
+        var height = list.getElementsByTagName('div')[0].clientHeight;
+            ctn.style.height = 10*height +10 + 'px';
+
+        ctn.addEventListener("touchstart", touchstart, false);
+        ctn.addEventListener("touchmove", touchmove, false);
+        ctn.addEventListener("touchend", touchend, false);
+
+        var startX, startY;
+        var distanceX, distanceY;
+        var currentTop
+
+        var norefresh = document.createElement('div');
+        norefresh.style.cssText = "position:absolute;top:0;width:100%;color:#d3ae68;text-align:center;font-size:14px;height:30px;line-height:30px;"
+        norefresh.innerText = '没有更新的内容了'
+
+        var nomore = document.createElement('div');
+        nomore.style.cssText = "color:#d3ae68;text-align:center;font-size:14px;height:30px;line-height:30px;"
+        nomore.innerText = '没有更多内容了'
+
+        function touchstart(e){
+            e.preventDefault();
+
+            startY = e.touches[0].clientY;
+        }
+
+        function touchmove(e){
+            e.preventDefault();
+
+            var endY = e.touches[0].clientY;
+
+            distanceY = endY - startY;
+
+            currentTop = getTop(list);
+            var willTop = currentTop + distanceY;
+
+            if(willTop > 30){
+                willTop = 30;
+                ctn.insertBefore(norefresh,ctn.childNodes[0]);
+            }
+            if(willTop<0 && (ctn.clientHeight-willTop > list.clientHeight+140)){
+                willTop = ctn.clientHeight-(list.clientHeight+140);
+                list.appendChild(nomore);
+
+            }
+            list.style.top = willTop + 'px';
+            startY = endY;
+        }
+
+        function touchend(e){
+            e.preventDefault();
+            currentTop = getTop(list);
+
+            if(currentTop >= 30){
+                setTimeout(function(){
+                    ctn.removeChild(ctn.childNodes[0]);
+                    list.style.top = '0';
+                },300)
+            }
+        }
+
+        function getTop(dom){
+           return parseInt(window.getComputedStyle(dom, null)['top'] || dom.currentStyle['top'])
+        }
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

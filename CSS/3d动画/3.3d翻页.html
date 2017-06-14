@@ -2,21 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>模板</title>
+    <title>3d翻页</title>
     <style>
         *{margin:0;padding:0}
         .containerbox{
             -webkit-perspective: 1000px;
             perspective: 1000px;
 
-            width:500px;
-            height:400px;
+            width:600px;
+            height:600px;
             margin:30px auto;
             overflow: hidden;
+            padding-top:50px;
         }
         .container{
-
-
             -webkit-transform-style: preserve-3d;
             transform-style: preserve-3d;
 
@@ -25,9 +24,10 @@
             width:500px;
             height:500px;
 
+            margin:50px auto;
             /*overflow: hidden;*/
         }
-        .page{
+        .page,#back{
             position: absolute;
             right:0;
             top:0;
@@ -40,13 +40,24 @@
             font-weight:bold;
             text-align: center;
             transform-origin: left;
-            transition: all 2s;
+            transition: all 2s,color .1s .5s, text-shadow .1s .5s;
             box-shadow: 0 0 50px #fff inset,0 0 10px #000;
             text-shadow: 5px 5px 50px rgba(255,255,255,.5);
             /*backface-visibility:hidden*/
         }
+        #back{
+            left:0;
+            right:auto;
+            opacity:0;
+            transition: transform 6s, opacity 1s;
+            transform-origin: right;
+            transform: rotateY(60deg);
+            z-index:3;
+        }
         #page1{
             transform: rotateY(0deg);
+            font-size:50px;
+            line-height: 170px;
         }
         #page2,#page3,#page4,#page5,#page6{
             transform: rotateY(90deg);
@@ -57,6 +68,7 @@
         }
         .controller a{
             padding:10px 20px;
+            margin:10px;
             background: #85DB8C;
             color: #fff;
             text-decoration: none;
@@ -67,12 +79,13 @@
 <body>
 <div class="containerbox">
     <div class="container">
-        <div class="page" id="page1">1</div>
+        <div class="page" id="page1">by<br/>OMO</div>
         <div class="page" id="page2">2</div>
         <div class="page" id="page3">3</div>
         <div class="page" id="page4">4</div>
         <div class="page" id="page5">5</div>
         <div class="page" id="page6">6</div>
+        <div id="back"></div>
     </div>
 </div>
 
@@ -82,6 +95,8 @@
 </div>
 
 <script>
+
+    var back = document.querySelector('#back');
     var curIndex = 1;
     function next(){
         if(curIndex == 6){
@@ -90,7 +105,8 @@
 
         var curPage = document.getElementById("page" + curIndex);
         curPage.style.transform = "rotateY(-180deg)";
-//        curPage.style.opacity = "0.1"
+        curPage.style.color = '#424242';
+        curPage.style.textShadow = 'none';
 
         curIndex++;
         curPage = document.getElementById("page" + curIndex);
@@ -106,9 +122,12 @@
         var curPage = document.getElementById("page" + curIndex);
         curPage.style.transform = "rotateY(90deg)";
 
+
         curIndex--;
         curPage = document.getElementById("page" + curIndex);
         curPage.style.transform = "rotateY(0deg)";
+        curPage.style.color = '#fff';
+        curPage.style.textShadow = '5px 5px 50px rgba(255,255,255,.5)';
     }
 </script>
 </body>
