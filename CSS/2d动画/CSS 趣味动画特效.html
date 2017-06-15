@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画demo</title>
+    <style>
+        *{margin:0;padding:0}
+        .container{
+            min-width:800px;
+            min-height:100px;
+            margin:20px auto;
+        }
+        .container:after{
+            content:'';
+            display: block;
+            height:0;
+            clear: both;
+        }
+
+        /*回旋镖*/
+        @media (min-width:10px){
+            .nn{
+                height:100px;
+                margin:20px auto
+            }
+            .rotate{
+                display: block;
+                position: relative;
+                width:50px;
+                height: 50px;
+                margin:20px auto;
+                border:5px solid #d3ae68;
+                border-top-color: transparent;
+                border-bottom-color:transparent;
+                border-radius:20px / 50%;
+                animation: rotate .5s ease-out infinite;
+            }
+            .rotate:before{
+                content: '';
+                position: absolute;
+                top:0;bottom:0;
+                left:0;right:0;
+                margin:auto;
+                width:60%;
+                height:60%;
+                border-radius:50%;
+                background: #d3ae68;
+                animation:scale .5s linear infinite alternate;
+            }
+            @keyframes rotate {
+                0%{transform:rotate(0deg)}
+                80%{transform:rotate(180deg)}
+                100%{transform:rotate(180deg)}
+            }
+            @keyframes scale {
+                0%{transform: scale(1)}
+                80%{transform: scale(.1)}
+                100%{transform: scale(.1)}
+            }
+        }
+
+        /*扩散波纹*/
+        @media (min-width:10px){
+            .box{
+                position: relative;
+                width:50px;
+                height: 50px;
+                border-radius: 50%;
+                margin:100px auto;
+            }
+            .c{
+                position: absolute;
+                top:0; bottom:0;
+                left:0; right:0;
+                margin:auto;
+                border-radius:50%;
+                width:5px; height:5px;
+                /*background:radial-gradient(transparent 10%, rgba(195,217,251,1) 98%);*/
+                background:rgba(195,217,251, .8);
+
+            }
+            .c1{
+                animation:c1 2s ease infinite ;
+            }
+            .c2{
+                animation:c1 2s ease 0.2s infinite ;
+            }
+            .c3{
+                animation:c1 2s ease .4s infinite ;
+            }
+            .c4{
+                animation:c1 2s ease .6s infinite ;
+            }
+            .c5{
+                animation:c1 3s ease .8s infinite ;
+            }
+            @keyframes c1 {
+                  0% {transform: scale(1);opacity:1}
+                100% {transform:scale(10);opacity:.2}
+            }
+        }
+
+        /*水波*/
+        @media (min-width:10px){
+            .bbox{
+                position: relative;
+                width:50px;
+                height: 50px;
+                border-radius: 50%;
+                margin:100px auto;
+            }
+            .cc{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 50px;
+                height: 50px;
+            }
+            .cc1{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: radial-gradient(transparent 10%,rgba(33,150,243,.9) 100%);
+                -webkit-animation: aniTwo 1s ease 0s infinite;
+                animation: aniTwo 1s ease 0s infinite
+            }
+            .cc2{
+                top:2px;
+                left:2px;
+                width: 46px;
+                height: 46px;
+                border-radius: 50%;
+                background: radial-gradient(transparent 10%,rgba(33,150,243,.8) 100%);
+                -webkit-animation: aniTwo 1s ease .2s infinite;
+                animation: aniTwo 1s ease .2s infinite
+            }
+            .cc3{
+                top:5px;
+                left:5px;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: radial-gradient(transparent 10%,rgba(33,150,243,.7) 100%);
+                -webkit-animation: aniTwo 1s ease .3s infinite;
+                animation: aniTwo 1s ease .3s infinite
+            }
+            .cc4{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: radial-gradient(transparent 10%,rgba(33,150,243,.6) 100%);
+                -webkit-animation: aniTwo 1s ease .4s infinite;
+                animation: aniTwo 1s ease .4s infinite
+            }
+
+            @keyframes aniTwo {
+                0% {
+                    transform: scale(.1);
+                    opacity: 1
+                }
+
+                100% {
+                    transform: scale(1.2);
+                    opacity: .2
+                }
+            }
+        }
+
+        /*跳跃音符*/
+        @media (min-width:10px){
+            .pop{
+                width:150px;
+                height:100px;
+                margin:10px auto;
+                line-height:100px;
+            }
+            .note{
+                /*float: left;*/
+                display: inline-block;
+                width: 20px;
+                /*height: 80px;*/
+                background: radial-gradient(circle, white 2%, pink 100%);
+                margin-left:5px;
+                vertical-align: bottom;
+            }
+            .note1{
+                /*height:20px;*/
+                animation: no1 .4s ease-in-out infinite;
+            }
+            .note2{
+                animation: no2 .2s infinite;
+            }
+            .note3{
+                animation: no3 .3s infinite;
+            }
+            .note4{
+                animation: no4 .15s infinite;
+            }
+            .note5{
+                animation: no5 .25s infinite;
+            }
+            @keyframes no1 {
+                0%{height:20px}
+                100%{height:100px}
+            }
+            @keyframes no2 {
+                0%{height:40px}
+                100%{height:100px}
+            }
+            @keyframes no3 {
+                0%{height:100px}
+                100%{height:30px}
+            }
+            @keyframes no4 {
+                0%{height:40px}
+                100%{height:100px}
+            }
+            @keyframes no5 {
+                0%{height:100px}
+                100%{height:20px}
+            }
+
+        }
+
+        /*移动边框*/
+        @media (min-width:10px){
+            .moveborder{
+                position: relative;
+                width:200px;
+                height:50px;
+                line-height:50px;
+                text-align: center;
+                margin:0 auto;
+                box-shadow: 0 0 10px #00aaee inset;
+                background:#fff;
+                cursor: pointer;
+                z-index:2;
+            }
+            .nnn{
+                position: absolute;
+                top:-2px;
+                left:0;
+                width:0;
+                height:2px;
+                background: #1155c6;
+                transition:width 2s linear, height 1s linear 2s;
+                z-index:-4;
+            }
+            .mmm{
+                content:'';
+                position: absolute;
+                bottom:-2px;
+                right:0;
+                background:#1105c6;
+            }
+            .moveborder:hover .nnn{
+                width:202px;
+                height:52px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<!--回旋镖-->
+<div class="container">
+    <div class="nn">
+        <div class="rotate" id="rotate"></div>
+    </div>
+</div>
+
+<!--扩散波纹 -->
+<div class="container">
+    <div class="box">
+        <div class="c c1"></div>
+        <div class="c c2"></div>
+        <div class="c c3"></div>
+        <div class="c c4"></div>
+        <div class="c c5"></div>
+    </div>
+</div>
+
+<!--扩散水波-->
+<div class="container">
+    <div class="bbox">
+        <div class="cc cc1"></div>
+        <div class="cc cc2"></div>
+        <div class="cc cc3"></div>
+        <div class="cc cc4"></div>
+        <div class="cc cc5"></div>
+    </div>
+</div>
+
+<!--跳跃音符-->
+<div class="container">
+    <div class="pop">
+        <div class="note note1"></div>
+        <div class="note note2"></div>
+        <div class="note note3"></div>
+        <div class="note note4"></div>
+        <div class="note note5"></div>
+    </div>
+</div>
+
+<!--移动边框-->
+<div class="container">
+    <div class="moveborder">
+        <div class="nnn"></div>
+        <div class="mmm"></div>
+        something
+    </div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>逐帧动画实例</title>
+    <style>
+        *{margin:0;padding:0}
+
+        /*扭腰动画*/
+        @media (min-width:10px){
+            .anima_entrance {
+                margin:10px auto;
+                width: 13rem;
+                height: 25rem;
+                /*border:1px solid #b3b3b3;*/
+                -webkit-animation: anima_entrance .6s ease-in-out both;
+                animation: anima_entrance .6s ease-in-out both;
+            }
+
+            .anima_move {
+                width: 13rem;
+                height: 25rem;
+                position: absolute;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                /*border:1px solid red;*/
+                -webkit-animation: anima_move 2s linear .6s infinite;
+                animation: anima_move 2s linear .6s infinite;
+            }
+
+            .anima_sprite {
+                width: 13rem;
+                height: 25rem;
+                background: url(img/sprite.png) no-repeat 0 0;
+                background-size: 25.8rem 19.1rem;
+                /*border:1px solid black;*/
+                -webkit-animation: anima_sprite 2s step-end .6s infinite both;
+                animation: anima_sprite 2s step-end .6s infinite both;
+            }
+
+            @keyframes anima_entrance {
+                0% {
+                    -webkit-transform: translate3d(18.75rem, 0, 0);
+                    transform: translate3d(18.75rem, 0, 0);
+                }
+                100% {
+                    -webkit-transform: translate3d(0, 0, 0);
+                    transform: translate3d(0, 0, 0);
+                }
+            }
+
+            @keyframes anima_move {
+                0%, 16%, 42%, 74%, 100% {
+                    -webkit-transform: translate3d(0, 0, 0);
+                    transform: translate3d(0, 0, 0);
+                }
+                29% {
+                    -webkit-transform: translate3d(-1rem, 0, 0);
+                    transform: translate3d(-1rem, 0, 0);
+                }
+                87% {
+                    -webkit-transform: translate3d(1rem, 0, 0);
+                    transform: translate3d(1rem, 0, 0);
+                }
+            }
+
+            @keyframes anima_sprite {
+                0%, 16%, 42%, 58%, 74%, 100% {
+                    background-position: -12.9rem 0;
+                }
+                8%, 50%, 66% {
+                    background-position: 0 0;
+                }
+            }
+        }
+
+        /*模拟打字*/
+        @media (min-width:10px){
+            @keyframes typing { to { width: 6em; } }
+            @keyframes blink-caret { 50% { border-color: transparent; } }
+
+            #realStep {
+                width: 0;
+                margin: 10px auto;
+                
+                
+                border-right: .1em solid;
+                font-size:20px;
+                text-align: center;
+                white-space: nowrap;
+                overflow: hidden;
+                
+                animation: typing 2s steps(6, end),  blink-caret .5s step-end infinite alternate;
+                animation-fill-mode: forwards;
+            }
+        }
+
+        @media (min-width:10px){
+            .container{
+                width:500px;
+                height:120px;
+                margin:10px auto;
+                border:5px solid #c98;
+            }
+            .demo{
+                position: relative;
+                top:10px;
+                width:100px;
+                height: 100px;
+                /*margin:20px auto;*/
+                background: #f98;
+                animation:step 3s steps(5,end) infinite;
+                /*animation:step 10s linear infinite alternate;*/
+            }
+            @keyframes step {
+                0%{left:0;}
+                100%{left:500px;}
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="anima_entrance">
+    <div class="anima_move">
+        <div class="anima_sprite"></div>
+    </div>
+</div>
+
+<p id="realStep">逐帧动画实例</p>
+
+
+<div class="container">
+    <div class="demo"></div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

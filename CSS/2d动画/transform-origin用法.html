@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>transform-origin</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+
+    <style>
+        *{margin:0;padding:0}
+        .circle{
+            width:100px;
+            height:100px;
+            margin:50px auto;
+            border-radius:50%;
+            background: rgba(0, 153, 136,.5);
+            animation:nothing 2s infinite alternate;
+        }
+        .circle3{
+            transform-origin: 100px 50%;
+        }
+        .circle2{
+            transform-origin: -10px 50%;
+        }
+        .circle4{
+            transform-origin: 50% 10px;
+        }
+        .circle1{
+            transform-origin: 50% 100px;
+        }
+        @keyframes nothing {
+            to{transform: rotate(1turn)}
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="circle circle1"></div>
+<div class="circle circle2"></div>
+<div class="circle circle3"></div>
+<div class="circle circle4"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
