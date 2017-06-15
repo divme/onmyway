@@ -231,10 +231,18 @@
                 line-height:50px;
                 text-align: center;
                 margin:0 auto;
-                box-shadow: 0 0 10px #00aaee inset;
-                background:#fff;
                 cursor: pointer;
                 z-index:2;
+            }
+            .content{
+                position: absolute;
+                top:0;
+                bottom:0;
+                left:0;
+                right:0;
+                background:#fff;
+                box-shadow: 0 0 10px #00aaee inset;
+                z-index:1;
             }
             .nnn{
                 position: absolute;
@@ -243,17 +251,23 @@
                 width:0;
                 height:2px;
                 background: #1155c6;
-                transition:width 2s linear, height 1s linear 2s;
-                z-index:-4;
+                transition:width 1s linear, height .5s linear 1s;
             }
             .mmm{
                 content:'';
                 position: absolute;
                 bottom:-2px;
                 right:0;
+                width:0;
+                height:2px;
                 background:#1105c6;
+                transition:width 1s linear 1.5s, height .5s linear 2.5s;
             }
             .moveborder:hover .nnn{
+                width:202px;
+                height:52px;
+            }
+            .moveborder:hover .mmm{
                 width:202px;
                 height:52px;
             }
@@ -307,7 +321,7 @@
     <div class="moveborder">
         <div class="nnn"></div>
         <div class="mmm"></div>
-        something
+        <div class="content">something</div>
     </div>
 </div>
 
