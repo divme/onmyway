@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基本过渡动效</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+
+    <style>
+        *{margin:0;padding:0}
+        .container{
+            width:1000px;
+            height:1000px;
+            margin:0 auto;
+        }
+
+        /*box 和 back*/
+        @media (min-width:10px){
+            .box{
+                float: left;
+                position: relative;
+                width:300px;
+                height:300px;
+                margin-top:20px;
+                margin-left:25px;
+                border:1px solid rgba(0, 0, 0, .5);
+                overflow: hidden;
+                transition: all .5s;
+            }
+            .box:first-of-type{
+                background: url(img/cat1.png) no-repeat center right;
+                background-size: 100% 100%;
+            }
+            .box:nth-of-type(2){
+                background: url(img/cat2.png) no-repeat center;
+                background-size: 100% 100%;
+            }
+            .box:nth-of-type(3){
+                background: url(img/cat3.png) no-repeat center;
+                background-size: 100% 100%;
+            }
+            .box:nth-of-type(4){
+                background: #d3ae68;
+            }
+            .box:nth-of-type(4):hover{
+                transition: all 5s;
+                background: #098;
+            }
+            .box:nth-of-type(5) img{
+                margin:20px;
+                width:80%;
+                animation: pound .8s infinite;
+            }
+            @keyframes pound {
+                to{transform: scale(1.2)}
+            }
+            .back{
+                position: absolute;
+                top:0;
+                bottom:0;
+                left:0;
+                right:0;
+                background: rgba(0,0,0, 0.5);
+                opacity:0;
+            }
+        }
+
+        /*content*/
+        @media (min-width:10px){
+            .content{
+                position: absolute;
+                color: #fff;
+                transition: all 1s;
+            }
+            .content p{
+                line-height:1.8;
+            }
+
+            .content1 {
+                left:-200px;
+                top:200px;
+                transition: all .8s cubic-bezier(.83,.97,.42,1.27);
+            }
+            .content2 {
+                width: 200px;
+                height: 100px;
+                text-align: center;
+                left: 50px;
+                top: -120px;
+                border:1px solid #ffffff;
+            }
+            .content2 p{
+                line-height:50px;
+            }
+            .content3 {
+                left:20px;
+                top:60px;
+            }
+            .content3 p:first-of-type{
+                transition: all .3s;
+                transform: skew(90deg);
+            }
+            .content3 p:last-of-type{
+                transition: all .3s 0.1s;
+                transform: skew(90deg);
+            }
+        }
+
+
+        /*hover状态*/
+        @media (min-width:10px){
+            .box:hover{
+                background-size:110% 110%;
+            }
+            .box:hover >.back{
+                opacity: 1;
+            }
+
+            .box:first-of-type:hover  .content1{
+                transform: translate(220px);
+            }
+            .box:nth-of-type(2):hover .content2{
+                transform: translate(0, 220px) rotate(360deg) scale(1.2);
+            }
+            .box:nth-of-type(3):hover .content3 p{
+                transform: skew(0deg)
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="box">
+        <div class="back"></div>
+        <div class="content content1">
+            <p>cubic-bezier</p>
+            <p>定制曲线函数</p>
+        </div>
+    </div>
+    <div class="box">
+        <div class="back"></div>
+        <div class="content content2">
+            <p>你是风儿</p>
+            <p>我是沙</p>
+        </div>
+    </div>
+    <div class="box">
+        <div class="back"></div>
+        <div class="content content3">
+            <p>你是风儿</p>
+            <p>我是沙</p>
+        </div>
+    </div>
+    <div class="box">
+
+    </div>
+    <div class="box">
+        <img src="img/heart.png" alt="heart">
+    </div>
+    <!--<div class="box">-->
+        <!--<div class="back"></div>-->
+        <!--<div class="content content6"></div>-->
+    <!--</div>-->
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

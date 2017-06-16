@@ -79,8 +79,8 @@
         this.element.addEventListener("touchcancel", this.cancel, false);
 
         this.preV = { x: null, y: null }; // 两个手指的坐标差
-        this.pinchStartLen = null;  // 两个手指之间的距离
-        this.zoom = 1; //当前手指之间的距离与之前手指之间的距离的倍数，放大或者缩小
+        this.pinchStartLen = null;  // 刚触摸时两个手指之间的距离
+        this.zoom = 1; // 当前手指之间的距离与之前手指之间的距离的倍数，放大或者缩小
         this.isDoubleTap = false; //是否为双击
 
         var noop = function () { };
@@ -107,7 +107,7 @@
         this.singleTapTimeout = null;
         this.longTapTimeout = null;
         this.swipeTimeout = null;
-        this.x1 = this.x2 = this.y1 = this.y2 = null;
+        this.x1 = this.x2 = this.y1 = this.y2 = null; //初始手指坐标：x1, y1; 移动中手指坐标：x2, y2.
         this.preTapPosition = { x: null, y: null };  // 上一个或第一个手指的坐标
     };
 
@@ -197,7 +197,6 @@
                 evt.direction = this._swipeDirection(this.x1, this.x2, this.y1, this.y2);
                 this.swipeTimeout = setTimeout(function () {
                     self.swipe.dispatch(evt);
-
                 }, 0)
             } else {
                 this.tapTimeout = setTimeout(function () {
