@@ -9,6 +9,7 @@
             min-width:800px;
             min-height:100px;
             margin:20px auto;
+            text-align: center;
         }
         .container:after{
             content:'';
@@ -276,6 +277,30 @@
             }
         }
 
+        /*loading球*/
+        @media (min-width:10px){
+            .ball{
+                display:inline-block;
+                width:30px;
+                height:30px;
+                border-radius: 50%;
+                animation: scale .6s linear infinite alternate;
+            }
+            .ball1{
+                background: yellowgreen;
+            }
+            .ball2{
+                background: goldenrod;
+                animation-delay: .2s;
+            }
+            .ball3{
+                background: darkcyan;
+                animation-delay: .4s;
+            }
+            @keyframes scale {
+                100%{transform: scale(.2);opacity:.2}
+            }
+        }
     </style>
 </head>
 <body>
@@ -326,6 +351,13 @@
         <div class="mmm"></div>
         <div class="content">something</div>
     </div>
+</div>
+
+<!--loading球-->
+<div class="container">
+    <div class="ball ball1"></div>
+    <div class="ball ball2"></div>
+    <div class="ball ball3"></div>
 </div>
 
 </body>
