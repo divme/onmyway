@@ -234,9 +234,6 @@
                 margin:0 auto;
                 cursor: pointer;
                 z-index:2;
-
-
-
             }
             .content{
                 position: absolute;
@@ -301,64 +298,93 @@
                 100%{transform: scale(.2);opacity:.2}
             }
         }
+
+        /*loading进度条*/
+        @media (min-width:10px){
+            .loadbox{
+                border:4px solid orange;
+                width:600px;
+                height:16px;
+                margin:0 auto;
+            }
+            .loading{
+                width: 1px;
+                height: 10px;
+                margin-top:3px;
+                background:orange;
+                transform-origin:left center;
+                animation: loading 5s cubic-bezier(.06,1,.65,.43);
+                animation-fill-mode: forwards;
+            }
+            @keyframes loading {
+                to{ transform:scale(600,1)}
+            }
+        }
     </style>
 </head>
 <body>
+<!--进度条-->
+<div class="container">
+    <div class="loadbox">
+        <div class="loading"></div>
+    </div>
+</div>
+
 <!--回旋镖-->
-<div class="container">
-    <div class="nn">
-        <div class="rotate" id="rotate"></div>
-    </div>
-</div>
+<!--<div class="container">-->
+    <!--<div class="nn">-->
+        <!--<div class="rotate" id="rotate"></div>-->
+    <!--</div>-->
+<!--</div>-->
 
-<!--扩散波纹 -->
-<div class="container">
-    <div class="box">
-        <div class="c c1"></div>
-        <div class="c c2"></div>
-        <div class="c c3"></div>
-        <div class="c c4"></div>
-        <div class="c c5"></div>
-    </div>
-</div>
+<!--&lt;!&ndash;扩散波纹 &ndash;&gt;-->
+<!--<div class="container">-->
+    <!--<div class="box">-->
+        <!--<div class="c c1"></div>-->
+        <!--<div class="c c2"></div>-->
+        <!--<div class="c c3"></div>-->
+        <!--<div class="c c4"></div>-->
+        <!--<div class="c c5"></div>-->
+    <!--</div>-->
+<!--</div>-->
 
-<!--扩散水波-->
-<div class="container">
-    <div class="bbox">
-        <div class="cc cc1"></div>
-        <div class="cc cc2"></div>
-        <div class="cc cc3"></div>
-        <div class="cc cc4"></div>
-        <div class="cc cc5"></div>
-    </div>
-</div>
+<!--&lt;!&ndash;扩散水波&ndash;&gt;-->
+<!--<div class="container">-->
+    <!--<div class="bbox">-->
+        <!--<div class="cc cc1"></div>-->
+        <!--<div class="cc cc2"></div>-->
+        <!--<div class="cc cc3"></div>-->
+        <!--<div class="cc cc4"></div>-->
+        <!--<div class="cc cc5"></div>-->
+    <!--</div>-->
+<!--</div>-->
 
-<!--跳跃音符-->
-<div class="container">
-    <div class="pop">
-        <div class="note note1"></div>
-        <div class="note note2"></div>
-        <div class="note note3"></div>
-        <div class="note note4"></div>
-        <div class="note note5"></div>
-    </div>
-</div>
+<!--&lt;!&ndash;跳跃音符&ndash;&gt;-->
+<!--<div class="container">-->
+    <!--<div class="pop">-->
+        <!--<div class="note note1"></div>-->
+        <!--<div class="note note2"></div>-->
+        <!--<div class="note note3"></div>-->
+        <!--<div class="note note4"></div>-->
+        <!--<div class="note note5"></div>-->
+    <!--</div>-->
+<!--</div>-->
 
-<!--移动边框-->
-<div class="container">
-    <div class="moveborder">
-        <div class="nnn"></div>
-        <div class="mmm"></div>
-        <div class="content">something</div>
-    </div>
-</div>
+<!--&lt;!&ndash;移动边框&ndash;&gt;-->
+<!--<div class="container">-->
+    <!--<div class="moveborder">-->
+        <!--<div class="nnn"></div>-->
+        <!--<div class="mmm"></div>-->
+        <!--<div class="content">something</div>-->
+    <!--</div>-->
+<!--</div>-->
 
-<!--loading球-->
-<div class="container">
-    <div class="ball ball1"></div>
-    <div class="ball ball2"></div>
-    <div class="ball ball3"></div>
-</div>
+<!--&lt;!&ndash;loading球&ndash;&gt;-->
+<!--<div class="container">-->
+    <!--<div class="ball ball1"></div>-->
+    <!--<div class="ball ball2"></div>-->
+    <!--<div class="ball ball3"></div>-->
+<!--</div>-->
 
 </body>
 </html>

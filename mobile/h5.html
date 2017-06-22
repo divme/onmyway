@@ -12,7 +12,7 @@
             overflow: hidden;
         }
 
-        /*basic layout*/
+        /*common and basic styles*/
         @media (min-width:10px){
             #container{
                 position: relative;
@@ -42,22 +42,164 @@
                 bottom:10px;
                 left:0;
                 background:url("img/up.png") no-repeat center;
+                -webkit-animation: next .5s ease-in-out infinite alternate;
                 animation: next .5s ease-in-out infinite alternate;
             }
         }
 
-
-        /*all animation*/
+        /*第一页*/
         @media (min-width:10px){
+            #page1 h1{
+                color: #56a0e9;
+                text-align: center;
+                transform: translateY(-120%);
+
+                -webkit-animation: page11 .5s cubic-bezier(.86,.71,.35,1.27);
+                animation: page11 .5s cubic-bezier(.86,.71,.35,1.27);
+                -webkit-animation-fill-mode: forwards;
+                animation-fill-mode: forwards;
+            }
+            #page1 .letters{
+                position: relative;
+                text-align: center;
+                margin-top: 10px;
+                color: #0b6e48;
+                -webkit-transform: translateY(100px) skew(90deg);
+                transform: translateY(100px) skew(90deg);
+                -webkit-animation: page12 1s .5s cubic-bezier(.86,.71,.35,1.27);
+                animation: page12 1s .5s cubic-bezier(.86,.71,.35,1.27);
+                -webkit-animation-fill-mode: forwards;
+                animation-fill-mode: forwards;
+            }
+            .typewriting{
+                margin-top:50px;
+                transform: translate3d(0,100px,0);
+                text-align: center;
+            }
+            .typecontent{
+                display: inline-block;
+                width:0;
+                color: #56a0e9;
+
+                border-right: .1em solid transparent;
+                font-size:15px;
+                white-space: nowrap;
+                overflow: hidden;
+
+                -webkit-animation: typing 2s 1.5s steps(6, end) forwards,  blink-caret .5s 1.5s step-end 6 alternate;
+                animation: typing 2s 1.5s steps(6, end) forwards,  blink-caret .5s 1.5s step-end 6 alternate;
+            }
+            .bigger{
+                position:relative;
+                margin: 50px auto;
+                transform:translateY(100px) scale(0,0);
+                text-align: center;
+                font-size:50px;
+                color:#458AE9;
+                /*overflow: hidden;*/
+                animation: page13 2s 3.5s;
+                animation-fill-mode: forwards;
+            }
+            .word{
+                display: inline-block;
+            }
+            .word:first-of-type{
+                transform: skew(10deg);
+                animation: page14 .5s 5.5s ease-out;
+            }
+            .word:nth-of-type(2){
+                transform: skew(-10deg);
+                animation: page14 .5s 5.6s ease-out;
+            }
+            .word:nth-of-type(3){
+                transform: skew(10deg);
+                animation: page14 .5s 5.7s ease-out;
+            }
+            .word:nth-of-type(4){
+                transform: skew(-10deg);
+                animation: page14 .5s 5.8s ease-out;
+            }
+
+        }
+        /*第一页 动画*/
+        @media (min-width:10px){
+            /*common*/
+            @-webkit-keyframes next {
+                100%{transform: translateY(-10px)}
+            }
             @keyframes next {
                 100%{transform: translateY(-10px)}
             }
+            /*第一页*/
+            @-webkit-keyframes page11 {
+                to{ transform: translate(0, 100px)}
+            }
+            @keyframes page11{
+                to{ transform: translate(0, 100px)}
+            }
+            @-webkit-keyframes page12 {
+                to{ transform :translateY(110px) skew(0deg)}
+            }
+            @keyframes page12 {
+                to{ transform :translateY(110px) skew(0deg)}
+            }
+
+            @keyframes typing { to { width: 6em; } }
+            @keyframes blink-caret {0%{border-color: inherit} 50% { border-color: transparent; }}
+
+            @keyframes page13 {
+                from{
+                    transform: translateY(100px) scale(0,0);
+                }
+                to{
+                    transform: translateY(100px) scale(1,1)
+                }
+            }
+            @keyframes page14 {
+                50%{transform: translateY(-20px)}
+            }
         }
+
+        /*第二页*/
+        @media (min-width:10px){
+
+        }
+        /*第二页 动画*/
+        @media (min-width:10px){
+
+        }
+
+        /*第三页*/
+        @media (min-width:10px){
+
+        }
+
+        /*第四页*/
+        @media (min-width:10px){
+
+        }
+
+
     </style>
 </head>
 <body>
     <div id="container" class="container">
         <div id="page1" class="page">
+           <h1>欢迎来到蓝色幻想</h1>
+           <div class="letters">
+               <span class="letter">B</span>
+               <span class="letter">y</span>
+               <span class="letter">O</span>
+               <span class="letter">M</span>
+               <span class="letter">O</span>
+           </div>
+           <div class="typewriting"><div class="typecontent">接下来的是……</div></div>
+           <div class="bigger">
+               <span class="word">不</span>
+               <span class="word">知</span>
+               <span class="word">道</span>
+               <span class="word">！</span>
+           </div>
            <div class="next"></div>
         </div>
         <div id="page2" class="page">
@@ -67,7 +209,6 @@
             <div class="next"></div>
         </div>
         <div id="page4" class="page">
-            <div class="next"></div>
         </div>
     </div>
 
@@ -82,13 +223,11 @@
             next = Array.prototype.slice.call(next);
 
         $(function(){
-
             bindEvent();
-
         });
 
         function bindEvent(){
-            for(var i = 0; i < next.length-1; i++){
+            for(var i = 0; i < next.length; i++){
                 new AlloyFinger(next[i], {
                     tap:function(evt){
                         evt.preventDefault();
