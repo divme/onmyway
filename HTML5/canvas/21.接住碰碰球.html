@@ -51,7 +51,7 @@
            x: canvas.width/2,  //占位
            y: canvas.height, //占位
           vx: Math.pow(-1, Math.floor(Math.random()*100))*(5 + Math.random()*5),
-          vy: 5,
+          vy: 25,
            r: 10,
           color: '#d3ae68'
       };
@@ -153,7 +153,10 @@
           if(ball.y <= rows*sourceHeight + ball.r){
               for(var i = 0, len = sources.length; i < len; i++){
 //                  y轴的判断：球圆心的x在目标之间，并且它们的y轴方向中点的y值之差的绝对值小于最小值
-                  if(ball.x > sources[i].x && ball.x < sources[i].x + sourceWidth && Math.abs(ball.y - sources[i].y - sourceHeight/2) <= sourceHeight/2 + ball.r){
+                  if(ball.x > sources[i].x && ball.x < sources[i].x + sourceWidth && Math.abs(ball.y - sources[i].y - sourceHeight/2) <= sourceHeight/2 + ball.r
+//                     ball.x+ball.r > sources[i].x && ball.x < sources[i].x && Math.abs(ball.y - sources[i].y - sourceHeight/2) <= sourceHeight/2 + ball.r ||
+//                     ball.x-ball.r < sources[i].x+sourceWidth && ball.x > sources[i].x+sourceWidth && Math.abs(ball.y - sources[i].y - sourceHeight/2) <= sourceHeight/2 + ball.r
+                  ){
 
 //                      ball.y = sources[i].y + ball.r + sourceHeight;
                       ball.vy = -ball.vy;
@@ -200,7 +203,7 @@
 //      移动条是否接住小球，没接住，gg；接住，改变运动方向，继续
           if(ball.y > canvas.height - tool.h - ball.r){
               if(ball.x+ball.r < tool.x || ball.x-ball.r > tool.x+tool.w){
-                  reset();
+//                  reset();
               }
               ball.y = canvas.height - tool.h-ball.r;
               ball.vy = -ball.vy;
