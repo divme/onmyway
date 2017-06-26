@@ -7,61 +7,81 @@
 
     <style>
         *{margin:0;padding:0}
-        .demo{
-           position: relative;
+
+        .l-border{
+            margin:20px;
             display: inline-block;
-           width:200px;
-           height:50px;
-           top:100%;
-           left:20px;
-           border:1px solid red;
-           /*transition: all 2s;*/
+            padding: 16px 32px;
+            border: 1px solid #ebebeb;
+            -webkit-transition: all 0.6s ease-in;
+            transition: all 0.6s ease-in;
+        }
+
+        .l-border:hover{
+            border: 1px solid #367dff;
+        }
+        .border-line {
+            position: relative;
+            display: inline-block;
+            height: 100%;
+            background: none;
+            box-sizing: border-box;
+            box-shadow: inset 0 0 0 0 transparent;
+        }
+
+        .border-line::after,
+        .border-line::before {
+            position: absolute;
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            box-sizing: border-box;
+            border: 1px solid transparent;
+        }
+
+        .border-line::after {
+            top: 0;
+            left: 0;
+            -webkit-transition: border-color 0s ease-in 0.8s, width 0.2s ease-in 0.6s, height 0.2s ease-in 0.4s;
+            transition: border-color 0s ease-in 0.8s, width 0.2s ease-in 0.6s, height 0.2s ease-in 0.4s;
+        }
+
+        .border-line::before {
+            bottom: 0;
+            right: 0;
+            -webkit-transition: border-color 0s ease-in 0.4s, width 0.2s ease-in 0.2s, height 0.2s ease-in;
+            transition: border-color 0s ease-in 0.4s, width 0.2s ease-in 0.2s, height 0.2s ease-in;
+        }
+
+        .border-line:hover::after,
+        .border-line:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .border-line:hover::after {
+            border-top-color: #367dff;
+            border-right-color: #367dff;
+            -webkit-transition: width 0.2s ease-out, height 0.2s ease-out 0.2s;
+            transition: width 0.2s ease-out, height 0.2s ease-out 0.2s;
+        }
+
+        .border-line:hover::before {
+            border-bottom-color: #367dff;
+            border-left-color: #367dff;
+            -webkit-transition: border-color 0s ease-out 0.4s, width 0.2s ease-out 0.4s, height 0.2s ease-out 0.6s;
+            transition: border-color 0s ease-out 0.4s, width 0.2s ease-out 0.4s, height 0.2s ease-out 0.6s;
         }
     </style>
-    <!--<script src="zylib/transform.js"></script>-->
-    <!--<script src="zylib/alloy_finger.js"></script>-->
+
 </head>
 <body>
-<div id="tap" class="demo">tap</div>
-<!--<div id="pinch" class="demo">pinch</div>-->
-<!--<div id="rotate" class="demo">rotate</div>-->
-<!--<div id="pressmove" class="demo">pressmove</div>-->
-<!--<div id="doubletap" class="demo">doubletap</div>-->
-<!--<script>
-    var tap = document.getElementById('tap');
-    var double = document.getElementById('doubletap');
-    var pinch = document.getElementById('pinch');
-    var rotate = document.getElementById('rotate');
-    var pressmove = document.getElementById('pressmove');
-    new AlloyFinger('#tap', {
-        tap: function () {
-            tap.innerText = 'you touch me';
-        },
-        singleTap:function(){
-            tap.innerText +='you singleTap me'
-        }
-    });
-    new AlloyFinger(pinch, {
-        pinch: function (evt) {
-            pinch.style.width = '300px';
-        }
-    });
-    new AlloyFinger(rotate, {
-        rotate: function (evt) {
-            rotate.style.cssText +='transform:rotate(30deg)'
-        }
-    });
-    new AlloyFinger(pressmove, {
-        pressMove: function (evt) {
-            pressmove.style.cssText +='transform:translate(30px)'
-        }
-    });
-    new AlloyFinger(double, {
-        doubleTap: function (evt) {
-            double.style.cssText += 'width:300px;height:300px;position:fixed;background:yellowgreen;color:#fff;z-index:3;top:0;bottom:0;left:0;right:0;margin:auto;';
-        }
-    });
-</script>-->
+
+<div class="l-border border-line">
+
+    shidangxing
+</div>
 
 </body>
 </html>

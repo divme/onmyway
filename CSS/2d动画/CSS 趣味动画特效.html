@@ -234,43 +234,47 @@
                 margin:0 auto;
                 cursor: pointer;
                 z-index:2;
+                border:1px solid #dedede;
+                transition: all 3s ease-in;
             }
-            .content{
-                position: absolute;
-                top:0;
-                bottom:0;
-                left:0;
-                right:0;
-                background:#fff;
-                box-shadow: 0 0 10px #00aaee inset;
-                z-index:1;
+            .moveborder:hover{
+                border-color:#1155c6;
+                transition: all 1s ease-in;
             }
-            .nnn{
-                position: absolute;
-                top:-2px;
-                left:0;
-                width:0;
-                height:2px;
-                background: #1155c6;
-                transition:width 1s linear, height .5s linear 1s;
-            }
-            .mmm{
+            .moveborder::before,
+            .moveborder::after{
                 content:'';
                 position: absolute;
-                bottom:-2px;
-                right:0;
+
                 width:0;
-                height:2px;
-                background:#1105c6;
-                transition:width 1s linear 1.5s, height .5s linear 2.5s;
+                height:0;
+                box-sizing:border-box;
+
+                border:1px solid transparent;
             }
-            .moveborder:hover .nnn{
-                width:202px;
-                height:52px;
+            .moveborder::before{
+                top:0;
+                left:0;
+                transition:border-color 0s ease-in 3s,width 1s linear 2s, height .5s linear 1.5s;
             }
-            .moveborder:hover .mmm{
-                width:202px;
-                height:52px;
+            .moveborder::after{
+                bottom:0;
+                right:0;
+                transition:border-color 0s ease-in 1.5s,width 1s linear .5s, height .5s linear;
+            }
+            .moveborder:hover::before{
+                width: 200px;
+                height: 50px;
+                border-top-color: #1155c6;
+                border-right-color: #1155c6;
+                transition: width 1s linear , height .5s linear 1s;
+            }
+            .moveborder:hover::after{
+                width: 200px;
+                height: 50px;
+                border-bottom-color: #1155c6;
+                border-left-color: #1155c6;
+                transition: border-color 1.5s ,width 1s linear 1.5s, height .5s linear 2.5s;
             }
         }
 
@@ -324,11 +328,11 @@
 </head>
 <body>
 <!--进度条-->
-<div class="container">
-    <div class="loadbox">
-        <div class="loading"></div>
-    </div>
-</div>
+<!--<div class="container">-->
+    <!--<div class="loadbox">-->
+        <!--<div class="loading"></div>-->
+    <!--</div>-->
+<!--</div>-->
 
 <!--回旋镖-->
 <!--<div class="container">-->
@@ -370,14 +374,10 @@
     <!--</div>-->
 <!--</div>-->
 
-<!--&lt;!&ndash;移动边框&ndash;&gt;-->
-<!--<div class="container">-->
-    <!--<div class="moveborder">-->
-        <!--<div class="nnn"></div>-->
-        <!--<div class="mmm"></div>-->
-        <!--<div class="content">something</div>-->
-    <!--</div>-->
-<!--</div>-->
+<!--移动边框-->
+<div class="container">
+    <div class="moveborder">something</div>
+</div>
 
 <!--&lt;!&ndash;loading球&ndash;&gt;-->
 <!--<div class="container">-->

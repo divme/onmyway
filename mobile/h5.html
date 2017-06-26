@@ -254,9 +254,26 @@
             }
             .fromleft{
                 left:40%;
+                transform: translateX(-300px);
+
             }
             .fromright{
                 right:40%;
+                transform:translateX(300px);
+            }
+            .animation .fromleft{
+                -webkit-animation: fromleft 1s;
+                -o-animation:fromleft 1s;
+                animation:fromleft 1s cubic-bezier(.86,.71,.35,1.27);
+
+                -webkit-animation-fill-mode: both;
+            }
+            .animation .fromright{
+                -webkit-animation: fromleft 1s;
+                -o-animation:fromleft 1s;
+                animation:fromleft 1s 1s cubic-bezier(.86,.71,.35,1.27);
+
+                -webkit-animation-fill-mode: both;
             }
         }
         /*第二页 动画*/
@@ -314,8 +331,14 @@
                     opacity:1
                 }
             }
+            @-webkit-keyframes smallball {
+                to{-webkit-transform: rotate(1turn)}
+            }
             @keyframes smallball {
                 to{transform: rotate(1turn)}
+            }
+            @keyframes fromleft {
+                to{transform:translateX(0)}
             }
         }
 
@@ -333,6 +356,25 @@
 </head>
 <body>
     <div id="container" class="container">
+        <div id="page1" class="page">
+            <h1>欢迎光临度小月</h1>
+            <div class="letters">
+                <span class="letter">B</span>
+                <span class="letter">y</span>
+                <span class="letter">O</span>
+                <span class="letter">M</span>
+                <span class="letter">O</span>
+            </div>
+            <div class="typewriting"><div class="typecontent">接下来的是……</div></div>
+            <div class="bigger">
+                <span class="word">不</span>
+                <span class="word">知</span>
+                <span class="word">道</span>
+                <span class="word">！</span>
+            </div>
+            <div class="next"></div>
+        </div>
+
         <div id="page2" class="page">
             <div class="balls">
                 <div class="ball"></div>
@@ -353,24 +395,7 @@
             <div class="next"></div>
         </div>
 
-        <div id="page1" class="page">
-           <h1>欢迎光临度小月</h1>
-           <div class="letters">
-               <span class="letter">B</span>
-               <span class="letter">y</span>
-               <span class="letter">O</span>
-               <span class="letter">M</span>
-               <span class="letter">O</span>
-           </div>
-           <div class="typewriting"><div class="typecontent">接下来的是……</div></div>
-           <div class="bigger">
-               <span class="word">不</span>
-               <span class="word">知</span>
-               <span class="word">道</span>
-               <span class="word">！</span>
-           </div>
-           <div class="next"></div>
-        </div>
+
 
         <div id="page3" class="page">
             <div class="next"></div>
@@ -389,29 +414,31 @@
         var con = document.getElementById('container');
         var next = document.getElementsByClassName('next');
             next = Array.prototype.slice.call(next);
-//        var topdis = 0;
+        var page = document.getElementsByClassName('page');
+        var topdis = 0;
+        var high = window.innerHeight;
 
         $(function(){
             bindEvent();
-//            new AlloyFinger(con,{
-//                swipe:function(e){
-//                    if(e.direction.toLowerCase() == 'up'){
-//                        if(topdis || topdis === 0){
-//                            topdis = topdis + 25;
-//                            if(topdis >= 75){
-//                                topdis = 75
-//                            }
-//
-//                        }
-//                    }else if(e.direction.toLowerCase() == 'down'){
-//                        if(topdis || topdis === 0){
-//                            topdis = topdis -25;
-//                            if(topdis <= 0){topdis = 0}
-//                        }
-//                    }
-//                    $('#container').animate({'translate3d': '0,-'+ topdis +'%,0'}, 200)
-//                }
-//            })
+            new AlloyFinger(con,{
+                swipe:function(e){
+                    if(e.direction.toLowerCase() == 'up'){
+                        if(topdis || topdis === 0){
+                            topdis = topdis + 25;
+                            if(topdis >= 75){
+                                topdis = 75
+                            }
+
+                        }
+                    }else if(e.direction.toLowerCase() == 'down'){
+                        if(topdis || topdis === 0){
+                            topdis = topdis -25;
+                            if(topdis <= 0){topdis = 0}
+                        }
+                    }
+                    $('#container').animate({'translate3d': '0,-'+ topdis +'%,0'}, 200)
+                }
+            })
         });
 
         function bindEvent(){
@@ -422,6 +449,7 @@
                         var index = next.indexOf(this);
                         var topdis = -1 * (index+1)* 25;
                         $('#container').animate({'translate3d': '0,'+ topdis +'%,0'}, 500);
+                        page[index+1].className += ' animation';
                     }
                 });
             }
