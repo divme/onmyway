@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>动画demo</title>
+    <title>趣味动画特效</title>
     <style>
         *{margin:0;padding:0}
         .container{
@@ -234,7 +234,7 @@
                 margin:0 auto;
                 cursor: pointer;
                 z-index:2;
-                border:1px solid #dedede;
+                border:1px solid #ebebeb;
                 transition: all 3s ease-in;
             }
             .moveborder:hover{
@@ -274,7 +274,7 @@
                 height: 50px;
                 border-bottom-color: #1155c6;
                 border-left-color: #1155c6;
-                transition: border-color 1.5s ,width 1s linear 1.5s, height .5s linear 2.5s;
+                transition: border-color 0s 1.5s,width 1s linear 1.5s, height .5s linear 2.5s;
             }
         }
 
@@ -324,67 +324,103 @@
                 to{ transform:scale(600,1)}
             }
         }
+
+        /*移动下划线*/
+        @media (min-width:10px){
+           .bl{
+               position: relative;
+               width:100px;
+               height:36px;
+               line-height:36px;
+               margin:10px auto;
+               background:#098;
+               color:#ffffff;
+           }
+            .bl:before{
+                content:'';
+                position: absolute;
+                bottom:0;
+                left:0;
+                transform: scaleX(0);
+                opacity:0;
+                width:100px;
+                height:2px;
+                background:red;
+                transition: all .6s;
+            }
+            .bl:hover::before{
+                opacity:1;
+                transform: scaleX(1);
+            }
+        }
     </style>
 </head>
 <body>
 <!--进度条-->
-<!--<div class="container">-->
-    <!--<div class="loadbox">-->
-        <!--<div class="loading"></div>-->
-    <!--</div>-->
-<!--</div>-->
+<div class="container">
+    <div class="loadbox">
+        <div class="loading"></div>
+    </div>
+</div>
 
 <!--回旋镖-->
-<!--<div class="container">-->
-    <!--<div class="nn">-->
-        <!--<div class="rotate" id="rotate"></div>-->
-    <!--</div>-->
-<!--</div>-->
+<div class="container">
+    <div class="nn">
+        <div class="rotate" id="rotate"></div>
+    </div>
+</div>
 
-<!--&lt;!&ndash;扩散波纹 &ndash;&gt;-->
-<!--<div class="container">-->
-    <!--<div class="box">-->
-        <!--<div class="c c1"></div>-->
-        <!--<div class="c c2"></div>-->
-        <!--<div class="c c3"></div>-->
-        <!--<div class="c c4"></div>-->
-        <!--<div class="c c5"></div>-->
-    <!--</div>-->
-<!--</div>-->
+<!--扩散波纹 -->
+<div class="container">
+    <div class="box">
+        <div class="c c1"></div>
+        <div class="c c2"></div>
+        <div class="c c3"></div>
+        <div class="c c4"></div>
+        <div class="c c5"></div>
+    </div>
+</div>
 
-<!--&lt;!&ndash;扩散水波&ndash;&gt;-->
-<!--<div class="container">-->
-    <!--<div class="bbox">-->
-        <!--<div class="cc cc1"></div>-->
-        <!--<div class="cc cc2"></div>-->
-        <!--<div class="cc cc3"></div>-->
-        <!--<div class="cc cc4"></div>-->
-        <!--<div class="cc cc5"></div>-->
-    <!--</div>-->
-<!--</div>-->
+<!--扩散水波-->
+<div class="container">
+    <div class="bbox">
+        <div class="cc cc1"></div>
+        <div class="cc cc2"></div>
+        <div class="cc cc3"></div>
+        <div class="cc cc4"></div>
+        <div class="cc cc5"></div>
+    </div>
+</div>
 
-<!--&lt;!&ndash;跳跃音符&ndash;&gt;-->
-<!--<div class="container">-->
-    <!--<div class="pop">-->
-        <!--<div class="note note1"></div>-->
-        <!--<div class="note note2"></div>-->
-        <!--<div class="note note3"></div>-->
-        <!--<div class="note note4"></div>-->
-        <!--<div class="note note5"></div>-->
-    <!--</div>-->
-<!--</div>-->
+<!--跳跃音符-->
+<div class="container">
+    <div class="pop">
+        <div class="note note1"></div>
+        <div class="note note2"></div>
+        <div class="note note3"></div>
+        <div class="note note4"></div>
+        <div class="note note5"></div>
+    </div>
+</div>
 
 <!--移动边框-->
 <div class="container">
     <div class="moveborder">something</div>
 </div>
 
-<!--&lt;!&ndash;loading球&ndash;&gt;-->
-<!--<div class="container">-->
-    <!--<div class="ball ball1"></div>-->
-    <!--<div class="ball ball2"></div>-->
-    <!--<div class="ball ball3"></div>-->
-<!--</div>-->
+<!--缩放下划线-->
+<div class="container">
+    <div class="bl">
+        我的主页
+    </div>
+</div>
+
+<!--loading球-->
+<div class="container">
+    <div class="ball ball1"></div>
+    <div class="ball ball2"></div>
+    <div class="ball ball3"></div>
+</div>
 
 </body>
 </html>

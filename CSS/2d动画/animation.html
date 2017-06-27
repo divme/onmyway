@@ -6,6 +6,42 @@
     <style>
         *{margin:0;padding:0}
 
+        /*animation-play-state 用法*/
+        @media (min-width:10px){
+            .state{
+                width:400px;
+                height:200px;
+                margin:20px auto;
+                background:url(img/load.jpg) 0 0/ 300% 100% no-repeat;
+                animation: animate 10s infinite alternate;
+                animation-play-state: paused;
+            }
+            .state:hover{
+                animation-play-state: running;
+            }
+
+            @keyframes animate {
+                to{background-position: 100% 100%}
+            }
+        }
+
+        /*animation-fill-mode */
+        @media (min-width:10px){
+            .scroll{
+                width:100px;
+                height:100px;
+                margin:20px auto;
+                border-radius:50%;
+                background:#009988;
+                animation: scroll 2s ease-in-out reverse;
+                animation-fill-mode: forwards;
+            }
+
+            @keyframes scroll {
+                to{ transform: translate(500px)}
+            }
+        }
+
         /*扭腰动画*/
         @media (min-width:10px){
             .anima_entrance {
@@ -122,6 +158,10 @@
     </style>
 </head>
 <body>
+<div class="state"></div>
+
+<div class="scroll"></div>
+
 <div class="anima_entrance">
     <div class="anima_move">
         <div class="anima_sprite"></div>

@@ -10,69 +10,106 @@
         h3{margin:30px;text-align: center}
         p{text-align:center;margin:10px;font-family: "Microsoft YaHei", sans-serif}
         /*border 试验*/
-        .border{
-            width:0;
-            height:0;
-            margin:auto;
-            border-top:20px solid red;
-            border-right:20px solid greenyellow;
-            border-bottom:20px solid yellow;
-            border-left:20px solid yellowgreen;
+        @media (min-width:10px){
+            .border{
+                width:0;
+                height:0;
+                margin:auto;
+                border-top:20px solid red;
+                border-right:20px solid greenyellow;
+                border-bottom:20px solid yellow;
+                border-left:20px solid yellowgreen;
+            }
         }
+
         /*border颜色妙用*/
-        .bordercolor{
-            width:100px;
-            height:100px;
-            margin:auto;
-            border-radius:50%;
-            border:10px solid rgba(0,0,0,1);
-            border-left-color: #f6f6f6;
-            animation:bc 1s linear infinite;
+        @media (min-width:10px){
+            .bordercolor{
+                width:100px;
+                height:100px;
+                margin:auto;
+                border-radius:50%;
+                border:10px solid rgba(0,0,0,1);
+                border-left-color: #f6f6f6;
+                animation:bc 1s linear infinite;
+            }
+            @keyframes bc {
+                0%{transform: rotate(0deg)}
+                100%{transform: rotate(360deg)}
+            }
         }
-        @keyframes bc {
-            0%{transform: rotate(0deg)}
-            100%{transform: rotate(360deg)}
-        }
+
         /*border位置妙用*/
-        .borderwidth{
-            position: relative;
-            width: 100px;
-            height:100px;
-            margin:20px auto;
-            background: yellowgreen;
+        @media (min-width:10px){
+            .borderwidth{
+                position: relative;
+                width: 100px;
+                height:100px;
+                margin:20px auto;
+                background: yellowgreen;
+            }
+            .borderwidth:before{
+                content: '';
+                position: absolute;
+                width:0;
+                height:0;
+                top: 0;
+                right: 0;
+                border-style: solid;
+                border-width: 0;
+                border-color: rgba(0,0,0,0.2) #dedede;
+                /*box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);*/
+                -webkit-transition: all 0.4s ease-out;
+                transition:all 0.4s ease-out;
+            }
+            .borderwidth:hover:before{
+                border-right-width:30px;
+                border-bottom-width:30px;
+            }
         }
-        .borderwidth:before{
-            content: '';
-            position: absolute;
-            width:0;
-            height:0;
-            top: 0;
-            right: 0;
-            border-style: solid;
-            border-width: 0;
-            border-color: rgba(0,0,0,0.2) #dedede;
-            /*box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);*/
-            -webkit-transition: all 0.4s ease-out;
-            transition:all 0.4s ease-out;
-        }
-        .borderwidth:hover:before{
-            border-right-width:30px;
-            border-bottom-width:30px;
-        }
+
         /*border-radius 结合动画*/
-        .radius{
-            width:200px;
-            height:100px;
-            margin:auto;
-            background:greenyellow;
-            border-bottom-left-radius: 100px;
-            border-bottom-right-radius: 100px;
-            transform-origin: 50% 0;
-            animation:radius 2s linear infinite alternate;
+        @media (min-width:10px){
+            .radius{
+                width:200px;
+                height:100px;
+                margin:auto;
+                background:greenyellow;
+                border-bottom-left-radius: 100px;
+                border-bottom-right-radius: 100px;
+                transform-origin: 50% 0;
+                animation:radius 2s linear infinite alternate;
+            }
+            @keyframes radius{
+                0%{transform: rotate(30deg)}
+                100%{transform: rotate(-30deg)}
+            }
         }
-        @keyframes radius{
-            0%{transform: rotate(30deg)}
-            100%{transform: rotate(-30deg)}
+
+        @media (min-width:10px){
+            .circle{
+                width:100px;
+                height:100px;
+                margin:50px auto;
+                border-radius:50%;
+                background: rgba(0, 153, 136,.5);
+                animation:nothing 2s infinite reverse;
+            }
+            .circle3{
+                transform-origin: 100px 50%;
+            }
+            .circle2{
+                transform-origin: -10px 50%;
+            }
+            .circle4{
+                transform-origin: 50% 10px;
+            }
+            .circle1{
+                transform-origin: 50% 100px;
+            }
+            @keyframes nothing {
+                to{transform: rotate(1turn)}
+            }
         }
     </style>
 </head>
@@ -99,6 +136,13 @@
         <div class="radius"></div>
     </div>
 
+
+    <div class="box">
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+        <div class="circle circle3"></div>
+        <div class="circle circle4"></div>
+    </div>
 </div>
 
 </body>
