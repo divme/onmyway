@@ -78,6 +78,7 @@
             .content1 {
                 left:-200px;
                 top:200px;
+                transform:translate(0px);
                 transition: all .8s cubic-bezier(.83,.97,.42,1.27);
             }
             .content2 {
@@ -87,6 +88,7 @@
                 left: 50px;
                 top: -120px;
                 border:1px solid #ffffff;
+                transform: translate(0px) rotate(0deg) scale(.2);
             }
             .content2 p{
                 line-height:50px;
@@ -95,19 +97,19 @@
                 left:20px;
                 top:60px;
             }
-            .content3 p:first-of-type{
+            .content3 p{
                 transition: all .3s;
-                transform: skew(90deg);
+                /*-webkit-transform: skew(90deg);*/
+                /*transform: skew(90deg);*/
             }
             .content3 p:last-of-type{
-                transition: all .3s 0.1s;
-                transform: skew(90deg);
+                transition-delay:  0.1s;
             }
         }
 
 
         /*hover状态*/
-        @media (min-width:10px){
+        /*@media (min-width:10px){*/
             .box:hover{
                 background-size:110% 110%;
             }
@@ -115,46 +117,48 @@
                 opacity: 1;
             }
 
-            .box:first-of-type:hover  .content1{
+            .box1:hover > .content1{
+                -webkit-transform: translate(220px);
                 transform: translate(220px);
             }
-            .box:nth-of-type(2):hover .content2{
+            .box2:hover .content2{
                 transform: translate(0, 220px) rotate(360deg) scale(1.2);
             }
-            .box:nth-of-type(3):hover .content3 p{
-                transform: skew(0deg)
-            }
-        }
+            /*.box3:hover .content3 p{*/
+                /*transform: skewX(90deg)*/
+            /*}*/
+        /*}*/
 
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="box">
+    <div class="box box1">
         <div class="back"></div>
         <div class="content content1">
             <p>cubic-bezier</p>
             <p>定制曲线函数</p>
         </div>
     </div>
-    <div class="box">
+    <div class="box box2">
         <div class="back"></div>
         <div class="content content2">
             <p>你是风儿</p>
             <p>我是沙</p>
         </div>
     </div>
-    <div class="box">
+    <div class="box box3">
         <div class="back"></div>
         <div class="content content3">
             <p>你是风儿</p>
             <p>我是沙</p>
         </div>
     </div>
-    <div class="box">
 
-    </div>
+    <!--<div class="box">-->
+
+    <!--</div>-->
     <!--<div class="box">-->
         <!--<img src="img/heart.png" alt="heart">-->
     <!--</div>-->
