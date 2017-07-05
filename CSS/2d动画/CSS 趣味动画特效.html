@@ -6,6 +6,7 @@
     <style>
         *{margin:0;padding:0}
         .container{
+            position: relative;
             min-width:800px;
             min-height:100px;
             margin:20px auto;
@@ -354,9 +355,108 @@
             }
         }
 
+        /*弹弹弹*/
+        @media (min-width:10px){
+            .flexball{
+                width:40px;
+                height:40px;
+                margin:20px auto;
+                line-height:40px;
+                text-align: center;
+                border-radius:50%;
+                background: skyblue;
+                color: #ffffff;
+                animation: flex .5s;
+            }
+            @keyframes flex {
+                33%{transform: scale(1.2, 0.9)}
+                66%{transform: scale(1, 1)}
+                100%{transform: scale(1.4, 0.8)}
+            }
+        }
+
+         /*西科东艾南卡北麦*/
+        @media (min-width:10px){
+            .circleBig{
+                position: relative;
+                border: 1px solid #00aaee;
+                border-radius: 50%;
+                width:300px;
+                height:300px;
+                margin: 50px  auto;
+                opacity: 0.2;
+                transform:scale(.5 , .5);
+                animation: bigRotate 4s infinite alternate;
+            }
+            .circleCenter{
+                position: absolute;
+                top: 50%;
+                left:50%;
+                transform: translate(-50%, -50%);
+
+                width: 100px;
+                height:100px;
+                line-height:100px;
+                text-align: center;
+                border-radius: 50%;
+                background: skyblue;
+                color: #fff;
+
+            }
+            .circleSmall{
+                position: absolute;
+                width:50px;
+                height:50px;
+                line-height:50px;
+                font-size:14px;
+                background: seagreen;
+                color: #fff;
+                border-radius: 50%;
+            }
+            .west{
+                top:50%;
+                left:0;
+                transform: translate(-50%, -50%);
+            }
+            .east{
+                top:50%;
+                right:0;
+                transform: translate(50%, -50%);
+            }
+            .south{
+                bottom: 0;
+                left: 50%;
+                transform: translate(-50%, 50%);
+            }
+            .north{
+                top: 0;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            @keyframes bigRotate {
+                to{opacity: 1; transform:scale(1 , 1)}
+            }
+        }
     </style>
 </head>
 <body>
+
+<!--西科东艾南卡北麦-->
+<div class="container">
+    <div class="circleCenter">老流氓 MJ</div>
+    <div class="circleBig">
+        <div class="circleSmall west">西科</div>
+        <div class="circleSmall east">东艾</div>
+        <div class="circleSmall south">北卡</div>
+        <div class="circleSmall north">南麦</div>
+    </div>
+</div>
+
+<!--弹弹弹-->
+<div class="container">
+    <div class="flexball">弹</div>
+</div>
+
 <!--进度条-->
 <div class="container">
     <div class="loadbox">
@@ -409,7 +509,7 @@
     <div class="moveborder">something</div>
 </div>
 
-<!--缩放下划线-->
+<!--移动下划线-->
 <div class="container">
     <div class="bl">
         我的主页
