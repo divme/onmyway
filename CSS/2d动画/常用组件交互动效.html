@@ -5,81 +5,48 @@
     <title>常见组件交互特效</title>
     <style>
         *{margin:0;padding:0}
+         .container{
+             width: 1000px;
+             min-height: 100px;
+             margin:10px auto;
+             text-align: center;
+         }
+        .water{
+            position: relative;
+            padding:10px 30px;
+            background: rgba(0, 153, 132, .8);
+            color: #fff;
+            box-shadow: 0 0 5px ;
+            border:none;
+        }
+        .water:focus{
+            border:none;
+        }
+        .water:before{
+            content:'';
+            position: absolute;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+            width:0;
+            height:0;
+            border-radius: 50%;
+            margin:auto;
+            background: rgba(255, 255, 255, .1);
+            transition: all .5s;
+        }
+        .water:hover::before{
+            width:100%;
+            height:200%;
+            transition:all 1s;
+        }
     </style>
 </head>
 <body>
-<div style="height:4000px"></div>
-<script>
-    // 简单的防抖动函数
-    function debounce(func, wait, immediate) {
-        // 定时器变量
-        var timeout;
-        return function() {
-            // 每次触发 scroll handler 时先清除定时器
-            clearTimeout(timeout);
-            // 指定 xx ms 后触发真正想进行的操作 handler
-            timeout = setTimeout(func, wait);
-        };
-    }
-
-    // 实际想绑定在 scroll 事件上的 handler
-    function realFunc(){
-        console.log("Success");
-    }
-
-    // 采用了防抖动
-    window.addEventListener('scroll',debounce(realFunc,500));
-    // 没采用防抖动
-    window.addEventListener('scroll',realFunc);
-</script>
-<script>
-//    window.requestAnimationFrame = window.requestAnimationFrame ||
-//            window.mozRequestAnimationFrame ||
-//            window.webkitRequestAnimationFrame ||
-//            window.msRequestAnimationFrame;
-    (function() {
-        var lastTime = 0;
-        var vendors = ['webkit', 'moz'];
-        for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-            window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
-            window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] ||    // Webkit中此取消方法的名字变了
-                    window[vendors[x] + 'CancelRequestAnimationFrame'];
-        }
-
-        if (!window.requestAnimationFrame) {
-            window.requestAnimationFrame = function(callback) {
-                var currTime = new Date().getTime();
-                var timeToCall = Math.max(0, 16.7 - (currTime - lastTime));
-                console.log(currTime);
-                var id = window.setTimeout(function() {
-                    callback();
-                }, timeToCall);
-                lastTime = currTime + timeToCall;
-                return id;
-            };
-        }
-        if (!window.cancelAnimationFrame) {
-            window.cancelAnimationFrame = function(id) {
-                clearTimeout(id);
-            };
-        }
-    }());
-var count = 0;
-//    window.requestAnimationFrame(
-
-   function tryone(){
-       for(var i = 0; i < 1000000; i++){
-          var ne =  i+1000*232890-302810832018+127332*273;
-       }
-       for(var j = 0; j < 1000000; j++){
-           var nee =  Math.floor(Math.sqrt(i+1000*232890+302810832018+127332*273));
-       }
-        count++;
-//        console.log(count);
-        window.requestAnimationFrame(tryone)
-    }
-    tryone()
-</script>
+<div class="container">
+    <button class="water">确定</button>
+</div>
 </body>
 </html>
 

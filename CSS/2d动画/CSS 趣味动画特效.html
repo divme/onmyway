@@ -236,11 +236,11 @@
                 cursor: pointer;
                 z-index:2;
                 border:1px solid #ebebeb;
-                transition: all 3s ease-in;
+                transition: all .6s ease-in;
             }
             .moveborder:hover{
                 border-color:#1155c6;
-                transition: all 1s ease-in;
+                transition: all .1s ease-in;
             }
             .moveborder::before,
             .moveborder::after{
@@ -250,32 +250,31 @@
                 width:0;
                 height:0;
                 box-sizing:border-box;
-
                 border:1px solid transparent;
             }
             .moveborder::before{
                 top:0;
                 left:0;
-                transition:border-color 0s ease-in 3s,width 1s linear 2s, height .5s linear 1.5s;
+                transition:border-color 0s ease-in .6s,width .2s linear .4s, height .1s linear .3s;
             }
             .moveborder::after{
                 bottom:0;
                 right:0;
-                transition:border-color 0s ease-in 1.5s,width 1s linear .5s, height .5s linear;
+                transition:border-color 0s ease-in .3s,width .2s linear .1s, height .1s linear;
             }
             .moveborder:hover::before{
                 width: 200px;
                 height: 50px;
                 border-top-color: #1155c6;
                 border-right-color: #1155c6;
-                transition: width 1s linear , height .5s linear 1s;
+                transition: width .2s linear , height .1s linear .2s;
             }
             .moveborder:hover::after{
                 width: 200px;
                 height: 50px;
                 border-bottom-color: #1155c6;
                 border-left-color: #1155c6;
-                transition: border-color 0s 1.5s,width 1s linear 1.5s, height .5s linear 2.5s;
+                transition: border-color 0s .3s, width .2s linear .3s, height .1s linear .5s;
             }
         }
 
@@ -318,7 +317,7 @@
                 margin-top:3px;
                 background:orange;
                 transform-origin:left center;
-                animation: loading 5s cubic-bezier(.06,1,.65,.43);
+                animation: loading 5s cubic-bezier(.06,1,.65,.43) infinite;
                 animation-fill-mode: forwards;
             }
             @keyframes loading {
@@ -366,12 +365,13 @@
                 border-radius:50%;
                 background: skyblue;
                 color: #ffffff;
-                animation: flex .5s;
+                animation: flex 1.6s infinite;
             }
             @keyframes flex {
-                33%{transform: scale(1.2, 0.9)}
-                66%{transform: scale(1, 1)}
-                100%{transform: scale(1.4, 0.8)}
+                11%{transform: scale(1.2, 0.9)}
+                22%{transform: scale(1, 1)}
+                33%{transform: scale(1.4, 0.8)}
+                44%{transform: scale(1, 1)}
             }
         }
 
@@ -386,7 +386,7 @@
                 margin: 50px  auto;
                 opacity: 0.2;
                 transform:scale(.5 , .5);
-                animation: bigRotate 4s infinite alternate;
+                animation: bigRotate 2.5s infinite alternate;
             }
             .circleCenter{
                 position: absolute;

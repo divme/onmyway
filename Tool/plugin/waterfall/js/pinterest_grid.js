@@ -107,7 +107,7 @@
         container.css('height', largest + (this.options.distancey + this.options.margin_bottom));
     };
 
-    $.fn.Plugin = function (element, options) {
+    $.Plugin = function (element, options) {
         new Plugin(element,options)
     };
     // $.fn[pluginName] = function (options) {

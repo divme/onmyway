@@ -151,7 +151,12 @@
           ctx.clearRect(canvasX-30, canvasY-30, imgObj.width+80, imgObj.height+80);
 
           for(var m = 0, len = areas.length; m < len; m++){
+//              ctx.save()
+//              ctx.beginPath();
+//              ctx.arc(areas[m].imgX + areas[m].width/2, areas[m].imgY + areas[m].height/2, areas[m].width/2, 0, 2*Math.PI, false);
+//              ctx.clip();
                ctx.drawImage(imgObj, areas[m].imgX, areas[m].imgY, areas[m].width, areas[m].height, areas[m].x, areas[m].y, areas[m].width, areas[m].height);
+//              ctx.restore()
           }
       }
 

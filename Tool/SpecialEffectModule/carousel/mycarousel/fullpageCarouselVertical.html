@@ -81,6 +81,37 @@
 				index = $('.btn').index(this);
 				carousel(index);
 			});
+
+
+			document.addEventListener('mousewheel',mousewheel);
+			function mousewheel(e){
+				var TimeOut;
+				var event = e;
+				if(Timer){
+					clearInterval(Timer);
+				}
+				document.removeEventListener('mousewheel',mousewheel);
+				if(event.wheelDelta > 0){
+					index--;
+					if(index < 0) index = count-1;
+					carousel(index)
+				}
+				if(event.wheelDelta < 0){
+					index++;
+					if(index == count){ index = 0}
+					carousel(index)
+				}
+
+				TimeOut = setTimeout(function(event){
+					document.addEventListener('mousewheel',mousewheel);
+					Timer = setInterval(function(){
+						carousel(index);
+						index++;
+						time = 3000;
+						if(index == count){ index = 0; time = 0 }
+					},time)
+				},200,event)
+			}
 		})
 	</script>
 	</body>

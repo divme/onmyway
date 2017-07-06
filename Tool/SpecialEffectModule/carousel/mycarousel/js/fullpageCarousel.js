@@ -64,8 +64,8 @@ icon.onmouseover = function(e){
             break;  
 
         case "two":
-        gallery(1);
-        break; 
+            gallery(1);
+            break;
 
         case "three":
             gallery(2);
