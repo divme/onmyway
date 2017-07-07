@@ -5,10 +5,62 @@
     <title>3d画廊</title>
     <style>
         *{margin:0;padding:0}
+        .container{
+            margin:100px auto
+        }
+        .stage{
+            perspective: 1000px;
+        }
+        .cube{
+            position: relative;
+            width:300px;
+            height:300px;
+            margin:10px auto;
+            transform-style: preserve-3d;
+        }
+        .picture{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .picture:nth-of-type(1){
+            background: url(../img/T1.png) no-repeat top left/cover;
+
+            transform: rotateY(30deg) translateZ(212px);
+        }
+        .picture:nth-of-type(2){
+            background: url(../img/T2.png) no-repeat top left/cover;
+
+            transform: rotate(60deg) translateZ()
+        }
+        .picture:nth-of-type(3){
+            background: url(../img/T3.png) no-repeat top left/cover;
+        }
+        .picture:nth-of-type(4){
+            background: url(../img/T4.png) no-repeat top left/cover;
+        }
+        .picture:nth-of-type(5){
+            background: url(../img/T6.png) no-repeat top left/cover;
+        }
+        .picture:nth-of-type(6){
+            background: url(../img/T5.png) no-repeat top left/cover;
+        }
     </style>
 </head>
 <body>
 
+<div class="container">
+    <div class="stage">
+        <div class="cube">
+            <div class="picture"></div>
+            <div class="picture"></div>
+            <div class="picture"></div>
+            <div class="picture"></div>
+            <div class="picture"></div>
+            <div class="picture"></div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 

@@ -57,8 +57,8 @@
                 right: 0;
                 border-style: solid;
                 border-width: 0;
-                border-color: rgba(0,0,0,0.2) #dedede;
-                /*box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);*/
+                border-color: rgba(250,250,250,.1) rgba(250, 250, 250, 1);
+                box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
                 -webkit-transition: all 0.4s ease-out;
                 transition:all 0.4s ease-out;
             }
@@ -86,6 +86,7 @@
             }
         }
 
+        /*变换中心*/
         @media (min-width:10px){
             .circle{
                 width:100px;
@@ -111,10 +112,42 @@
                 to{transform: rotate(1turn)}
             }
         }
+
+        /*模拟小球下落*/
+        @media (min-width:10px){
+            .bigBox{
+                height:500px;
+            }
+            .bound{
+                width:50px;
+                height:50px;
+                margin:10px auto;
+                border-radius: 50%;
+                background: green;
+                animation:bounce 2s ease-in;
+                animation-fill-mode: forwards;
+            }
+            @keyframes bounce {
+                40%,70%{
+                    transform: translateY(400px);
+                    animation-timing-function: ease-out;
+                }
+                55%{transform: translateY(300px)}
+                80%{transform: translateY(360px)}
+                86%{transform:translateY(400px)}
+                92%{transform:translateY(390px)}
+                100%{transform:translateY(400px)}
+            }
+        }
     </style>
 </head>
 <body>
 <div class="wrapper">
+
+    <div class="box bigBox">
+        <div class="bound"></div>
+    </div>
+
     <div class="box">
         <h3>border 宽度试验</h3>
         <p>谁为0，就去掉谁的那一边</p>
@@ -143,6 +176,8 @@
         <div class="circle circle3"></div>
         <div class="circle circle4"></div>
     </div>
+
+
 </div>
 
 </body>

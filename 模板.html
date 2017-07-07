@@ -6,6 +6,12 @@
     <meta name="viewport" content="initial-scale=2">
     <!--<script>!function(e){function t(a){if(i[a])return i[a].exports;var n=i[a]={exports:{},id:a,loaded:!1};return e[a].call(n.exports,n,n.exports,t),n.loaded=!0,n.exports}var i={};return t.m=e,t.c=i,t.p="",t(0)}([function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var i=window;t["default"]=i.flex=function(e,t){var a=e||100,n=t||1,r=i.document,o=navigator.userAgent,d=o.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i),l=o.match(/U3\/((\d+|\.){5,})/i),c=l&&parseInt(l[1].split(".").join(""),10)>=80,p=navigator.appVersion.match(/(iphone|ipad|ipod)/gi),s=i.devicePixelRatio||1;p||d&&d[1]>534||c||(s=1);var u=1/s,m=r.querySelector('meta[name="viewport"]');m||(m=r.createElement("meta"),m.setAttribute("name","viewport"),r.head.appendChild(m)),m.setAttribute("content","width=device-width,user-scalable=no,initial-scale="+u+",maximum-scale="+u+",minimum-scale="+u),r.documentElement.style.fontSize=a/2*s*n+"px"},e.exports=t["default"]}]);-->
     <!--flex(100, 1);</script>-->
+    <script>
+
+//            document.documentElement.style.fontSize = window.innerWidth/3.6 + 'px';
+
+
+    </script>
     <style>
         *{margin:0;padding:0}
          .layout{
@@ -26,7 +32,7 @@
             line-height:36px;
             color: #fff;
             text-align: center;
-            background:rgba(0,85,136,.5);
+            background:#7fa9c3;
         }
         .menu{
             width:300px;
@@ -39,36 +45,22 @@
             transform:translate3d(0,0,0);
             transition: transform .25s ease-out;
         }
-        /*@media only screen  and (min-width:380px){*/
-            /*.layout{*/
-                /*display:none*/
-            /*}*/
-        /*}*/
+
 
         .box{
-            display:-webkit-box;
-            -webkit-box-pack:start;
-
-            -webkit-box-align: stretch;
-
-            height:200px;
+            width:300px;
+            height:40px;
+            line-height:40px;
             border:1px solid red;
+            margin:10px auto;
+            font-size:14px;
         }
-        .content{
-            width:200px;
-            height:50px;
-            line-height:50px;
-            text-align: center;
+        .span{
+            display: inline-block;
+            width:40px;
+            height:32px;
             margin-left:10px;
-            background:pink;
-        }
-        .content:nth-of-type(2){
-            height:60px;
-            line-height: 60px;
-        }
-        .content:nth-of-type(3){
-            height:80px;
-            line-height:80px;
+            background:#009988;
         }
     </style>
 
@@ -80,7 +72,9 @@
     <div class='header'>header</div>
 </div>
 
-
+<div class="box">
+    <span>一二三四是谁</span> <div class="span"></div>
+</div>
 <!--<div class="box">-->
     <!--<div class="content">1</div>-->
     <!--<div class="content">2</div>-->

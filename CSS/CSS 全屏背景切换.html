@@ -24,42 +24,6 @@
             -o-transform: translateX(-50%);
             -ms-transform: translateX(-50%);
         }
-        /*设置背景图片从左向右移入显示的动画效果*/
-        @keyframes slideLeft {
-            0% { left: -500px; }
-            100% { left: 50%;transform:translate(-50%)   }
-        }
-        /*设置背景图像从底部向顶部移入的动画效果*/
-        @keyframes slideBottom {
-            0% { top: 350px; }
-            100% { top: 0; }
-        }
-        /*设置背景图片由小到大放大动画效果*/
-        @keyframes zoomIn {
-            0% { transform: scale(0.1); }
-            100% { transform: none; }
-        }
-        /*设置背景图像由大到小缩小动画效果*/
-        @keyframes zoomOut {
-            0% { transform: scale(2); }
-            100% { transform: none; }
-        }
-        /*背景图像旋转出现动画效果*/
-        /*@keyframes rotate {*/
-            /*0% { transform: rotate(-360deg) scale(0.1); }*/
-            /*100% { transform: none; }*/
-        /*}*/
-        @keyframes rotate {
-            0% { z-index:100;opacity:0.1 }
-            100% { opacity:1 }
-        }
-        /*设置背景图像不显示动画效果*/
-        @keyframes notTarget {
-            0% { z-index: 75; }
-            100% { z-index: 75; }
-        }
-
-
         .slider {
             position: absolute;
             width: 100%;
@@ -160,6 +124,42 @@
         img:target{ z-index: 100; animation:zoomIn 1s 1; }
         img:target{ z-index: 100; animation:zoomOut 1s 1 ;  }
         img:target{ z-index: 1000; animation:rotate 3s 1; }
+        /*设置背景图片从左向右移入显示的动画效果*/
+        @keyframes slideLeft {
+            0% { left: -500px; }
+            100% { left: 50%;transform:translate(-50%)   }
+        }
+        /*设置背景图像从底部向顶部移入的动画效果*/
+        @keyframes slideBottom {
+            0% { top: 350px; }
+            100% { top: 0; }
+        }
+        /*设置背景图片由小到大放大动画效果*/
+        @keyframes zoomIn {
+            0% { transform: scale(0.1); }
+            100% { transform: none; }
+        }
+        /*设置背景图像由大到小缩小动画效果*/
+        @keyframes zoomOut {
+            0% { transform: scale(2); }
+            100% { transform: none; }
+        }
+        /*背景图像旋转出现动画效果*/
+        @keyframes rotate {
+        0% { transform: rotate(-360deg) scale(0.1); }
+        100% { transform: none; }
+        }
+        /*@keyframes rotate {*/
+            /*0% { z-index:100;opacity:0.1 }*/
+            /*100% { opacity:1 }*/
+        /*}*/
+        /*设置背景图像不显示动画效果*/
+        @keyframes notTarget {
+            0% { z-index: 75; }
+            100% { z-index: 75; }
+        }
+
+
         /*任务七、设置不显示的背景图层级*/
         /* Not Target */
         img:not(:target){

@@ -13,85 +13,121 @@
             border:1px solid red;
 
         }
-        .cube {
-            width: 200px;
-            height:200px;
-            margin:50px auto;
+        /*.cube {*/
+            /*width: 200px;*/
+            /*height:200px;*/
+            /*margin:50px auto;*/
 
-            transform-style: preserve-3d;
-            perspective:1000px;
-            perspective-origin: 10% 20%;
-            transform: rotateX(10deg);
-            /*animation:rotate 2s infinite;*/
-        }
+            /*transform-style: preserve-3d;*/
+            /*perspective:1000px;*/
+            /*perspective-origin: 10% 20%;*/
+            /*transform: rotateX(10deg);*/
+            /*!*animation:rotate 2s infinite;*!*/
+        /*}*/
 
-        @keyframes rotate {
-            to{transform:rotateX(360deg)}
-        }
+        /*@keyframes rotate {*/
+            /*to{transform:rotateX(360deg)}*/
+        /*}*/
 
-        .side {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: rgba(255, 99, 71, 0.6);
-            border: 1px solid rgba(0, 0, 0, 0.5);
-            color: white;
-            text-align: center;
-            line-height: 200px;
-        }
+        /*.side {*/
+            /*position: absolute;*/
+            /*width: 200px;*/
+            /*height: 200px;*/
+            /*background: rgba(255, 99, 71, 0.6);*/
+            /*border: 1px solid rgba(0, 0, 0, 0.5);*/
+            /*color: white;*/
+            /*text-align: center;*/
+            /*line-height: 200px;*/
+        /*}*/
 
 
-        .front{
-            animation: front 2s forwards;
-        }
-        @keyframes front {
-               to{transform: translateZ(100px);}
-        }
-        .back{
-            animation: back 2s forwards;
-        }
-        @keyframes back {
-            to{transform:translateZ(-100px);}
-        }
-        .left{
-            animation: left 2s forwards;
-        }
-        @keyframes left {
-            to{transform:rotateY(-90deg) translateZ(100px);}
-        }
-        .right{
-            animation: right 2s forwards;
-        }
-        @keyframes right {
-            to{transform:rotateY(90deg) translateZ(100px);}
-        }
-        .top{
-            animation: top 2s forwards;
-        }
-        @keyframes top {
-            to{transform:rotateX(90deg) translateZ(100px);}
-        }
-        .bottom{
-            animation: bottom 2s forwards;
-        }
-        @keyframes bottom {
-            to{transform:rotateX(-90deg) translateZ(100px);}
-        }
+        /*.front{*/
+            /*animation: front 2s forwards;*/
+        /*}*/
+        /*@keyframes front {*/
+               /*to{transform: translateZ(100px);}*/
+        /*}*/
+        /*.back{*/
+            /*animation: back 2s forwards;*/
+        /*}*/
+        /*@keyframes back {*/
+            /*to{transform:translateZ(-100px);}*/
+        /*}*/
+        /*.left{*/
+            /*animation: left 2s forwards;*/
+        /*}*/
+        /*@keyframes left {*/
+            /*to{transform:rotateY(-90deg) translateZ(100px);}*/
+        /*}*/
+        /*.right{*/
+            /*animation: right 2s forwards;*/
+        /*}*/
+        /*@keyframes right {*/
+            /*to{transform:rotateY(90deg) translateZ(100px);}*/
+        /*}*/
+        /*.top{*/
+            /*animation: top 2s forwards;*/
+        /*}*/
+        /*@keyframes top {*/
+            /*to{transform:rotateX(90deg) translateZ(100px);}*/
+        /*}*/
+        /*.bottom{*/
+            /*animation: bottom 2s forwards;*/
+        /*}*/
+        /*@keyframes bottom {*/
+            /*to{transform:rotateX(-90deg) translateZ(100px);}*/
+        /*}*/
+
+
+        .wrapper { width: 50%; float: left; }
+        .cube { font-size: 4em; width: 2em; margin: 1.5em auto; transform-style: preserve-3d; transform: rotateX(-40deg) rotateY(32deg); }
+        .side { position: absolute; width: 2em; height: 2em; background: rgba(255, 99, 71, 0.6); border: 1px solid rgba(0, 0, 0, 0.5); color: white; text-align: center; line-height: 2em; }
+        .front { transform: translateZ(1em); }
+        .top { transform: rotateX(90deg) translateZ(1em); }
+        .right { transform: rotateY(90deg) translateZ(1em); }
+        .left { transform: rotateY(-90deg) translateZ(1em); }
+        .bottom { transform: rotateX(-90deg) translateZ(1em); }
+        .back { transform: rotateY(-180deg) translateZ(1em); }
+        .w1 { perspective: 100px; }
+        .w2{ perspective: 1000px; }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   商业转载请联系作者获得授权,非商业转载请注明出处。
+
     </style>
 </head>
 <body>
-<div class="box">
+<!--<div class="box">-->
+    <!--<div class="cube">-->
+        <!--<div class="side front">front</div>-->
+        <!--<div class="side back">back</div>-->
+        <!--<div class="side right">right</div>-->
+        <!--<div class="side left">left</div>-->
+        <!--<div class="side top">top</div>-->
+        <!--<div class="side bottom">bottom</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<div class="wrapper w2">
     <div class="cube">
-        <div class="side front">front</div>
-        <div class="side back">back</div>
-        <div class="side right">right</div>
-        <div class="side left">left</div>
-        <div class="side top">top</div>
-        <div class="side bottom">bottom</div>
+        <div class="side front">1</div>
+        <div class="side back">6</div>
+        <div class="side right">4</div>
+        <div class="side left">3</div>
+        <div class="side top">5</div>
+        <div class="side bottom">2</div>
     </div>
 </div>
 
-
+<div class="wrapper w1">
+    <div class="cube">
+        <div class="side front">1</div>
+        <div class="side back">6</div>
+        <div class="side right">4</div>
+        <div class="side left">3</div>
+        <div class="side top">5</div>
+        <div class="side bottom">2</div>
+    </div>
+</div>
 
 </body>
 </html>
