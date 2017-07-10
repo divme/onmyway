@@ -17,7 +17,7 @@
             height:400px;
             margin:10px auto;
             transform-style: preserve-3d;
-            /*animation: rotate 10s linear infinite;*/
+            animation: rotate 30s linear infinite;
         }
         @keyframes rotate {
             to{transform:rotateY(1turn)}
@@ -66,20 +66,14 @@
 
             transform: rotateY(300deg) translateZ(-692.4px);
         }
-    </style>
 
-    <style>
-        #canvas{
-            display: block;
-            position: fixed;
-            top:0;
-            bottom:0;
-            left:0;
-            right:0;
-            margin:0 auto;
-            z-index:-1;
-            /*border:1px solid #424242;*/
-            box-shadow:0 0 20px #000 inset,0 0 15px #101010;
+        .shadow{
+            width:90%;
+            height:200px;
+            margin:30px auto;
+            border-radius: 50px/20px;
+            transform: rotateX(80deg);
+            background: #f6f6f6;
         }
     </style>
 </head>
@@ -95,8 +89,10 @@
             <div class="picture"></div>
             <div class="picture"></div>
         </div>
+        <div class="shadow"></div>
     </div>
 </div>
+
 <script>
     document.addEventListener('mousedown', mousedown);
     document.addEventListener('mousemove', mousemove);
@@ -113,10 +109,6 @@
         e.preventDefault();
         startX = e.pageX;
         startY = e.pageY;
-
-//        degX = 0;
-//        degY = 0;
-
         isMousemove = true;
     }
 
@@ -130,7 +122,7 @@
             moveX = e.pageX;
             moveY = e.pageY;
         if(isMousemove){
-            if(moveX < startX){
+            if(moveX <= startX){
                 degY += Math.floor(Math.abs(moveX - startX)/6);
                 degX += (moveY - startY > 0)? Math.floor(Math.abs(moveY - startY)/2):(-1)*Math.floor(Math.abs(moveY - startY)/2);
                 if(degX >= 30) degX = 30;
@@ -139,7 +131,7 @@
                 cube.style.transform = 'rotateY('+ degY +'deg) rotateX('+ degX +'deg)';
             }else if(moveX > startX){
                 degY -= Math.floor(Math.abs(moveX - startX)/6);
-                degX -= (moveY - startY > 0)? Math.floor(Math.abs(moveY - startY)/2):(-1)*Math.floor(Math.abs(moveY - startY)/2);
+                degX += (moveY - startY > 0)? Math.floor(Math.abs(moveY - startY)/2):(-1)*Math.floor(Math.abs(moveY - startY)/2);
                 if(degX >= 30) degX = 30;
                 if(degX <= -30) degX = -30;
 
