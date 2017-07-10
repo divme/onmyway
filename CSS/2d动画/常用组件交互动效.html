@@ -47,11 +47,16 @@
             position: relative;
             width: 200px;
             height:200px;
+            line-height:1.8;
+            box-sizing: border-box;
             margin:10px auto;
+            padding:20px;
+            text-align: left;
+            font-size: 14px;
             background: #fff;
             box-shadow: 0 20px 80px -20px  rgba(0,0,0,.6), 0 0 40px rgba(0, 0, 0, .1) inset;
         }
-        .shadow::before, .shadow::after{
+        .shadow:hover::before, .shadow:hover::after{
             content:"";
             position:absolute;
             top:50%;
@@ -64,6 +69,12 @@
             z-index:-1;
         }
 
+        .radius{
+            width:100px;
+            height:50px;
+            border-radius: 50%;
+            box-shadow:0 0 20px #000;
+        }
     </style>
 </head>
 <body>
@@ -73,9 +84,16 @@
 </div>
 
 <div class="container">
-    <div class="shadow"></div>
+    <div class="shadow">
+        小和尚下山去化斋，老和尚有交代，山下的女人是老虎，遇见了千万要躲开……
+    </div>
 </div>
 
+
+
+<div class="container">
+    <div class="radius"></div>
+</div>
 </body>
 </html>
 

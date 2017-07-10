@@ -9,41 +9,77 @@
             margin:100px auto
         }
         .stage{
-            perspective: 1000px;
+            perspective:600px;
         }
         .cube{
             position: relative;
-            width:300px;
-            height:300px;
+            width:800px;
+            height:400px;
             margin:10px auto;
             transform-style: preserve-3d;
+            /*animation: rotate 10s linear infinite;*/
         }
+        @keyframes rotate {
+            to{transform:rotateY(1turn)}
+        }
+
         .picture{
             position: absolute;
             width: 100%;
-            height: 100%;
+            height:100%;
+            box-shadow: inset 0 0 20px #000, 0 0 10px #f6f6f6;
         }
         .picture:nth-of-type(1){
-            background: url(../img/T1.png) no-repeat top left/cover;
+            background: url(../img/T1.png) no-repeat top left/50% 100%, url(../img/T2.png) no-repeat top right/50% 100%;
 
-            transform: rotateY(30deg) translateZ(212px);
+            transform: rotateY(0deg) translateZ(-692.4px);
+            font-size:20px;
+            color:red;
         }
         .picture:nth-of-type(2){
-            background: url(../img/T2.png) no-repeat top left/cover;
+            /*background: url(../img/T2.png) no-repeat top left/cover;*/
+            background: url(../img/T3.png) no-repeat top left/50% 100%, url(../img/T4.png) no-repeat top right/50% 100%;
 
-            transform: rotate(60deg) translateZ()
+            transform: rotateY(60deg) translateZ(-692.4px);
         }
         .picture:nth-of-type(3){
-            background: url(../img/T3.png) no-repeat top left/cover;
+            /*background: url(../img/T3.png) no-repeat top left/cover;*/
+            background: url(../img/T5.png) no-repeat top left/50% 100%, url(../img/T6.png) no-repeat top right/50% 100%;
+
+            transform: rotateY(120deg) translateZ(-692.4px);
         }
         .picture:nth-of-type(4){
-            background: url(../img/T4.png) no-repeat top left/cover;
+            /*background: url(../img/T4.png) no-repeat top left/cover;*/
+            background: url(../img/T1.png) no-repeat top left/50% 100%, url(../img/T2.png) no-repeat top right/50% 100%;
+
+            transform: rotateY(180deg) translateZ(-692.4px);
         }
         .picture:nth-of-type(5){
-            background: url(../img/T6.png) no-repeat top left/cover;
+            /*background: url(../img/T6.png) no-repeat top left/cover;*/
+            background: url(../img/T3.png) no-repeat top left/50% 100%, url(../img/T4.png) no-repeat top right/50% 100%;
+
+            transform: rotateY(240deg) translateZ(-692.4px);
         }
         .picture:nth-of-type(6){
-            background: url(../img/T5.png) no-repeat top left/cover;
+            /*background: url(../img/T5.png) no-repeat top left/cover;*/
+            background: url(../img/T5.png) no-repeat top left/50% 100%, url(../img/T6.png) no-repeat top right/50% 100%;
+
+            transform: rotateY(300deg) translateZ(-692.4px);
+        }
+    </style>
+
+    <style>
+        #canvas{
+            display: block;
+            position: fixed;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+            margin:0 auto;
+            z-index:-1;
+            /*border:1px solid #424242;*/
+            box-shadow:0 0 20px #000 inset,0 0 15px #101010;
         }
     </style>
 </head>
@@ -61,6 +97,62 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('mousedown', mousedown);
+    document.addEventListener('mousemove', mousemove);
+    document.addEventListener('mouseup', mouseup);
+
+    var cube = document.querySelector(".cube");
+
+    var isMousemove = false;
+    var startX, startY;
+    var degX = 0,
+        degY = 0;
+
+    function mousedown(e){
+        e.preventDefault();
+        startX = e.pageX;
+        startY = e.pageY;
+
+//        degX = 0;
+//        degY = 0;
+
+        isMousemove = true;
+    }
+
+    function mouseup(e){
+        isMousemove = false;
+    }
+
+    function mousemove(e){
+        e.preventDefault();
+        var moveX, moveY;
+            moveX = e.pageX;
+            moveY = e.pageY;
+        if(isMousemove){
+            if(moveX < startX){
+                degY += Math.floor(Math.abs(moveX - startX)/6);
+                degX += (moveY - startY > 0)? Math.floor(Math.abs(moveY - startY)/2):(-1)*Math.floor(Math.abs(moveY - startY)/2);
+                if(degX >= 30) degX = 30;
+                if(degX <= -30) degX = -30;
+
+                cube.style.transform = 'rotateY('+ degY +'deg) rotateX('+ degX +'deg)';
+            }else if(moveX > startX){
+                degY -= Math.floor(Math.abs(moveX - startX)/6);
+                degX -= (moveY - startY > 0)? Math.floor(Math.abs(moveY - startY)/2):(-1)*Math.floor(Math.abs(moveY - startY)/2);
+                if(degX >= 30) degX = 30;
+                if(degX <= -30) degX = -30;
+
+                cube.style.transform = 'rotateY('+ degY +'deg) rotateX('+ degX +'deg)';
+            }
+
+            startX = moveX;
+            startY = moveY;
+        }
+    }
+</script>
+
+
 </body>
 </html>
 
