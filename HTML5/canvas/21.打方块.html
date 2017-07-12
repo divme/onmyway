@@ -105,13 +105,13 @@
 
       function reset(){
           Timer = setInterval(function(){
-              init();
-              updateFighter();
-              addSources();
-              updateSources();
-              addAmmo();
-              updateAmmo();
-              detection();
+              init();   //初始化，战斗机，敌人，子弹
+              updateFighter(); // 更新战斗机的位置
+              addSources();  // 添加敌人
+              updateSources(); // 更新敌人的位置，进行边缘监测，以及战斗机与敌人的碰撞监测
+              addAmmo();  //  添加子弹
+              updateAmmo(); // 更新子弹的位置
+              detection(); // 进行碰撞检测
           },30)
       }
 //      gameOver:1.当目标与战斗机相撞时；2.当miss三个战斗机以上时
@@ -147,7 +147,6 @@
           if(ammo.length > 0){
               for(var m = 0; m < ammo.length; m++){
                   ctx.beginPath();
-//                  ctx.fillStyle = "#058";
                   ctx.fillStyle = "#d3ae68";
                   ctx.arc(ammo[m].x + ammo[m].w/2, ammo[m].y + ammo[m].h/2, ammo[m].w/2, 0 ,2*Math.PI, false);
 //                  ctx.fillRect(ammo[m].x, ammo[m].y, ammo[m].w, ammo[m].h);
@@ -199,22 +198,17 @@
                   Math.abs(fighter.x2 - sources[i].x) < Math.min(fighter.w2, sources[i].w) && Math.abs(fighter.y2 - sources[i].y) < sources[i].h){
                   gameOver();
               }
-//              if(sources[i].x < fighter.x1 && fighter.x1 - sources[i].x < source[i].x && Math.abs(sources[i].y - fighter.y1) < sources[i].h){
-//
-//              }
-//              if(sources[i].x > fighter.x1){
-//
-//              }
           }
       }
 
-//      键盘事件：按左右键使战斗机移动，但是缺少一个终止移动的合理途径
+//      键盘事件：按左右键使战斗机移动
       function keydown(e){
           if(key.indexOf(e.which) > 0){
 //              控制战斗机停下的步骤一：
 //              if(keyDownArr.indexOf(e.which) < 0){
 //                  keyDownArr.push(e.which);
 //              }
+
 //              停不下的战斗机步骤一：
               moveNum = e.which;
           }

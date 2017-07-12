@@ -53,7 +53,8 @@
     }
 
     var isMousedown = false; //判断是否鼠标按下
-    var lastLocation, lastTime; // 上一个单位时间内的位置和时间戳
+    var lastLocation; // 上一个单位时间内的位置和时间戳
+    var locations = [];
 
     var img =  new Image();
     img.src = 'img/iter.png';
@@ -93,6 +94,7 @@
         e.preventDefault();
         isMousedown = true;
         lastLocation = windowToCanvas(e.clientX, e.clientY);
+        locations.push(lastLocation);
 
     }
     function mouseup(e){
@@ -104,11 +106,20 @@
         e.preventDefault();
         var current = windowToCanvas(e.clientX, e.clientY);
         if(isMousedown){
-//            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            var linear = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            linear.addColorStop(0, '#ccc');
+            linear.addColorStop(1, '#000');
+            ctx.fillStyle = linear;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             ctx.save();
             ctx.beginPath();
-            ctx.arc(lastLocation.x, lastLocation.y, 50, 0, 2*Math.PI,true);
+            for(var i = 0, len= locations.length; i < len; i++){
+                ctx.arc(locations[i].x, locations[i].y, 50, 0, 2*Math.PI,true);
+            }
+//            ctx.arc(lastLocation.x, lastLocation.y, 50, 0, 2*Math.PI,true);
 
             ctx.clip();
 //            画全屏图片
@@ -118,6 +129,8 @@
             ctx.restore();
         }
         lastLocation = current;
+        if(lastLocation.x)
+        locations.push(lastLocation);
     }
 
     //    手指事件

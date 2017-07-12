@@ -103,23 +103,21 @@
     }
 
     function renderHour(h, m){
-
         var deg = h*2*Math.PI/12 + m*2*Math.PI/(12*60)
 
-        ctx.save()
+        ctx.save();
         ctx.beginPath();
         ctx.rotate(deg);
         ctx.moveTo(0,10);
         ctx.lineTo(0, -clock.r/2);
         ctx.lineWidth = 3;
-        ctx.lineCap = 'round'
-        ctx.strokeStyle = '#000'
-        ctx.stroke()
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#000';
+        ctx.stroke();
         ctx.restore()
     }
 
     function renderMinute(m, s){
-
         var deg = m*2*Math.PI/60 + s*2*Math.PI/(60*60);
 
         ctx.save();
@@ -134,7 +132,6 @@
     }
 
     function renderSecond(s){
-
         var deg = s*2*Math.PI/60;
 
         ctx.save();

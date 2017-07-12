@@ -47,31 +47,27 @@
               a: '12rf',
               b: 'ty',
               c: 'ewe'
-          }
+          };
           debugger;
       }
 
       window.onload = function(){
-          addBalls()
+          addBalls();
           render();
-          canvas.addEventListener('mousemove',change);
+          canvas.addEventListener('mousemove',mousemove);
       };
 
-      function change(e){
+      function mousemove(e){
           var eventX = e.clientX - canvas.getBoundingClientRect().left;
           var eventY = e.clientY - canvas.getBoundingClientRect().top;
           for( var i = 0; i < balls.length; i++){
               ctx.beginPath();
               ctx.arc(balls[i].x, balls[i].y, balls[i].r, 0, Math.PI*2, true);
 
-//              if(ctx.isPointInPath(eventX,eventY)){
-//                 ctx.fillStyle = 'red';
-//                 ctx.fill();
-//             }
               if(ctx.isPointInPath(eventX,eventY)){
                  ctx.fillStyle = 'red';
                  ctx.fill();
-             }else{
+              } else{
                   ctx.fillStyle = 'yellow';
                   ctx.fill();
               }
