@@ -5,39 +5,28 @@
 		<title>default carousel javascript</title>
 		<link rel="stylesheet" href="css/public.css" />
 		<style>
-			.container,.container2{position:relative; margin:0 auto;width: 500px;height: 300px;overflow: hidden;}
+			.container{position:relative; margin:0 auto;width: 500px;height: 300px;overflow: hidden;}
 			.container .pic{width: 500px;height: 300px;display: none;}
+
+			.container2{position:relative; margin:0 auto;width: 100%;height: 300px;overflow: hidden;}
+			.container2 .pic{width: 100%;height: auto;display: none;}
+
 			.all{position: absolute;left:50%;bottom:10px;width:120px;height:10px;margin-left:-60px;}
 			.one{width: 30px;height: 10px;background:seagreen;float:left;margin-left: 5px;}
 			.prenext{width: 40px;height: 80px;position: absolute;top: 100px;background: skyblue;}
 			.left{left: 0;}
 			.right{right: 0;}
 
-			.container2{width: 100%;}
-			.container2 .pic{width: 100%;height: auto;display: none;}
-
 			.pp{margin:30px;text-align:center;}
 		</style>
 	</head>
 	<body>
-		 <!--<div class="container">-->
-			<!--<img class="pic" src="img/1.png" />-->
-			<!--<img class="pic" src="img/2.png" />-->
-			<!--<img class="pic" src="img/3.png" />-->
-			<!--<div class="all" id="icon">-->
-				<!--<div class="one" id='one'></div>-->
-				<!--<div class="one" id='two'></div>-->
-				<!--<div class="one" id='three'></div>-->
-			<!--</div>-->
-			<!--<div class="prenext left"></div>-->
-			<!--<div class="prenext right"></div>-->
-		<!--</div>-->
 
-		<div class="container2">
+		 <div class="container">
 			<img class="pic" src="img/11.png" />
 			<img class="pic" src="img/22.png" />
 			<img class="pic" src="img/33.png" />
-			<div class="all" id='icon'>
+			<div class="all" id="icon">
 				<div class="one" id='one'></div>
 				<div class="one" id='two'></div>
 				<div class="one" id='three'></div>
@@ -46,55 +35,64 @@
 			<div class="prenext right"></div>
 		</div>
 
-		<p class="pp">
-		    注：dom中两套轮播，仅仅宽度不同而已<br/>
-			1.在app.js里，clickleft和clickrigh里的变量k如果能和全局变量j统一起来，就更好了，再想想&nbsp;&nbsp;(&radic;)<br>
-			2.想用事件委托或者事件监听的方式改写里面的鼠标事件&nbsp;&nbsp;(&radic;)
-		</p>
-	<script src='js/defaultCarouselJs.js'></script>
-	<!--<script src="js/jquery-2.1.1.min.js"></script>-->
-	<!--<script>-->
-		<!--$(function(){-->
-			<!--var that = $('.container2'),-->
-				<!--count = that.find('.pic').length;-->
-			<!--var	index = 0,-->
-				<!--Timer;-->
-<!--//			基础函数-->
-			<!--function carousel(num){-->
-				<!--if( num == -1 ){ index = count-1 }-->
-				<!--if( num == count ){ index = 0 }-->
-				<!--$('.pic').css('display','none').eq(index).css('display','block');-->
-				<!--$('.one').css('background','white').eq(index).css('background','seagreen');-->
-			<!--}-->
-			<!--carousel(index);-->
+		<!--<div class="container2">-->
+			<!--<img class="pic" src="img/11.png" />-->
+			<!--<img class="pic" src="img/22.png" />-->
+			<!--<img class="pic" src="img/33.png" />-->
+			<!--<div class="all" id='icon'>-->
+				<!--<div class="one" id='one'></div>-->
+				<!--<div class="one" id='two'></div>-->
+				<!--<div class="one" id='three'></div>-->
+			<!--</div>-->
+			<!--<div class="prenext left"></div>-->
+			<!--<div class="prenext right"></div>-->
+		<!--</div>-->
 
-<!--//			自动轮播-->
-            <!--that.hover(function(){-->
-				<!--if(Timer){clearInterval(Timer)}-->
-			<!--},function(){-->
-				<!--Timer = setInterval(function(){-->
-					<!--carousel(index);-->
-					<!--index++;-->
-					<!--if(index == count){ index = 0 }-->
-				<!--},3000);-->
-			<!--});-->
+	<!--<script src='js/defaultCarouselJs.js'></script>-->
 
-<!--//			控制器和前进后退-->
-			<!--$('#icon').on('mouseover','.one',function(){-->
-				<!--index = $('.one').index(this);-->
-				<!--carousel(index);-->
-			<!--});-->
-			<!--$('.left').click(function(){-->
-				<!--index&#45;&#45;;-->
-<!--//				if(index == -1){ index = count-1 }-->
-				<!--carousel(index);-->
-			<!--});-->
-			<!--$('.right').click(function(){-->
-				<!--index++;-->
-<!--//				if(index == count){ index = 0 }-->
-				<!--carousel(index);-->
-			<!--})-->
-		<!--})
-	</script>-->
+	<script src="js/jquery-2.1.1.min.js"></script>
+	<script>
+		$(function(){
+			var that = $('.container2'),
+				count = that.find('.pic').length;
+			var	index = 0,
+				Timer;
+<!--			基础函数-->
+			function carousel(num){
+				if( num == -1 ){ index = count-1 }
+				if( num == count ){ index = 0 }
+				$('.pic').css('display','none').eq(index).css('display','block');
+				$('.one').css('background','white').eq(index).css('background','seagreen');
+			}
+			carousel(index);
+
+//			自动轮播
+            that.hover(function(){
+				if(Timer){clearInterval(Timer)}
+			},function() {
+				Timer = setInterval(function(){
+				carousel(index);
+				index++;
+				if(index == count){ index = 0 }
+				},3000);
+			});
+
+//			控制器和前进后退
+			$('#icon').on('mouseover','.one',function(){
+				index = $('.one').index(this);
+				carousel(index);
+			});
+			$('.left').click(function(){
+				index--;
+				if(index == -1){ index = count-1 }
+				carousel(index);
+			});
+			$('.right').click(function(){
+				index++;
+				if(index == count){ index = 0 }
+				carousel(index);
+			})
+		})
+	</script>
 	</body>
 </html>

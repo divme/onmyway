@@ -24,6 +24,7 @@ $.fn.extend({
          }
          function show(obj){obj.stop(true,false).fadeIn()}
          function hide(obj){obj.stop(true,false).fadeOut()}
+
          // 自动carousel
          it.hover(function(){
              clearInterval(Timer);
@@ -35,7 +36,7 @@ $.fn.extend({
                 index++;
                 if(index == count){ index = 0 }
             },3000)
-         }).trigger('mouseleave') 
+         }).trigger('mouseleave');
          
          // 控制器和前后键
          it.find('.btns').on('mouseover','.btn',function(){
@@ -46,7 +47,7 @@ $.fn.extend({
              index--;
              if(index == -1){ index = count -1 }
              carousel(index);  
-         })
+         });
          it.find('.next').click(function(){
              index++;
              if(index==count){ index=0 }
