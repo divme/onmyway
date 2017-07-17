@@ -36,7 +36,7 @@ body{ color:#333; height:100%;  min-width:1000px; }
 #content{ padding:40px;  min-height:610px;_height:610px; _overflow:visible;text-align:center; color:#fff;  }
 #content .contentIn{ width:1000px; margin:0 auto; }
 
-/* 首页 index.html ---------------------------------------------- */
+/* 首页 realindex.html ---------------------------------------------- */
 .indLogo h2{ position:relative; height:140px;  padding-top: 20px;  }
 .indLogo h2 em{ font:italic bold 100px/140px arial;  text-shadow:2px 2px 0 #965e18; letter-spacing:-3px; }
 .indLogo h2 span{ position:absolute; right: 160px; top: 30px; display:block; width:54px; height:28px; line-height:28px; text-align:center; background:#ca7512; 

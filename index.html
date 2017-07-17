@@ -2,182 +2,288 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>entrance</title>
-    <link rel="stylesheet" href="https://divme.github.io/onmyway/CSS/css/reset.css">
+    <title>请解锁</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <style>
-        body{
-            padding-bottom:50px;
-        }
-        .container:after{
-            content:'';
+        *{margin:0;padding:0;}
+        #canvas{
             display: block;
-            clear: both;
+            margin:0 auto;
+            border:1px solid #424242;
+            box-shadow:0 0 20px #000 inset,0 0 15px #101010;
+            box-sizing: border-box;
         }
-        .wrapper{
-            float:left;
-            width:40%;
-            margin:20px 5%;
-        }
-        h2{
-            text-align: left;
-        }
-        h3{
-            background: rgba(0, 94, 156, .8);
-            color: #fff;
-            word-spacing: 50px;
-            letter-spacing: 20px;
-            padding: 20px;
-            text-align: center;
-            clear: both;
-        }
-        ul li a{
-            display: inline-block;
-            line-height:1.8;
-            text-indent: 5em;
-            font-size:14px;
-            color: #424242;
-        }
-        ul li a:hover{
-            color: #d3ae68;
-        }
-        .list-title{border-bottom: 1px solid #005E9C;  margin:20px;}
-        .list-title h5{display: inline-block;border-bottom: 2px solid #005E9C;padding:2px 5px;}
     </style>
 </head>
 <body>
-    <h3>基础汇总 呲啦</h3>
-    <div class="container">
-        <div class="wrapper">
-            <div class="list-title"><h5>interesing</h5></div>
-            <ul>
-                <li><a target="_blank" href="https://divme.github.io/ZYsite/index.html">cute site</a></li>
-                <li><a target="_blank" href="https://divme.github.io/Html+Css/index.html">css 好文收览</a></li>
-            </ul>
-        </div>
+<canvas id="canvas"></canvas>
+<script>
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
 
-        <div class="wrapper">
-            <div class="list-title"><h5>one page</h5></div>
-            <ul>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/projects/geek/geekPage/geekPage.html">geekPage</a></li>
-                <!--<li><a target="_blank" href="https://divme.github.io/onmyway/Tool/SpecialEffectModule/carousel/mycarousel/defaultCarouselJq.html">jq轮播</a></li>-->
-                <!--<li><a target="_blank" href="https://divme.github.io/onmyway/Tool/SpecialEffectModule/carousel/mycarousel/defaultCarouselJs.html">js轮播</a></li>-->
-                <li><a target="_blank" href="https://divme.github.io/onmyway/Tool/SpecialEffectModule/carousel/mycarousel/fullpageCarousel.html">全屏左右轮播</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/Tool/SpecialEffectModule/carousel/mycarousel/fullpageCarouselVertical.html">全屏上下轮播</a></li>
-            </ul>
-        </div>
-    </div>
+    canvas.width = 600;
+    canvas.height = 600;
+    if(window.innerWidth < 750){
+        canvas.width = window.innerWidth-10;
+        canvas.height = window.innerWidth-10;
+    }
+
+    var points = []; // 九个绘制点位置及颜色信息：obj存储
+    var passPoints = []; //途经绘制点的index数组
+    var password = []; //存放密码的数组
+    var r = Math.floor(canvas.width/20); // 绘制点半径
+    var distance = (canvas.width - 6*r)/4; // 绘制点间距离
+    var bColor = "#f6f6f6"; // 未选中时圆颜色
+    var aColor = "#d3ae68"; //选中时圆颜色
+
+    var ifHavePs = false;  // 是否有密码
+    var ifSure = false;   //是否确认密码
+    var ifStart = false; //是否开始划线
+    var currentPoint = 100; //判断当前在哪个圆内
+    var lastPoint = 100; //判断是否还在同一个圆内
+
+    var lastX, lastY;
+
+    window.onload = function(){
+        addPoints();
+        init();
+
+//          先绘制图案
+//          确认图案
+//          监听事件解锁
+        canvas.addEventListener('mousedown',mousedown);
+        canvas.addEventListener('mousemove',mousemove);
+        canvas.addEventListener('mouseup',mouseup);
+
+        canvas.addEventListener('touchstart',touchstart);
+        canvas.addEventListener('touchmove',touchmove);
+        canvas.addEventListener('touchend',touchend);
+    };
+
+    //     清除画布，画出九个主要点,画连线
+    function init(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        renderPoints();
+    }
+
+    //      添加九个点的位置
+    function addPoints(){
+        var m, n, point;
+        for(var i = 0; i < 9; i++){
+            m = Math.floor(i/3);
+            n = Math.floor(i%3);
+            point = {
+                x: (n+1)*distance + n*2*r + r,
+                y: (m+1)*distance + m*2*r +r,
+                color: bColor
+            };
+            points.push(point);
+        }
+    }
+
+    //      画出九个主要点
+    function renderPoints(){
+        for(var m = 0, leng = passPoints.length; m < leng; m++ ){
+            points[passPoints[m]].color = aColor;
+        }
+        for(var i = 0, len = points.length; i < len; i++){
+            ctx.beginPath();
+            ctx.arc(points[i].x, points[i].y, r, 0, 2*Math.PI, false);
+            ctx.fillStyle = points[i].color;
+            ctx.fill();
+        }
+    }
+
+    //      画连线
+    function renderLines(lastX, lastY){
+        ctx.beginPath();
+        var len = passPoints.length;
+        if(len >= 1){
+            ctx.moveTo(points[passPoints[0]].x, points[passPoints[0]].y);
+            for(var i = 1; i < len; i++){
+                ctx.lineTo(points[passPoints[i]].x, points[passPoints[i]].y)
+            }
+            ctx.lineTo(lastX, lastY);
+            ctx.lineWidth = 10;
+            ctx.strokeStyle = aColor;
+            ctx.stroke();
+        }
+    }
+
+    //     判断鼠标是否在某个圆圈内
+    function detection(x, y){
+        for(var i = 0, len = points.length; i < len; i++){
+            ctx.beginPath();
+            ctx.arc(points[i].x, points[i].y, r, 0, 2*Math.PI, false);
+            if(ctx.isPointInPath(x,y)){
+                currentPoint = i;
+                break;
+            }
+        }
+    }
+
+    //      确认起始点位置，开始绘制
+    function mousedown(e){
+
+        var x = e.pageX - canvas.getBoundingClientRect().left;
+        var y = e.pageY - canvas.getBoundingClientRect().top;
+
+        detection(x, y);
+        if(currentPoint < 100){
+            passPoints.push(currentPoint);
+            lastPoint = currentPoint;
+        }
+
+        init(); //  先绘制圆;
+        renderLines(x, y); //  再绘制线
+
+        ifStart = true;
+    }
+
+    //      不停判断点的位置，并画线，如果在圆圈之内，就连线圆心；
+    function mousemove(e){
+
+        var x = e.pageX - canvas.getBoundingClientRect().left;
+        var y = e.pageY - canvas.getBoundingClientRect().top;
+
+        if(ifStart){
+
+            detection(x, y);
+            if(currentPoint < 100 && currentPoint != lastPoint){
+                passPoints.push(currentPoint);
+                lastPoint = currentPoint;
+            }
+
+            init();
+            renderLines(x, y); //  再绘制线
+
+        }
+    }
+
+    //      如果是第一次绘制，储存起来；
+    //      如果是确认密码，进行比较确认，一致，存储，不一致，重新绘制；
+    //      如果是解锁，进行比较，一致，开锁，不一致，重新绘制；
+    function mouseup(e){
+        ifStart = false;
+
+        if(ifHavePs && ifSure){
+            var str3 = passPoints.join('-');
+            var str4 = password.join('-');
+            if( str3 == str4 ){
+                console.log('密码正确，我要跳转了');
+                location.assign('https://divme.github.io/onmyway/realindex.html')
+            }else{
+                console.log("密码错误，请重新绘制");
+
+            }
+        }
+
+//          没有密码，则存储为密码
+        if( !ifHavePs ){
+            var str = passPoints.join('-');
+            password = str.split('-');
+            ifHavePs = true;
+            console.log('密码已存储，请再次绘制进行确认');
+        }else if(!ifSure){   //有密码但是没确认，进行确认
+            var str1 = passPoints.join('-');
+            var str2 = password.join('-');
+            if( str1 == str2 ){
+                console.log('密码已确认');
+                ifSure = true;
+            }else{
+                console.log("两次密码不一致，请重新绘制");
+                password.length = 0;
+                ifHavePs = false;
+            }
+        }
+        reset();
+    }
+
+    function reset(){
+        for(var i = 0, len = points.length; i < len; i++){
+            points[i].color = bColor;
+        }
+        passPoints.length = 0;
+        init();
+    }
 
 
-    <h3>动效部分 呲啦</h3>
-    <div class="container">
-        <div class="wrapper">
-            <div class="list-title"><h5>CSS 实用技巧</h5></div>
-            <ul>
-                <li><a target="_blank" href="https://divme.github.io/Html+Css/CSS小技巧.html">CSS 小技巧</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/css奇形怪状.html">CSS 奇形怪状</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/css背景与边框.html">CSS 背景边框</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/css视觉效果.html">CSS 视觉效果</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/CSS 全屏背景切换">CSS 全屏背景切换</a></li>
-            </ul>
+    function touchstart(e){
 
-            <div class="list-title"><h5>CSS 2D动画</h5></div>
-            <ul>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/2d动画/CSS 2D小黄人">CSS 2D小黄人</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/2d动画/transform.html">CSS transform</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/2d动画/animation.html">CSS animation</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/2d动画/CSS 趣味动画特效.html">CSS 趣味动画特效</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/2d动画/CSS 实用动画特效.html">CSS 实用动画特效</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/2d动画/常用组件交互动效.html">CSS 常用组件交互动效</a></li>
-            </ul>
+        var x = e.touches[0].pageX - canvas.getBoundingClientRect().left;
+        var y = e.touches[0].pageY - canvas.getBoundingClientRect().top;
 
-            <div class="list-title"><h5>CSS 3D动画</h5></div>
-            <ul>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/3d动画/0.3dRotate.html">CSS 3dRotate</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/3d动画/0.3dTranslate.html">CSS 3dTranslate</a></li>
+        detection(x, y);
+        if(currentPoint < 100){
+            passPoints.push(currentPoint);
+            lastPoint = currentPoint;
+        }
 
-                <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/3d动画/1.六边形--正方体">CSS 3D六边形--正方体</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/3d动画/3.3d翻牌">CSS 3D翻牌</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/3d动画/3.3d翻页">CSS 3D翻页</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/3d动画/2.立体导航栏">CSS 3D立体导航栏</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/CSS/3d动画/4.立体画廊">CSS 3D立体画廊</a></li>
-            </ul>
-        </div>
+        init(); //  先绘制圆;
+        renderLines(x, y); //  再绘制线
 
-        <div class="wrapper">
-            <div class="list-title"><h5>Canvas</h5></div>
-            <ul>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/5. canvas 星空">1. canvas 星空</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/6. canvas 聚光灯">2. canvas 聚光灯</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/8. canvas 彩球交互">3. canvas 彩球交互</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/9. canvas img 放大缩小">4. canvas img 移动缩放</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/9. canvas img 离屏水印和放大镜">5.1. canvas img 离屏水印和放大镜</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/9. canvas img 像素处理">5.2. canvas img 像素级处理</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/13. canvas 写一个字2">5.3. canvas 写一个字</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/14. canvas 模糊图像">6. canvas 模糊图像</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/15. canvas 手指刮刮乐">7. canvas 手指刮刮乐</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/16. canvas  回归基础 动态时钟">8. canvas 动态时钟</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/17.贝塞尔曲线生成器">9.1. 贝塞尔曲线生成器</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/18.三次贝塞尔曲线生成器">9.2. 三次贝塞尔曲线生成器</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/19. 爆炸icon">10. Boom Icon</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/炫酷倒计时/coolClock.html"> 11.1. 炫酷计时</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/炫酷倒计时/countDown.html"> 11.2. 炫酷倒计时</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/21.鼠标手势解锁"> 12. 鼠标手势解锁</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/22.连星背景"> 13. 连星背景</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/22.粒子动画"> 14. 粒子动画</a></li>
-            </ul>
+        ifStart = true;
+    }
 
-            <div class="list-title"><h5>Canvas mobile</h5></div>
-            <ul>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/13. canvas 写一个字2">1. canvas 写一个字</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/15. canvas 手指刮刮乐">2. canvas 手指刮刮乐</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/20. 爆炸icon们">3. Boom Icons</a></li>
-            </ul>
+    //      不停判断点的位置，并画线，如果在圆圈之内，就连线圆心；
+    function touchmove(e){
 
-            <div class="list-title"><h5>Canvas 小游戏</h5></div>
-            <ul>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/21.贪吃蛇"> 1. 贪吃蛇</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/21.打方块"> 2. 打方块</a></li>
-                <li><a target="_blank" href="https://divme.github.io/onmyway/HTML5/canvas/21.接住碰碰球"> 3. 碰碰球</a></li>
-            </ul>
-        </div>
-    </div>
+        var x = e.touches[0].pageX - canvas.getBoundingClientRect().left;
+        var y = e.touches[0].pageY - canvas.getBoundingClientRect().top;
 
+        if(ifStart){
 
-    <h3>NEXT 呲啦</h3>
-    <div class="container">
-        <div class="wrapper"></div>
-        <div class="wrapper"></div>
-    </div>
+            detection(x, y);
+            if(currentPoint < 100 && currentPoint != lastPoint){
+                passPoints.push(currentPoint);
+                lastPoint = currentPoint;
+            }
+
+            init();
+            renderLines(x, y); //  再绘制线
+
+        }
+    }
+
+    //      如果是第一次绘制，储存起来；
+    //      如果是确认密码，进行比较确认，一致，存储，不一致，重新绘制；
+    //      如果是解锁，进行比较，一致，开锁，不一致，重新绘制；
+    function touchend(e){
+        ifStart = false;
+
+        if(ifHavePs && ifSure){
+            var str3 = passPoints.join('-');
+            var str4 = password.join('-');
+            if( str3 == str4 ){
+                console.log('密码正确，我要跳转了');
+                location.assign('http://www.baidu.com')
+            }else{
+                console.log("密码错误，请重新绘制");
+            }
+        }
+
+//          没有密码，则存储为密码
+        if( !ifHavePs ){
+            var str = passPoints.join('-');
+            password = str.split('-');
+            ifHavePs = true;
+            console.log('密码已存储，请再次绘制进行确认');
+        }else if(!ifSure){   //有密码但是没确认，进行确认
+            var str1 = passPoints.join('-');
+            var str2 = password.join('-');
+            if( str1 == str2 ){
+                console.log('密码已确认');
+                ifSure = true;
+            }else{
+                console.log("两次密码不一致，请重新绘制");
+                password.length = 0;
+                ifHavePs = false;
+            }
+        }
+
+        reset();
+    }
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
