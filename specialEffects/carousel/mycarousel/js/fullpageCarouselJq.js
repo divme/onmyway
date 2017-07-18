@@ -6,6 +6,7 @@ $(function(){
         height = window.innerHeight,
         $inner = $(".inner-container"),
         $con  = $('.container'),
+        $wrapper = $('.wrapper'),
         count = $inner.length,
         index = 0,
         Timer;
@@ -30,21 +31,21 @@ $(function(){
         $('.container').stop(stop,false).animate({'left':newleft},300);
         $('.btn').stop(stop,false).eq(index).addClass('on').siblings().removeClass('on');
     }
-    function show(obj){obj.stop(true,false).fadeIn()}
-    function hide(obj){obj.stop(true,false).fadeOut()}
+    function show(obj){obj.css('opacity','1')}
+    function hide(obj){obj.css('opacity','.2')}
 
     // 自动carousel
-    $con.hover(function(){
+    $wrapper.hover(function(){
         clearInterval(Timer);
         show($('.prenext'));
     },function(){
         hide($('.prenext'));
         Timer = setInterval(function(){
-            carousel(index);
             index++;
             if(index == count){ index = 0 }
+            carousel(index);
         },3000)
-    }).trigger('mouseleave');
+    });
 
     // 控制器和前后键
     $('#icon').on('mouseover','.btn',function(){

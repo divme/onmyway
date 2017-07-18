@@ -1,3 +1,6 @@
+/**
+ * Created by mszq on 2017/7/17.
+ */
 function addLoadEvent(func) {
     var oldLoad = window.onload;
     if (typeof window.load!=='function') {
@@ -84,5 +87,4 @@ icon.onmouseover = function(e){
     }
 };
 
- 
- 
+

@@ -2,14 +2,14 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>fullpage carousel</title>
+		<title>fullpageCarousel</title>
 		<link rel="stylesheet" href="css/public.css" />
 		<style>
 			*  {margin:0;padding:0;}
 		    html,body{height:100%;}
 		   .wrapper{position:relative;height:100%;overflow:hidden;background:#f9f9f9;}
 
-			.container{position:absolute;top:0;left:0;height:100%;overflow:hidden;}
+			.container{position:absolute;top:0;left:0;bottom:0;right:0;overflow:hidden;transition:all .2s}
 			.inner-container{float:left;height:100%;background:yellowgreen;color:steelblue;font-size:40px;text-align:center;}
 			.inner-container:first-of-type {background:mediumaquamarine url(img/1.png)  no-repeat center center;}
 			.inner-container:nth-of-type(2){background:lightyellow  url(img/2.png)  no-repeat center center;}
@@ -18,7 +18,7 @@
 			.btns{position:absolute;left:50%;bottom:50px;width:120px;height:10px;margin-left:-60px;}
 			.btn{float:left;width: 20px;height: 20px;border-radius:50%;background:red;margin-left: 5px;}
 			.on{background:yellow;}
-			.prenext{width: 40px;height: 80px;position: absolute;top: 100px;background: skyblue;}
+			.prenext{width: 60px;height: 120px;position: absolute;top: 100px;background: skyblue;}
 			.left{left: 0;top:40%;}
 			.right{right: 0; top: 40%}
 
@@ -33,10 +33,10 @@
 			<div class="inner-container">第四页</div>
 		</div>
 		<div class="horizontal-icon btns" id="icon">
-			<span class="btn on" id="one"></span>
-			<span class="btn" id="two"></span>
-			<span class="btn" id="three"></span>
-			<span class="btn" id="four"></span>
+			<span class="btn on"></span>
+			<span class="btn"></span>
+			<span class="btn"></span>
+			<span class="btn"></span>
 		</div>
 		<div class="prenext left"></div>
 		<div class="prenext right"></div>

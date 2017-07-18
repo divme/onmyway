@@ -66,19 +66,11 @@ left.onclick = clickleft;
 right.onclick = clickright;
 
 icon.onmouseover = function(e){
-    var target = e.target;        
-    switch(target.id){
-        case "one":
-            gallery(0);
-            break;  
-
-        case "two":
-           gallery(1);
-           break;
-
-        case "three":
-            gallery(2);
-            break; 
+    var target = e.target;
+    var arrBtn = [].slice.apply(btn);
+    if ((target.nodeName).toLowerCase() == 'span'){
+        var num = arrBtn.indexOf(target);
+        gallery(num)
     }
 }
 

@@ -23,7 +23,7 @@ function insertAfter(newElement,targetElement) {
 
 function addClass(element,value) {
   if (!element.className) {
-    element.className = value;.
+    element.className = value;
   } else {
     newClassName = element.className;
     newClassName+= " ";

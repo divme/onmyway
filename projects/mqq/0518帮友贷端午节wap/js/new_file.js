@@ -28,14 +28,14 @@ function addClass(element,value){
 	}
 }
 
-function moveElement(id,finalx.finaly,interval){
+function moveElement(id,finalx,finaly,interval){
 	var elem = document.getElementById(id);
 	if(!elem.style.left){ elem.style.left="0px"; }
 	if(!elem.style.top){ elem.style.top="0px"; }
 	var xpos = parseInt(elem.style.left);
 	var ypos = parseInt(elem.style.top);
 	if (xpos == finalx && ypos == finaly){
-		 return true;
+		 return false;
 	}
 	if (xpos<finalx){
 		var dist =Math.ceil((finalx-xpos)/10);
