@@ -31,11 +31,11 @@
 				originParams[p] = {};
 				for(var dp in params[p]) {
 					originParams[p][dp] = params[p][dp];
-				}
+				};
 			} else {
 				originParams[p] = params[p];
-			}
-		}
+			};
+		};
 		for(var d in options) {
 			if(typeof params[d] === 'object') {
 				for(var dp in options[d]) {
