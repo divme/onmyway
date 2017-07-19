@@ -8,10 +8,23 @@
         *{margin:0;padding:0;}
         #canvas{
             display: block;
-            margin:0 auto;
+            margin:20px auto;
             border:1px solid #424242;
-            box-shadow:0 0 20px #000 inset,0 0 15px #101010;
+            box-shadow: 0 40px 160px  rgba(0,0,0,.6), 0 0 80px rgba(0, 0, 0, .1) inset;
             box-sizing: border-box;
+            background: url("zylib/2.gif") no-repeat center center/cover;
+        }
+        #canvas:hover::before, #canvas:hover::after{
+            content:"";
+            position:absolute;
+            top:50%;
+            bottom:0;
+            left:10px;
+            right:10px;
+
+            box-shadow:0 0 100px rgba(0,0,0,0.8);
+            border-radius:50px / 10px;
+            z-index:-1;
         }
     </style>
 </head>
