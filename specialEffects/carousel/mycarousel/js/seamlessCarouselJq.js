@@ -87,7 +87,6 @@ $(function(){
         carousel();
     });
     $('.right').click(function(){
-        var newleft;
         index++;
         carousel();
     })

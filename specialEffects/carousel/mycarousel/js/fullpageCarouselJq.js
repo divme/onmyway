@@ -4,10 +4,10 @@
 $(function(){
     var width = window.innerWidth,
         height = window.innerHeight,
-        $inner = $(".inner-container"),
-        $con  = $('.container'),
         $wrapper = $('.wrapper'),
-        count = $inner.length,
+        $con  = $('.container'),
+        $item = $(".inner-container"),
+        count = $item.length,
         index = 0,
         Timer;
 
@@ -22,7 +22,7 @@ $(function(){
 //
 //			$('.btn').eq(0).addClass('on');
     // 设置宽度
-    $inner.css({'width':width,'height':height});
+    $item.css({'width':width,'height':height});
     $con.css('width',count*width);
 
     // 基础函数
