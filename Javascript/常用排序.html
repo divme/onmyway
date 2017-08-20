@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>常用排序</title>
+</head>
+<body>
+<h3>常用排序</h3>
+<script>
+
+    var arr = [6,5,3,9,1,10,34,76,22,2];
+    console.log('冒泡排序 '+ bubbleSort(arr));
+    console.log('选择排序 '+ selectSort(arr));
+//    console.log('插入排序 '+ insertSort(arr));
+
+
+//    1.冒泡排序
+    function bubbleSort(arr1){
+        var arr = arr1;
+         console.time('冒泡排序');
+         var len = arr.length;
+         var agent = 0;
+         for(var j = 0; j < len-1; j++){
+             for(var i = 0; i < len-1-j; i++){
+                 if(arr[i] > arr[i+1]){
+                     agent = arr[i];
+                     arr[i] = arr[i+1];
+                     arr[i+1] = agent;
+                 }
+             }
+         }
+         console.timeEnd('冒泡排序');
+         return arr;
+    }
+//    2.选择排序
+    function selectSort(arr){
+        console.time('选择排序');
+        var len = arr.length;
+        var min = 0,
+            agent = 0;
+        for(var i = 0; i < len-1; i++){
+            for(var j = i; j< len-i; j++){
+                if(arr[j] < arr[min]){
+                    min = j;
+                }
+            }
+            agent = arr[min];
+            arr.splice(min,1);
+            arr.unshift(agent);
+        }
+        console.timeEnd('选择排序');
+        return arr;
+    }
+//    3.插入排序
+    function insertSort(arr){
+        console.time('插入排序');
+        var len = arr.length;
+        var agent = 0;
+        for(var i = 1; i < len; i++){
+            for(var j = 0; j < i; j++){
+               if(arr[i] >= arr[j]){
+                   agent = arr[i];
+                   arr.splice(i,1);
+                   arr.splice(j,0,agent);
+               }
+            }
+        }
+        console.timeEnd('插入排序');
+        return arr;
+    }
+
+    function Sort(arr){
+        console.time('插入排序');
+        var len = arr.length;
+        for(var i = 1; i < len; i++){
+            for(var j = 1; j < len; j++){
+
+            }
+        }
+        console.timeEnd('插入排序');
+        return arr;
+    }
+</script>
+</body>
+</html>

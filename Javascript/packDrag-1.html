@@ -9,9 +9,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="white" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
-        div{width:400px;height:400px;background:yellowgreen;margin:40px;float: left;}
+        div{float:left;width:200px;height:200px;background:#f4f4f4;margin:40px;}
         #div{background:red}
-        #drag{width:200px;height:200px;background:pink}
+        #drag{width:100px;height:100px;background:pink}
     </style>
 </head>
 <body>
@@ -19,30 +19,28 @@
    <div class="vae"></div>
    <div class="vae"></div>
    <div class="vae"></div>
-   <div id="div"></div>
    <div id="drag"></div>
    <script>
-       var drop1 = document.getElementById('div');
-       var drop2 = document.getElementsByClassName('vae');
-       var imgg  = document.getElementById('drag');
-       dragout(imgg,drop1);
-       dragout(imgg,drop2);
-       dragout(imgg,document.documentElement);
-       function dragout(ele,targetele){
-           if(targetele.length){
-               var targetele=[].slice.apply(targetele);
+       var drop = document.getElementsByClassName('vae');
+       var img  = document.getElementById('drag');
+       dragout(img,drop);
+       dragout(img,document.documentElement);
+
+       function dragout(ele,targetEle){
+           if(targetEle.length){
+                targetEle=[].slice.apply(targetEle);
            }
            ele.setAttribute('draggable','true');
            ele.addEventListener('dragstart',dragstart,false);
-           if(targetele instanceof Array){
-               for(var i=0;i<targetele.length;i++){
-                   targetele[i].addEventListener('drop',drop,false);
-                   targetele[i].addEventListener('dragover',dragover,false);
+           if(targetEle instanceof Array){
+               for(var i=0;i<targetEle.length;i++){
+                   targetEle[i].addEventListener('drop',drop,false);
+                   targetEle[i].addEventListener('dragover',dragover,false);
                }
            }
            else{
-               targetele.addEventListener('drop',drop,false);
-               targetele.addEventListener('dragover',dragover,false);
+               targetEle.addEventListener('drop',drop,false);
+               targetEle.addEventListener('dragover',dragover,false);
            }
            function dragstart(e) {
                e.dataTransfer.setData("Text",e.target.id);
@@ -52,7 +50,7 @@
            }
            function drop(e) {
                e.preventDefault();
-               event.target.appendChild(imgg);
+               event.target.appendChild(img);
            }
        }
    </script>
