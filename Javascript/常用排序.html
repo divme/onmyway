@@ -9,14 +9,14 @@
 <script>
 
     var arr = [6,5,3,9,1,10,34,76,22,2];
-    console.log('冒泡排序 '+ bubbleSort(arr));
-    console.log('选择排序 '+ selectSort(arr));
-//    console.log('插入排序 '+ insertSort(arr));
+//    console.log('冒泡排序 '+ bubbleSort(arr));
+//    console.log('选择排序 '+ selectSort(arr));
+    console.log('插入排序 '+ insertSort(arr));
+//    console.log('希尔排序 '+ shellSort(arr));
 
 
 //    1.冒泡排序
-    function bubbleSort(arr1){
-        var arr = arr1;
+    function bubbleSort(arr){
          console.time('冒泡排序');
          var len = arr.length;
          var agent = 0;
@@ -39,14 +39,15 @@
         var min = 0,
             agent = 0;
         for(var i = 0; i < len-1; i++){
-            for(var j = i; j< len-i; j++){
+            min = i;
+            for(var j = i+1; j< len; j++){
                 if(arr[j] < arr[min]){
                     min = j;
                 }
             }
-            agent = arr[min];
-            arr.splice(min,1);
-            arr.unshift(agent);
+            agent = arr[i];
+            arr[i] = arr[min];
+            arr[min] = agent;
         }
         console.timeEnd('选择排序');
         return arr;
@@ -58,16 +59,58 @@
         var agent = 0;
         for(var i = 1; i < len; i++){
             for(var j = 0; j < i; j++){
-               if(arr[i] >= arr[j]){
+               if(arr[j] >= arr[i]){
                    agent = arr[i];
                    arr.splice(i,1);
                    arr.splice(j,0,agent);
+                   break;
                }
             }
         }
         console.timeEnd('插入排序');
         return arr;
     }
+//    6.快速排序
+    function quickSort(arr){
+        console.time('快速排序');
+        var len = arr.length;
+        for(var i = 1; i < len; i++){
+            for(var j = 1; j < len; j++){
+
+            }
+        }
+        console.timeEnd('快速排序');
+        return arr;
+    }
+//    7.堆排序
+//    8.桶排序
+
+//    4.希尔排序
+    function shellSort(arr){
+        console.time('希尔排序');
+        var len = arr.length;
+        for(var i = 1; i < len; i++){
+            for(var j = 1; j < len; j++){
+
+            }
+        }
+        console.timeEnd('希尔排序');
+        return arr;
+    }
+//    5.归并排序
+    function mergeSort(arr){
+        console.time('归并排序');
+        var len = arr.length;
+        for(var i = 1; i < len; i++){
+            for(var j = 1; j < len; j++){
+
+            }
+        }
+        console.timeEnd('归并排序');
+        return arr;
+    }
+    //    9.基数排序
+    //    10.计数排序
 
     function Sort(arr){
         console.time('插入排序');
