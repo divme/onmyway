@@ -64,27 +64,27 @@
          console.log(add(1)(2)(3)());
          console.log(add(1)(2)(3)(4)());
      </script>
-     <!--<script>-->
-         <!--function add() {-->
-             <!--var args = Array.prototype.slice.call(arguments);-->
+     <script>
+         function add() {
+             var args = Array.prototype.slice.call(arguments);
 
-             <!--var fn = function () {-->
-                 <!--var arg_fn = Array.prototype.slice.call(arguments);-->
-                 <!--return add.apply(null, args.concat(arg_fn));-->
-             <!--}-->
+             var fn = function () {
+                 var arg_fn = Array.prototype.slice.call(arguments);
+                 return add.apply(null, args.concat(arg_fn));
+             }
 
-             <!--fn.valueOf = function () {-->
-                 <!--return args.reduce(function(a, b) {-->
-                     <!--return a + b;-->
-                 <!--})-->
-             <!--}-->
+             fn.valueOf = function () {
+                 return args.reduce(function(a, b) {
+                     return a + b;
+                 })
+             }
 
-             <!--return fn;-->
-         <!--}-->
-         <!--add(1);-->
-         <!--console.log(add(1,2)(3));-->
-         <!--console.log(add(1)(2)(5)(3))-->
-     <!--</script>-->
+             return fn;
+         }
+         add(1);
+         console.log(add(1,2)(3));
+         console.log(add(1)(2)(5)(3))
+     </script>
 </body>
 </html>
 

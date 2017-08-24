@@ -222,30 +222,6 @@
        }
    </pre>
 
-    <h5>javascript小数加法精度问题P21</h5>
-    <pre>
-       function addTwoFloat(num1,num2){
-           var result;
-           var arguments = [].slice.apply(arguments);
-           var arr=[];
-           for(var i=0,leng=arguments.length;i < leng;i++){
-               var type = typeof arguments[i],
-                   instance = arguments[i] instanceof Number;
-               if(type !='number' && instance == false) return NaN;
-               var str = arguments[i].toString();
-               var snum = str.indexOf('.');
-               var newstr = str.slice(snum+1);
-               arr[i]=newstr.length;
-           }
-           arr.sort(function(a,b){return b-a});
-           result =  (num1*Math.pow(10,arr[0])+num2*Math.pow(10,arr[0]))/Math.pow(10,arr[0]);
-           return result;
-       }
-       var num= addTwoFloat(43.95467463,0.87326);
-       console.group('addTwoFloat浮点数加法')
-         console.log(num);
-       console.groupEnd();
-   </pre>
 
     <h5>关于闭包P54</h5>
     <pre>

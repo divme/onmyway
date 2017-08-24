@@ -32,6 +32,7 @@
          console.timeEnd('冒泡排序');
          return arr;
     }
+
 //    2.选择排序
     function selectSort(arr){
         console.time('选择排序');
@@ -52,6 +53,7 @@
         console.timeEnd('选择排序');
         return arr;
     }
+
 //    3.插入排序
     function insertSort(arr){
         console.time('插入排序');
@@ -70,19 +72,32 @@
         console.timeEnd('插入排序');
         return arr;
     }
+
 //    6.快速排序
     function quickSort(arr){
-        console.time('快速排序');
         var len = arr.length;
+        if(len <= 1){
+            return arr;
+        }
+        var middle = arr[0];
+        var larr = [];
+        var rarr = [];
         for(var i = 1; i < len; i++){
-            for(var j = 1; j < len; j++){
-
+            if( arr[i] < middle ){
+                larr.push(arr[i]);
+            }else{
+                rarr.push(arr[i])
             }
         }
-        console.timeEnd('快速排序');
-        return arr;
+        if(larr.length > 1){ larr = quickSort(larr) }
+        if(rarr.length > 1){ rarr = quickSort(rarr) }
+
+        return [].concat(larr,[middle],rarr);
     }
+
+
 //    7.堆排序
+
 //    8.桶排序
 
 //    4.希尔排序
@@ -97,6 +112,7 @@
         console.timeEnd('希尔排序');
         return arr;
     }
+
 //    5.归并排序
     function mergeSort(arr){
         console.time('归并排序');
@@ -109,8 +125,10 @@
         console.timeEnd('归并排序');
         return arr;
     }
-    //    9.基数排序
-    //    10.计数排序
+
+//    9.基数排序
+
+//    10.计数排序
 
     function Sort(arr){
         console.time('插入排序');
