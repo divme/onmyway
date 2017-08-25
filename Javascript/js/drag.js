@@ -133,7 +133,7 @@
     };
     window.Drag = Drag;
 }());
-new Drag('img');
+
 
 
 
