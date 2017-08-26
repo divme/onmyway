@@ -8,29 +8,57 @@
     </style>
 </head>
 <body>
+<ul>
+    <li>监听事件，进去就移除，处理完再添加监听事件；</li>
+    <li>滚动事件，已进入清除滚动定时器，直到滚动停止达到延迟时间之上，重启滚动事件</li>
+    <li>resize时，就设置延迟定时器，停止后重启resize事件</li>
+    <li></li>
+</ul>
 <div style="height:4000px"></div>
+<!--简单的防抖函数-->
 <script>
-    // 简单的防抖动函数
+//    function debounce(func, wait, immediate) {
+//        // 定时器变量
+//        var timeout;
+//        return function() {
+//            // 每次触发 scroll handler 时先清除定时器
+//            clearTimeout(timeout);
+//            // 指定 xx ms 后触发真正想进行的操作 handler
+//            timeout = setTimeout(func, wait);
+//        };
+//    }
+//
+//    // 实际想绑定在 scroll 事件上的 handler
+//    function realFunc(){
+//        console.log("Success");
+//    }
+
+    // 采用了防抖动
+//    window.addEventListener('scroll',debounce(realFunc,500));
+</script>
+<!--封装过-->
+<script>
     function debounce(func, wait, immediate) {
-        // 定时器变量
         var timeout;
         return function() {
-            // 每次触发 scroll handler 时先清除定时器
+            var context = this, args = arguments;
+            var later = function() {
+                 func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
             clearTimeout(timeout);
-            // 指定 xx ms 后触发真正想进行的操作 handler
-            timeout = setTimeout(func, wait);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
         };
     }
 
-    // 实际想绑定在 scroll 事件上的 handler
-    function realFunc(){
-        console.log("Success");
-    }
+    var myEfficientFn = debounce(function(e) {
+        // 滚动中的真正的操作
+        console.log('scroll');
+    }, 250, true);
 
-    // 采用了防抖动
-    window.addEventListener('scroll',debounce(realFunc,500));
-    // 没采用防抖动
-    window.addEventListener('scroll',realFunc);
+    // 绑定监听
+    window.addEventListener('scroll', myEfficientFn);
 </script>
 </body>
 </html>
