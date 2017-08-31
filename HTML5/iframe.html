@@ -7,6 +7,7 @@
 <body>
 <!--<iframe id="meta" src="meta.html" frameborder="0" width="800px" height="400px"></iframe>-->
 <div id="content"></div>
+<input type='button' onclick="window.clipboardData.setData('text',document.selection.createRange().text);" value='复制页面选中的字符'>
 <script src="../zylib/jquery-2.1.1.min.js"></script>
 <script>
     setInterval(function() {
@@ -33,6 +34,7 @@
     $(document).ready(function() {
         $('#loaded_max').val(50);
     });
+
 </script>
 </body>
 </html>
