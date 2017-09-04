@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+	<script>
+	    // 构造函数 $ jquery
+		var $ = function(name){
+			return new $.prototype.init(name);
+		};
+		// 静态方法的添加
+		$.sayHello = function(a){
+			console.log("I am jQuery " + a);
+		};
+		// $的原型
+		$.prototype = {
+			init: function(a){
+				this.a = a;
+			},
+			constructor: $,
+			// 实例方法共享静态方法
+			sayBye: function(){
+				$.sayHello(this.a);
+			},
+			setName: function(name){
+				this.name = name;
+				return this;
+			},
+			getName: function(){
+				console.log(this.name);
+				return this;
+			}
+		};
+		$.prototype.init.prototype = $.prototype;
+
+		// extend方法
+		
+
+		$.sayHello('func'); // I am jQuery func
+		$('domFunc').setName('zy').getName().sayBye(); // I am jQuery domFunc
+	</script>
+</body>
+</html>
