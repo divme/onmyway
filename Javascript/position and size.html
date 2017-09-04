@@ -6,12 +6,24 @@
 		<script src="js/jquery-2.1.1.min.js"></script>
 		<style>
 			body{padding: 0;}
-			#demo{width:600px;height:300px;background:rgb(245,245,245);margin-top:20px;margin-left:40px;}
-			#big{width:700px;height:1600px;background:yellowgreen;}
+			.demobox{
+				position: relative;
+				/*position: absolute;*/
+				/*width: 500px;*/
+				/*height: 500px;*/
+				margin-top: 50px;
+				border: 1px solid #d96b6e;
+			}
+
+			#demo{width:300px;height:300px;background:rgb(245,245,245);margin-top:20px;margin-left:40px;}
+			/*#big{width:700px;height:1600px;background:yellowgreen;}*/
 		</style>
 	</head>
 	<body>
+	<div class="demobox">
 		<div id="demo"></div>
+	</div>
+
 		<div id="big"></div>
 		<!--原生js-->
 		<script>
