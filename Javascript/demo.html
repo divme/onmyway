@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <title></title>
+</head>
+<body>
+
+<button id="test1">直接处理</button>
+<button id="test2">通过end连贯处理</button>
+
+<ul class="first">
+    <li class="foo">list item 1</li>
+    <li>list item 2</li>
+    <li class="bar">list item 3</li>
+</ul>
+<ul class="second">
+    <li class="foo">list item 1</li>
+    <li>list item 2</li>
+    <li class="bar">list item 3</li>
+</ul>
+
+<script type="text/javascript">
+
+    $("#test1").click(function(){
+        //直接处理
+        var foo = $('ul.first').find('.foo');
+        foo.css('background-color', 'red')
+        foo.find('.bar').css('background-color', 'green');
+    })
+
+
+    $("#test2").click(function(){
+        //通过end连贯处理
+        $('ul.first').find('.foo').css('background-color', 'red')
+                .end().find('.bar').css('background-color', 'green');
+    })
+
+
+
+
+
+</script>
+</body>
+</html>
