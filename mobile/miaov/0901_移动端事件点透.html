@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>移动端事件点透</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        *{margin:0; padding:0;}
+        #box {
+            width: 150px;
+            height: 150px;
+            background: red;
+            opacity: 1;
+        }
+        #box a{
+            font-size: 20px;
+            color: #424242;
+        }
+
+        .input-group{
+            margin: 10px;
+            background: #f4f4f4;
+            text-align: center;
+        }
+        input {
+            width: 200px;
+            height: 40px;
+            line-height: 40px;
+            border:1px solid #d3ae68;
+        }
+
+        @media (min-width: 1px){
+            .compare{
+                margin-top: 30px;
+                border: 1px solid #dddddd;
+                color: #ffffff;
+            }
+            .left{
+                display: flex;
+                float: left;
+                width: 100px;
+                height: 100px;
+
+                justify-content: center;
+                align-items: center;
+                background: yellowgreen;
+            }
+            .right{
+                display: flex;
+                float: right;
+                width: 100px;
+                height: 100px;
+
+                justify-content: center;
+                align-items: center;
+                background: green;
+            }
+        }
+
+        .list{
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div id="box"><a href="http://www.baidu.com" class="a">百度</a></div>
+
+    <div class="input-group">
+        <input type="text" name="text" id="text">
+    </div>
+
+    <div class="compare">
+        <div class="left">touch事件</div>
+        <div class="right">mouse事件</div>
+        <div style="clear: both;"></div>
+    </div>
+
+    <ul class="list"></ul>
+</div>
+
+<script type="text/javascript">
+    var hrefarr = ['http://www.miaov.com', 'http://www.baidu.com', 'http://www.imooc.com'];
+    var list = document.querySelector(".list");
+    var inner = '';
+    for(var i = 0; i < 50; i++){
+        inner += "<li><a href=" + hrefarr[Math.floor(Math.random()*hrefarr.length)] +"  class='lista'>第" + i + "个</a></li>";
+    }
+    list.innerHTML = inner;
+
+    (function(){
+        var page = document.querySelector(".page");
+        var box = document.querySelector('#box');
+        var a = document.querySelector('.a');
+        var touch = document.querySelector(".left");
+        var mouse = document.querySelector(".right");
+        var input = document.querySelector("#text");
+        var lista = document.querySelectorAll(".lista");
+        page.addEventListener('touchstart',function(e){
+           e.preventDefault(); // 阻止页面的默认事件：可以阻止点击事件，副作用就是也阻止了a标签的默认点击跳转事件
+        });
+
+
+//    touch 事件与 mouse 事件对比: touchstart在元素上触发后，后续touchmove和touchend都会绑定在该元素上；mouse事件则不然(可以在pc页面试验)
+//    chrome 手机模拟器里不支持 ontouchstart 事件，需要用监听器，真机无恙
+        touch.addEventListener("touchstart",function(e){
+            console.log('touchstart');
+        });
+        touch.addEventListener("touchmove",function(e){
+            if(e.targetTouches.length > 0){
+                console.log(e);
+                console.log('touchmove');
+            }
+        });
+        touch.addEventListener("touchend",function(e){
+            if(e.changedTouches.length > 0) {
+                console.log('touchend');
+            }
+        });
+        mouse.addEventListener("mousedown", function(e){
+            console.log("mousedown");
+        });
+        mouse.addEventListener("mousemove", function(e){
+            console.log("mousemove");
+        });
+        mouse.addEventListener("mouseup", function(e){
+            console.log("mouseup");
+        });
+
+
+//      由于页面div盒子阻止默认事件，阻止了a标签的默认跳转事件，需要自定义跳转
+        box.addEventListener('touchstart', function(e) {
+            this.style.opacity = .5;
+        });
+        a.addEventListener('touchend', function(e){
+            window.location = this.href;
+        });
+        input.addEventListener('touchstart', function(e){
+            this.focus();
+        });
+        for(var i = 0, len = lista.length; i < len; i++){
+            tap(lista[i],function(){
+                window.location = this.href;
+            });
+//            lista[i].addEventListener('touchend',function(e){
+//                window.location = this.href;
+//            })
+        }
+
+    })();
+
+//    处理滑屏误触点击事件的最好办法：封装tap事件
+//    touchEvent:
+//           touches 当前屏幕上的手指列表
+//           targetTouches 当前元素上的手指列表
+//           changedTouches 触发当前的手指列表
+//           clientX 和 clientY 手指相对于可视区的一个坐标
+//           pageX 和 pageY 手指相对于页面的一个坐标
+    function tap(el, callback){
+        var startX, startY;
+        var endX, endY;
+        el.addEventListener('touchstart',function(e){
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            console.log(startX,startY);
+        });
+        el.addEventListener('touchend',function(e){
+            endX = e.changedTouches[0].clientX;
+            endY = e.changedTouches[0].clientY;
+            console.log(endX, endY);
+            if(Math.abs(endX-startX) < 5 && Math.abs(endY-startY) < 5){
+                callback && callback.call(el, e);
+            }
+        })
+    }
+
+
+
+//     事件点透:
+//         在移动端，我们触碰一个元素时，会立即执行，添加在元素上的touch事件，然后记录坐标，300ms之后 在这个坐标点查找元素，如果找到元素有 mouse时间，就执行加在元素的mouse事件
+//     解决办法：
+//         给元素清除默认事件
+
+
+//    e.perventDefault() 阻止默认事件带来的影响：解决负面影响的最好办法就是在未阻止默认事件的新开页面里做这些事……
+//          1. 新版的chrome下，不支持直接给 document和body的touch事件，阻止默认事件
+//
+//          2. 解决IOS10+ safari 以及部分安卓浏览器 不在支持 viewport的最大缩放值和禁止缩放的问题
+//
+//          3. 解决IOS10+ safari下给body加overflow：hidden无效的问题
+//             具体描述：给元素加了 一个绝对定位，但是元素本身没有定位父级，元素如果超出了body的宽度，body 上的overflow对这个元素，不起效果
+//             解决办法：给body加上一个相对定位
+//
+//          4. 解决事件点透的问题
+//
+//          5. 禁止mouse事件执行
+//
+//          6. 阻止浏览器的回弹效果
+//
+//          7. 阻止触发浏览器的滚动条
+//
+//          8. 阻止触发系统菜单
+//
+//          9. 阻止图片文字被选中
+//
+//         10. 阻止input的输入
+
+</script>
+</body>
+</html>

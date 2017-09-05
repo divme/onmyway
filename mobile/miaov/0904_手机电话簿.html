@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>移动端事件点透</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        *{margin:0; padding:0;}
+        .page{
+            position: relative;
+        }
+        .phonebook{
+            margin-right: 30px;
+        }
+        .letterleader{
+            line-height: 40px;
+            font-size: 16px;
+            text-indent: 20px;
+            background: #f4f4f4;
+        }
+        .phonebook ul li{
+            line-height: 2.5;
+            font-size: 14px;
+            text-indent: 25px;
+            border-top: 1px solid #f4f4f4;
+        }
+        .navbox{
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 30px;
+            padding: 10px 0;
+        }
+        .navlist{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        .nav{
+            flex: 1 0 auto;
+            font-size: 12px;
+            text-align: center;
+        }
+        .curnav{
+            background: #424242;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="phonebook">
+        <ul>
+            <p class="letterleader" data-id="a">A</p>
+            <li>阿猫</li>
+            <li>阿狗</li>
+            <p class="letterleader" data-id="b">B</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="d">D</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="e">E</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="f" id="f">F</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="h">H</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="d">D</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="k">K</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="l">L</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="m">M</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="n">N</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="p">P</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="r">R</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="s">S</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="t">T</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="w">W</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="y">Y</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="z">Z</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+        </ul>
+    </div>
+    <div class="navbox">
+        <div class="navlist">
+            <div class="nav">A</div>
+            <div class="nav">B</div>
+            <div class="nav">C</div>
+            <div class="nav">D</div>
+            <div class="nav">E</div>
+            <div class="nav">F</div>
+            <div class="nav">G</div>
+            <div class="nav">H</div>
+            <div class="nav">I</div>
+            <div class="nav">J</div>
+            <div class="nav">K</div>
+            <div class="nav">L</div>
+            <div class="nav">M</div>
+            <div class="nav">N</div>
+            <div class="nav">O</div>
+            <div class="nav">P</div>
+            <div class="nav">Q</div>
+            <div class="nav">R</div>
+            <div class="nav">S</div>
+            <div class="nav">T</div>
+            <div class="nav">U</div>
+            <div class="nav">V</div>
+            <div class="nav">W</div>
+            <div class="nav">X</div>
+            <div class="nav">Y</div>
+            <div class="nav">Z</div>
+        </div>
+    </div>
+</div>
+<script>
+//    自执行函数计算导航条的自适应高度
+    !function init(){
+        var height = window.innerHeight;
+        var navlist = document.querySelector(".navlist");
+        var nav = document.getElementsByClassName("nav");
+        navlist.style.height = height-20 + 'px';
+        for (var i = 0, len = nav.length; i < len; i++){
+            tap(nav[i], function(e){
+                addClass(this, 'curnav');
+            })
+        }
+    }();
+
+//添加类名
+    function addClass(ele, classname){
+        var siblings = ele.parentNode.childNodes;
+            siblings = [].slice.apply(siblings);
+        var current, curIndex, curName;
+
+        for(var i = 0, len = siblings.length; i < len; i++){
+             current = siblings[i];
+             if(current.nodeType == 1){
+                 curIndex = current.className.indexOf(classname);
+                 if( curIndex > -1){
+                     curName = current.className.slice(0, curIndex);
+                     current.className = curName;
+                 }
+             }
+
+        }
+        ele.className += ' ' +classname;
+    }
+
+//    tap 事件
+    function tap(el, callback){
+        var startX, startY;
+        var endX, endY;
+        el.addEventListener('touchstart',function(e){
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            console.log(startX,startY);
+        });
+        el.addEventListener('touchend',function(e){
+            endX = e.changedTouches[0].clientX;
+            endY = e.changedTouches[0].clientY;
+            console.log(endX, endY);
+            if(Math.abs(endX-startX) < 5 && Math.abs(endY-startY) < 5){
+                callback && callback.call(el, e);
+            }
+        })
+    }
+</script>
+</body>
+</html>
