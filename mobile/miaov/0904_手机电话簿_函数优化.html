@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>电话簿</title>
+    <title>优化电话簿</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
         *{margin:0; padding:0;}
@@ -144,6 +144,26 @@
             <li>贝克</li>
             <li>贝克</li>
             <li>贝克</li>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
         </ul>
     </div>
     <div class="navbox">
@@ -178,7 +198,7 @@
     </div>
 </div>
 <script>
-//    自执行函数计算导航条的自适应高度
+//    自执行函数计算导航条的自适应高度,并为导航栏添加tap事件
     !function init(){
         var height = window.innerHeight;
         var navlist = document.querySelector(".navlist");
@@ -192,7 +212,7 @@
         }
     }();
 
-//    滑导航栏切换到内容
+//    监听导航栏滑动，并据此切换内容
     (function(){
         var navlist = document.querySelector(".navlist");
         var nav = document.getElementsByClassName("nav");
@@ -200,33 +220,44 @@
         navlist.addEventListener('touchmove', function(e){
             e.preventDefault(); // 阻止默认滑屏
             var pointY = e.touches[0].clientY;
-            var curPos;
-            for(var i = 0, len = nav.length; i < len; i++){
-                curPos = nav[i].getBoundingClientRect();
-                if(pointY >= curPos.top && pointY <= curPos.bottom){
-                    addClass(nav[i], 'curnav');
-                    setPhonebook(nav[i]);
-                }
-            }
+                getCurnav(nav, pointY);
         })
     }());
 
-//    根据navlist的滑动位置，确认
-    function setPhonebook(el){
-        var text = el.innerText.toLowerCase();
-        var leader = document.getElementsByClassName("letterleader");
-        var phonebook = document.querySelector(".phonebook");
+//    得到当前所在nav：
+//        1. 给当前nav添加选中状态
+//        2. 根据当前nav设置phonebook的位置
+    function getCurnav(nav, posY){
         var curPos;
-        var curTop;
-        var dataid;
-        for (var i = 0, len = leader.length; i < len; i++){
-             dataid = leader[i].getAttribute('data-id');
-             if(dataid.indexOf(text) > -1){
-                 curPos = leader[i].getBoundingClientRect().top;
-                 curTop = getStyle(phonebook, 'top');
-                 phonebook.style.top = curTop - curPos +'px';
-             }
+        for(var i = 0, len = nav.length; i < len; i++){
+            curPos = nav[i].getBoundingClientRect();
+            if(posY >= curPos.top && posY <= curPos.bottom){
+                addClass(nav[i], 'curnav');
+                setPhonebook(nav[i]);
+            }
         }
+    }
+
+//    找到当前的条目p
+    function getCurp(){
+
+    }
+
+//    根据选中nav，设置phonebook的位置
+    function setPhonebook(el){
+        var curPos, curTop;
+        var phonebook = document.querySelector(".phonebook");
+        var text = el.innerText.toLowerCase();
+        var option = document.querySelector('p[data-id="'+text+'"]');
+            if(option){
+                curPos = option.getBoundingClientRect().top;
+                curTop = getStyle(phonebook, 'top');
+                phonebook.style.top = curTop - curPos +'px';
+            }else{
+                var sibling = el.nextElementSibling;
+                setPhonebook(sibling);
+            }
+
     }
 
 //    得到一个元素的属性值
@@ -237,6 +268,15 @@
             return parseInt(el.currentStyle[attr]);
         }
     }
+
+//    设置或获取某一个元素的常用动画属性值(width, height, top, left, opacity, transform)
+    function css(el, attr, val){
+        if( val === undefined ){
+            return window.getComputedStyle? parseInt(window.getComputedStyle(el)[attr]):parseInt(el.currentStyle[attr]);
+        }
+        el.style.attr = val;
+    }
+
 //    添加class
     function addClass(ele, classname){
         var siblings = ele.parentNode.childNodes;

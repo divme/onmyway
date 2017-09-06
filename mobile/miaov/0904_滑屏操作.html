@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>滑屏操作</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        *{margin:0;padding:0;}
+        .page{
+            position: relative;
+            min-height: 100%;
+        }
+        .title{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            line-height: 40px;
+            font-size: 15px;
+            letter-spacing: 5px;
+            z-index: 2;
+            background: #424242;
+            color: #ffffff;
+            text-align: center;
+        }
+        .box{
+            position: relative;
+            top: 40px;
+        }
+        .box li{
+            line-height: 36px;
+            text-indent: 24px;
+            font-size: 12px;
+            border-bottom: 1px solid #f4f4f4;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="title">滑屏操作</div>
+        <ul class="box"></ul>
+    </div>
+    <script>
+        var obj= {
+            page : document.querySelector(".page"),
+            box : document.querySelector(".box"),
+            startY: 0
+        };
+        obj.page.addEventListener('touchstart', function(e){
+//           e.preventDefault();
+        });
+        !function importLi(){
+            var hrefArr =  ['http://www.miaov.com', 'http://www.baidu.com', 'http://www.imooc.com'];
+            var inner = '';
+            for(var i = 0; i < 50; i++){
+                inner += "<li><a href='"+ hrefArr[Math.floor(Math.random()*hrefArr.length)] +"'></a>我是第"+ i +"个</li>";
+            }
+            obj.box.innerHTML = inner;
+        }();
+
+        obj.box.addEventListener("touchstart", function(e){
+            obj.startY = e.changedTouches[0].pageY;
+        });
+        obj.box.addEventListener("touchmove", function(e){
+            var endY = e.changedTouches[0].pageY;
+            var dis = endY - obj.startY;
+
+            var newTop = css(obj.box, "top") + dis;
+//            var height = obj.box.clientHeight;
+//            newTop = newTop > 40? 40:newTop;
+//            newTop = newTop < (window.innerHeight - height)? (window.innerHeight-height) : newTop;
+            newTop = newTop + 'px';
+            css(obj.box, "top", newTop);
+        });
+        //    设置或获取某一个元素的常用动画属性值(width, height, top, left, opacity, transform)
+        function css(el, attr, val){
+            if( val === undefined ){
+                return window.getComputedStyle? parseInt(window.getComputedStyle(el)[attr]):parseInt(el.currentStyle[attr]);
+            }
+            el.style[attr] = val;
+        }
+    </script>
+</body>
+</html>
