@@ -4,10 +4,39 @@
     <meta charset="UTF-8">
     <title>运动函数封装</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        .point{
+            width: 100px;
+            height: 100px;
+            transition: all 2s;
+            -webkit-transition:all 2s;
+            background: #f4f4f4;
+        }
+    </style>
 </head>
 <body>
- 1. 手机通讯录
- 2. 手机滑屏多页面切换
- 3. 下拉框选择器，时间日期选择器
+<div class="point"></div>
+<script>
+//    如果完全不需要调用者给单位，只给值的话
+//      width, height, top, left, opacity
+//      transform
+//      color, background
+    function css(el, attr, val){
+        if(val == undefined){
+            return parseInt(window.getComputedStyle(el)[attr]) || parseInt(el.currentStyle[attr]);
+        }
+        el.style[attr] = val;
+    }
+    var point = document.querySelector(".point");
+       point.addEventListener('click',function(){
+           css(point, "width", "200px");
+           css(point, "background", "red");
+           css(point, "border", "10px solid yellow")
+           setTimeout(function(){
+//               css(point, "transform", "translateX(1200px)");
+           }, 500);
+       });
+
+</script>
 </body>
 </html>
