@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>优化电话簿</title>
+    <title>windowScroll电话簿</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
         *{margin:0; padding:0;}
@@ -40,8 +40,12 @@
         }
         .nav{
             flex: 1 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 12px;
-            text-align: center;
+            border-radius: 50%;
         }
         .curnav{
             background: #424242;
@@ -53,45 +57,45 @@
 <div class="page">
     <div class="phonebook">
         <ul>
-            <p class="letterleader" data-id="a">A</p>
+            <p class="letterleader" id="a" id="a">A</p>
             <li>阿猫</li>
             <li>阿狗</li>
-            <p class="letterleader" data-id="b">B</p>
+            <p class="letterleader" id="b">B</p>
             <li>贝塔</li>
             <li>贝克</li>
             <li>贝克</li>
             <li>贝克</li>
-            <p class="letterleader" data-id="d">D</p>
+            <p class="letterleader" id="d">D</p>
             <li>贝塔</li>
             <li>贝克</li>
             <li>贝克</li>
             <li>贝克</li>
-            <p class="letterleader" data-id="e">E</p>
+            <p class="letterleader" id="e">E</p>
             <li>贝塔</li>
             <li>贝克</li>
             <li>贝克</li>
             <li>贝克</li>
-            <p class="letterleader" data-id="f" id="f">F</p>
+            <p class="letterleader" id="f" id="f">F</p>
             <li>贝塔</li>
             <li>贝克</li>
             <li>贝克</li>
             <li>贝克</li>
-            <p class="letterleader" data-id="h">H</p>
+            <p class="letterleader" id="h">H</p>
             <li>贝塔</li>
             <li>贝克</li>
             <li>贝克</li>
             <li>贝克</li>
-            <p class="letterleader" data-id="d">D</p>
+            <p class="letterleader" id="i">I</p>
             <li>贝塔</li>
             <li>贝克</li>
             <li>贝克</li>
             <li>贝克</li>
-            <p class="letterleader" data-id="k">K</p>
+            <p class="letterleader" id="k">K</p>
             <li>贝塔</li>
             <li>贝克</li>
             <li>贝克</li>
             <li>贝克</li>
-            <p class="letterleader" data-id="l">L</p>
+            <p class="letterleader" id="l">L</p>
             <li>贝塔</li>
             <li>贝克</li>
             <li>贝克</li>
@@ -99,47 +103,47 @@
             <li>贝克</li>
             <li>贝克</li>
             <li>贝克</li>
-            <p class="letterleader" data-id="m">M</p>
+            <p class="letterleader" id="m">M</p>
             <li>贝塔</li>
             <li>贝克</li>
             <li>贝克</li>
             <li>贝克</li>
-            <p class="letterleader" data-id="n">N</p>
+            <p class="letterleader" id="n">N</p>
             <li>贝塔</li>
             <li>贝克</li>
             <li>贝克</li>
             <li>贝克</li>
-            <p class="letterleader" data-id="p">P</p>
+            <p class="letterleader" id="p">P</p>
             <li>贝塔</li>
             <li>贝克</li>
             <li>贝克</li>
             <li>贝克</li>
-            <p class="letterleader" data-id="r">R</p>
+            <p class="letterleader" id="r">R</p>
             <li>贝塔</li>
             <li>贝克</li>
             <li>贝克</li>
             <li>贝克</li>
-            <p class="letterleader" data-id="s">S</p>
+            <p class="letterleader" id="s">S</p>
             <li>贝塔</li>
             <li>贝克</li>
             <li>贝克</li>
             <li>贝克</li>
-            <p class="letterleader" data-id="t">T</p>
+            <p class="letterleader" id="t">T</p>
             <li>贝塔</li>
             <li>贝克</li>
             <li>贝克</li>
             <li>贝克</li>
-            <p class="letterleader" data-id="w">W</p>
+            <p class="letterleader" id="w">W</p>
             <li>贝塔</li>
             <li>贝克</li>
             <li>贝克</li>
             <li>贝克</li>
-            <p class="letterleader" data-id="y">Y</p>
+            <p class="letterleader" id="y">Y</p>
             <li>贝塔</li>
             <li>贝克</li>
             <li>贝克</li>
             <li>贝克</li>
-            <p class="letterleader" data-id="z">Z</p>
+            <p class="letterleader" id="z">Z</p>
             <li>贝塔</li>
             <li>贝克</li>
             <li>贝克</li>
@@ -211,6 +215,30 @@
             })
         }
     }();
+    window.addEventListener("scroll", scroll);
+    function scroll(){
+//         console.log("scroll")
+        var scrollY, elPos, curDataid;
+        var p = document.getElementsByClassName("letterleader");
+        scrollY = window.scrollY;
+        for(var i = 0, len = p.length; i < len; i++){
+            elPos = getElPos(p[i]);
+            if(Math.floor(elPos - scrollY) < 10){
+                curDataid = p[i].id;
+                setNavlist(curDataid);
+            }
+        }
+    }
+    function setNavlist(id){
+        var nav = document.getElementsByClassName("nav");
+        var txt;
+        for(var i = 0, len = nav.length; i < len; i++){
+            txt = nav[i].innerText.toLowerCase();
+            if( txt == id){
+                addClass(nav[i], "curnav");
+            }
+        }
+    }
 
 //    监听导航栏滑动，并据此切换内容
     (function(){
@@ -218,9 +246,13 @@
         var nav = document.getElementsByClassName("nav");
 
         navlist.addEventListener('touchmove', function(e){
+            window.removeEventListener("scroll", scroll);
             e.preventDefault(); // 阻止默认滑屏
             var pointY = e.touches[0].clientY;
-                getCurnav(nav, pointY);
+            getCurnav(nav, pointY);
+        });
+        navlist.addEventListener("touchend", function(e){
+            window.addEventListener("scroll", scroll);
         })
     }());
 
@@ -240,14 +272,15 @@
 
 //    根据选中nav，设置phonebook的位置
     function setPhonebook(el){
-        var curPos, curTop;
+        var curPos, curTop, scrollY;
         var phonebook = document.querySelector(".phonebook");
         var text = el.innerText.toLowerCase();
-        var option = document.querySelector('p[data-id="'+text+'"]');
+        var option = document.querySelector('p[id="'+text+'"]');
             if(option){
                 curPos = option.getBoundingClientRect().top;
-                curTop = getStyle(phonebook, 'top');
-                phonebook.style.top = curTop - curPos +'px';
+                curTop = window.scrollY;
+                scrollY = curTop + curPos;
+                window.scrollTo(0, scrollY);
             }else{
                 var sibling = el.nextElementSibling;
                 setPhonebook(sibling);
@@ -264,14 +297,14 @@
         }
     }
 
-//    设置或获取某一个元素的常用动画属性值(width, height, top, left, opacity, transform)
-    function css(el, attr, val){
-        if( val === undefined ){
-            return window.getComputedStyle? parseInt(window.getComputedStyle(el)[attr]):parseInt(el.currentStyle[attr]);
+    function getElPos(el){
+        var pos = 0;
+        while(el){
+            pos += el.offsetTop;
+            el = el.offsetParent;
         }
-        el.style.attr = val;
+        return pos;
     }
-
 //    添加class
     function addClass(ele, classname){
         var siblings = ele.parentNode.childNodes;
@@ -297,6 +330,7 @@
         var startX, startY;
         var endX, endY;
         el.addEventListener('touchstart',function(e){
+            window.removeEventListener("scroll", scroll);
             startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
         });
@@ -306,6 +340,7 @@
             if(Math.abs(endX-startX) < 5 && Math.abs(endY-startY) < 5){
                 callback && callback.call(el, e);
             }
+            window.addEventListener("scroll", scroll);
         })
     }
 </script>

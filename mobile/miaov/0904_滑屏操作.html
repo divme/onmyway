@@ -66,7 +66,7 @@
         !function importLi(){
             var hrefArr =  ['http://www.miaov.com', 'http://www.baidu.com', 'http://www.imooc.com'];
             var inner = '';
-            for(var i = 0; i < 150; i++){
+            for(var i = 0; i < 151; i++){
                 inner += "<li><a href='"+ hrefArr[Math.floor(Math.random()*hrefArr.length)] +"'></a>我是第"+ i +"个</li>";
             }
             obj.box.innerHTML = inner;
@@ -78,15 +78,14 @@
         obj.ulbox.addEventListener("touchmove", function(e){
             var endY = e.changedTouches[0].pageY;
             var dis = endY - obj.startY;
-
             var newTop = css(obj.box, "top") + dis;
-//            var height = obj.box.clientHeight;
-//            newTop = newTop > 40? 40:newTop;
-//            newTop = newTop < (window.innerHeight - height)? (window.innerHeight-height) : newTop;
+            var height = obj.box.clientHeight;
+            newTop = newTop > 0? 0:newTop;
+            newTop = newTop < (window.innerHeight-40 - height)? (window.innerHeight-40-height) : newTop;
             newTop = newTop + 'px';
             css(obj.box, "top", newTop);
         });
-        //    设置或获取某一个元素的常用动画属性值(width, height, top, left, opacity, transform)
+//    设置或获取某一个元素的常用动画属性值(width, height, top, left, opacity, transform)
         function css(el, attr, val){
             if( val === undefined ){
                 return window.getComputedStyle? parseInt(window.getComputedStyle(el)[attr]):parseInt(el.currentStyle[attr]);

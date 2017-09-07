@@ -202,7 +202,7 @@
     </div>
 </div>
 <script>
-    //    自执行函数计算导航条的自适应高度,并为导航栏添加tap事件
+//    自执行函数计算导航条的自适应高度,并为导航栏添加tap事件
     !function init(){
         var height = window.innerHeight;
         var navlist = document.querySelector(".navlist");
@@ -216,7 +216,7 @@
         }
     }();
 
-    //    监听导航栏滑动，并据此切换内容
+//    监听导航栏滑动，并据此切换内容
     (function(){
         var navlist = document.querySelector(".navlist");
         var nav = document.getElementsByClassName("nav");
@@ -224,13 +224,13 @@
         navlist.addEventListener('touchmove', function(e){
             e.preventDefault(); // 阻止默认滑屏
             var pointY = e.touches[0].clientY;
-            getCurnav(nav, pointY);
+                getCurnav(nav, pointY);
         })
     }());
 
-    //    得到当前所在nav：
-    //        1. 给当前nav添加选中状态
-    //        2. 根据当前nav设置phonebook的位置
+//    得到当前所在nav：
+//        1. 给当前nav添加选中状态
+//        2. 根据当前nav设置phonebook的位置
     function getCurnav(nav, posY){
         var curPos;
         for(var i = 0, len = nav.length; i < len; i++){
@@ -242,24 +242,24 @@
         }
     }
 
-    //    根据选中nav，设置phonebook的位置
+//    根据选中nav，设置phonebook的位置
     function setPhonebook(el){
         var curPos, curTop;
         var phonebook = document.querySelector(".phonebook");
         var text = el.innerText.toLowerCase();
         var option = document.querySelector('p[data-id="'+text+'"]');
-        if(option){
-            curPos = option.getBoundingClientRect().top;
-            curTop = getStyle(phonebook, 'top');
-            phonebook.style.top = curTop - curPos +'px';
-        }else{
-            var sibling = el.nextElementSibling;
-            setPhonebook(sibling);
-        }
+            if(option){
+                curPos = option.getBoundingClientRect().top;
+                curTop = getStyle(phonebook, 'top');
+                phonebook.style.top = curTop - curPos +'px';
+            }else{
+                var sibling = el.nextElementSibling;
+                setPhonebook(sibling);
+            }
 
     }
 
-    //    得到一个元素的属性值
+//    得到一个元素的属性值
     function getStyle(el, attr){
         if(window.getComputedStyle){
             return parseInt(window.getComputedStyle(el)[attr])
@@ -269,27 +269,27 @@
     }
 
 
-    //    添加class
+//    添加class
     function addClass(ele, classname){
         var siblings = ele.parentNode.childNodes;
-        siblings = [].slice.apply(siblings);
+            siblings = [].slice.apply(siblings);
         var current, curIndex, curName;
 
         for(var i = 0, len = siblings.length; i < len; i++){
-            current = siblings[i];
-            if(current.nodeType == 1){
-                curIndex = current.className.indexOf(classname);
-                if( curIndex > -1){
-                    curName = current.className.slice(0, curIndex);
-                    current.className = curName;
-                }
-            }
+             current = siblings[i];
+             if(current.nodeType == 1){
+                 curIndex = current.className.indexOf(classname);
+                 if( curIndex > -1){
+                     curName = current.className.slice(0, curIndex);
+                     current.className = curName;
+                 }
+             }
 
         }
         ele.className += ' ' +classname;
     }
 
-    //    tap 事件
+//    tap 事件
     function tap(el, callback){
         var startX, startY;
         var endX, endY;
