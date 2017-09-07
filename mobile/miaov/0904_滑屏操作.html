@@ -6,12 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
         *{margin:0;padding:0;}
+        html, body{
+            height: 100%;
+        }
         .page{
             position: relative;
             min-height: 100%;
         }
         .title{
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
@@ -23,9 +26,16 @@
             color: #ffffff;
             text-align: center;
         }
+        .ulbox{
+            position: absolute;
+            top: 40px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
         .box{
             position: relative;
-            top: 40px;
+            top: 0;
         }
         .box li{
             line-height: 36px;
@@ -39,30 +49,33 @@
 <body>
     <div class="page">
         <div class="title">滑屏操作</div>
-        <ul class="box"></ul>
+        <div class="ulbox">
+            <ul class="box"></ul>
+        </div>
     </div>
     <script>
         var obj= {
+            ulbox : document.querySelector(".ulbox"),
             page : document.querySelector(".page"),
             box : document.querySelector(".box"),
             startY: 0
         };
         obj.page.addEventListener('touchstart', function(e){
-//           e.preventDefault();
+           e.preventDefault();
         });
         !function importLi(){
             var hrefArr =  ['http://www.miaov.com', 'http://www.baidu.com', 'http://www.imooc.com'];
             var inner = '';
-            for(var i = 0; i < 50; i++){
+            for(var i = 0; i < 150; i++){
                 inner += "<li><a href='"+ hrefArr[Math.floor(Math.random()*hrefArr.length)] +"'></a>我是第"+ i +"个</li>";
             }
             obj.box.innerHTML = inner;
         }();
 
-        obj.box.addEventListener("touchstart", function(e){
+        obj.ulbox.addEventListener("touchstart", function(e){
             obj.startY = e.changedTouches[0].pageY;
         });
-        obj.box.addEventListener("touchmove", function(e){
+        obj.ulbox.addEventListener("touchmove", function(e){
             var endY = e.changedTouches[0].pageY;
             var dis = endY - obj.startY;
 
