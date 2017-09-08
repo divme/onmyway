@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>运动框架封装</title>
+    <title>慕课运动框架封装</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 <style>
@@ -29,12 +29,11 @@
 <script type="text/javascript">
     window.onload = function() {
         var oli = document.getElementsByTagName('li');
+        var thing = document.querySelector(".thing");
         for (var i = 0; i < oli.length; i++) {
             oli[i].onmouseover = function() {
-                startmove(this, {opacity: 100}, function(obj) {
-                    startmove(obj, { width: 400 }, function(obj) {
-                        startmove(obj, {height: 200});
-                    });
+                startmove(this, {opacity: 100, width:400}, function(obj) {
+                    startmove(obj, {height: 200});
                 });
             };
             oli[i].onmouseout = function() {
@@ -52,15 +51,18 @@
 <!--目前只考虑几个属性：width, height, top, left, opacity;-->
 <script>
     function startmove(obj, json, fn) {
-        clearInterval(obj.timer);
+        if(obj.timer){
+            clearInterval(obj.timer);
+
+        }
         obj.timer = setInterval(function() {
             var flag = true;
             for (var attr in json) {
                 var oattr = 0;
                 if (attr == "opacity") {
-                    oattr = Math.round(parseFloat(css(obj, attr)) * 100);
+                    oattr = Math.round(parseFloat(getStyle(obj, attr)) * 100);
                 } else {
-                    oattr = parseInt(css(obj, attr));
+                    oattr = parseInt(getStyle(obj, attr));
                 }
 
                 var speed = (json[attr] - oattr) / 20;
@@ -71,9 +73,10 @@
                 }
 
                 if (attr == "opacity") {
-                    css(obj, "opacity", (oattr+speed)/100);
+                    obj.style.filter = 'alpha(' + attr + ':' + (oattr + speed) + ')';
+                    obj.style[attr] = (oattr + speed) / 100;
                 } else {
-                    css(obj, attr, oattr+speed+"px");
+                    obj.style[attr] = oattr + speed + 'px';
                 }
 
             }
@@ -84,6 +87,7 @@
                 }
             }
         }, 30);
+
     }
 
     function getStyle(obj, attr) {
@@ -92,25 +96,6 @@
         } else {
             return getComputedStyle(obj, false)[attr];
         }
-    }
-
-    function css(el, attr, val){
-        if(val == undefined){
-            if( attr == "opacity") {
-                return window.getComputedStyle(el)[attr] || el.currentStyle[attr];
-            }else{
-                return parseInt(window.getComputedStyle(el)[attr]) || parseInt(el.currentStyle[attr]);
-            }
-        }
-        el.style[attr] = val;
-    }
-</script>
-
-<script>
-    function move(obj, json, fn){
-        timer = setInterval(function(){
-
-        }, 30)
     }
 </script>
 </body>
