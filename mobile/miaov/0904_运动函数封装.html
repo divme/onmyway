@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>运动函数封装</title>
+    <title>T运动函数封装</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
         .point{
@@ -10,32 +10,114 @@
             height: 100px;
             transition: all 2s;
             -webkit-transition:all 2s;
+            font-size: 12px;
             background: #f4f4f4;
+            color: red;
+        }
+        .point1{
+            width: 100px;
+            height: 100px;
+            margin-top: 20px;
+            transition: all 2s;
+            -webkit-transition:all 2s;
+            background: #424242;
         }
     </style>
 </head>
 <body>
-<div class="point"></div>
+<div class="point">我是谁</div>
+<div class="point1"></div>
 <script>
-//    如果完全不需要调用者给单位，只给值的话
+//    如果让调用者自己给单位，这个函数就简单
 //      width, height, top, left, opacity
 //      transform
 //      color, background
+//      transform 获取到的是matrix，无法获取，但可以设置
     function css(el, attr, val){
         if(val == undefined){
-            return parseInt(window.getComputedStyle(el)[attr]) || parseInt(el.currentStyle[attr]);
+            return window.getComputedStyle(el)[attr] || el.currentStyle[attr];
         }
         el.style[attr] = val;
     }
+//    实例
     var point = document.querySelector(".point");
        point.addEventListener('click',function(){
+           css(point, "width");
            css(point, "width", "200px");
            css(point, "background", "red");
            css(point, "border", "10px solid yellow");
+           css(point, "opacity", ".5");
+           css(point, "font-size", "25px");
+           css(point, "color", "#000");
            setTimeout(function(){
-//               css(point, "transform", "translateX(1200px)");
+               css(point, "transform", "translateX(500px)");
+               css(point, 'transform');
            }, 500);
        });
+</script>
+
+<script>
+//    如果完全不需要调用者给单位，但是要求transform完全在js中设置
+    function attr(el, attr, val){
+        var transforms = ['rotate','rotateX','rotateY','rotateZ','translate','translateX','translateY','translateZ','scale','scaleX','scaleY','skew',"skewX","skewY"];
+        for(var i = 0, len = transforms.length; i < len; i++){
+            if( attr == transforms[i]){
+                return transform(el, attr, val);
+            }
+        }
+        if(val == undefined){
+            return parseFloat(window.getComputedStyle(el)[attr]) || parseFloat(el.currentStyle[attr]);
+        }
+        if( attr == "opacity"){
+            el.style[attr] = val;
+        }else{
+            el.style[attr] = val + "px";
+        }
+    }
+//    直接获取，得到的transform是矩阵，所以不在css重视设置transform，全部通过js设置
+    function transform(el, attr, val){
+        if(!el.transform){
+            el.transform = {
+            }
+        }
+        if(val == undefined){
+            return el.transform[attr];
+        }
+
+        el.transform[attr] = val;
+        var str = '';
+        for( var s in el.transform){
+            switch(s){
+                case "rotate":
+                case "rotateX":
+                case "rotateY":
+                     str += s +"(" + val + "deg)";
+                     break;
+                case "translate":
+                case "translateX":
+                case "translateY":
+                case "translateZ":
+                     str += s +"(" + val + "px)";
+                     break;
+                case "scale":
+                case "scaleX":
+                case "scaleY":
+                case "skew":
+                case "skewX":
+                case "skewY":
+                     str += s +"(" + val + ")";
+                     break;
+            }
+        }
+        el.style.WebkitTransform = el.style.transform = str;
+    }
+    var point1 = document.querySelector(".point1");
+        point1.addEventListener('click',function(e){
+            attr(point1, 'translateX', 100);
+            setTimeout(function(){
+                attr(point1, 'translateY', 100);
+            }, 2000);
+        });
 
 </script>
 </body>
