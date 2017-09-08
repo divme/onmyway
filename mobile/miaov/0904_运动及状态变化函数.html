@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
         .example{
+            position: relative;
             width: 100px;
             height:100px;
             margin: 20px auto;
-            transition: all 2s;
+            /*transition: all 2s;*/
             background: yellowgreen;
         }
     </style>
@@ -31,7 +32,7 @@
     var first = true;
 </script>
 <script>
-//   定义一个获取/设置元素属性值(不包括transform)的方法: css(el,"width"); css(el, "width", "100px")
+//    定义一个获取/设置元素属性值(不包括transform)的方法: css(el,"width"); css(el, "width", "100px")
     function css(el, attr, val){
         if(attr == "transform"){
            return transform(el, attr, val, true);
@@ -74,12 +75,65 @@
         }
         el.style.WebkitTransform = el.style.transform = str;
     }
+//    运动函数
+    function move(el, attr, val){
+        var curAttr, //获得元素当前属性值
+            dif,   //目标值与当前值之差
+            variation, //本次改变的量
+            tfs; // transform 时，
+        if(attr == "transform"){
+           for(tfs in transform){
+
+           }
+        }
+            val = parseFloat(val);
+        var timer = setInterval(function(){
+            curAttr = parseInt(css(el, attr));
+            if(val == curAttr){
+                clearInterval(timer);
+            }
+            dif = val - curAttr;
+            variation = parseInt(dif/10);
+            css(el, attr, curAttr + variation+"px");
+        },30)
+    }
+
+(function() {
+    var lastTime = 0;
+    var vendors = ['webkit', 'moz'];
+    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] ||    // Webkit中此取消方法的名字变了
+            window[vendors[x] + 'CancelRequestAnimationFrame'];
+    }
+
+    if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = function(callback) {
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0, 16.7 - (currTime - lastTime));
+            console.log(currTime);
+            var id = window.setTimeout(function() {
+                callback();
+            }, timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        };
+    }
+    if (!window.cancelAnimationFrame) {
+        window.cancelAnimationFrame = function(id) {
+            clearTimeout(id);
+        };
+    }
+}());
 //    用法示例：
     example.addEventListener("click", checkCss);
     window.onload = checkCss;
     function checkCss(e){
-        css(example, "width", '200px');
-        css(example, "background", "yellow");
+//        move(example, "width", '400px');
+        move(example, "left", '100px');
+//        move(example, "transform", 'scaleX(4)');
+
+//        css(example, "background", "yellow");
         if(!first){
             css(example, "transform", 'scaleX(4)');
             css(example, "transform", 'translateX(-50px)');
