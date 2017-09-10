@@ -28,11 +28,11 @@
 <div class="point">我是谁</div>
 <div class="point1"></div>
 <script>
-//      如果让调用者自己给单位，这个函数就简单
+//      val值的单位需要调用者自己赋予
 //      width, height, top, left, opacity
-//      transform
 //      color, background
-//      transform 获取到的是matrix，无法获取，但可以设置
+//      transform 获取到的是matrix，无法逆推成具体的变换属性，但可以设置
+//      transform 属性相关属性，css(el, 'transform', 'translateX(10px) translateY(20px)');
     function css(el, attr, val){
         if(val == undefined){
             return window.getComputedStyle(el)[attr] || el.currentStyle[attr];
@@ -58,7 +58,11 @@
 </script>
 
 <script>
-//  完全不需要调用者给单位，但是要求transform完全在js中设置
+//      设置属性时，由于对attr属性有要求，所有val值的单位直接给number型即可
+//      只能设置如下属性：width, height, top, left, opacity, bottom, right
+//      如下属性只能获取不能设置：color, background 等等
+//      transform 获取到的是自定义在el对象上的transform对象
+//      transform 属性相关属性，css(el, 'translateX', '10'); css(el, 'scale', '2').
     function attr(el, attr, val){
         var transforms = ['rotate','rotateX','rotateY','rotateZ','translate','translateX','translateY','translateZ','scale','scaleX','scaleY','skew',"skewX","skewY"];
         for(var i = 0, len = transforms.length; i < len; i++){
