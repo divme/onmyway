@@ -42,6 +42,8 @@
                 bottom:10px;
                 left:0;
                 background:url("img/up.png") no-repeat center;
+                -moz-animation: next .5s ease-in-out infinite alternate;
+                -o-animation: next .5s ease-in-out infinite alternate;
                 -webkit-animation: next .5s ease-in-out infinite alternate;
                 animation: next .5s ease-in-out infinite alternate;
             }
@@ -52,10 +54,15 @@
             #page1 h1{
                 color: #56a0e9;
                 text-align: center;
+                -webkit-transform: translateY(-120%);
                 transform: translateY(-120%);
 
+                -o-animation: page11 .5s cubic-bezier(.86,.71,.35,1.27);
+                -moz-animation: page11 .5s cubic-bezier(.86,.71,.35,1.27);
                 -webkit-animation: page11 .5s cubic-bezier(.86,.71,.35,1.27);
                 animation: page11 .5s cubic-bezier(.86,.71,.35,1.27);
+                -o-animation-fill-mode: forwards;
+                -moz-animation-fill-mode: forwards;
                 -webkit-animation-fill-mode: forwards;
                 animation-fill-mode: forwards;
             }
@@ -64,8 +71,8 @@
                 text-align: center;
                 margin-top: 10px;
                 color: #0b6e48;
-                -webkit-transform: translateY(100px) skew(90deg);
-                transform: translateY(100px) skew(90deg);
+                -webkit-transform: translateY(100px) skew(0deg);
+                transform: translateY(100px) skew(0deg);
                 -webkit-animation: page12 1s .5s cubic-bezier(.86,.71,.35,1.27);
                 animation: page12 1s .5s cubic-bezier(.86,.71,.35,1.27);
                 -webkit-animation-fill-mode: forwards;
@@ -73,6 +80,7 @@
             }
             .typewriting{
                 margin-top:50px;
+                -webkit-transform: translate3d(0,100px,0);
                 transform: translate3d(0,100px,0);
                 text-align: center;
             }
@@ -86,17 +94,22 @@
                 white-space: nowrap;
                 overflow: hidden;
 
+                -o-animation: typing 2s 1.5s steps(6, end) forwards,  blink-caret .5s 1.5s step-end 6 alternate;
+                -moz-animation: typing 2s 1.5s steps(6, end) forwards,  blink-caret .5s 1.5s step-end 6 alternate;
                 -webkit-animation: typing 2s 1.5s steps(6, end) forwards,  blink-caret .5s 1.5s step-end 6 alternate;
                 animation: typing 2s 1.5s steps(6, end) forwards,  blink-caret .5s 1.5s step-end 6 alternate;
             }
             .bigger{
                 position:relative;
                 margin: 50px auto;
+                -webkit-transform:translateY(100px) scale(0,0);
                 transform:translateY(100px) scale(0,0);
                 text-align: center;
                 font-size:50px;
                 color:#458AE9;
                 /*overflow: hidden;*/
+                -o-animation:page13 2s 3.5s forwards;
+                -moz-animation:page13 2s 3.5s forwards;
                 -webkit-animation:page13 2s 3.5s forwards;
                 animation: page13 2s 3.5s forwards;
             }
@@ -104,22 +117,34 @@
                 display: inline-block;
             }
             .word:first-of-type{
+                -webkit-transform: skew(10deg);
                 transform: skew(10deg);
+                -o-animation: page14 .5s 5.5s ease-out;
+                -moz-animation: page14 .5s 5.5s ease-out;
                 -webkit-animation: page14 .5s 5.5s ease-out;
                 animation: page14 .5s 5.5s ease-out;
             }
             .word:nth-of-type(2){
+                -webkit-transform: skew(-10deg);
                 transform: skew(-10deg);
+                -o-animation:page14 .5s 5.6s ease-out;
+                -moz-animation:page14 .5s 5.6s ease-out;
                 -webkit-animation:page14 .5s 5.6s ease-out;
                 animation: page14 .5s 5.6s ease-out;
             }
             .word:nth-of-type(3){
+                -webkit-transform: skew(10deg);
                 transform: skew(10deg);
+                -o-animation:page14 .5s 5.7s ease-out;
+                -moz-animation:page14 .5s 5.7s ease-out;
                 -webkit-animation:page14 .5s 5.7s ease-out;
                 animation: page14 .5s 5.7s ease-out;
             }
             .word:nth-of-type(4){
+                -webkit-transform: skew(-10deg);
                 transform: skew(-10deg);
+                -o-animation:page14 .5s 5.8s ease-out;
+                -moz-animation:page14 .5s 5.8s ease-out;
                 -webkit-animation:page14 .5s 5.8s ease-out;
                 animation: page14 .5s 5.8s ease-out;
             }
@@ -128,6 +153,12 @@
         /*第一页 动画*/
         @media (min-width:10px){
             /*common*/
+            @-o-keyframes next {
+                100%{-webkit-transform: translateY(-10px)}
+            }
+            @-moz-keyframes next {
+                100%{-webkit-transform: translateY(-10px)}
+            }
             @-webkit-keyframes next {
                 100%{-webkit-transform: translateY(-10px)}
             }
@@ -136,25 +167,57 @@
             }
 
             /*第一页*/
+            @-o-keyframes page11 {
+                to{ -webkit-transform: translate(0, 100px)}
+            }
+            @-moz-keyframes page11 {
+                to{ -webkit-transform: translate(0, 100px)}
+            }
             @-webkit-keyframes page11 {
                 to{ -webkit-transform: translate(0, 100px)}
             }
             @keyframes page11{
-                to{ transform: translate(0, 100px)}
+                to{ -webkit-transform: translate(0, 100px);transform: translate(0, 100px)}
             }
 
+            @-o-keyframes page12 {
+                to{ -webkit-transform :translateY(110px) skew(10deg)}
+            }
+            @-moz-keyframes page12 {
+                to{ -webkit-transform :translateY(110px) skew(10deg)}
+            }
             @-webkit-keyframes page12 {
-                to{ -webkit-transform :translateY(110px) skew(0deg)}
+                to{ -webkit-transform :translateY(110px) skew(10deg)}
             }
             @keyframes page12 {
-                to{ transform :translateY(110px) skew(0deg)}
+                to{ transform :translateY(110px) skew(10deg)}
             }
 
+            @-o-keyframes typing { to { width: 6em; } }
+            @-moz-keyframes typing { to { width: 6em; } }
             @-webkit-keyframes typing { to { width: 6em; } }
             @keyframes typing { to { width: 6em; } }
+            @-o-keyframes  blink-caret{0%{border-color: inherit} 50% { border-color: transparent; } }
+            @-moz-keyframes  blink-caret{0%{border-color: inherit} 50% { border-color: transparent; } }
             @-webkit-keyframes  blink-caret{0%{border-color: inherit} 50% { border-color: transparent; } }
             @keyframes blink-caret {0%{border-color: inherit} 50% { border-color: transparent; }}
 
+            @-o-keyframes page13 {
+                from{
+                    -webkit-transform: translateY(100px) scale(0,0);
+                }
+                to{
+                    -webkit-transform: translateY(100px) scale(1,1)
+                }
+            }
+            @-moz-keyframes page13 {
+                from{
+                    -webkit-transform: translateY(100px) scale(0,0);
+                }
+                to{
+                    -webkit-transform: translateY(100px) scale(1,1)
+                }
+            }
             @-webkit-keyframes page13 {
                 from{
                     -webkit-transform: translateY(100px) scale(0,0);
@@ -170,6 +233,12 @@
                 to{
                     transform: translateY(100px) scale(1,1)
                 }
+            }
+            @-o-keyframes page14 {
+                50%{-webkit-transform: translateY(-20px)}
+            }
+            @-moz-keyframes page14 {
+                50%{-webkit-transform: translateY(-20px)}
             }
             @-webkit-keyframes page14 {
                 50%{-webkit-transform: translateY(-20px)}
@@ -264,6 +333,7 @@
             .animation .fromleft{
                 -webkit-animation: fromleft 1s;
                 -o-animation:fromleft 1s;
+                -moz-animation:fromleft 1s;
                 animation:fromleft 1s cubic-bezier(.86,.71,.35,1.27);
 
                 -webkit-animation-fill-mode: both;
@@ -271,6 +341,7 @@
             .animation .fromright{
                 -webkit-animation: fromleft 1s;
                 -o-animation:fromleft 1s;
+                -moz-animation:fromleft 1s;
                 animation:fromleft 1s 1s cubic-bezier(.86,.71,.35,1.27);
 
                 -webkit-animation-fill-mode: both;
@@ -278,6 +349,26 @@
         }
         /*第二页 动画*/
         @media (min-width:10px){
+            @-o-keyframes page21 {
+                25%{
+                    -webkit-transform:translate(-20px,-2px) scale(.5);
+                    opacity:.2;
+                }
+                50%{
+                    -webkit-transform: translate(0px,0px) scale(1);
+                    opacity:1
+                }
+            }
+            @-moz-keyframes page21 {
+                25%{
+                    -webkit-transform:translate(-20px,-2px) scale(.5);
+                    opacity:.2;
+                }
+                50%{
+                    -webkit-transform: translate(0px,0px) scale(1);
+                    opacity:1
+                }
+            }
             @-webkit-keyframes page21 {
                 25%{
                     -webkit-transform:translate(-20px,-2px) scale(.5);
@@ -297,6 +388,36 @@
                 50%{
                     -webkit-transform: translate(0px,0px) scale(1);
                     transform: translate(0px,0px) scale(1);
+                    opacity:1
+                }
+            }
+
+
+            @-o-keyframes page22 {
+                50%{
+                    -webkit-transform:translate(0px,0px) scale(1);
+                    opacity:1
+                }
+                75%{
+                    -webkit-transform:translate(20px,-2px) scale(.5);
+                    opacity:.5
+                }
+                100%{
+                    -webkit-transform: translate(0px,0px) scale(1);
+                    opacity:1
+                }
+            }
+            @-moz-keyframes page22 {
+                50%{
+                    -webkit-transform:translate(0px,0px) scale(1);
+                    opacity:1
+                }
+                75%{
+                    -webkit-transform:translate(20px,-2px) scale(.5);
+                    opacity:.5
+                }
+                100%{
+                    -webkit-transform: translate(0px,0px) scale(1);
                     opacity:1
                 }
             }
@@ -331,11 +452,27 @@
                     opacity:1
                 }
             }
+            @-o-keyframes smallball {
+                to{-webkit-transform: rotate(1turn)}
+            }
+            @-moz-keyframes smallball {
+                to{-webkit-transform: rotate(1turn)}
+            }
             @-webkit-keyframes smallball {
                 to{-webkit-transform: rotate(1turn)}
             }
             @keyframes smallball {
                 to{transform: rotate(1turn)}
+            }
+
+            @-o-keyframes fromleft {
+                to{transform:translateX(0)}
+            }
+            @-moz-keyframes fromleft {
+                to{transform:translateX(0)}
+            }
+            @-webkit-keyframes fromleft {
+                to{transform:translateX(0)}
             }
             @keyframes fromleft {
                 to{transform:translateX(0)}
@@ -431,7 +568,6 @@
                             if(topdis >= 75){
                                 topdis = 75
                             }
-
                         }
                     }else if(e.direction.toLowerCase() == 'down'){
                         if(topdis || topdis === 0){

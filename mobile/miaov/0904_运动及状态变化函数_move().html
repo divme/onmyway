@@ -2,10 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>完美状态变化框架</title>
+    <title>完美框架--move()</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
         .example{
+            position: relative;
+            width: 100px;
+            height:100px;
+            margin: 20px auto;
+            /*transition: all 2s;*/
+            background: yellowgreen;
+        }
+        .example2{
             position: relative;
             width: 100px;
             height:100px;
@@ -24,11 +32,11 @@
     <li>附注：要明确一点，针对transform 做变换，要么直接针对matrix做，要么就只能全部transform属性写进js，自定义方法去做，在这里，我们先取后者。</li>
 </ul>
 
-<div class="example">
-
-</div>
+<div class="example"></div>
+<div class="example2"></div>
 <script>
     var example = document.querySelector(".example");
+    var example2 = document.querySelector(".example2");
     var first = true;
 </script>
 <script>
@@ -76,7 +84,7 @@
         el.style.WebkitTransform = el.style.transform = str;
     }
 //    运动函数
-    function move(el, attr, val){
+    function move(el, attr, val, fn){
         var curAttr, // 获得元素当前属性值
             dif,   // 目标值与当前值之差
             variation, // 本次改变的量
@@ -97,6 +105,7 @@
             curAttr = parseFloat(css(el, attr));
             if(val == curAttr){
                 window.cancelAnimationFrame(timer);
+                fn&&fn();
             }
 
             if(reg.test(val) || reg.test(curAttr)){
@@ -190,12 +199,15 @@ function addTwoFloat(keepnum, mode, num1, num2){
 
 //    用法示例：
     example.addEventListener("click", checkCss);
-    window.onload = checkCss;
+//    window.onload = checkCss;
     function checkCss(e){
 //        move(example, "width", '400px');
 //        move(example, "left", '100px');
-//        move(example, "scaleX", '4');
-        move(example, "translateX", '200px');
+        move(example, "scaleX", '6', function(){
+            move(example2, "right", '300px');
+
+        });
+//        move(example, "translateX", '200px');
 
 //        css(example, "background", "yellow");
         if(!first){

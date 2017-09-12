@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>完美状态变化框架</title>
+    <title>完美框架--同时运动</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
         .example{
@@ -21,7 +21,8 @@
     <li>1. 对传统运动属性的支持，包括：width, height, top, left, opacity;</li>
     <li>2. 对 transform 属性的支持, 支持结果值，也支持变化值;</li>
     <li>3. 对状态属性的支持，例如：background，border，color 等等;</li>
-    <li>附注：要明确一点，针对transform 做变换，要么直接针对matrix做，要么就只能全部transform属性写进js，自定义方法去做，在这里，我们先取后者。</li>
+    <li>附注：要明确一点，针对transform 做变换，要么直接针对matrix做，要么就只能全部transform属性写进js，自定义方法去做，在这里，我们先取后者；</li>
+    <li>附注：同时运动指多个元素可以同时运动，一个元素多个属性可以同时运动；如果想要一个元素属性顺次运动，就需要回调函数</li>
 </ul>
 
 <div class="example">
@@ -60,7 +61,7 @@
             if(attr == "transform"){
                 return el.transform;
             }
-            return el.transform[attr]? el.transform[attr] : 1;
+            return el.transform[attr]? el.transform[attr] : 0.01;
         }
 
 //        如果是设置，就先把属性值绑定在transform对象上
@@ -75,44 +76,54 @@
         }
         el.style.WebkitTransform = el.style.transform = str;
     }
+
     //    运动函数
-    function move(el, attr, val){
+    function move(el, json, fn){
         var curAttr, // 获得元素当前属性值
                 dif,   // 目标值与当前值之差
                 variation, // 本次改变的量
                 reg = /\./,
                 valreg = /[a-zA-Z]/,
                 result;  // transform 时，
-
-        var index = val.search(valreg);
-        var unit = val.slice(index);
-        if(index < 0){
-            unit = "";
-        }
-
-        val = parseFloat(val);
-
-        var timer = window.requestAnimationFrame(animation);
+        var     attrobj = '',
+                index = -1;
+        el.timer = window.requestAnimationFrame(animation);
+//        animation();
         function animation(){
-            curAttr = parseFloat(css(el, attr));
-            if(val == curAttr){
-                window.cancelAnimationFrame(timer);
-            }
+            for(var attr in json){
+                if(json.hasOwnProperty(attr)){
+                       if(attr.search('split') <0 ){
+                           attrobj = attr+'split';
+                       }
+                        if(!json[attrobj]){
+                            json[attrobj] = {};
+                            index = json[attr].search(valreg);
+                            json[attrobj].unit = index < 0? "": json[attr].slice(index);
+                            json[attrobj].val = parseFloat(json[attr]);
 
-            if(reg.test(val) || reg.test(curAttr)){
-                dif = addTwoFloat(3, false, val, curAttr);
-                variation = parseFloat(dif/10);
-                result = addTwoFloat(3, true, curAttr, variation);
-                if(Math.abs(dif) < 0.01){
-                    result = val;
+                        }
+                        curAttr = parseFloat(css(el, attr));
+                        if(json[attrobj].val == curAttr){
+                            window.cancelAnimationFrame(el.time);
+                            fn&&fn();
+                            return;
+                        }
+                        if(reg.test(json[attrobj].val) || reg.test(curAttr)){
+                            dif = addTwoFloat(3, false, json[attrobj].val, curAttr);
+                            variation = parseFloat(dif/10);
+                            result = addTwoFloat(3, true, curAttr, variation);
+                            if(Math.abs(dif) < 0.01){
+                                result = json[attrobj].val;
+                            }
+                        }else{
+                            dif = json[attrobj].val - curAttr;
+                            variation = parseFloat(dif/30);
+                            result = curAttr + variation;
+                        }
+                        css(el, attr, result + json[attrobj].unit);
                 }
-            }else{
-                dif = val - curAttr;
-                variation = parseFloat(dif/30);
-                result = curAttr + variation;
             }
-            css(el, attr, result + unit);
-            timer = window.requestAnimationFrame(animation);
+            el.time = window.requestAnimationFrame(animation);
         }
     }
 
@@ -126,7 +137,7 @@
                     window[vendors[x] + 'CancelRequestAnimationFrame'];
         }
 
-        if (!window.requestAnimationFrame) {
+        if (!window.requestAnimationFrame){
             window.requestAnimationFrame = function(callback) {
                 var currTime = new Date().getTime();
                 var timeToCall = Math.max(0, 16.7 - (currTime - lastTime));
@@ -190,12 +201,14 @@
 
     //    用法示例：
     example.addEventListener("click", checkCss);
-    window.onload = checkCss;
+//    window.onload = checkCss;
     function checkCss(e){
 //        move(example, "width", '400px');
 //        move(example, "left", '100px');
 //        move(example, "scaleX", '4');
-        move(example, "translateX", '200px');
+        move(example, {"scaleX": '6','height': '500px'},function(){
+            move(example, {'right':'200px'})
+        });
 
 //        css(example, "background", "yellow");
         if(!first){
