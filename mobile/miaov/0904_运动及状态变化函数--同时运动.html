@@ -112,7 +112,7 @@
                             dif = addTwoFloat(3, false, json[attrobj].val, curAttr);
                             variation = parseFloat(dif/10);
                             result = addTwoFloat(3, true, curAttr, variation);
-                            if(Math.abs(dif) < 0.01){
+                            if(Math.abs(dif) < 0.02){
                                 result = json[attrobj].val;
                             }
                         }else{
@@ -206,8 +206,8 @@
 //        move(example, "width", '400px');
 //        move(example, "left", '100px');
 //        move(example, "scaleX", '4');
-        move(example, {"scaleX": '6','height': '500px'},function(){
-            move(example, {'right':'200px'})
+        move(example, {"width": '60px','height': '500px'},function(){
+            move(example, {'scaleX':'2','right':'200px'})
         });
 
 //        css(example, "background", "yellow");
