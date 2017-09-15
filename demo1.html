@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>file API</title>
+    <style>
+        *{margin:0;padding:0}
+        .preview_box img {
+             width: 1200px;
+         }
+    </style>
+</head>
+<body>
+
+<input id="img_input" type="file" accept="image/*"/>
+<label for="img_input"></label>
+<div class="preview_box"></div>
+
+<script src="zylib/jquery-2.1.1.min.js"></script>
+<script>
+    // 检测是否支持File API
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        $("#img_input").on("change", function(e){
+
+            var file = e.target.files[0]; //获取图片资源
+
+            // 只选择图片文件
+            if (!file.type.match('image.*')) {
+                return false;
+            }
+
+            var reader = new FileReader();
+            var file_data = $("#img_input").prop("files")[0];
+            reader.readAsDataURL(file); // 读取文件
+
+            // 渲染文件
+            reader.onload = function(arg) {
+                var img = '<img class="preview" src="' + arg.target.result + '" alt="preview"/>';
+                $(".preview_box").empty().append(img);
+            }
+        });
+    } else {
+        console.log('不支持');
+    }
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
