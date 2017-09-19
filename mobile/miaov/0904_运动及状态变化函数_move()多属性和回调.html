@@ -88,7 +88,6 @@
         var     attrobj = '',
                 index = -1;
         el.timer = window.requestAnimationFrame(animation);
-//        animation();
         function animation(){
             for(var attr in json){
                 if(json.hasOwnProperty(attr)){
@@ -123,7 +122,7 @@
                         css(el, attr, result + json[attrobj].unit);
                 }
             }
-            el.time = window.requestAnimationFrame(animation);
+            el.timer = window.requestAnimationFrame(animation);
         }
     }
 

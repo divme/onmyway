@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>多指操作</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        .box{
+            width: 200px;
+            height:200px;
+            margin:120px auto;
+            background: #dedede;
+        }
+        .text{
+            width: 60%;
+            min-height: 100px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <div class="text">我存在</div>
+    <script>
+        (function(){
+            document.addEventListener('touchstart', function(e){
+                e.preventDefault();
+            });
+
+            var box = document.querySelector('.box');
+            var text = document.querySelector('.text');
+
+            var startScale = 1;
+            var startRotate = 0;
+
+            css(box, 'scale', startScale);
+            css(box, 'rotate', '0deg');
+
+            gesture({
+                el: box,
+                start: function(e){
+                    startScale = css(this, 'scale');
+                    startRotate = parseFloat(css(this, 'rotate'));
+                    this.innerHTML = startRotate;
+                    this.style.background = 'red';
+                },
+                change: function(e){
+//                    this.innerHTML = e.rotation;
+//                css(this, 'scale', e.scale*startScale);
+                    css(this, 'rotate', e.rotation+startRotate+'deg');
+                },
+                end: function(e){
+                    this.style.background = 'blue';
+                }
+            });
+
+        })();
+
+//        init：{
+//            el: 绑定多指事件的元素，
+//            start: 多指事件开始执行的函数，
+//            change： 多指事件移动执行的函数，
+//            end： 多指事件结束执行的函数
+//        }
+//        change 里需要 scale 与 rotation 两个值
+
+        function gesture(init){
+            var ifGesture = false; // 当前是否为多指事件
+            var el = init.el; // 绑定事件的元素
+            var startPos = [];
+            var startDis = 0;
+            var startRotation = 0;
+            el.addEventListener('touchstart', function(e){
+                  var touches = e.touches;
+                  if(touches.length >= 2){
+                      ifGesture = true;
+                      startPos[0] = {
+                          x: touches[0].pageX,
+                          y: touches[0].pageY
+                      };
+                      startPos[1] = {
+                          x: touches[1].pageX,
+                          y: touches[1].pageY
+                      };
+                      startDis = getDis(startPos[0], startPos[1]);
+                      startRotation = getRotate(startPos[0], startPos[1]);
+                      init.start && init.start.call(el, e);
+                  }
+            });
+            el.addEventListener('touchmove', function(e){
+                  var touches = e.touches;
+                  var curPos = [];
+
+                  if(touches.length >= 2 && ifGesture){
+                      curPos[0] = {
+                          x: touches[0].pageX,
+                          y: touches[0].pageY
+                      };
+                      curPos[1] = {
+                          x: touches[1].pageX,
+                          y: touches[1].pageY
+                      };
+                      var curDis = getDis(curPos[0], curPos[1]);
+                      var curRotation = getRotate(curPos[0], curPos[1]);
+                      e.scale = curDis/startDis;
+                      e.rotation = curRotation - startRotation;
+                      init.change && init.change.call(el, e);
+                  }
+            });
+            el.addEventListener('touchend', function(e){
+                  if(ifGesture){
+                      init.end && init.end.call(el, e);
+                      ifGesture = false;
+                  }
+            })
+        }
+
+//        计算两个点的直线距离
+        function getDis(point1, point2){
+            var x = point2.x - point1.x;
+            var y = point2.y - point1.y;
+            return Math.sqrt(x*x+y*y);
+        }
+
+        function getRotate(point1, point2){
+            var x = point2.x - point1.x;
+            var y = point2.y - point1.y;
+            return Math.atan2(y, x)*180/Math.PI;
+        }
+
+//        css(el, 'width', '100px');
+//        css(el, 'translateX', '100px');
+        function css(el, attr, val){
+            var transforms = ['transform', 'rotate','rotateX','rotateY','rotateZ','translate','translateX','translateY','translateZ','scale','scaleX','scaleY','skew',"skewX","skewY"];
+            for(var i = 0, len = transforms.length; i < len; i++){
+                if( attr == transforms[i]){
+                    return transform(el, attr, val);
+                }
+            }
+            if( val == undefined ){
+                return window.getComputedStyle?window.getComputedStyle(el)[attr] : el.currentStyle[attr];
+            }
+            el.style[attr] = val;
+        }
+
+        function transform(el, attr, val){
+            var str = '', // transform 属性值串联字符串
+                curAttr; // 遍历 el.transform 对象中的属性
+            if(!el.transform){
+                el.transform = {};
+            }
+            if(val == undefined){
+                if(attr == "transform"){
+                    return el.transform;
+                }
+                return el.transform[attr]? el.transform[attr] : 0.01;
+            }
+
+            el.transform[attr] = val;
+            for(curAttr in el.transform){
+                if(el.transform.hasOwnProperty(curAttr)){
+                    str += curAttr + "(" + el.transform[curAttr] +") ";
+                }
+            }
+            el.style.WebkitTransform = el.style.transform = str;
+        }
+    </script>
+</body>
+</html>

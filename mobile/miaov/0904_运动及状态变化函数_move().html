@@ -41,6 +41,7 @@
 </script>
 <script>
 //    定义一个获取/设置元素属性值(不包括transform)的方法: css(el,"width"); css(el, "width", "100px")
+//    transform: css(el, 'translateX', '100px');
     function css(el, attr, val){
         var transforms = ['transform', 'rotate','rotateX','rotateY','rotateZ','translate','translateX','translateY','translateZ','scale','scaleX','scaleY','skew',"skewX","skewY"];
         for(var i = 0, len = transforms.length; i < len; i++){
