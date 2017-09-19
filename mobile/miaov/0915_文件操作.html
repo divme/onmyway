@@ -2,12 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>移动端事件点透</title>
+    <title>0915_文件操作</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        .box{
+            width: 400px;
+            margin: 100px auto;
+            text-align: center;
+        }
+        /*input{*/
+            /*width: 150px;*/
+            /*border: 1px solid #dddddd;*/
+            /*background: #f4f4f4;*/
+        /*}*/
+        .a-div{
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            margin: 40px auto;
+            background: #dedede;
+            text-align: center;
+        }
+        .a-div img{
+            max-width: 100%;
+        }
+    </style>
 </head>
 <body>
- 1. 手机通讯录
- 2. 手机滑屏多页面切换
- 3. 下拉框选择器，时间日期选择器
+<div class="box">
+    <input type="file" accept="image/png" name="file" id="file">
+    <div class="a-div"></div>
+</div>
+
+<script>
+  /* FileReader实例对象的主要方法：
+
+     readAsDataURL(); 把文件读取成 dataUrl
+     readAsText(); 把文件读取成 text
+     readAsBinaryString(); 把文件读取成 二进制编码
+  */
+    var file = document.getElementById("file");
+    var adiv = document.querySelector('.a-div');
+    file.onchange = function(e){
+//      this.files[0] 与 e.target.files[0] 是一样的
+        var reader = new FileReader();
+        reader.readAsDataURL(this.files[0]);
+        reader.onload = function (e){
+            var img = new Image();
+            img.src = e.target.result;
+            img.onload = function(){
+                adiv.appendChild(img);
+//                这个img是个dom对象，不能用innerHtml的方式插入，只能用appendChild哦
+//                adiv.innerHTML = file
+            }
+        }
+    }
+</script>
 </body>
 </html>

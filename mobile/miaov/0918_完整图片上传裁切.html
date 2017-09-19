@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>完整图片上传裁切</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        *{margin:0; }
+
+        /*上传框*/
+        @media (min-width:1px){
+            .box{
+                width: 400px;
+                margin: 20px auto;
+                text-align: center;
+            }
+            input{
+                width: 150px;
+                border: 1px solid #dddddd;
+                background: #f4f4f4;
+            }
+            .submit{
+                width: 100px;
+                height: 30px;
+                line-height: 30px;
+                margin: 0 auto;
+                text-align: center;
+                background: #006ecd;
+                color: #ffffff;
+            }
+        }
+
+        .imgBox{
+            width: 80%;
+            min-height: 100px;
+            line-height: 100px;
+            margin: 20px auto;
+            border: 1px solid #dddddd;
+            /*background: #dedede;*/
+            text-align: center;
+        }
+        .imgBox img{
+            max-width: 100%;
+        }
+        #editCanvas{
+            /*display: none;*/
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<!--上传图片要实现功能：-->
+<!--1. 预览-->
+<!--2. 编辑&#45;&#45;裁切框拖动放大缩小-->
+<!--3. 编辑&#45;&#45;图片双指放大缩小-->
+<!--4. 编辑&#45;&#45;图片和裁切框单指拖动-->
+<!--5. 裁切完毕保存图片-->
+<div class="box">
+    <input type="file" accept="image/png" name="file" id="file">
+    <!--<div class="submit">编辑</div>-->
+</div>
+<div class="imgBox"></div>
+<canvas id="editCanvas" height="300px"></canvas>
+
+<script src="zytouch.js"></script>
+<script>
+    var file = document.getElementById("file");
+    var imgbox = document.querySelector(".imgBox");
+    var myCanvas = document.getElementById("editCanvas");
+    var ctx = myCanvas.getContext('2d');
+
+    myCanvas.width = window.innerWidth - 2;
+    window.onresize = function(e){
+        myCanvas.width = window.innerWidth -2;
+    };
+    file.onchange = function(e){
+        var reader = new FileReader();
+        reader.readAsDataURL(this.files[0]);
+        reader.onload = function(e){
+            var img = new Image();
+            img.src = e.target.result;
+            img.onload = function(){
+                imgbox.appendChild(img);
+                render(img, myCanvas);
+            }
+        }
+    };
+
+//    把图片渲染进canvas
+    function  render(img, canvas){
+        var wScale = img.width/canvas.width;
+        var hScale = img.height/canvas.height;
+        if(wScale > hScale){
+            img.width = canvas.width;
+        }else{
+            img.height  = canvas.height;
+        }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, (canvas.width-img.width)/2, (canvas.height-img.height)/2, img.width, img.height);
+    }
+</script>
+</body>
+</html>
