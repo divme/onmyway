@@ -10,7 +10,7 @@
         /*上传框*/
         @media (min-width:1px){
             .box{
-                width: 400px;
+                width: 80%;
                 margin: 20px auto;
                 text-align: center;
             }
@@ -68,11 +68,20 @@
     var imgbox = document.querySelector(".imgBox");
     var myCanvas = document.getElementById("editCanvas");
     var ctx = myCanvas.getContext('2d');
-
+    singleDrag({
+        el: file
+    });
+    singleDrag({
+        el: imgbox
+    });
     myCanvas.width = window.innerWidth - 2;
     window.onresize = function(e){
         myCanvas.width = window.innerWidth -2;
     };
+    document.addEventListener('touchstart', function(e){
+        e.preventDefault();
+    });
+//    选择要上传图片后，进行处理
     file.onchange = function(e){
         var reader = new FileReader();
         reader.readAsDataURL(this.files[0]);
@@ -80,7 +89,7 @@
             var img = new Image();
             img.src = e.target.result;
             img.onload = function(){
-                imgbox.appendChild(img);
+//                imgbox.appendChild(img);
                 render(img, myCanvas);
             }
         }
@@ -97,6 +106,39 @@
         }
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, (canvas.width-img.width)/2, (canvas.height-img.height)/2, img.width, img.height);
+
+    }
+
+//    单指拖动
+//    init:{
+//        el: 操作元素，
+//        start: fn , 开始单指拖动
+//        move: fn, 单指拖动中函数
+//        end: fn 单指拖动结束函数
+//    }
+    function singleDrag(init){
+        var el = init.el;
+        var startPos = {};
+        var startElPos = {};
+//        css(el, 'translateX', 0);
+//        css(el, 'translateY', 0);
+        el.addEventListener('touchstart', function(e){
+            startPos.x = e.targetTouches[0].pageX;
+            startPos.y = e.targetTouches[0].pageY;
+            startElPos.x = parseFloat(css(el,'translateX'));
+            startElPos.y =  parseFloat(css(el,'translateY'));
+        });
+        el.addEventListener('touchmove', function(e){
+               var curPos = {};
+               var elPos = {};
+               curPos.x = e.targetTouches[0].pageX;
+               curPos.y = e.targetTouches[0].pageY;
+               elPos.x = css(el,'translateX',startElPos.x + curPos.x-startPos.x+'px');
+               elPos.y = css(el,'translateY',startElPos.y + curPos.y-startPos.y+'px');
+        });
+        el.addEventListener('touchend', function(e){
+
+        });
     }
 </script>
 </body>

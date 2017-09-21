@@ -2,9 +2,10 @@
  * Created by mszq on 2017/9/19.
  */
 /**
-1. tap 和 longtap
+1. 手势事件系列：tap, longtap
 2. 运动函数 move
-3. 设置获取样式 css
+3. 设置获取css系列: css(), transform()
+4.
 **/
 (function() {
     var lastTime = 0;
@@ -52,7 +53,6 @@ function tap(el, callback){
         }
     })
 }
-
 function longtap(el, callback){
     var startX, startY;
     var endX, endY;
@@ -72,6 +72,38 @@ function longtap(el, callback){
     })
 }
 
+
+function css(el, attr, val){
+    var transforms = ['transform', 'rotate','rotateX','rotateY','rotateZ','translate','translateX','translateY','translateZ','scale','scaleX','scaleY','skew',"skewX","skewY"];
+    for(var i = 0, len = transforms.length; i < len; i++){
+        if( attr == transforms[i]){
+            return transform(el, attr, val);
+        }
+    }
+    if( val == undefined ){
+        return window.getComputedStyle?window.getComputedStyle(el)[attr] : el.currentStyle[attr];
+    }
+    el.style[attr] = val;
+}
+function transform(el, attr, val){
+    var str = '', curAttr;
+    if(!el.transform){
+        el.transform = {};
+    }
+    if(val == undefined){
+        if(attr == "transform"){
+            return el.transform;
+        }
+        return el.transform[attr]? el.transform[attr] : 1;
+    }
+    el.transform[attr] = val;
+    for(curAttr in el.transform){
+        if(el.transform.hasOwnProperty(curAttr)){
+            str += curAttr + "(" + el.transform[curAttr] +") ";
+        }
+    }
+    el.style.WebkitTransform = el.style.transform = str;
+}
 function move(el, attr, val, fn){
     var curAttr, // 获得元素当前属性值
         dif,   // 目标值与当前值之差
@@ -113,37 +145,7 @@ function move(el, attr, val, fn){
     }
 }
 
-function css(el, attr, val){
-    var transforms = ['transform', 'rotate','rotateX','rotateY','rotateZ','translate','translateX','translateY','translateZ','scale','scaleX','scaleY','skew',"skewX","skewY"];
-    for(var i = 0, len = transforms.length; i < len; i++){
-        if( attr == transforms[i]){
-            return transform(el, attr, val);
-        }
-    }
-    if( val == undefined ){
-        return window.getComputedStyle?window.getComputedStyle(el)[attr] : el.currentStyle[attr];
-    }
-    el.style[attr] = val;
-}
-function transform(el, attr, val){
-    var str = '', curAttr;
-    if(!el.transform){
-        el.transform = {};
-    }
-    if(val == undefined){
-        if(attr == "transform"){
-            return el.transform;
-        }
-        return el.transform[attr]? el.transform[attr] : 1;
-    }
-    el.transform[attr] = val;
-    for(curAttr in el.transform){
-        if(el.transform.hasOwnProperty(curAttr)){
-            str += curAttr + "(" + el.transform[curAttr] +") ";
-        }
-    }
-    el.style.WebkitTransform = el.style.transform = str;
-}
+
 function addTwoFloat(keepnum, mode, num1, num2){
     var result,
         resultStr,
