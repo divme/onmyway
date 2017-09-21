@@ -2,7 +2,7 @@
  * Created by mszq on 2017/9/19.
  */
 /**
-1. 手势事件系列：tap, longtap
+1. 手势事件系列：tap, longtap, gesture: move事件绑定了scale和rotation属性
 2. 运动函数 move
 3. 设置获取css系列: css(), transform()
 4.
@@ -71,7 +71,61 @@ function longtap(el, callback){
         }
     })
 }
+// init ={
+//     el: el,
+//     start: fn,　　
+//     change: fn,　　
+//     end: fn　　
+// }
+function gesture(init){
+    var ifGesture = false; // 当前是否为多指事件
+    var el = init.el; // 绑定事件的元素
+    var startPos = [];
+    var startDis = 0;
+    var startRotation = 0;
+    el.addEventListener('touchstart', function(e){
+        var touches = e.touches;
+        if(touches.length >= 2){
+            ifGesture = true;
+            startPos[0] = {
+                x: touches[0].pageX,
+                y: touches[0].pageY
+            };
+            startPos[1] = {
+                x: touches[1].pageX,
+                y: touches[1].pageY
+            };
+            startDis = getDis(startPos[0], startPos[1]);
+            startRotation = getRotate(startPos[0], startPos[1]);
+            init.start && init.start.call(el, e);
+        }
+    });
+    el.addEventListener('touchmove', function(e){
+        var touches = e.touches;
+        var curPos = [];
 
+        if(touches.length >= 2 && ifGesture){
+            curPos[0] = {
+                x: touches[0].pageX,
+                y: touches[0].pageY
+            };
+            curPos[1] = {
+                x: touches[1].pageX,
+                y: touches[1].pageY
+            };
+            var curDis = getDis(curPos[0], curPos[1]);
+            var curRotation = getRotate(curPos[0], curPos[1]);
+            e.scale = curDis/startDis;
+            e.rotation = curRotation - startRotation;
+            init.change && init.change.call(el, e);
+        }
+    });
+    el.addEventListener('touchend', function(e){
+        if(ifGesture){
+            init.end && init.end.call(el, e);
+        }
+    })
+}
 
 function css(el, attr, val){
     var transforms = ['transform', 'rotate','rotateX','rotateY','rotateZ','translate','translateX','translateY','translateZ','scale','scaleX','scaleY','skew',"skewX","skewY"];
@@ -94,7 +148,7 @@ function transform(el, attr, val){
         if(attr == "transform"){
             return el.transform;
         }
-        return el.transform[attr]? el.transform[attr] : 1;
+        return el.transform[attr]? el.transform[attr] : 0.01;
     }
     el.transform[attr] = val;
     for(curAttr in el.transform){
@@ -187,4 +241,16 @@ function addTwoFloat(keepnum, mode, num1, num2){
         result = Number(resultStr);
     }
     return result;
+}
+//        计算两个点的直线距离
+function getDis(point1, point2){
+    var x = point2.x - point1.x;
+    var y = point2.y - point1.y;
+    return Math.sqrt(x*x+y*y);
+}
+
+function getRotate(point1, point2){
+    var x = point2.x - point1.x;
+    var y = point2.y - point1.y;
+    return Math.atan2(y, x)*180/Math.PI;
 }

@@ -41,10 +41,11 @@
         }
         .imgBox img{
             max-width: 100%;
+            vertical-align: top;
         }
         #editCanvas{
             /*display: none;*/
-            border: 1px solid red;
+            border: 1px solid yellowgreen;
         }
     </style>
 </head>
@@ -59,54 +60,94 @@
     <input type="file" accept="image/png" name="file" id="file">
     <!--<div class="submit">编辑</div>-->
 </div>
-<div class="imgBox"></div>
+<!--<div class="imgBox"></div>-->
 <canvas id="editCanvas" height="300px"></canvas>
 
 <script src="zytouch.js"></script>
 <script>
-    var file = document.getElementById("file");
-    var imgbox = document.querySelector(".imgBox");
-    var myCanvas = document.getElementById("editCanvas");
-    var ctx = myCanvas.getContext('2d');
-    singleDrag({
-        el: file
-    });
-    singleDrag({
-        el: imgbox
-    });
-    myCanvas.width = window.innerWidth - 2;
+    //    var imgbox = document.querySelector(".imgBox");
+    //    onlyDrag({
+    //        el: imgbox
+    //    });
     window.onresize = function(e){
         myCanvas.width = window.innerWidth -2;
     };
-    document.addEventListener('touchstart', function(e){
-        e.preventDefault();
-    });
-//    选择要上传图片后，进行处理
-    file.onchange = function(e){
-        var reader = new FileReader();
-        reader.readAsDataURL(this.files[0]);
-        reader.onload = function(e){
-            var img = new Image();
-            img.src = e.target.result;
-            img.onload = function(){
-//                imgbox.appendChild(img);
-                render(img, myCanvas);
-            }
-        }
-    };
 
-//    把图片渲染进canvas
+//    (function(){
+        var file = document.getElementById("file");
+        var myCanvas = document.getElementById("editCanvas");
+        var ctx = myCanvas.getContext('2d');
+        myCanvas.width = window.innerWidth - 2;
+
+//    选择要上传图片后，进行处理
+        file.onchange = function(e){
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+            reader.onload = function(e){
+                var img = new Image();
+                img.src = e.target.result;
+                img.onload = function(){
+                    render(img, myCanvas);
+                }
+            }
+        };
+//    })();
+
+
+//  把图片渲染进canvas
     function  render(img, canvas){
-        var wScale = img.width/canvas.width;
-        var hScale = img.height/canvas.height;
-        if(wScale > hScale){
-            img.width = canvas.width;
-        }else{
-            img.height  = canvas.height;
+        var wScale, hScale; // 图片宽高和canvas宽高的比例
+        var initImgPos = {};// 图片在canvas上的渲染位置
+        var curImgPos = {};
+        wScale = img.width/canvas.width;
+        hScale = img.height/canvas.height;
+        if(Math.max(wScale, hScale) > 1){
+            if(wScale > hScale){
+                img.width = canvas.width;
+                img.height = Math.ceil(img.height/wScale);
+            }else{
+                img.height  = canvas.height;
+                img.width = Math.ceil(img.width/hScale)
+            }
         }
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, (canvas.width-img.width)/2, (canvas.height-img.height)/2, img.width, img.height);
+        initImgPos = {
+            x: (canvas.width-img.width)/2,
+            y: (canvas.height-img.height)/2,
+            scale: 1
+        };
 
+
+//        单指拖动图片
+        singleDrag({
+            el: canvas,
+            move: function(e){
+               curImgPos.x = e.change.x + initImgPos.x;
+               curImgPos.y = e.change.y + initImgPos.y;
+               ctx.clearRect(0, 0, canvas.width, canvas.height);
+               ctx.drawImage(img, curImgPos.x, curImgPos.y, img.width, img.height);
+            },
+            end: function(e){
+               initImgPos.x = curImgPos.x;
+               initImgPos.y = curImgPos.y;
+            }
+        });
+//        双指缩放
+        gesture({
+            el: canvas,
+            change: function(e){
+                curImgPos.scale = e.scale;
+                alert(e.scale)
+                img.width = img.width*curImgPos.scale;
+                img.height = img.height*curImgPos.scale;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, initImgPos.x, initImgPos.y, img.width, img.height);
+            },
+            end: function(e){
+//                initImgPos.scale = curImgPos.scale;
+            }
+        })
     }
 
 //    单指拖动
@@ -116,28 +157,78 @@
 //        move: fn, 单指拖动中函数
 //        end: fn 单指拖动结束函数
 //    }
+//    专为图片预览编辑而做的拖动
     function singleDrag(init){
         var el = init.el;
         var startPos = {};
-        var startElPos = {};
-//        css(el, 'translateX', 0);
-//        css(el, 'translateY', 0);
+        var ifSingleDrag = false;
         el.addEventListener('touchstart', function(e){
-            startPos.x = e.targetTouches[0].pageX;
-            startPos.y = e.targetTouches[0].pageY;
-            startElPos.x = parseFloat(css(el,'translateX'));
-            startElPos.y =  parseFloat(css(el,'translateY'));
+            if(e.touches.length < 2){
+                ifSingleDrag = true;
+                startPos ={
+                    x: e.targetTouches[0].pageX,
+                    y: e.targetTouches[0].pageY
+                };
+                init.start&&init.start.apply(el, e);
+            }
         });
         el.addEventListener('touchmove', function(e){
-               var curPos = {};
-               var elPos = {};
-               curPos.x = e.targetTouches[0].pageX;
-               curPos.y = e.targetTouches[0].pageY;
-               elPos.x = css(el,'translateX',startElPos.x + curPos.x-startPos.x+'px');
-               elPos.y = css(el,'translateY',startElPos.y + curPos.y-startPos.y+'px');
+            if(ifSingleDrag){
+                var curPos = {
+                    x: e.targetTouches[0].pageX,
+                    y: e.targetTouches[0].pageY
+                };
+                e.change = {
+                    x : curPos.x - startPos.x,
+                    y : curPos.y - startPos.y
+                };
+                init.move&&init.move.call(el, e);
+            }
         });
         el.addEventListener('touchend', function(e){
+            if(ifSingleDrag){
+                init.end&&init.end.call(el, e);
+                ifSingleDrag = false;
+            }
+        });
+    }
 
+    function onlyDrag(init){
+        var el = init.el;
+        var startPos = {};
+        var startElPos = {};
+        el.addEventListener('touchstart', function(e){
+            if(e.touches.length < 2){
+                ifSingleDrag = true;
+                startPos = {
+                    x: e.targetTouches[0].pageX,
+                    y: e.targetTouches[0].pageY
+                };
+                startElPos = {
+                    x : parseFloat(css(el,'translateX')),
+                    y :  parseFloat(css(el,'translateY'))
+                }
+            }
+        });
+        el.addEventListener('touchmove', function(e){
+            if(ifSingleDrag){
+                var curPos = {
+                    x: e.targetTouches[0].pageX,
+                    y: e.targetTouches[0].pageY
+                };
+                css(el,'translateX',startElPos.x + curPos.x-startPos.x+'px');
+                css(el,'translateY',startElPos.y + curPos.y-startPos.y+'px');
+                e.changePos = {
+                    x : curPos.x - startPos.x,
+                    y : curPos.y - startPos.y
+                };
+                init.move&&init.move.call(el, e);
+            }
+        });
+        el.addEventListener('touchend', function(e){
+            if(ifSingleDrag){
+                init.end&&init.end.call(el, e);
+            }
         });
     }
 </script>

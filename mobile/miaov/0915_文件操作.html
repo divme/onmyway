@@ -10,21 +10,20 @@
             margin: 100px auto;
             text-align: center;
         }
-        /*input{*/
-            /*width: 150px;*/
-            /*border: 1px solid #dddddd;*/
-            /*background: #f4f4f4;*/
-        /*}*/
+        input{
+            width: 150px;
+            border: 1px solid #dddddd;
+            background: #f4f4f4;
+        }
         .a-div{
-            width: 100px;
-            height: 100px;
-            line-height: 100px;
+            width: 80%;
+            min-height: 100px;
             margin: 40px auto;
             background: #dedede;
-            text-align: center;
         }
         .a-div img{
             max-width: 100%;
+            vertical-align: top;
         }
     </style>
 </head>
@@ -36,15 +35,18 @@
 
 <script>
   /* FileReader实例对象的主要方法：
-
-     readAsDataURL(); 把文件读取成 dataUrl
-     readAsText(); 把文件读取成 text
-     readAsBinaryString(); 把文件读取成 二进制编码
+         readAsDataURL(); 把文件读取成 dataUrl
+         readAsText(); 把文件读取成 text
+        readAsBinaryString(); 把文件读取成 二进制编码
   */
     var file = document.getElementById("file");
     var adiv = document.querySelector('.a-div');
     file.onchange = function(e){
 //      this.files[0] 与 e.target.files[0] 是一样的
+        if(this.files[0].size > 8000){
+            return
+        }
+
         var reader = new FileReader();
         reader.readAsDataURL(this.files[0]);
         reader.onload = function (e){
