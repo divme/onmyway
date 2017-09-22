@@ -123,6 +123,7 @@ function gesture(init){
     el.addEventListener('touchend', function(e){
         if(ifGesture){
             init.end && init.end.call(el, e);
+            ifGesture = false;
         }
     })
 }

@@ -5,7 +5,11 @@
     <title>完整图片上传裁切</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
-        *{margin:0; }
+        *{margin:0;
+            padding:0;}
+        body{
+            background: #f4f4f4;
+        }
 
         /*上传框*/
         @media (min-width:1px){
@@ -14,7 +18,17 @@
                 margin: 20px auto;
                 text-align: center;
             }
+            label{
+                display: inline-block;
+                width: 100px;
+                height: 30px;
+                line-height: 30px;
+                font-size: 14px;
+                background: #424242;
+                color: #ffffff;
+            }
             input{
+                display: none;
                 width: 150px;
                 border: 1px solid #dddddd;
                 background: #f4f4f4;
@@ -31,12 +45,11 @@
         }
 
         .imgBox{
-            width: 80%;
-            min-height: 100px;
-            line-height: 100px;
+            width: 200px;
+            min-height: 20px;
             margin: 20px auto;
             border: 1px solid #dddddd;
-            /*background: #dedede;*/
+            background: #dedede;
             text-align: center;
         }
         .imgBox img{
@@ -45,7 +58,7 @@
         }
         #editCanvas{
             /*display: none;*/
-            border: 1px solid yellowgreen;
+            background: #ffffff;
         }
     </style>
 </head>
@@ -57,27 +70,29 @@
 <!--4. 编辑&#45;&#45;图片和裁切框单指拖动-->
 <!--5. 裁切完毕保存图片-->
 <div class="box">
+    <label for="file">选择图片</label>
     <input type="file" accept="image/png" name="file" id="file">
     <!--<div class="submit">编辑</div>-->
 </div>
-<!--<div class="imgBox"></div>-->
+
 <canvas id="editCanvas" height="300px"></canvas>
+<div class="imgBox"></div>
 
 <script src="zytouch.js"></script>
 <script>
-    //    var imgbox = document.querySelector(".imgBox");
-    //    onlyDrag({
-    //        el: imgbox
-    //    });
+        var imgbox = document.querySelector(".imgBox");
+        onlyDrag({
+            el: imgbox
+        });
     window.onresize = function(e){
-        myCanvas.width = window.innerWidth -2;
+        myCanvas.width = window.innerWidth;
     };
 
 //    (function(){
         var file = document.getElementById("file");
         var myCanvas = document.getElementById("editCanvas");
         var ctx = myCanvas.getContext('2d');
-        myCanvas.width = window.innerWidth - 2;
+        myCanvas.width = window.innerWidth;
 
 //    选择要上传图片后，进行处理
         file.onchange = function(e){
@@ -136,16 +151,22 @@
 //        双指缩放
         gesture({
             el: canvas,
+            start: function(e){
+                imgbox.innerHTML += img.width + " " +img.height;
+            },
             change: function(e){
                 curImgPos.scale = e.scale;
-                alert(e.scale)
-                img.width = img.width*curImgPos.scale;
-                img.height = img.height*curImgPos.scale;
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, initImgPos.x, initImgPos.y, img.width, img.height);
+                ctx.drawImage(img, initImgPos.x - (curImgPos.scale-1)*img.width, initImgPos.y-(curImgPos.scale-1)*img.height, img.width*curImgPos.scale, img.height*curImgPos.scale);
             },
             end: function(e){
-//                initImgPos.scale = curImgPos.scale;
+                initImgPos.x = initImgPos.x - (curImgPos.scale-1)*img.width;
+                initImgPos.y = initImgPos.y - (curImgPos.scale-1)*img.height;
+                img.width = img.width*curImgPos.scale;
+                img.height = img.height*curImgPos.scale;
+//                ctx.clearRect(0, 0, canvas.width, canvas.height);
+//                ctx.drawImage(img, initImgPos.x - (curImgPos.scale-1)*img.width, initImgPos.y-(curImgPos.scale-1)*img.height, img.width*curImgPos.scale, img.height*curImgPos.scale);
+                imgbox.innerHTML += "&&"+img.width + " " +img.height+"||";
             }
         })
     }
