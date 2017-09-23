@@ -5,12 +5,11 @@
     <title>完整图片上传裁切</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
-        *{margin:0;
-            padding:0;}
+        *{margin:0;padding:0;}
         body{
-            background: #f4f4f4;
+            background: #424242;
+            overflow: hidden;
         }
-
         /*上传框*/
         @media (min-width:1px){
             .box{
@@ -24,7 +23,7 @@
                 height: 30px;
                 line-height: 30px;
                 font-size: 14px;
-                background: #424242;
+                background: #1aad19;
                 color: #ffffff;
             }
             input{
@@ -44,21 +43,60 @@
             }
         }
 
-        .imgBox{
+         /*canvas相关*/
+        @media (min-width: 1px){
+            .canvas-box{
+                position: relative;
+            }
+            #canvas{
+                background: #f6f6f6;
+            }
+            .edit{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100px;
+                height: 100px;
+                background: rgba(26, 173, 25, 0.1);
+            }
+            .etool{
+                position: absolute;
+                width:20px;
+                height: 20px;
+            }
+            .lt{
+                left: 0;
+                top: 0;
+                border-left:2px solid #1aad19;
+                border-top:2px solid #1aad19;
+            }
+            .lb{
+                left: 0;
+                bottom: 0;
+                border-left:2px solid #1aad19;
+                border-bottom:2px solid #1aad19;
+            }
+            .rt{
+                right: 0;
+                top: 0;
+                border-right:2px solid #1aad19;
+                border-top:2px solid #1aad19;
+            }
+            .rb{
+                right: 0;
+                bottom: 0;
+                border-right:2px solid #1aad19;
+                border-bottom:2px solid #1aad19;
+            }
+        }
+
+        .info{
             width: 200px;
             min-height: 20px;
             margin: 20px auto;
             border: 1px solid #dddddd;
-            background: #dedede;
-            text-align: center;
-        }
-        .imgBox img{
-            max-width: 100%;
-            vertical-align: top;
-        }
-        #editCanvas{
-            /*display: none;*/
             background: #ffffff;
+            text-align: center;
         }
     </style>
 </head>
@@ -75,24 +113,81 @@
     <!--<div class="submit">编辑</div>-->
 </div>
 
-<canvas id="editCanvas" height="300px"></canvas>
-<div class="imgBox"></div>
+<div class="canvas-box">
+    <canvas id="canvas" height="300px"></canvas>
+    <div class="edit">
+        <div class="etool lt"></div>
+        <div class="etool lb"></div>
+        <div class="etool rt"></div>
+        <div class="etool rb"></div>
+    </div>
+</div>
+<div class="info"></div>
 
 <script src="zytouch.js"></script>
 <script>
-        var imgbox = document.querySelector(".imgBox");
-        onlyDrag({
-            el: imgbox
-        });
-    window.onresize = function(e){
-        myCanvas.width = window.innerWidth;
-    };
-
-//    (function(){
         var file = document.getElementById("file");
-        var myCanvas = document.getElementById("editCanvas");
-        var ctx = myCanvas.getContext('2d');
-        myCanvas.width = window.innerWidth;
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext('2d');
+        var info = document.querySelector(".info");
+        var edit = document.querySelector(".edit");
+        var lt = document.querySelector(".lt");
+        var rb = document.querySelector(".rb");
+            canvas.width = window.innerWidth;
+        var editLeft = (canvas.width - parseFloat(css(edit, 'width')))/2;
+        var editTop = (canvas.height - parseFloat(css(edit, 'height')))/2;
+
+        var curWidth, curHeight; // 拖动开始时编辑框的当前大小
+        var curLtTx, curLtTy; // 左上角拖动缩放
+
+        css(edit, 'translateX', editLeft + 'px');
+        css(edit, 'translateY', editTop + 'px');
+
+        window.onresize = function(e){
+            canvas.width = window.innerWidth;
+            editLeft = (canvas.width - parseFloat(css(edit, 'width')))/2;
+            editTop = (canvas.height - parseFloat(css(edit, 'height')))/2;
+            css(edit, 'translateX', editLeft + 'px');
+            css(edit, 'translateY', editTop + 'px');
+        };
+
+        singleDrag({
+            el: info
+        });
+        singleDrag({
+            el: edit
+        });
+        canvasDrag({
+            el: rb,
+            start: function(e){
+                e.stopPropagation();
+                curWidth = parseFloat(css(edit, 'width'));
+                curHeight = parseFloat(css(edit, 'height'));
+            },
+            move: function(e){
+                e.stopPropagation();
+                css(edit, 'width', curWidth + e.change.x + 'px');
+                css(edit, 'height', curHeight + e.change.y + 'px');
+            }
+        });
+        canvasDrag({
+            el: lt,
+            start: function(e){
+                e.stopPropagation();
+                curWidth = parseFloat(css(edit, 'width'));
+                curHeight = parseFloat(css(edit, 'height'));
+                curLtTx = parseFloat(css(edit, 'translateX'));
+                curLtTy = parseFloat(css(edit, 'translateY'));
+            },
+            move: function(e){
+                e.stopPropagation();
+                css(edit, 'width', curWidth - e.change.x + 'px');
+                css(edit, 'height', curHeight - e.change.y + 'px');
+                css(edit, 'translateX', curLtTx + e.change.x + 'px');
+                css(edit, 'translateY', curLtTy + e.change.y + 'px');
+            }
+        });
+
 
 //    选择要上传图片后，进行处理
         file.onchange = function(e){
@@ -102,14 +197,13 @@
                 var img = new Image();
                 img.src = e.target.result;
                 img.onload = function(){
-                    render(img, myCanvas);
+                    render(img, canvas);
                 }
             }
         };
-//    })();
 
 
-//  把图片渲染进canvas
+//  把图片渲染进canvas,并定义对图片的一系列操作：单指拖动，双指缩放
     function  render(img, canvas){
         var wScale, hScale; // 图片宽高和canvas宽高的比例
         var initImgPos = {};// 图片在canvas上的渲染位置
@@ -133,9 +227,8 @@
             scale: 1
         };
 
-
 //        单指拖动图片
-        singleDrag({
+        canvasDrag({
             el: canvas,
             move: function(e){
                curImgPos.x = e.change.x + initImgPos.x;
@@ -152,7 +245,7 @@
         gesture({
             el: canvas,
             start: function(e){
-                imgbox.innerHTML += img.width + " " +img.height;
+                info.innerHTML += img.width + " " +img.height;
             },
             change: function(e){
                 curImgPos.scale = e.scale;
@@ -166,7 +259,7 @@
                 img.height = img.height*curImgPos.scale;
 //                ctx.clearRect(0, 0, canvas.width, canvas.height);
 //                ctx.drawImage(img, initImgPos.x - (curImgPos.scale-1)*img.width, initImgPos.y-(curImgPos.scale-1)*img.height, img.width*curImgPos.scale, img.height*curImgPos.scale);
-                imgbox.innerHTML += "&&"+img.width + " " +img.height+"||";
+                info.innerHTML += "&&"+img.width + " " +img.height+"||";
             }
         })
     }
@@ -178,23 +271,24 @@
 //        move: fn, 单指拖动中函数
 //        end: fn 单指拖动结束函数
 //    }
+
 //    专为图片预览编辑而做的拖动
-    function singleDrag(init){
+    function canvasDrag(init){
         var el = init.el;
         var startPos = {};
-        var ifSingleDrag = false;
+        var ifcanvasDrag = false;
         el.addEventListener('touchstart', function(e){
             if(e.touches.length < 2){
-                ifSingleDrag = true;
+                ifcanvasDrag = true;
                 startPos ={
                     x: e.targetTouches[0].pageX,
                     y: e.targetTouches[0].pageY
                 };
-                init.start&&init.start.apply(el, e);
+                init.start&&init.start.call(el, e);
             }
         });
         el.addEventListener('touchmove', function(e){
-            if(ifSingleDrag){
+            if(ifcanvasDrag){
                 var curPos = {
                     x: e.targetTouches[0].pageX,
                     y: e.targetTouches[0].pageY
@@ -207,39 +301,42 @@
             }
         });
         el.addEventListener('touchend', function(e){
-            if(ifSingleDrag){
+            if(ifcanvasDrag){
                 init.end&&init.end.call(el, e);
-                ifSingleDrag = false;
+                ifcanvasDrag = false;
             }
         });
     }
 
-    function onlyDrag(init){
+//    一般的单指拖动：单指默认有拖动效果，可自定义其他事件
+    function singleDrag(init){
         var el = init.el;
-        var startPos = {};
-        var startElPos = {};
+        var startPos = {};   // 手指开始位置
+        var startElPos = {}; // 元素开始位置
+        var ifDrag = false;
         el.addEventListener('touchstart', function(e){
             if(e.touches.length < 2){
-                ifSingleDrag = true;
+                ifDrag = true;
                 startPos = {
                     x: e.targetTouches[0].pageX,
                     y: e.targetTouches[0].pageY
                 };
                 startElPos = {
-                    x : parseFloat(css(el,'translateX')),
+                    x :  parseFloat(css(el,'translateX')),
                     y :  parseFloat(css(el,'translateY'))
-                }
+                };
+                init.start&&init.start.call(el, e);
             }
         });
         el.addEventListener('touchmove', function(e){
-            if(ifSingleDrag){
+            if(ifDrag){
                 var curPos = {
                     x: e.targetTouches[0].pageX,
                     y: e.targetTouches[0].pageY
                 };
                 css(el,'translateX',startElPos.x + curPos.x-startPos.x+'px');
                 css(el,'translateY',startElPos.y + curPos.y-startPos.y+'px');
-                e.changePos = {
+                e.change = {
                     x : curPos.x - startPos.x,
                     y : curPos.y - startPos.y
                 };
@@ -247,7 +344,7 @@
             }
         });
         el.addEventListener('touchend', function(e){
-            if(ifSingleDrag){
+            if(ifDrag){
                 init.end&&init.end.call(el, e);
             }
         });

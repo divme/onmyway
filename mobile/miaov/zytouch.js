@@ -125,7 +125,18 @@ function gesture(init){
             init.end && init.end.call(el, e);
             ifGesture = false;
         }
-    })
+    });
+    //        计算两个点的直线距离
+    function getDis(point1, point2){
+        var x = point2.x - point1.x;
+        var y = point2.y - point1.y;
+        return Math.sqrt(x*x+y*y);
+    }
+    function getRotate(point1, point2){
+        var x = point2.x - point1.x;
+        var y = point2.y - point1.y;
+        return Math.atan2(y, x)*180/Math.PI;
+    }
 }
 
 function css(el, attr, val){
@@ -242,16 +253,4 @@ function addTwoFloat(keepnum, mode, num1, num2){
         result = Number(resultStr);
     }
     return result;
-}
-//        计算两个点的直线距离
-function getDis(point1, point2){
-    var x = point2.x - point1.x;
-    var y = point2.y - point1.y;
-    return Math.sqrt(x*x+y*y);
-}
-
-function getRotate(point1, point2){
-    var x = point2.x - point1.x;
-    var y = point2.y - point1.y;
-    return Math.atan2(y, x)*180/Math.PI;
 }

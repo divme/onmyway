@@ -5,12 +5,23 @@
     <title>0915_文件操作</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
+        *{margin:0;padding:0;}
         .box{
-            width: 400px;
+            width: 100%;
             margin: 100px auto;
             text-align: center;
         }
+        label{
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 14px;
+            background: #424242;
+            color: #ffffff;
+        }
         input{
+            display: none;
             width: 150px;
             border: 1px solid #dddddd;
             background: #f4f4f4;
@@ -29,6 +40,7 @@
 </head>
 <body>
 <div class="box">
+    <label for="file">选择图片</label>
     <input type="file" accept="image/png" name="file" id="file">
     <div class="a-div"></div>
 </div>
@@ -43,9 +55,10 @@
     var adiv = document.querySelector('.a-div');
     file.onchange = function(e){
 //      this.files[0] 与 e.target.files[0] 是一样的
-        if(this.files[0].size > 8000){
-            return
-        }
+//        if(this.files[0].size > 8000){
+//            console.log('das')
+//            return
+//        }
 
         var reader = new FileReader();
         reader.readAsDataURL(this.files[0]);
