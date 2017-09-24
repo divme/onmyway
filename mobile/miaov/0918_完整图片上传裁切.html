@@ -41,6 +41,15 @@
                 background: #006ecd;
                 color: #ffffff;
             }
+            .save{
+                display: inline-block;
+                width: 100px;
+                height: 30px;
+                line-height: 30px;
+                font-size: 14px;
+                background: #1aad19;
+                color: #ffffff;
+            }
         }
 
          /*canvas相关*/
@@ -109,8 +118,9 @@
 <!--5. 裁切完毕保存图片-->
 <div class="box">
     <label for="file">选择图片</label>
-    <input type="file" accept="image/png" name="file" id="file">
+    <input type="file" accept="image" name="file" id="file">
     <!--<div class="submit">编辑</div>-->
+    <div class="save">保存</div>
 </div>
 
 <div class="canvas-box">
@@ -127,26 +137,33 @@
 <script src="zytouch.js"></script>
 <script>
         var file = document.getElementById("file");
-        var canvas = document.getElementById("canvas");
-        var ctx = canvas.getContext('2d');
-        var info = document.querySelector(".info");
+        var save = document.querySelector(".save");
         var edit = document.querySelector(".edit");
         var lt = document.querySelector(".lt");
         var rb = document.querySelector(".rb");
+        var info = document.querySelector(".info");
+
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
+
+//      编辑框的大小和位置
         var editLeft = (canvas.width - parseFloat(css(edit, 'width')))/2;
         var editTop = (canvas.height - parseFloat(css(edit, 'height')))/2;
-
-        var curWidth, curHeight; // 拖动开始时编辑框的当前大小
-        var curLtTx, curLtTy; // 左上角拖动缩放
-
+        var curImgPos = {}; //图片当前的位置
+        var editWidth = 100, editHeight = 100; // 拖动开始时编辑框的当前大小
+//      设置编辑框的位置
         css(edit, 'translateX', editLeft + 'px');
         css(edit, 'translateY', editTop + 'px');
 
         window.onresize = function(e){
             canvas.width = window.innerWidth;
+            editWidth = 100;
+            editHeight = 100;
             editLeft = (canvas.width - parseFloat(css(edit, 'width')))/2;
             editTop = (canvas.height - parseFloat(css(edit, 'height')))/2;
+            css(edit, 'width', editWidth + 'px');
+            css(edit, 'height', editHeight + 'px');
             css(edit, 'translateX', editLeft + 'px');
             css(edit, 'translateY', editTop + 'px');
         };
@@ -161,30 +178,38 @@
             el: rb,
             start: function(e){
                 e.stopPropagation();
-                curWidth = parseFloat(css(edit, 'width'));
-                curHeight = parseFloat(css(edit, 'height'));
+                editWidth = parseFloat(css(edit, 'width'));
+                editHeight = parseFloat(css(edit, 'height'));
             },
             move: function(e){
                 e.stopPropagation();
-                css(edit, 'width', curWidth + e.change.x + 'px');
-                css(edit, 'height', curHeight + e.change.y + 'px');
+                css(edit, 'width', editWidth + e.change.x + 'px');
+                css(edit, 'height', editHeight + e.change.y + 'px');
+            },
+            end: function(e){
+                editLeft = parseFloat(css(edit, 'translateX'));
+                editTop = parseFloat(css(edit, 'translateY'));
             }
         });
         canvasDrag({
             el: lt,
             start: function(e){
                 e.stopPropagation();
-                curWidth = parseFloat(css(edit, 'width'));
-                curHeight = parseFloat(css(edit, 'height'));
-                curLtTx = parseFloat(css(edit, 'translateX'));
-                curLtTy = parseFloat(css(edit, 'translateY'));
+                editWidth = parseFloat(css(edit, 'width'));
+                editHeight = parseFloat(css(edit, 'height'));
+                editLeft = parseFloat(css(edit, 'translateX'));
+                editTop = parseFloat(css(edit, 'translateY'));
             },
             move: function(e){
                 e.stopPropagation();
-                css(edit, 'width', curWidth - e.change.x + 'px');
-                css(edit, 'height', curHeight - e.change.y + 'px');
-                css(edit, 'translateX', curLtTx + e.change.x + 'px');
-                css(edit, 'translateY', curLtTy + e.change.y + 'px');
+                css(edit, 'width', editWidth - e.change.x + 'px');
+                css(edit, 'height', editHeight - e.change.y + 'px');
+                css(edit, 'translateX', editLeft + e.change.x + 'px');
+                css(edit, 'translateY', editTop + e.change.y + 'px');
+            },
+            end: function(e){
+                editLeft = parseFloat(css(edit, 'translateX'));
+                editTop = parseFloat(css(edit, 'translateY'));
             }
         });
 
@@ -206,8 +231,7 @@
 //  把图片渲染进canvas,并定义对图片的一系列操作：单指拖动，双指缩放
     function  render(img, canvas){
         var wScale, hScale; // 图片宽高和canvas宽高的比例
-        var initImgPos = {};// 图片在canvas上的渲染位置
-        var curImgPos = {};
+        var initImg = {};// 图片在canvas上的渲染位置
         wScale = img.width/canvas.width;
         hScale = img.height/canvas.height;
         if(Math.max(wScale, hScale) > 1){
@@ -219,26 +243,41 @@
                 img.width = Math.ceil(img.width/hScale)
             }
         }
+
+        curImgPos.x = (canvas.width-img.width)/2;
+        curImgPos.y = (canvas.height-img.height)/2;
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, (canvas.width-img.width)/2, (canvas.height-img.height)/2, img.width, img.height);
-        initImgPos = {
+//        ctx.drawImage(img, 34, 100, 100, 100, 100, 100, 100, 100);
+        initImg = {
             x: (canvas.width-img.width)/2,
             y: (canvas.height-img.height)/2,
             scale: 1
         };
 
+        save.addEventListener('click',function(e){
+            var editWidth = parseFloat(css(edit, 'width'));
+            var editHeight = parseFloat(css(edit, 'height'));
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+//          ctx.drawImage(img, editLeft - curImgPos.x ,editTop - curImgPos.y , editWidth, editHeight, (canvas.width-editWidth)/2, (canvas.height-editHeight)/2, editWidth, editHeight);
+            ctx.drawImage(img, editLeft - curImgPos.x ,editTop - curImgPos.y , editWidth, editHeight, editLeft, editTop, editWidth, editHeight);
+//          edit.style.display = 'none';
+        });
+
 //        单指拖动图片
         canvasDrag({
             el: canvas,
             move: function(e){
-               curImgPos.x = e.change.x + initImgPos.x;
-               curImgPos.y = e.change.y + initImgPos.y;
+               curImgPos.x = e.change.x + initImg.x;
+               curImgPos.y = e.change.y + initImg.y;
                ctx.clearRect(0, 0, canvas.width, canvas.height);
                ctx.drawImage(img, curImgPos.x, curImgPos.y, img.width, img.height);
             },
             end: function(e){
-               initImgPos.x = curImgPos.x;
-               initImgPos.y = curImgPos.y;
+               initImg.x = curImgPos.x;
+               initImg.y = curImgPos.y;
             }
         });
 //        双指缩放
@@ -250,15 +289,15 @@
             change: function(e){
                 curImgPos.scale = e.scale;
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, initImgPos.x - (curImgPos.scale-1)*img.width, initImgPos.y-(curImgPos.scale-1)*img.height, img.width*curImgPos.scale, img.height*curImgPos.scale);
+                ctx.drawImage(img, initImg.x - (curImgPos.scale-1)*img.width, initImg.y-(curImgPos.scale-1)*img.height, img.width*curImgPos.scale, img.height*curImgPos.scale);
             },
             end: function(e){
-                initImgPos.x = initImgPos.x - (curImgPos.scale-1)*img.width;
-                initImgPos.y = initImgPos.y - (curImgPos.scale-1)*img.height;
+                initImg.x = initImg.x - (curImgPos.scale-1)*img.width;
+                initImg.y = initImg.y - (curImgPos.scale-1)*img.height;
                 img.width = img.width*curImgPos.scale;
                 img.height = img.height*curImgPos.scale;
 //                ctx.clearRect(0, 0, canvas.width, canvas.height);
-//                ctx.drawImage(img, initImgPos.x - (curImgPos.scale-1)*img.width, initImgPos.y-(curImgPos.scale-1)*img.height, img.width*curImgPos.scale, img.height*curImgPos.scale);
+//                ctx.drawImage(img, initImg.x - (curImgPos.scale-1)*img.width, initImg.y-(curImgPos.scale-1)*img.height, img.width*curImgPos.scale, img.height*curImgPos.scale);
                 info.innerHTML += "&&"+img.width + " " +img.height+"||";
             }
         })
