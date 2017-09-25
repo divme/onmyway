@@ -116,23 +116,26 @@
 <!--3. 编辑&#45;&#45;图片双指放大缩小-->
 <!--4. 编辑&#45;&#45;图片和裁切框单指拖动-->
 <!--5. 裁切完毕保存图片-->
-<div class="box">
-    <label for="file">选择图片</label>
-    <input type="file" accept="image" name="file" id="file">
-    <!--<div class="submit">编辑</div>-->
-    <div class="save">保存</div>
-</div>
-
-<div class="canvas-box">
-    <canvas id="canvas" height="300px"></canvas>
-    <div class="edit">
-        <div class="etool lt"></div>
-        <div class="etool lb"></div>
-        <div class="etool rt"></div>
-        <div class="etool rb"></div>
+<div class="wrap">
+    <div class="box">
+        <label for="file">选择图片</label>
+        <input type="file" accept="image" name="file" id="file">
+        <!--<div class="submit">编辑</div>-->
+        <div class="save">保存</div>
     </div>
+    <div class="canvas-box">
+        <canvas id="canvas" height="300px"></canvas>
+        <div class="edit">
+            <div class="etool lt"></div>
+            <div class="etool lb"></div>
+            <div class="etool rt"></div>
+            <div class="etool rb"></div>
+        </div>
+    </div>
+    <div class="info"></div>
+    <canvas id="c2" width="100px" height="100px"></canvas>
+    <img src="" class="img" alt="" style="width:100px;height:100px;">
 </div>
-<div class="info"></div>
 
 <script src="zytouch.js"></script>
 <script>
@@ -257,15 +260,43 @@
             scale: 1
         };
 
-        save.addEventListener('click',function(e){
+//        save.addEventListener('click',function(e){
+//            var editWidth = parseFloat(css(edit, 'width'));
+//            var editHeight = parseFloat(css(edit, 'height'));
+//            ctx.clearRect(0, 0, canvas.width, canvas.height);
+//
+////          ctx.drawImage(img, editLeft - curImgPos.x ,editTop - curImgPos.y , editWidth, editHeight, (canvas.width-editWidth)/2, (canvasheight-editHeight)/2, editWidth, editHeight);
+//            ctx.drawImage(img, editLeft - curImgPos.x ,editTop - curImgPos.y , editWidth, editHeight, editLeft, editTop, editWidth, editHeight);
+////          edit.style.display = 'none';
+//        });
+        tap(save, function(){
             var editWidth = parseFloat(css(edit, 'width'));
             var editHeight = parseFloat(css(edit, 'height'));
+            var editLeft  = parseFloat(css(edit, 'translateX'));
+            var editTop  = parseFloat(css(edit, 'translateY'));
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-//          ctx.drawImage(img, editLeft - curImgPos.x ,editTop - curImgPos.y , editWidth, editHeight, (canvas.width-editWidth)/2, (canvas.height-editHeight)/2, editWidth, editHeight);
+//          ctx.drawImage(img, editLeft - curImgPos.x ,editTop - curImgPos.y , editWidth, editHeight, (canvas.width-editWidth)/2, (canvasheight-editHeight)/2, editWidth, editHeight);
             ctx.drawImage(img, editLeft - curImgPos.x ,editTop - curImgPos.y , editWidth, editHeight, editLeft, editTop, editWidth, editHeight);
 //          edit.style.display = 'none';
         });
+//        tap(save,function(){
+//            var img = document.querySelector(".img");
+//            var c2 = document.querySelector("#c2");
+//                ctx2 = c2.getContext('2d');
+//            var x = css(edit,"translateX");
+//            var y = css(edit,"translateY");
+//            var w = css(edit,"width");
+//            var h = css(edit,"height");
+//            var imgData = ctx.getImageData(x,y,w,h);
+//            c2.width = w;
+//            c2.height = h;
+//            ctx2.putImageData(imgData,0,0);
+//            img.style.width = w + "px";
+//            img.style.height = h + "px";
+//            img.src = c2.toDataURL("image/png");
+//            c2.style.display = "none";
+//        });
 
 //        单指拖动图片
         canvasDrag({
