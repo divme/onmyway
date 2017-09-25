@@ -148,10 +148,11 @@
             canvas.width = window.innerWidth;
 
 //      编辑框的大小和位置
-        var editLeft = (canvas.width - parseFloat(css(edit, 'width')))/2;
-        var editTop = (canvas.height - parseFloat(css(edit, 'height')))/2;
+        var editWidth = parseFloat(css(edit, 'width')),
+            editHeight = parseFloat(css(edit, 'width'));
+        var editLeft = (canvas.width - parseFloat(css(edit, 'width')))/2,
+            editTop = (canvas.height - parseFloat(css(edit, 'height')))/2;
         var curImgPos = {}; //图片当前的位置
-        var editWidth = 100, editHeight = 100; // 拖动开始时编辑框的当前大小
 //      设置编辑框的位置
         css(edit, 'translateX', editLeft + 'px');
         css(edit, 'translateY', editTop + 'px');
