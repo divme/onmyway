@@ -107,6 +107,10 @@
             background: #ffffff;
             text-align: center;
         }
+        #canvas2{
+            display: none;
+            margin: 10px auto;
+        }
     </style>
 </head>
 <body>
@@ -119,7 +123,7 @@
 <div class="wrap">
     <div class="box">
         <label for="file">选择图片</label>
-        <input type="file" accept="image" name="file" id="file">
+        <input type="file" accept="image/*" name="file" id="file">
         <!--<div class="submit">编辑</div>-->
         <div class="save">保存</div>
     </div>
@@ -132,13 +136,14 @@
             <div class="etool rb"></div>
         </div>
     </div>
+    <canvas id="canvas2" width="100px" height="100px"></canvas>
     <div class="info"></div>
-    <canvas id="c2" width="100px" height="100px"></canvas>
-    <img src="" class="img" alt="" style="width:100px;height:100px;">
+    <!--<img src="" class="img" alt="" style="width:100px;height:100px;">-->
 </div>
 
 <script src="zytouch.js"></script>
 <script>
+        var wrap = document.querySelector('.wrap');
         var file = document.getElementById("file");
         var save = document.querySelector(".save");
         var edit = document.querySelector(".edit");
@@ -149,16 +154,29 @@
         var canvas = document.getElementById("canvas");
         var ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
+        var canvas2 = document.getElementById("canvas2");
+        var ctx2 = canvas.getContext('2d');
 
-//      编辑框的大小和位置
+        wrap.addEventListener('touchmove', function(e){
+             e.preventDefault();
+        });
+
+//      初始化编辑框的大小和位置
         var editWidth = parseFloat(css(edit, 'width')),
             editHeight = parseFloat(css(edit, 'width'));
         var editLeft = (canvas.width - parseFloat(css(edit, 'width')))/2,
             editTop = (canvas.height - parseFloat(css(edit, 'height')))/2;
-        var curImgPos = {}; //图片当前的位置
 //      设置编辑框的位置
         css(edit, 'translateX', editLeft + 'px');
         css(edit, 'translateY', editTop + 'px');
+
+//      图片相关信息
+        var curImgPos = {
+            x: 0,
+            y: 0,
+            scale: 1
+        }; // 图片当前的位置及缩放比例
+        var scale = 1;      // 相对于最初始文件状态，图片总体缩放比例
 
         window.onresize = function(e){
             canvas.width = window.innerWidth;
@@ -227,6 +245,23 @@
                 img.src = e.target.result;
                 img.onload = function(){
                     render(img, canvas);
+
+//                    点击保存
+                    tap(save, function(){
+                        var editWidth = parseFloat(css(edit, 'width'));
+                        var editHeight = parseFloat(css(edit, 'height'));
+                        var editLeft  = parseFloat(css(edit, 'translateX'));
+                        var editTop  = parseFloat(css(edit, 'translateY'));
+
+//                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+//                        ctx.drawImage(img, (editLeft - curImgPos.x)/scale , (editTop - curImgPos.y)/scale , editWidth/scale, editHeight/scale, editLeft, editTop, editWidth, editHeight);
+                        canvas.style.display = 'none';
+                        edit.style.display = 'none';
+                        canvas2.style.display = 'block';
+                        canvas2.style.width = editWidth;
+                        canvas2.style.height = editHeight;
+                        ctx2.drawImage(img, (editLeft - curImgPos.x)/scale , (editTop - curImgPos.y)/scale , editWidth/scale, editHeight/scale, 0, 0, editWidth, editHeight);
+                    });
                 }
             }
         };
@@ -236,67 +271,37 @@
     function  render(img, canvas){
         var wScale, hScale; // 图片宽高和canvas宽高的比例
         var initImg = {};// 图片在canvas上的渲染位置
-        wScale = img.width/canvas.width;
-        hScale = img.height/canvas.height;
-        if(Math.max(wScale, hScale) > 1){
-            if(wScale > hScale){
+        info.innerHTML = "img原件：" + img.width + ' '+img.height + "<br/>";
+        wScale = canvas.width/img.width;
+        hScale = canvas.height/img.height;
+        scale = Math.min(wScale, hScale);
+        if(scale < 1){
+            if(wScale < hScale){
                 img.width = canvas.width;
-                img.height = Math.ceil(img.height/wScale);
+                img.height = img.height*wScale;
             }else{
                 img.height  = canvas.height;
-                img.width = Math.ceil(img.width/hScale)
+                img.width = img.width*hScale;
             }
+        }else{
+            scale = 1;
         }
 
-        curImgPos.x = (canvas.width-img.width)/2;
-        curImgPos.y = (canvas.height-img.height)/2;
+        info.innerHTML += "init渲染：" + img.width + ' '+img.height + ' ' + scale + "<br/>";
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, (canvas.width-img.width)/2, (canvas.height-img.height)/2, img.width, img.height);
-//        ctx.drawImage(img, 34, 100, 100, 100, 100, 100, 100, 100);
+        //        存放图片缩放渲染到canvas中后的初始位置 和 默认缩放比例
         initImg = {
             x: (canvas.width-img.width)/2,
             y: (canvas.height-img.height)/2,
             scale: 1
         };
+       //        图片当前位置
+        curImgPos.x = (canvas.width-img.width)/2;
+        curImgPos.y = (canvas.height-img.height)/2;
+       //        初始化渲染图片
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, curImgPos.x, curImgPos.y, img.width, img.height);
 
-//        save.addEventListener('click',function(e){
-//            var editWidth = parseFloat(css(edit, 'width'));
-//            var editHeight = parseFloat(css(edit, 'height'));
-//            ctx.clearRect(0, 0, canvas.width, canvas.height);
-//
-////          ctx.drawImage(img, editLeft - curImgPos.x ,editTop - curImgPos.y , editWidth, editHeight, (canvas.width-editWidth)/2, (canvasheight-editHeight)/2, editWidth, editHeight);
-//            ctx.drawImage(img, editLeft - curImgPos.x ,editTop - curImgPos.y , editWidth, editHeight, editLeft, editTop, editWidth, editHeight);
-////          edit.style.display = 'none';
-//        });
-        tap(save, function(){
-            var editWidth = parseFloat(css(edit, 'width'));
-            var editHeight = parseFloat(css(edit, 'height'));
-            var editLeft  = parseFloat(css(edit, 'translateX'));
-            var editTop  = parseFloat(css(edit, 'translateY'));
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-//          ctx.drawImage(img, editLeft - curImgPos.x ,editTop - curImgPos.y , editWidth, editHeight, (canvas.width-editWidth)/2, (canvasheight-editHeight)/2, editWidth, editHeight);
-            ctx.drawImage(img, editLeft - curImgPos.x ,editTop - curImgPos.y , editWidth, editHeight, editLeft, editTop, editWidth, editHeight);
-//          edit.style.display = 'none';
-        });
-//        tap(save,function(){
-//            var img = document.querySelector(".img");
-//            var c2 = document.querySelector("#c2");
-//                ctx2 = c2.getContext('2d');
-//            var x = css(edit,"translateX");
-//            var y = css(edit,"translateY");
-//            var w = css(edit,"width");
-//            var h = css(edit,"height");
-//            var imgData = ctx.getImageData(x,y,w,h);
-//            c2.width = w;
-//            c2.height = h;
-//            ctx2.putImageData(imgData,0,0);
-//            img.style.width = w + "px";
-//            img.style.height = h + "px";
-//            img.src = c2.toDataURL("image/png");
-//            c2.style.display = "none";
-//        });
 
 //        单指拖动图片
         canvasDrag({
@@ -304,6 +309,7 @@
             move: function(e){
                curImgPos.x = e.change.x + initImg.x;
                curImgPos.y = e.change.y + initImg.y;
+
                ctx.clearRect(0, 0, canvas.width, canvas.height);
                ctx.drawImage(img, curImgPos.x, curImgPos.y, img.width, img.height);
             },
@@ -315,22 +321,22 @@
 //        双指缩放
         gesture({
             el: canvas,
-            start: function(e){
-                info.innerHTML += img.width + " " +img.height;
-            },
             change: function(e){
                 curImgPos.scale = e.scale;
+                curImgPos.x = initImg.x - (curImgPos.scale-1)*img.width/2;
+                curImgPos.y = initImg.y - (curImgPos.scale-1)*img.height/2;
+
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, initImg.x - (curImgPos.scale-1)*img.width, initImg.y-(curImgPos.scale-1)*img.height, img.width*curImgPos.scale, img.height*curImgPos.scale);
+                ctx.drawImage(img, curImgPos.x, curImgPos.y, img.width*curImgPos.scale, img.height*curImgPos.scale);
             },
             end: function(e){
-                initImg.x = initImg.x - (curImgPos.scale-1)*img.width;
-                initImg.y = initImg.y - (curImgPos.scale-1)*img.height;
+                initImg.x = curImgPos.x;
+                initImg.y = curImgPos.y;
+
                 img.width = img.width*curImgPos.scale;
                 img.height = img.height*curImgPos.scale;
-//                ctx.clearRect(0, 0, canvas.width, canvas.height);
-//                ctx.drawImage(img, initImg.x - (curImgPos.scale-1)*img.width, initImg.y-(curImgPos.scale-1)*img.height, img.width*curImgPos.scale, img.height*curImgPos.scale);
-                info.innerHTML += "&&"+img.width + " " +img.height+"||";
+
+                scale = scale * curImgPos.scale;
             }
         })
     }
