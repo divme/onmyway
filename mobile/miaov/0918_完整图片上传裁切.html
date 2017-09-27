@@ -110,6 +110,7 @@
         #canvas2{
             display: none;
             margin: 10px auto;
+            border:1px solid #ffffff;
         }
     </style>
 </head>
@@ -138,7 +139,7 @@
     </div>
     <canvas id="canvas2" width="100px" height="100px"></canvas>
     <div class="info"></div>
-    <!--<img src="" class="img" alt="" style="width:100px;height:100px;">-->
+    <img src="" class="img" alt="" style="width:100px;height:100px;">
 </div>
 
 <script src="zytouch.js"></script>
@@ -150,12 +151,13 @@
         var lt = document.querySelector(".lt");
         var rb = document.querySelector(".rb");
         var info = document.querySelector(".info");
+        var imgg = document.querySelector(".img");
 
         var canvas = document.getElementById("canvas");
         var ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
         var canvas2 = document.getElementById("canvas2");
-        var ctx2 = canvas.getContext('2d');
+        var ctx2 = canvas2.getContext('2d');
 
         wrap.addEventListener('touchmove', function(e){
              e.preventDefault();
@@ -177,18 +179,6 @@
             scale: 1
         }; // 图片当前的位置及缩放比例
         var scale = 1;      // 相对于最初始文件状态，图片总体缩放比例
-
-        window.onresize = function(e){
-            canvas.width = window.innerWidth;
-            editWidth = 100;
-            editHeight = 100;
-            editLeft = (canvas.width - parseFloat(css(edit, 'width')))/2;
-            editTop = (canvas.height - parseFloat(css(edit, 'height')))/2;
-            css(edit, 'width', editWidth + 'px');
-            css(edit, 'height', editHeight + 'px');
-            css(edit, 'translateX', editLeft + 'px');
-            css(edit, 'translateY', editTop + 'px');
-        };
 
         singleDrag({
             el: info
@@ -261,6 +251,7 @@
                         canvas2.style.width = editWidth;
                         canvas2.style.height = editHeight;
                         ctx2.drawImage(img, (editLeft - curImgPos.x)/scale , (editTop - curImgPos.y)/scale , editWidth/scale, editHeight/scale, 0, 0, editWidth, editHeight);
+                        imgg.src = canvas2.toDataURL("image/png");
                     });
                 }
             }
@@ -349,6 +340,18 @@
 //        end: fn 单指拖动结束函数
 //    }
 
+
+   window.onresize = function(e){
+            canvas.width = window.innerWidth;
+            editWidth = 100;
+            editHeight = 100;
+            editLeft = (canvas.width - parseFloat(css(edit, 'width')))/2;
+            editTop = (canvas.height - parseFloat(css(edit, 'height')))/2;
+            css(edit, 'width', editWidth + 'px');
+            css(edit, 'height', editHeight + 'px');
+            css(edit, 'translateX', editLeft + 'px');
+            css(edit, 'translateY', editTop + 'px');
+        };
 
 //    专为图片预览编辑做的拖动
     function canvasDrag(init){
