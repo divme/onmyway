@@ -2,9 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>移动端事件点透</title>
+    <title>陀螺仪</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 <body>
+<h3>1. 横竖屏切换检测及回调</h3>
+<h3>2. 加速度兼容性处理及回调</h3>
+<h3>3. 角度检测</h3>
+<div class="box"></div>
+
+
+<!--1. 横竖屏-->
+<!--window.orientation 屏幕的朝向-->
+<!--竖屏：0 180-->
+<!--横屏：90 -90-->
+<!--orientationchange 当横竖屏发生切换的时候-->
+<script>
+    var box = document.querySelector(".box");
+    orientationListener(function(){
+        box.innerHTML = "这是竖条屏"
+    },function(){
+        box.innerHTML = "这是横条屏"
+    });
+    function orientationListener(fn, fn2){
+        orient();
+        window.addEventListener(window.orientation == undefined? 'resize':'orientationchange', orient);
+        function orient(){
+            if(window.orientation == undefined){
+                var hw = window.innerWidth;
+                var hh = window.innerHeight;
+                box.innerHTML = hw + ' '+ hh;
+                if(hw < hh){
+                    fn&&fn();
+                }else{
+                    fn2&&fn2();
+                }
+            }else{
+                var hww = window.innerWidth;
+                var hhh = window.innerHeight;
+                box.innerHTML ='orientation'+ hww + ' '+ hhh;
+                if(window.orientation == 0 || window.orientation == 180){
+                    fn&&fn();
+                }else{
+                    fn2&&fn2();
+                }
+            }
+        }
+    }
+</script>
+
+
+<!--2.加速度检测-->
+<script>
+    window.addEventListener('devicemotion', function(){
+        var motion = e.accelerationIncludingGravity;
+    })
+</script>
 </body>
 </html>
