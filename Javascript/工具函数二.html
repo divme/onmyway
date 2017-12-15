@@ -22,13 +22,13 @@
             var str = arguments[i].toString();
             var snum = str.indexOf('.');
             var newstr = str.slice(snum+1);
-            arr[i]=newstr.length;
+            arr[i] = newstr.length;
         }
         arr.sort(function(a,b){return b-a});
         result =  (num1*Math.pow(10,arr[0])+num2*Math.pow(10,arr[0]))/Math.pow(10,arr[0]);
         return result;
     }
-    var num= addTwoFloat(43.95467463,0.87326);
+    var num= addTwoFloat(34.45, 22.39);
     console.group('addTwoFloat浮点数加法');
       console.log(num);
     console.groupEnd();

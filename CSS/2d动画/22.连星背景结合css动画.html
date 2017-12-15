@@ -8,11 +8,58 @@
         #canvas{
             display: block;
             margin:0 auto;
+            /*border:1px solid #424242;*/
             box-shadow:0 0 20px #000 inset,0 0 15px #101010;
+        }
+    </style>
+    <style>
+
+        .controll{
+            position: absolute;
+            top:10px;
+            left:10px;
+            width:200px;
+            height:100px;
+            padding:10px;
+            background: rgba(211,174,104,0.4);
+        }
+        #button{
+            display: block;
+            background: #1155c6;
+            color: #fff;
+            border:none;
+            padding:5px 10px;
+            margin:5px auto;
+            box-shadow: inset 0 0 5px #000;
+            cursor: pointer;
+        }
+        #white{
+            display: inline-block;
+            margin-top:20px;
+            background: #fff;
+            width:30px;
+            height:20px;
+            cursor: pointer;
+        }
+        #black{
+            display: inline-block;
+            margin-top:20px;
+            background: #000;
+            width: 30px;
+            height:20px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
+<div class="container">
+    <div class="controll">
+        <h3>canvas 绘图之旅</h3>
+        <button id="button">stop animation</button>
+        <span id="white"></span>
+        <span id="black"></span>
+    </div>
+</div>
   <canvas id="canvas">粒子的连接线不够舒服；尚未添加自运动背景粒子</canvas>
   <script>
       var canvas = document.getElementById('canvas');
@@ -241,6 +288,9 @@
           ctx.restore();
       }
   </script>
+
+
+
 </body>
 </html>
 

@@ -8,10 +8,19 @@
 <h3>常用排序</h3>
 <script>
 
+    (function(){
+        try{
+
+            document.getElementsById('ad');
+
+        }catch(err){
+            console.log(err);
+        }
+    })();
     var arr = [6,5,3,9,1,10,34,76,22,2];
 //    console.log('冒泡排序 '+ bubbleSort(arr));
 //    console.log('选择排序 '+ selectSort(arr));
-    console.log('插入排序 '+ insertSort(arr));
+    console.log('插入排序 '+ bubbleSort(arr));
 //    console.log('希尔排序 '+ shellSort(arr));
 
 
@@ -22,7 +31,7 @@
          var agent = 0;
          for(var j = 0; j < len-1; j++){
              for(var i = 0; i < len-1-j; i++){
-                 if(arr[i] > arr[i+1]){
+                 if(arr[i] < arr[i+1]){
                      agent = arr[i];
                      arr[i] = arr[i+1];
                      arr[i+1] = agent;
