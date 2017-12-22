@@ -162,6 +162,7 @@
 </div>
 
 <div class="leader">还没装财富汇？点击我下载</div>
+<div class="leader">还没装财富汇？点击我下载</div>
 
 <!--<script src="jquery-2.1.1.min.js"></script>-->
 <script>
@@ -170,44 +171,9 @@
         iphoneDownUrl: 'https://itunes.apple.com/cn/app/id1210237162',
         androidSchema: 'mscfhzy://',
         androidDownUrl: 'http://www.mszq.com/download/java/mszq_cfh.apk',
-        pcDownUrl:"",
+        pcDownUrl:"http://www.mszq.com/help/download",
         showDown:1
     };
-
-//    $('.statement').on('click',function() {
-//        if(obj["_mob_system"] == 'Android'){
-//            try {
-//                if (config.androidSchema){
-//                    window.location = config.androidSchema;
-//                }
-//                 if (config.androidDownUrl){
-//                    setTimeout(function(){
-//                        window.location= config.androidDownUrl; //android下载地址
-//                    },500);
-//                }
-//
-//            } catch(e) {}
-//        }
-//        else if(obj["_mob_system"]  == 'IOS'){
-//            var loadDateTime = new Date();
-//            if (config.iphoneDownUrl){
-//                window.setTimeout(function() {
-//                    var timeOutDateTime = new Date();
-//                    if (timeOutDateTime - loadDateTime < 5000) {
-//                        window.location = config.iphoneDownUrl;//ios下载地址
-//                    } else {
-//                        window.close();
-//                    }
-//                }, 25);
-//            }
-//
-//            if (config.iphoneSchema){
-//                window.location = config.iphoneSchema;
-//            }
-//
-//        }
-//    });
-
 
     var statement = document.querySelector('.leader');
     statement.onclick = function(){
@@ -223,24 +189,39 @@
             }
         }
         else if (mobile == "IOS"){
-            var loadDateTime = new Date();
-            if (config.iphoneDownUrl){
-                window.setTimeout(function() {
-                    var timeOutDateTime = new Date();
-                    if (timeOutDateTime - loadDateTime < 5000) {
-                        window.location = config.iphoneDownUrl;//ios下载地址
-                    } else {
-                        window.close();
-                    }
-                }, 25);
-            }
-            if (config.iphoneSchema){
+            if (config.androidSchema){
                 window.location = config.iphoneSchema;
             }
+            if (config.androidDownUrl){
+                setTimeout(function(){
+                    window.location= config.iphoneDownUrl; //android下载地址
+                },500);
+            }
+
+//            var loadDateTime = new Date();
+//            if (config.iphoneDownUrl){
+//                window.setTimeout(function() {
+//                    var timeOutDateTime = new Date();
+//                    if (timeOutDateTime - loadDateTime < 5000) {
+//                        window.location = config.iphoneDownUrl;
+//                    } else {
+//                        window.close();
+//                    }
+//                }, 25);
+//            }
+//            if (config.iphoneSchema){
+//                window.location = config.iphoneSchema;
+//            }
+        }
+        else{
+            window.location = config.pcDownUrl;
         }
 
     };
 
+    if(isWeixin()){
+
+    }
     function CheckMobSys() {
         var platform = typeof (navigator.platform) == "undefined" ? "" : navigator.platform.toLowerCase();
         if (platform == "ipod" || platform == "iphone" || platform == "ipad" || platform == "iphone simulator" || platform == "ipad simulator") {
@@ -251,6 +232,14 @@
             return "Android";
         }
         return "Other";
+    }
+    function isWeixin(){
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == "micromessenger") {
+            return true;
+        } else {
+            return false;
+        }
     }
 </script>
 </body>
