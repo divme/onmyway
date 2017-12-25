@@ -170,8 +170,8 @@
         iphoneSchema: 'mszq://',
         iphoneDownUrl: 'https://itunes.apple.com/cn/app/id1210237162',
         androidSchema: 'mscfhzy://',
-//        androidDownUrl: 'http://www.mszq.com/download/java/mszq_cfh.apk',
-        androidDownUrl: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.tdx.AndroidMSZQ',
+        androidDownUrl: 'http://www.mszq.com/download/java/mszq_cfh.apk',
+//        androidDownUrl: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.tdx.AndroidMSZQ',
         pcDownUrl:"http://www.mszq.com/help/download",
         showDown:1
     };
@@ -180,39 +180,24 @@
     statement.onclick = function(){
         var mobile = CheckMobSys();
         if (mobile == "Android"){
-            if (config.androidSchema){
+
                 window.location = config.androidSchema;
-            }
-            if (config.androidDownUrl){
+
+
                 setTimeout(function(){
+                    alert(window.location);
                     window.location= config.androidDownUrl; //android下载地址
                 },500);
-            }
+
         }
         else if (mobile == "IOS"){
-            if (config.androidSchema){
+
                 window.location = config.iphoneSchema;
-            }
-            if (config.androidDownUrl){
+
+
                 setTimeout(function(){
                     window.location= config.iphoneDownUrl; //android下载地址
                 },500);
-            }
-
-//            var loadDateTime = new Date();
-//            if (config.iphoneDownUrl){
-//                window.setTimeout(function() {
-//                    var timeOutDateTime = new Date();
-//                    if (timeOutDateTime - loadDateTime < 5000) {
-//                        window.location = config.iphoneDownUrl;
-//                    } else {
-//                        window.close();
-//                    }
-//                }, 25);
-//            }
-//            if (config.iphoneSchema){
-//                window.location = config.iphoneSchema;
-//            }
         }
         else{
             window.location = config.pcDownUrl;
