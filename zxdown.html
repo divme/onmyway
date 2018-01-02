@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>App下载</title>
+</head>
+<body>
+
+  <h1 class="leader">点我下载吧</h1>
+  <script>
+      var config = {
+          iphoneDownUrl: 'https://itunes.apple.com/cn/app/id1210237162',
+          androidDownUrl: 'http://www.mszq.com/download/java/mszq_cfh.apk',
+          pcDownUrl:"http://www.mszq.com/help/download"
+      };
+
+      var statement = document.querySelector('.leader');
+      statement.onclick = function(){
+          var mobile = CheckMobSys();
+          if (mobile == "Android"){
+                  window.location= config.androidDownUrl; //android下载地址
+          }
+          else if (mobile == "IOS"){
+                  window.location= config.iphoneDownUrl; //IOS下载地址
+          }
+          else{
+              window.location = config.pcDownUrl;
+          }
+
+      };
+
+      function CheckMobSys() {
+          var platform = typeof (navigator.platform) == "undefined" ? "" : navigator.platform.toLowerCase();
+          if (platform == "ipod" || platform == "iphone" || platform == "ipad" || platform == "iphone simulator" || platform == "ipad simulator") {
+              return "IOS";
+          }
+          var userAgent = typeof (navigator.userAgent) == "undefined" ? "" : navigator.userAgent;
+          if (userAgent.indexOf("Android") > -1) {
+              return "Android";
+          }
+          return "Other";
+      }
+      function isWeixin(){
+          var ua = navigator.userAgent.toLowerCase();
+          if (ua.match(/MicroMessenger/i) == "micromessenger") {
+              return true;
+          } else {
+              return false;
+          }
+      }
+  </script>
+</body>
+</html>

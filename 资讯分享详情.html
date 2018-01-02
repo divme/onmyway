@@ -150,51 +150,15 @@
     本内容仅供参考，不作为投资决策的依据，民生证券不对因据此操作产生的盈亏承担任何责任！
 </div>
 
-<!--<script src="jquery-2.1.1.min.js"></script>-->
 <script>
     var config = {
         iphoneSchema: 'mszq://',
-        iphoneDownUrl: 'https://itunes.apple.com/cn/app/id1210237162',
+        iphoneDownUrl: 'https://itunes.apple.com/cn/app/id355667048',
         androidSchema: 'mscfhzy://',
         androidDownUrl: 'http://www.mszq.com/download/java/mszq_cfh.apk',
         pcDownUrl:"",
         showDown:1
     };
-
-//    $('.statement').on('click',function() {
-//        if(obj["_mob_system"] == 'Android'){
-//            try {
-//                if (config.androidSchema){
-//                    window.location = config.androidSchema;
-//                }
-//                 if (config.androidDownUrl){
-//                    setTimeout(function(){
-//                        window.location= config.androidDownUrl; //android下载地址
-//                    },500);
-//                }
-//
-//            } catch(e) {}
-//        }
-//        else if(obj["_mob_system"]  == 'IOS'){
-//            var loadDateTime = new Date();
-//            if (config.iphoneDownUrl){
-//                window.setTimeout(function() {
-//                    var timeOutDateTime = new Date();
-//                    if (timeOutDateTime - loadDateTime < 5000) {
-//                        window.location = config.iphoneDownUrl;//ios下载地址
-//                    } else {
-//                        window.close();
-//                    }
-//                }, 25);
-//            }
-//
-//            if (config.iphoneSchema){
-//                window.location = config.iphoneSchema;
-//            }
-//
-//        }
-//    });
-
 
     var statement = document.querySelector('.statement');
     statement.onclick = function(){

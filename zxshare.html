@@ -164,7 +164,6 @@
 <div class="leader">还没装财富汇？点击我下载</div>
 <!--<div class="mleader">请点击右上角选择在浏览器中打开</div>-->
 
-<!--<script src="jquery-2.1.1.min.js"></script>-->
 <script>
     var config = {
         iphoneSchema: 'mszq://',
@@ -180,23 +179,16 @@
     statement.onclick = function(){
         var mobile = CheckMobSys();
         if (mobile == "Android"){
-
                 window.location = config.androidSchema;
-
-
                 setTimeout(function(){
-                    alert(window.location);
-                    window.location= config.androidDownUrl; //android下载地址
+                    window.location= 'zxdown.html'; //android下载地址
                 },500);
 
         }
         else if (mobile == "IOS"){
-
                 window.location = config.iphoneSchema;
-
-
                 setTimeout(function(){
-                    window.location= config.iphoneDownUrl; //android下载地址
+                    window.location= 'zxdown.html'; //IOS下载地址
                 },500);
         }
         else{
@@ -205,19 +197,16 @@
 
     };
 
-    if(isWeixin()){
-
-    }
     function CheckMobSys() {
         var platform = typeof (navigator.platform) == "undefined" ? "" : navigator.platform.toLowerCase();
         if (platform == "ipod" || platform == "iphone" || platform == "ipad" || platform == "iphone simulator" || platform == "ipad simulator") {
-            return "IOS";
+            return "IOS"
         }
         var userAgent = typeof (navigator.userAgent) == "undefined" ? "" : navigator.userAgent;
         if (userAgent.indexOf("Android") > -1) {
-            return "Android";
+            return "Android"
         }
-        return "Other";
+        return "Other"
     }
     function isWeixin(){
         var ua = navigator.userAgent.toLowerCase();
