@@ -63,8 +63,12 @@
 //          androidDownUrl: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.tdx.AndroidMSZQ',
         };
 
-        var statement = document.querySelector('.leader');
-        statement.onclick = function(){
+        var toapp = document.querySelector('.toapp');
+        toapp.onclick = function(){
+            window.location= config.androidSchema; //安卓打开地址
+        };
+        var leader = document.querySelector('.leader');
+        leader.onclick = function(){
             window.location= config.androidDownUrl; //安卓下载地址
         };
         
