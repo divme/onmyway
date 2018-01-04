@@ -155,39 +155,37 @@
 
 <script>
     var config = {
+//        iphoneSchema: 'mszq://',
         iphoneSchema: 'mszq://tdx.com?MSGTYPE=tdxOpenNativeModule&ITEMID=Stock.otc',
         iphoneDownUrl: 'https://itunes.apple.com/cn/app/id1210237162',
+
 //        androidSchema: 'mscfhzy://',
         androidSchema: 'mscfhzy://tdx.com?MSGTYPE=tdxOpenNativeModule&ITEMID=Stock.otc',
         androidDownUrl: 'http://www.mszq.com/download/java/mszq_cfh.apk',
 //        androidDownUrl: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.tdx.AndroidMSZQ',
-        pcDownUrl:"http://www.mszq.com/help/download",
-        showDown:1
+
+        pcDownUrl:"http://www.mszq.com/help/download"
     };
 
     var statement = document.querySelector('.leader');
     statement.onclick = function(){
         var mobile = CheckMobSys();
-        if (isWeixin){
 
-
-        }
         if (mobile == "Android"){
-                window.location = config.androidSchema;
-                setTimeout(function(){
-                    window.location= 'zxdown.html'; //android下载地址
-                },500);
-
+                if(isWeixin()){
+                    window.location= 'zxdown.html' + '?name=zy&&password=123'; //android下载地址
+                }else{
+                    window.location = config.androidSchema;
+                    setTimeout(function(){
+                        window.location= 'zxdown.html' + '?name=zy&&password=123'; //android下载地址
+                    },500);
+                }
         }
         else if (mobile == "IOS"){
-//                window.location = config.iphoneDownUrl;
-                window.location = config.iphoneSchema;
-                setTimeout(function(){
-                    window.location= 'zxdown.html'; //IOS下载地址
-                },500);
+               window.location= 'iosdown.html' + '?name=zy&&password=123'; //IOS下载地址
         }
         else{
-            window.location = config.pcDownUrl;
+               window.location = config.pcDownUrl;
         }
 
     };
