@@ -12,43 +12,40 @@
         .box{
             margin-top: 30px;
         }
+        .box1{
+            display: none;
+        }
+        .box0 p{
+            margin-top: 30px;
+            font-size: 20px;
+            color: #f03838;
+            text-align: center;
+        }
         .no{
             margin-top: 50px;
         }
-        .leader{
+        .toapp, .leader{
              width: 9em;
              height: 42px;
              line-height: 42px;
              margin: 16px auto 0;
              padding: 0 10px;
-             /*font-size: 18px;*/
-
              border-radius: 6px;
              background: #f03838;
              color: #ececf8;
              text-align: center;
         }
-        .toapp{
-            display: none;
-            width: 9em;
-            height: 42px;
-            line-height: 42px;
-            margin: 16px auto 0;
-            padding: 0 10px;
-
-            border-radius: 6px;
-            background: #f03838;
-            color: #ececf8;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
+  <div class="box box0">
+      <p class="mark">如果您已经安装了民生财富汇，请点击右上角选择在Safari浏览器打开</p>
+  </div>
   <div class="box box1">
-      <p class="mark">如果您已经安装了民生财富汇，请点击右上角选择在浏览器打开</p>
+      <p class="yes">如果您已安装民生财富汇</p>
       <div class="toapp">点击前往app</div>
   </div>
-  <div class="box">
+  <div class="box box2">
       <p class="no">如果您未安装民生财富汇</p>
       <div class="leader">前往AppStore下载</div>
   </div>
@@ -59,17 +56,22 @@
           iphoneDownUrl: 'https://itunes.apple.com/cn/app/id1210237162'
       };
 
-      var statement = document.querySelector('.leader');
-      statement.onclick = function(){
-          window.location= config.iphoneDownUrl; //IOS下载地址
-      };
+
       window.onload = function(){
-          var mark = document.querySelector('.mark');
-          var toapp = document.querySelector('.toapp');
+          var box0 = document.querySelector('.box0');
+          var box1 = document.querySelector('.box1');
           if(!isWeixin() && !isqq()){
-              mark.style.display = 'none';
-              toapp.style.display = 'block';
+              box0.style.display = 'none';
+              box1.style.display = 'block';
           }
+          var toapp = document.querySelector('.toapp');
+          toapp.onclick = function(){
+              window.location = config.iphoneSchema; //IOS打开地址
+          };
+          var leader = document.querySelector('.leader');
+          leader.onclick = function(){
+              window.location= config.iphoneDownUrl; //IOS下载地址
+          };
       };
 
       function isWeixin(){
