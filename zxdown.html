@@ -63,14 +63,7 @@
 //          androidDownUrl: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.tdx.AndroidMSZQ',
         };
 
-        var toapp = document.querySelector('.toapp');
-        toapp.onclick = function(){
-            window.location= config.androidSchema; //安卓打开地址
-        };
-        var leader = document.querySelector('.leader');
-        leader.onclick = function(){
-            window.location= config.androidDownUrl; //安卓下载地址
-        };
+
         
         window.onload = function(){
             var box0 = document.querySelector('.box0');
@@ -81,6 +74,15 @@
                 box1.style.display = 'block';
                 box2.style.display = 'block';
             }
+            var toapp = document.querySelector('.toapp');
+            toapp.onclick = function(){
+                window.location = config.androidSchema; //安卓打开地址
+                window.location = config.androidSchema;
+            };
+            var leader = document.querySelector('.leader');
+            leader.onclick = function(){
+                window.location= config.androidDownUrl; //安卓下载地址
+            };
         };
 
       function isWeixin(){
