@@ -16,7 +16,6 @@
             margin-top: 50px;
         }
         .toapp{
-            display: none;
             width: 9em;
             height: 42px;
             line-height: 42px;
@@ -70,9 +69,11 @@
         };
         
         window.onload = function(){
+            var box0 = document.querySelector('.box0');
             var box1 = document.querySelector('.box1');
             var box2 = document.querySelector('.box2');
             if(!isWeixin() && !isqq()){
+                box0.style.display = 'none';
                 box1.style.display = 'block';
                 box2.style.display = 'block';
             }
