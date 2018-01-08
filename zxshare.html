@@ -153,6 +153,7 @@
 <div class="leader">还没装财富汇？点击我下载</div>
 <!--<div class="mleader">请点击右上角选择在浏览器中打开</div>-->
 
+<script src="zylib/base64.min.js"></script>
 <script>
     var config = {
 //        iphoneSchema: 'mszq://',
@@ -167,21 +168,38 @@
         pcDownUrl:"http://www.mszq.com/help/download"
     };
 
+    var curUrl = '';
+    (function(){
+        var search = location.search.split("&");
+        if(search[0][0] == "?") {
+            search[0] = search[0].slice(1, search[0].length);
+        }
+        for(var i in search) {
+            var pos = search[i].indexOf("=");
+            var key = search[i].slice(0, pos);
+            var value = search[i].slice(pos+1, search[i].length);
+            if(key.toLowerCase() == "url") {
+                curUrl = value;
+            }
+        }
+    })();
+
+
     var statement = document.querySelector('.leader');
     statement.onclick = function(){
         var mobile = CheckMobSys();
         if (mobile == "Android"){
                 if(isWeixin()){
-                    window.location= 'zxdown.html?url=' + window.location ; //android下载地址
+                    window.location= 'androiddown.html?url=' + window.location ; //android下载地址
                 }else{
-                    window.location = config.androidSchema;
+                    window.location = config.androidSchema + 'mszq.com?MSGTYPE=tdxOpenUrl&URL=' + Base64.encode(curUrl);
                     setTimeout(function(){
-                        window.location= 'zxdown.html?url=' + window.location; //android下载地址
+                        window.location= 'androiddown.html?url=' + window.location;
                     },500);
                 }
         }
         else if (mobile == "IOS"){
-               window.location= 'iosdown.html?url=' + window.location ; //IOS下载地址
+               window.location= 'iosdown.html?url=' + window.location ;
         }
         else{
                window.location = config.pcDownUrl;
