@@ -66,6 +66,8 @@
   <div class="company">
       <img src="fximg/logo-fx.png" alt="">
   </div>
+
+  <script src="zylib/base64.min.js"></script>
   <script>
       var config = {
           iphoneSchema: 'mszq://',
@@ -73,6 +75,21 @@
           iphoneDownUrl: 'https://itunes.apple.com/cn/app/id1210237162'
       };
 
+      var curUrl = '';
+      (function(){
+          var search = location.search.split("&");
+          if(search[0][0] == "?") {
+              search[0] = search[0].slice(1, search[0].length);
+          }
+          for(var i in search) {
+              var pos = search[i].indexOf("=");
+              var key = search[i].slice(0, pos);
+              var value = search[i].slice(pos+1, search[i].length);
+              if(key == "url") {
+                  curUrl = value;
+              }
+          }
+      })();
 
       window.onload = function(){
           var box0 = document.querySelector('.box0');
@@ -83,7 +100,7 @@
           }
           var toapp = document.querySelector('.toapp');
           toapp.onclick = function(){
-              window.location = config.iphoneSchema; //IOS打开地址
+              window.location = config.iphoneSchema + 'MSGTYPE=tdxOpenUrl&URL=' + Base64.encode(curUrl); //IOS打开地址
           };
           var leader = document.querySelector('.leader');
           leader.onclick = function(){

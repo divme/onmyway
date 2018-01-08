@@ -172,7 +172,7 @@
         var mobile = CheckMobSys();
         if (mobile == "Android"){
                 if(isWeixin()){
-                    window.location= 'zxdown.html' + '?name=zy&&password=123'; //android下载地址
+                    window.location= 'zxdown.html?url=' + window.location ; //android下载地址
                 }else{
                     window.location = config.androidSchema;
                     setTimeout(function(){
