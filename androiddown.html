@@ -104,7 +104,8 @@
             }
             var toapp = document.querySelector('.toapp');
             toapp.onclick = function(){
-                window.location = config.androidSchema + 'mszq.com?MSGTYPE=tdxOpenUrl&URL=' + Base64.encode(curUrl); //安卓打开地址
+//                window.location = config.androidSchema + 'mszq.com?MSGTYPE=tdxOpenUrl&URL=' + Base64.encode(curUrl); //安卓打开地址
+                window.location = config.androidSchema + 'mszq.com?MSGTYPE=tdxOpenUrl&URL=' + curUrl; //安卓打开地址
             };
             var leader = document.querySelector('.leader');
             leader.onclick = function(){

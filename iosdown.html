@@ -100,7 +100,8 @@
           }
           var toapp = document.querySelector('.toapp');
           toapp.onclick = function(){
-              window.location = config.iphoneSchema + 'mszq.com?MSGTYPE=tdxOpenUrl&URL=' + Base64.encode(curUrl); //IOS打开地址
+//              window.location = config.iphoneSchema + 'mszq.com?MSGTYPE=tdxOpenUrl&URL=' + Base64.encode(curUrl); //IOS打开地址
+              window.location = config.iphoneSchema + 'mszq.com?MSGTYPE=tdxOpenUrl&URL=' + curUrl; //IOS打开地址
           };
           var download = document.querySelector('.download');
           download.onclick = function(){

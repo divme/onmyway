@@ -190,16 +190,17 @@
         var mobile = CheckMobSys();
         if (mobile == "Android"){
                 if(isWeixin()){
-                    window.location= 'androiddown.html?url=' + window.location ; //android下载地址
+                    window.location= 'androiddown.html?url=' + Base64.encode(window.location) ; //android下载地址
                 }else{
                     window.location = config.androidSchema + 'mszq.com?MSGTYPE=tdxOpenUrl&URL=' + Base64.encode(curUrl);
                     setTimeout(function(){
-                        window.location= 'androiddown.html?url=' + window.location;
+                        window.location= 'androiddown.html?url=' + Base64.encode(window.location);
                     },500);
                 }
         }
+
         else if (mobile == "IOS"){
-               window.location= 'iosdown.html?url=' + window.location ;
+               window.location= 'iosdown.html?url=' + Base64.encode(window.location) ;
         }
         else{
                window.location = config.pcDownUrl;
