@@ -24,7 +24,7 @@
         .no{
             margin-top: 50px;
         }
-        .toapp, .leader{
+        .toapp, .download{
              width: 9em;
              height: 42px;
              line-height: 42px;
@@ -61,7 +61,7 @@
   </div>
   <div class="box box2">
       <p class="no">如果您未安装 <span class="red">民生财富汇</span></p>
-      <div class="leader">前往AppStore下载</div>
+      <div class="download">前往AppStore下载</div>
   </div>
   <div class="company">
       <img src="fximg/logo-fx.png" alt="">
@@ -100,12 +100,11 @@
           }
           var toapp = document.querySelector('.toapp');
           toapp.onclick = function(){
-              window.location = config.iphoneSchema + 'MSGTYPE=tdxOpenUrl&URL=' + Base64.encode(curUrl); //IOS打开地址
+              window.location = config.iphoneSchema + 'mszq.com?MSGTYPE=tdxOpenUrl&URL=' + Base64.encode(curUrl); //IOS打开地址
           };
-          var leader = document.querySelector('.leader');
-          leader.onclick = function(){
-//              window.location= config.iphoneDownUrl;
-              window.location = config.iphoneSchema + 'MSGTYPE=tdxOpenUrl&URL=' + Base64.encode(curUrl); //IOS打开地址
+          var download = document.querySelector('.download');
+          download.onclick = function(){
+              window.location = config.iphoneDownUrl; //AppStore下载地址
 
           };
       };
