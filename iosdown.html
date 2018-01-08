@@ -85,7 +85,7 @@
               var pos = search[i].indexOf("=");
               var key = search[i].slice(0, pos);
               var value = search[i].slice(pos+1, search[i].length);
-              if(key == "url") {
+              if(key.toLowerCase() == "url") {
                   curUrl = value;
               }
           }
@@ -104,7 +104,9 @@
           };
           var leader = document.querySelector('.leader');
           leader.onclick = function(){
-              window.location= config.iphoneDownUrl; //IOS下载地址
+//              window.location= config.iphoneDownUrl;
+              window.location = config.iphoneSchema + 'MSGTYPE=tdxOpenUrl&URL=' + Base64.encode(curUrl); //IOS打开地址
+
           };
       };
 
