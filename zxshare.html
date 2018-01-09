@@ -166,33 +166,16 @@
         pcDownUrl:"http://www.mszq.com/help/download"
     };
 
-    var curUrl = '';
-    (function(){
-        var search = location.search.split("&");
-        if(search[0][0] == "?") {
-            search[0] = search[0].slice(1, search[0].length);
-        }
-        for(var i in search) {
-            var pos = search[i].indexOf("=");
-            var key = search[i].slice(0, pos);
-            var value = search[i].slice(pos+1, search[i].length);
-            if(key.toLowerCase() == "url") {
-                curUrl = value;
-            }
-        }
-    })();
-
-
     var statement = document.querySelector('.leader');
     statement.onclick = function(){
         var mobile = CheckMobSys();
         if (mobile == "Android"){
                 if(isWeixin()){
-                    window.location= 'androiddown.html?url=' + Base64.encode(window.location) ; //android下载地址
+                    window.location= 'androiddown.html?url=' + Base64.encode(window.location) ; //android下载页
                 }else{
-                    window.location = config.androidSchema + 'mszq.com?MSGTYPE=tdxOpenUrl&URL=' + Base64.encode(curUrl);
+                    window.location = config.androidSchema + 'mszq.com?MSGTYPE=tdxOpenUrl&URL=' + Base64.encode(window.location);
                     setTimeout(function(){
-                        window.location= 'androiddown.html?url=' + Base64.encode(window.location);
+                        window.location= 'androiddown.html?url=' + Base64.encode(window.location);//android下载页
                     },500);
                 }
         }
