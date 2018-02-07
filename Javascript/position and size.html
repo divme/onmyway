@@ -5,113 +5,153 @@
 		<title>位置和大小</title>
 		<script src="js/jquery-2.1.1.min.js"></script>
 		<style>
-			body{padding: 0;}
-			.demobox{
+			body{
+				padding: 11px;
+				border: 4px solid;
+			}
+			.box {
 				position: relative;
 				/*position: absolute;*/
 				/*width: 500px;*/
-				/*height: 500px;*/
-				margin-top: 2250px;
-				border: 1px solid #d96b6e;
+				height: 200px;
+				margin-top: 150px;
+				margin-left: 60px;
+				overflow-y: scroll;
+				border: 10px solid;
 			}
-
-			#demo{width:300px;height:300px;background:rgb(245,245,245);margin-top:20px;margin-left:40px;}
-			/*#big{width:700px;height:1600px;background:yellowgreen;}*/
+			.position{
+				width:300px;
+				height:300px;
+				margin-top:800px;
+				margin-left:40px;
+				border: 10px solid #d96b6e;
+				background: rgb(245,245,245);
+			}
+			.size{
+				width: 200px;
+				height: 200px;
+				padding: 20px;
+				border: 10px solid;
+				margin: 40px auto;
+			}
+			#big{width:700px;height:1600px;background:rgba(255, 0, 0, .2);}
 		</style>
 	</head>
 	<body>
-	<div class="demobox">
-		<div id="demo"></div>
-	</div>
+		<div id="box" class="box">
+			<div id="position" class="position"></div>
+		</div>
+
+		<div id="size" class="size" ></div>
 
 		<div id="big"></div>
+
 		<!--原生js-->
 		<script>
-		    var demo=document.getElementById("demo");
+		    var box = document.getElementById("box");
+		    var position = document.getElementById("position");
+
 			var big=document.getElementById("big");
 		console.group("原生javascript");
-		    console.group("视口大小");
+		    console.group("视口大小: screen window html body");
+				console.log("screen availWidth:"+screen.availWidth);
+				console.log("screen availHeight:"+screen.availHeight);
+				console.log("screen width:"+screen.width);
+				console.log("screen height:"+screen.height);
+
+				console.log("window innerWidth(包含滚动条):"+window.innerWidth);
+				console.log("window innerHeight(包含滚动条):"+window.innerHeight);
 			    console.log("window outerWidth:"+window.outerWidth);
 			    console.log("window outerHeight:"+window.outerHeight);
-			    console.log("window innerWidth:"+window.innerWidth);
-			    console.log("window innerHeight:"+window.innerHeight);
 
-			    console.log("document.documentElement.scrollWidth:"+document.documentElement.scrollWidth);
-			    console.log("document.documentElement.scrollHeight:"+document.documentElement.scrollHeight);
 			    console.log("document.documentElement.clientWidth:"+document.documentElement.clientWidth);
 			    console.log("document.documentElement.clientHeight:"+document.documentElement.clientHeight);
 			    console.log("document.documentElement.offsetWidth:"+document.documentElement.offsetWidth);
 			    console.log("document.documentElement.offsetHeight:"+document.documentElement.offsetHeight);
+				console.log("document.documentElement.scrollWidth:"+document.documentElement.scrollWidth);
+				console.log("document.documentElement.scrollHeight:"+document.documentElement.scrollHeight);
 
-			    console.log("document.body.clientWidth:"+document.body.clientWidth);
+				console.log("从body开始正常，像一个正常元素一样");
+			    console.log("document.body.clientWidth(包含padding+可视content):"+document.body.clientWidth);
 			    console.log("document.body.clientHeight:"+document.body.clientHeight);
-				console.log("document.body.scrollWidth:"+document.body.scrollWidth);
-				console.log("document.body.scrollHeight:"+document.body.scrollHeight);
-				console.log("document.body.offsetWidth:"+document.body.offsetWidth);
+				console.log("document.body.offsetWidth(包含border+padding+可视content):"+document.body.offsetWidth);
 				console.log("document.body.offsetHeight:"+document.body.offsetHeight);
-
-
-			    console.log("screen availWidth:"+screen.availWidth);
-			    console.log("screen availHeight:"+screen.availHeight);
-			    console.log("screen width:"+screen.width);
-			    console.log("screen height:"+screen.height);
+				console.log("document.body.scrollWidth(包含padding+content):"+document.body.scrollWidth);
+				console.log("document.body.scrollHeight:"+document.body.scrollHeight);
 			console.groupEnd();
+
 			console.group("元素大小");
-			    console.log("clientWidth:"+demo.clientWidth);
-			    console.log("clientHeight:"+demo.clientHeight);
-				console.log("offsetwidth:"+demo.offsetWidth);
-				console.log("offsetheight:"+demo.offsetHeight);
-			    console.log("scrollWidth:"+demo.scrollWidth);
-			    console.log("scrollHeight:"+demo.scrollHeight);
+			    console.log('宽高：200px; padding：20; border: 10; margin: 40 auto');
+			    console.log("clientWidth(包含padding+可视content):"+size.clientWidth);
+			    console.log("clientHeight:"+size.clientHeight);
+				console.log("offsetwidth(包含border+padding+可视content):"+size.offsetWidth);
+				console.log("offsetheight:"+size.offsetHeight);
+			    console.log("scrollWidth(包含padding+content):"+size.scrollWidth);
+			    console.log("scrollHeight:"+size.scrollHeight);
 			console.groupEnd();
+
 			console.group("元素位置");
-            	console.log("offsetLeft:"+demo.offsetLeft);
-            	console.log("offsetTop:"+demo.offsetTop);
-//			    demo.onscroll=function(){
-//					console.log("scrollTop:"+demo.scrollTop);
-//				}
-
-
+				console.log("size.clientLeft(目前看就是border的宽度):"+size.clientLeft);
+				console.log("size.clientTop:"+size.clientTop);
+            	console.log("position.offsetLeft:"+position.offsetLeft);
+            	console.log("position.offsetTop:"+position.offsetTop);
+				console.log("box.scrollLeft(box内部内容滚动的距离):"+box.scrollLeft);
+				console.log("box.scrollTop:"+box.scrollTop);
             console.groupEnd();
+
+			console.group("元素大小位置:getBoundingClientRect");
+				console.log("size.width(border+padding+content):"+size.getBoundingClientRect().width);
+				console.log("size.height:"+size.getBoundingClientRect().height);
+				console.log("position.left(直接到窗口的左右距离):"+position.getBoundingClientRect().left);
+				console.log("position.top:"+position.getBoundingClientRect().top);
+			console.groupEnd();
+
             console.group("窗口滚动高度");
-	            window.onscroll=function(){
+//	            window.onscroll=function(){
 	            	console.log("document.body.scrollTop:"+document.body.scrollTop);
 	            	console.log("document.documentElement.scrollTop:"+document.documentElement.scrollTop);
 	            	console.log("window.scrollTop:"+window.scrollTop);
-	            };
+//	            };
             console.groupEnd();
         console.groupEnd();    
 		</script>
+
+
 		<!--jquery-->
 		<script>
 		console.group("jQuery");
 		    console.group("视口大小");
 			    console.log("window width(不包含滚动条):"+$(window).width());
 			    console.log("window height:"+$(window).height());
-//			    console.log("window innerWidth(不包含滚动条):"+$(window).innerWidth());
-//			    console.log("window innerHeight:"+$(window).innerHeight());
-//			    console.log("window outerWidth(不包含滚动条):"+$(window).outerWidth());
-//			    console.log("window outerHeight:"+$(window).outerHeight());
+			    console.log("window innerWidth(不包含滚动条):"+$(window).innerWidth());
+			    console.log("window innerHeight:"+$(window).innerHeight());
+			    console.log("window outerWidth(不包含滚动条):"+$(window).outerWidth());
+			    console.log("window outerHeight:"+$(window).outerHeight());
 			    
 			    console.log("document width(不包含滚动条):"+$(document).width());
 			    console.log("document height:"+$(document).height());
 			    console.log("document innerWidth(不包含滚动条):"+$(document).innerWidth());
-//			    console.log("document innerHeight:"+$(document).innerHeight());
+			    console.log("document innerHeight:"+$(document).innerHeight());
 			    console.log("document outerWidth(不包含滚动条):"+$(document).outerWidth());
-//			    console.log("document outerHeight:"+$(document).outerHeight());
+			    console.log("document outerHeight:"+$(document).outerHeight());
 
 		        console.log("body width:"+$('body').width());
 		        console.log("body height:"+$('body').height());
+				console.log("body innerWidth:"+$('body').innerWidth());
+				console.log("body innerHeight:"+$('body').innerHeight());
+				console.log("body outerWidth:"+$('body').outerWidth());
+				console.log("body outerHeight:"+$('body').outerHeight());
 			console.groupEnd();
 			console.group("元素大小");
-				console.log("width():"+$("#demo").width());
-				console.log("height():"+$("#demo").height());
+				console.log("width()(content):"+$("#size").width());
+				console.log("innerWidth()(padding+content):"+$("#size").innerWidth());
+				console.log("outerWidth()(border+padding+content):"+$("#size").outerWidth());
 			console.groupEnd();
 			console.group("元素位置");
-            	console.log("offsetLeft:"+$("#demo").offset().left);
-            	console.log("offsetTop:"+$("#demo").offset().top);
-		        console.log("positionLeft:"+$("#demo").position().left);
-		        console.log("positionTop:"+$("#demo").position().top);
+            	console.log("offset().left:"+$("#position").offset().left);
+            	console.log("offset().top:"+$("#position").offset().top);
+		        console.log("position().left:"+$("#position").position().left);
+		        console.log("position().top:"+$("#position").position().top);
             console.groupEnd();
             console.group("窗口滚动高度");
 //	            window.onscroll=function(){
