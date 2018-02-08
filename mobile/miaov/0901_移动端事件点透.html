@@ -101,7 +101,8 @@
         });
 
 
-//    touch 事件与 mouse 事件对比: touchstart在元素上触发后，后续touchmove和touchend都会绑定在该元素上；mouse事件则不然(可以在pc页面试验)
+//    touch 事件与 mouse 事件对比: touchstart在元素上触发后，后续touchmove和touchend都会绑定在该元素上；
+//    mouse事件则不然(可以在pc页面试验)
 //    chrome 手机模拟器里不支持 ontouchstart 事件，需要用监听器，真机无恙
         touch.addEventListener("touchstart",function(e){
             console.log('touchstart');
@@ -177,7 +178,8 @@
 
 
 //     事件点透:
-//         在移动端，我们触碰一个元素时，会立即执行，添加在元素上的touch事件，然后记录坐标，300ms之后 在这个坐标点查找元素，如果找到元素有 mouse时间，就执行加在元素的mouse事件
+//         在移动端，我们触碰一个元素时，会立即执行，添加在元素上的touch事件，然后记录坐标，
+    // 300ms之后 在这个坐标点查找元素，如果找到元素有 mouse事件，就执行加在元素的mouse事件
 //     解决办法：
 //         给元素清除默认事件
 
@@ -188,7 +190,8 @@
 //          2. 解决IOS10+ safari 以及部分安卓浏览器 不在支持 viewport的最大缩放值和禁止缩放的问题
 //
 //          3. 解决IOS10+ safari下给body加overflow：hidden无效的问题
-//             具体描述：给元素加了 一个绝对定位，但是元素本身没有定位父级，元素如果超出了body的宽度，body 上的overflow对这个元素，不起效果
+//             具体描述：给元素加了 一个绝对定位，但是元素本身没有定位父级，元素如果超出了body的宽度，
+    //         body 上的overflow对这个元素，不起效果
 //             解决办法：给body加上一个相对定位
 //
 //          4. 解决事件点透的问题

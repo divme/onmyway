@@ -228,7 +228,7 @@
         })
     }());
 
-    //    得到当前所在nav：
+    //    滑动时得到当前所在nav：
     //        1. 给当前nav添加选中状态
     //        2. 根据当前nav设置phonebook的位置
     function getCurnav(nav, posY){
@@ -241,33 +241,6 @@
             }
         }
     }
-
-    //    根据选中nav，设置phonebook的位置
-    function setPhonebook(el){
-        var curPos, curTop;
-        var phonebook = document.querySelector(".phonebook");
-        var text = el.innerText.toLowerCase();
-        var option = document.querySelector('p[data-id="'+text+'"]');
-        if(option){
-            curPos = option.getBoundingClientRect().top;
-            curTop = getStyle(phonebook, 'top');
-            phonebook.style.top = curTop - curPos +'px';
-        }else{
-            var sibling = el.nextElementSibling;
-            setPhonebook(sibling);
-        }
-
-    }
-
-    //    得到一个元素的属性值
-    function getStyle(el, attr){
-        if(window.getComputedStyle){
-            return parseInt(window.getComputedStyle(el)[attr])
-        }else{
-            return parseInt(el.currentStyle[attr]);
-        }
-    }
-
 
     //    添加class
     function addClass(ele, classname){
@@ -288,6 +261,22 @@
         }
         ele.className += ' ' +classname;
     }
+    //    根据选中nav，设置phonebook的位置
+    function setPhonebook(el){
+        var curPos, curTop;
+        var phonebook = document.querySelector(".phonebook");
+        var text = el.innerText.toLowerCase();
+        var option = document.querySelector('p[data-id="'+text+'"]');
+        if(option){
+            curPos = option.getBoundingClientRect().top;
+            curTop = getStyle(phonebook, 'top');
+            phonebook.style.top = curTop - curPos +'px';
+        }else{
+            var sibling = el.nextElementSibling;
+            setPhonebook(sibling);
+        }
+
+    }
 
     //    tap 事件
     function tap(el, callback){
@@ -304,6 +293,14 @@
                 callback && callback.call(el, e);
             }
         })
+    }
+    //    得到一个元素的属性值
+    function getStyle(el, attr){
+        if(window.getComputedStyle){
+            return parseInt(window.getComputedStyle(el)[attr])
+        }else{
+            return parseInt(el.currentStyle[attr]);
+        }
     }
 </script>
 </body>
