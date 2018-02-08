@@ -1,6 +1,3 @@
-/**
- * Created by mszq on 2018/2/6.
- */
 
 // 格式化小数,保留小数点后n位
 // num： 数字或者可化为数字的字符串
@@ -48,8 +45,8 @@ function formatProfessional(num){
     }
 }
 
-
 // 日期格式化： 年 月 日
+// 返回值为 2018/01/02 13:45:30
 function formatTime(date, symbol){
         var year = date.getFullYear();
         var month = date.getMonth() + 1;
@@ -63,7 +60,22 @@ function formatTime(date, symbol){
 }
 
 // 不足两位的补0
+// 返回值为字符串： ‘05’ ‘14’
 function formatTenths(n) {
     n = n.toString();
     return n[1] ? n : '0' + n
+}
+
+// 检测手机系统：
+// 返回值为字符串： 'IOS' || 'Android'
+function mobileSystem() {
+    var platform = typeof (navigator.platform) == "undefined" ? "" : navigator.platform.toLowerCase();
+    if (platform == "ipod" || platform == "iphone" || platform == "ipad" || platform == "iphone simulator" || platform == "ipad simulator") {
+        return "IOS";
+    }
+    var userAgent = typeof (navigator.userAgent) == "undefined" ? "" : navigator.userAgent;
+    if (userAgent.indexOf("Android") > -1) {
+        return "Android";
+    }
+    return "Other";
 }
