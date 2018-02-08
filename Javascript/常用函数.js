@@ -79,3 +79,20 @@ function mobileSystem() {
     }
     return "Other";
 }
+
+// 检测是微信还是qq
+// 返回值是布尔值
+function iswx(){
+    var ua = navigator.userAgent.toLowerCase();
+    if (ua.match(/MicroMessenger/i) == "micromessenger") {
+        return true;
+    }
+    return false;
+}
+function isqq(){
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.match(/QQ/i) == 'qq'){
+        return true
+    }
+    return false;
+}
