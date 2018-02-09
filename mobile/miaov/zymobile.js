@@ -28,12 +28,19 @@
 }());
 
 
-设置或者获取元素的属性,我分为以下几类进行处理:
-1. opacity: 无单位;
-2. width, height, top, bottom, left, right: 单位为px；
-3. transform: 这个属性单独来一个函数处理，并且要求el的所有transform
+// 设置或者获取元素的属性,我分为以下几类进行处理:
+// 1. opacity: 无单位;
+// 2. width, height, top, bottom, left, right: 单位为px;这几个属性的单位问题在函数内处理掉;
+// 3. transform: 这个属性单独来一个函数处理,并且要求el的所有transform;
+// 4. border, background, margin, padding, color 等等其他属性
 function css(el, attr, val){
-
+    var transformArr = [
+        'translate','translateX','translateY','translateZ',
+        'scale', 'scaleX', 'scaleY', 'scaleZ',
+        'rotate', 'rotateX', 'rotateY', 'rotateZ',
+        'skew', 'skewX','skewY'
+    ];
+    var pxArr = ['width', 'height', 'top', 'left', 'bottom', 'right'];
 }
 
 function tap(el, callback){
