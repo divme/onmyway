@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>优化电话簿</title>
+    <title>电话簿</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
         *{margin:0; padding:0;}
@@ -245,7 +245,7 @@
     //    添加class
     function addClass(ele, classname){
         var siblings = ele.parentNode.childNodes;
-        siblings = [].slice.apply(siblings);
+            siblings = [].slice.apply(siblings);
         var current, curIndex, curName;
 
         for(var i = 0, len = siblings.length; i < len; i++){
@@ -257,9 +257,8 @@
                     current.className = curName;
                 }
             }
-
         }
-        ele.className += ' ' +classname;
+        ele.className += ' ' + classname;
     }
     //    根据选中nav，设置phonebook的位置
     function setPhonebook(el){
@@ -270,7 +269,8 @@
         if(option){
             curPos = option.getBoundingClientRect().top;
             curTop = getStyle(phonebook, 'top');
-            phonebook.style.top = curTop - curPos +'px';
+            phonebook.style.top = -curPos +'px';
+//            phonebook.style.top = curTop - curPos +'px';
         }else{
             var sibling = el.nextElementSibling;
             setPhonebook(sibling);

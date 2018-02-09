@@ -2,13 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>移动端事件点透</title>
+    <title>移动端OMO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        .try{
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 40px;
+            background: #f03838;
+        }
+    </style>
 </head>
 <body>
- <!--1. 手机通讯录-->
- <!--2. 手机滑屏多页面切换-->
- <!--3. 下拉框选择器，时间日期选择器-->
-<canvas ></canvas>
+<div class="try"></div>
+
+<script src="zymobile.js"></script>
+<script>
+
+    var tryy = document.querySelector('.try');
+    var dede = 0;
+    function move(){
+        dede += 10;
+        var timer = window.requestAnimationFrame(move);
+        if(dede > 100){
+            window.cancelAnimationFrame(timer);
+        }
+        tryy.style.top = dede + 'px';
+    }
+    tap(tryy, move);
+</script>
 </body>
 </html>

@@ -66,6 +66,19 @@ function formatTenths(n) {
     return n[1] ? n : '0' + n
 }
 
+// 隐藏字符串中间数位
+function stringHide(str, start, n){
+    if(typeof str != 'string'){
+        str = String(str);
+    }
+    var sonstr = '';
+    for(var i = 0; i < n; i++){
+        sonstr += '*';
+    }
+    str = str.slice(0, start) + sonstr + str.slice(start+n);
+    return str;
+}
+
 // 检测手机系统：
 // 返回值为字符串： 'IOS' || 'Android'
 function mobileSystem() {
@@ -79,6 +92,14 @@ function mobileSystem() {
     }
     return "Other";
 }
+function iphoneX(){
+    if(CheckMobSys() == 'IOS' && window.innerWidth == 375  && window.innerHeight > 810 && window.innerHeight < 820){
+        return 'iphonex';
+    }else{
+        return 'no';
+    }
+}
+
 
 // 检测是微信还是qq
 // 返回值是布尔值

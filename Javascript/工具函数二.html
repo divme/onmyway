@@ -11,7 +11,7 @@
 </script>
 <script>
 //    1.javascript小数加法精度问题
-    function addTwoFloat(num1,num2){
+      function addTwoFloat(num1,num2){
         var result;
         var arguments = [].slice.apply(arguments);
         var arr=[];
@@ -28,10 +28,6 @@
         result =  (num1*Math.pow(10,arr[0])+num2*Math.pow(10,arr[0]))/Math.pow(10,arr[0]);
         return result;
     }
-    var num= addTwoFloat(34.45, 22.39);
-    console.group('addTwoFloat浮点数加法');
-      console.log(num);
-    console.groupEnd();
 
 //    2.正确获取浏览器可用区域的宽高
       function getWindow(){
@@ -46,11 +42,11 @@
           return {
                     width: w,
                     height: h
-                 }
+          }
       }
 
-//    3.事件监听器P174
-      var eventHandler={
+//    3.事件监听兼容性封装
+      var eventHandler = {
             addHandler:function(element,type,func){
                 if(window.addEventListener){
                     element.addEventListener(type,func,false);
@@ -70,9 +66,6 @@
                 }
             }
         };
-        function showmsg(){alert("hello");}
-        var btn = document.getElementById("tang");
-        eventHandler.addHandler(btn,"click",showmsg);
 
 
 </script>
