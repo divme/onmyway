@@ -41,9 +41,69 @@ function css(el, attr, val){
         'skew', 'skewX','skewY'
     ];
     var pxArr = ['width', 'height', 'top', 'left', 'bottom', 'right'];
+    for(var i = 0; i < transformArr.length; i++){
+        if(attr == transformArr[i]){
+            return transform(el, attr, val);
+        }
+    }
+    for(var k = 0; k < pxArr.length; k++){
+        if(attr == pxArr[k]){
+            if(arguments.length == 2){
+                return parseFloat(window.getComputedStyle(el)[attr]) || parseFloat(el.currentStyle[attr]);
+            }else{
+                el.style[attr] = val + 'px';
+                return;
+            }
+        }
+    }
+    if(arguments.length == 2){
+        return window.getComputedStyle(el)[attr] || el.currentStyle[attr];
+    }
+    el.style[attr] = val;
 }
 
-function tap(el, callback){
+// transform 函数 要求该el的transform属性都在js中定义
+// 思路：给el对象一个名为transform的对象属性，该el的所有transform相关属性值都存放在该transform内
+function transform(el, attr, val){
+    if(!el.transform){
+        el.transform = {}
+    }
+    if(val == undefined){
+        return el.transform[attr];
+    }
+    el.transform[attr] = val;
+    console.log(el.transform);
+    var str = '';
+    for( s in el.transform){
+        switch(s){
+            case "translate":
+            case "translateX":
+            case "translateY":
+            case "translateZ":
+                str += s + '(' + el.transform[s] +'px) ';
+                break;
+            case "scale":
+            case "scaleX":
+            case "scaleY":
+            case "scaleZ":
+                str += s + '(' + el.transform[s] +') ';
+                break;
+            case "rotate":
+            case "rotateX":
+            case "rotateY":
+            case "rotateZ":
+            case "skew":
+            case "skewX":
+            case "skewY":
+                str += s + '(' + el.transform[s] +'deg) ';
+                break;
+        }
+    }
+    el.style.webkitTransform = el.style.transform = str;
+}
+
+function tap(el, ca
+llback){
     var startX, startY;
     var startTime;
     el.addEventListener('touchstart', function(e){
