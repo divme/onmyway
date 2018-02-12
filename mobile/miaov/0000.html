@@ -5,7 +5,12 @@
     <title>移动端OMO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
-        .try{
+        .box{
+            width: 100%;
+            height: 200px;
+            background: rgba(255, 0, 0, .2);
+        }
+        .test{
             position: relative;
             width: 100px;
             height: 100px;
@@ -16,23 +21,43 @@
     </style>
 </head>
 <body>
-<div class="try"></div>
+<div class="box">
+    <div class="test"></div>
+</div>
+
 
 <script src="zymobile.js"></script>
 <script>
 
-    var tryy = document.querySelector('.try');
-    console.log(css(tryy, 'width'));
+    var box = document.querySelector('.box');
+    var test = document.querySelector('.test');
+//    console.log(css(test, 'width'));
     var dede = 0;
-    function move(){
-        dede += 10;
-        var timer = window.requestAnimationFrame(move);
-        if(dede > 100){
-            window.cancelAnimationFrame(timer);
-        }
-        tryy.style.top = dede + 'px';
-    }
-    tap(tryy, move);
+//    function move(){
+//        dede += 10;
+//        var timer = window.requestAnimationFrame(move);
+//        if(dede > 100){
+//            window.cancelAnimationFrame(timer);
+//        }
+//        tryy.style.top = dede + 'px';
+//    }
+//    tap(test, move);
+    css(test, 'transleteX');
+//    move({
+//        el: test,
+//        time: 300,
+//        type: 'easeOut',
+//        target:{
+//            translateX: 300,
+//            top: 300
+//        }
+//    });
+    swiper({
+        wrap: box,
+        el: test,
+        dir: 'x',
+        backOut: 'none'
+    })
 </script>
 </body>
 </html>
