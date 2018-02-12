@@ -7,27 +7,55 @@
     <style>
         .box{
             width: 100%;
-            height: 200px;
             background: rgba(255, 0, 0, .2);
+            overflow: hidden;
         }
         .test{
             position: relative;
-            width: 100px;
-            height: 100px;
-            margin: 60px;
             background: #f03838;
-            transform: scaleZ(2);
+        }
+        .test:after{
+            content: '';
+            clear: both;
+            display: block;
+        }
+        .imgbox{
+            float: left;
+        }
+        .imgbox img{
+            width: 100%;
+            vertical-align: top;
         }
     </style>
 </head>
 <body>
 <div class="box">
-    <div class="test"></div>
+    <div class="test">
+        <div class="imgbox"><img src="./src/1.jpg" alt=""></div>
+        <div class="imgbox"><img src="./src/2.jpg" alt=""></div>
+        <div class="imgbox"><img src="./src/3.jpg" alt=""></div>
+    </div>
 </div>
-
 
 <script src="zymobile.js"></script>
 <script>
+    (function(){
+        var box = document.querySelector('.box');
+        var test = document.querySelector('.test');
+        var imgbox = document.querySelectorAll('.imgbox');
+
+        test.style.width = box.clientWidth*3 +'px';
+        for(var i = 0; i < imgbox.length; i++){
+            imgbox[i].style.width = box.clientWidth + 'px';
+        }
+        swiper({
+            wrap: box,
+            el: test,
+            dir: 'x',
+            backOut: 'out'
+        })
+    })();
+
 
     var box = document.querySelector('.box');
     var test = document.querySelector('.test');
@@ -52,12 +80,7 @@
 //            top: 300
 //        }
 //    });
-    swiper({
-        wrap: box,
-        el: test,
-        dir: 'x',
-        backOut: 'none'
-    })
+
 </script>
 </body>
 </html>

@@ -183,9 +183,8 @@ function swiper(init){
     var isFirst = true; //为了防止变相，对于滑动方向与预定方向是否一致的判断在一次滑动过程里只判断一次
     //backOut的效果，需要判断边界，max为0，min需要计算
     var min = {
-           // x: el.clientWidth - wrap.clientWidth,
-           x: -100,
-           y: el.clientHeight - wrap.clientHeight
+           x: wrap.clientWidth - el.clientWidth,
+           y: wrap.clientHeight - el.clientHeight
     };
     // 手指开始的位置
     var startTouchLocation = {
@@ -238,9 +237,13 @@ function swiper(init){
         if(realdir == dir){
             if(dir == 'x'){
                 var nowPosX = startEleLocation.x + touchDis.x;
+                console.log(nowPosX)
                 if(init.backOut == 'none'){
                     nowPosX = nowPosX > 0? 0 : nowPosX;
                     nowPosX = nowPosX < min[dir]? min[dir] : nowPosX;
+                }else if(init.backOut == 'out'){
+                    nowPosX = nowPosX > 0? startEleLocation.x + touchDis.x*0.4 : nowPosX;
+                    nowPosX = nowPosX < min[dir]? startEleLocation.x + touchDis.x*0.4 : nowPosX;
                 }
                 css(el, 'translateX', nowPosX);
             }else{
