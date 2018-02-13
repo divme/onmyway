@@ -33,8 +33,8 @@
 </div>
 
 <p>主要鼠标事件： mousemove, mousedown, mouseup, mouseenter, mouseleave, mouseover, mouseout</p>
-<p>对不同物体来说，鼠标事件会不断绑定到当前物体，而不是一直在第一个物体上，因为它们都不是因果关系</p>
-<p>对同一个物体来说，</p>
+<p>对不同元素来说，鼠标事件会不断绑定到当前物体，而不是一直在第一个物体上，因为它们都不是因果关系</p>
+<p>对同一个元素来说，mouseenter 和 mouseleave 只对元素本身生效， mouseover 和 mouseout 移动离开子元素也触发</p>
 
 <script>
   var b1 = document.querySelector('.b1');
@@ -346,7 +346,6 @@
         el: b1,
         time: 1600,
         target:{
-            left: 500,
             top: 400
         },
         type: 'linear'
