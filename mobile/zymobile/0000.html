@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>移动端OMO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .box, .box2{
+            position: relative;
+            width: 100%;
+            background: rgba(255, 0, 0, .2);
+            overflow: hidden;
+        }
+        .box2{
+            margin-top: 20px;
+        }
+        .test, .test2{
+            position: relative;
+            background: #f03838;
+        }
+        .test:after, .test2:after{
+            content: '';
+            clear: both;
+            display: block;
+        }
+        .imgbox, .imgbox2{
+            float: left;
+        }
+        .imgbox img, .imgbox2 img{
+            width: 100%;
+            vertical-align: top;
+        }
+        .navbox{
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            bottom: 30px;
+            left: 0;
+            text-align: center;
+        }
+        .nav{
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ffffff;
+        }
+        .navnow{
+            background: #f03838;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="test">
+        <div class="imgbox"><img src="./src/1.png" alt=""></div>
+        <div class="imgbox"><img src="./src/2.png" alt=""></div>
+        <div class="imgbox"><img src="./src/3.png" alt=""></div>
+    </div>
+    <div class="navbox">
+        <div class="nav navnow"></div>
+        <div class="nav"></div>
+        <div class="nav"></div>
+    </div>
+</div>
+
+<div class="box2">
+    <div class="test2">
+        <div class="imgbox2"><img src="./src/1.png" alt=""></div>
+        <div class="imgbox2"><img src="./src/2.png" alt=""></div>
+        <div class="imgbox2"><img src="./src/3.png" alt=""></div>
+    </div>
+</div>
+
+<script src="zymobile.js"></script>
+<script>
+
+    (function(){
+        var box = document.querySelector('.box'); //盒子
+        var test = document.querySelector('.test');//运动元素
+            test.innerHTML += test.innerHTML;
+        var imgbox = document.querySelectorAll('.imgbox');//运动元素子元素
+        var nav = document.querySelectorAll('.nav');//切换点
+
+        var swidth = box.clientWidth;
+        var slen = imgbox.length;
+        var now = 0;  // 当前第几张
+        var startPos, endPos; // 方法二里记录移动物体的开始结束位置进行比较
+
+        test.style.width = swidth*slen +'px';
+        for(var i = 0; i < slen; i++){
+            imgbox[i].style.width = swidth + 'px';
+        }
+
+//      方法一：
+        swiper({
+            wrap: box,
+            el: test,
+            dir: 'x',
+            backOut: 'none',
+            start: function(){
+                test.style.transition = "none";
+                /* 处理无缝 */
+                if(now == 0){
+                    now = slen/2;
+                } else if(now == slen-1){
+                    now = slen/2 - 1;
+                }
+                css(test, "translateX", -now * swidth);
+                for(var i = 0; i < nav.length; i++){
+                    nav[i].className = 'nav';
+                }
+                nav[now%3].className = 'nav navnow';
+            },
+            end: function(){
+                var nowX = css(test,"translateX");
+                now = Math.abs(Math.round(nowX/swidth));
+                nowX = -now*swidth;
+                test.style.transition = ".3s";
+                css( test,"translateX", nowX);
+                for(var i = 0; i < nav.length; i++){
+                    nav[i].className = 'nav';
+                }
+                nav[now%3].className = 'nav navnow';
+            }
+        });
+
+//      方法二：
+//        swiper({
+//            wrap: box,
+//            el: test,
+//            dir: 'x',
+//            backOut: 'none',
+//            start: function(){
+//                startPos = Math.abs(css(test, 'translateX'));
+//                now = Math.floor(startPos/swidth);
+//                css(test,'transition','none');
+//                if(now == 0){
+//                    now = slen/2;
+//                    css(test, 'translateX', now*swidth*(-1));
+//                }
+//                for(var i = 0; i < nav.length; i++){
+//                    nav[i].className = 'nav';
+//                }
+//                nav[now%3].className = 'nav navnow';
+//            },
+//            end: function(){
+//        //                在 backOut == none 时：
+//        //                左滑，即往左移动，translateX的绝对值变大；
+//        //                右滑，即往右移动，translateX的绝对值变小；
+//                endPos = Math.abs(css(test, 'translateX'));
+//                var nowDis = (endPos/swidth).toFixed(1) - now;
+//                if(nowDis > 0 && nowDis > 0.4 && endPos > startPos){
+//                    now++;
+//                    if(now == slen -1){
+//                        css(test, 'transition','.3s');
+//                        css(test, 'translateX', now*swidth*(-1));
+//                        setTimeout(function(){
+//                            now = slen/2 -1;
+//                            css(test, 'transition','none');
+//                            css(test, 'translateX', now*swidth*(-1));
+//                        }, 100);
+//                        for(var m = 0; m < nav.length; m++){
+//                            nav[m].className = 'nav';
+//                        }
+//                        nav[now%3].className = 'nav navnow';
+//                        return;
+//                    }
+//                }
+//                if(nowDis < 0 && Math.abs(nowDis) > 0.7 && endPos < startPos){
+//                    now--;
+//                    if(now == 0){
+//                        css(test, 'transition','.3s');
+//                        css(test, 'translateX', now*swidth*(-1));
+//                        setTimeout(function(){
+//                            now = slen/2;
+//                            css(test, 'transition','none');
+//                            css(test, 'translateX', now*swidth*(-1));
+//                        }, 50);
+//                        for(var n = 0; n < nav.length; n++){
+//                            nav[n].className = 'nav';
+//                        }
+//                        nav[now%3].className = 'nav navnow';
+//                        return;
+//                    }
+//                }
+//                css(test, 'transition','.3s');
+//                css(test, 'translateX', now*swidth*(-1));
+//                for(var i = 0; i < nav.length; i++){
+//                    nav[i].className = 'nav';
+//                }
+//                nav[now%3].className = 'nav navnow'
+//            }
+//        });
+    })();
+
+    (function(){
+        var box = document.querySelector('.box2'); //盒子
+        var test = document.querySelector('.test2');//运动元素
+            test.innerHTML += test.innerHTML;
+        var imgbox = document.querySelectorAll('.imgbox2');//运动元素子元素
+
+        var swidth = box.clientWidth;
+        var slen = imgbox.length;
+        var now = 0;  // 当前第几张
+        var startPos, endPos; // 方法二里记录移动物体的开始结束位置进行比较
+
+        test.style.width = swidth*slen +'px';
+        for(var i = 0; i < slen; i++){
+            imgbox[i].style.width = swidth + 'px';
+        }
+
+//      方法一：
+        swiper({
+            wrap: box,
+            el: test,
+            dir: 'x',
+            backOut: 'none'
+        });
+    })();
+
+
+//   函数测试
+    (function(){
+        var box = document.querySelector('.box2');
+        var test = document.querySelector('.test2');
+
+        console.log(css(test, 'width'));
+        console.log(css(test, 'translateX'));
+
+        move({
+            el: box,
+            time: 400,
+            type: 'easeOut',
+            target:{
+                top: 300
+            },
+            callback: function() {
+                move({
+                    el: box,
+                    time: 800,
+                    type: 'bounceOut',
+                    target: {
+                        top: 0
+                    }
+                });
+            }
+        });
+    })();
+</script>
+</body>
+</html>

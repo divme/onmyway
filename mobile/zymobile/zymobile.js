@@ -203,6 +203,7 @@ function swiper(init){
     };
 
     el.addEventListener('touchstart', function(e){
+        init.start  && init.start.call(el, e);
         startTouchLocation = {
             x: e.changedTouches[0].pageX,
             y: e.changedTouches[0].pageY
@@ -214,7 +215,8 @@ function swiper(init){
         lastTouchPosition = {
             x: e.changedTouches[0].pageX,
             y: e.changedTouches[0].pageY
-        }
+        };
+
     });
     el.addEventListener('touchmove', function(e){
         var curTouchLocation = {
@@ -237,7 +239,6 @@ function swiper(init){
         if(realdir == dir){
             if(dir == 'x'){
                 var nowPosX = startEleLocation.x + touchDis.x;
-                console.log(nowPosX)
                 if(init.backOut == 'none'){
                     nowPosX = nowPosX > 0? 0 : nowPosX;
                     nowPosX = nowPosX < min[dir]? min[dir] : nowPosX;
@@ -262,13 +263,15 @@ function swiper(init){
         lastTouchPosition = {
             x: e.changedTouches[0].pageX,
             y: e.changedTouches[0].pageY
-        }
+        };
+
+        init.move  && init.move.call(el, e);
     });
     el.addEventListener('touchend', function(e){
          isFirst = true;
+         init.end  && init.end.call(el, e);
     });
 }
-
 
 
 // 如果只是简单效果的话, 可以不用此函数,用 transition 做个过渡就足够了
@@ -287,7 +290,8 @@ function swiper(init){
 //     target：{ 运动目标：位置、效果等
 //        left: 100,
 //        top: 200
-//     }
+//     },
+//     callback: 运动完之后的回调函数
 // }
 function move(init){
     var t = 0;
@@ -298,26 +302,29 @@ function move(init){
         window.cancelAnimationFrame(init.el.timer);
 
     for(var as in init.target){
-        b[as] = css(init.el, as);
-         if(typeof Number(b) != 'number') return;
-        c[as] = init.target[as] - b[as];
+        if(init.target.hasOwnProperty(as)){
+            b[as] = css(init.el, as);
+            if(typeof Number(b) != 'number') return;
+            c[as] = init.target[as] - b[as];
+        }
     }
     init.el.timer = window.requestAnimationFrame(innerMove);
     function innerMove(){
         var cur;
         if( d == 0 || t >= d){
-            window.cancelAnimationFrame(init.el.timer)
-        }else{
+            window.cancelAnimationFrame(init.el.timer);
+            console.log('gg');
+            init.callback&&init.callback.call(init.el);
+        } else {
             t++;
             for(var s in init.target){
-                // b[s] = css(init.el, s);
-                //  if(typeof Number(b) != 'number') return;
-                // c[s] = init.target[s] - b[s];
-                cur = Tween[init.type](t, b[s], c[s], d);
-                css(init.el, s, cur);
+                if(init.target.hasOwnProperty(s)) {
+                    cur = Tween[init.type](t, b[s], c[s], d);
+                    css(init.el, s, cur);
+                }
             }
+            init.el.timer = window.requestAnimationFrame(innerMove);
         }
-        init.el.timer = window.requestAnimationFrame(innerMove);
     }
 }
 
@@ -375,28 +382,30 @@ function transform(el, attr, val){
     el.transform[attr] = val;
     var str = '';
     for( s in el.transform){
-        switch(s){
-            case "translate":
-            case "translateX":
-            case "translateY":
-            case "translateZ":
-                str += s + '(' + el.transform[s] +'px) ';
-                break;
-            case "scale":
-            case "scaleX":
-            case "scaleY":
-            case "scaleZ":
-                str += s + '(' + el.transform[s] +') ';
-                break;
-            case "rotate":
-            case "rotateX":
-            case "rotateY":
-            case "rotateZ":
-            case "skew":
-            case "skewX":
-            case "skewY":
-                str += s + '(' + el.transform[s] +'deg) ';
-                break;
+        if(el.transform.hasOwnProperty(s)){
+            switch(s){
+                case "translate":
+                case "translateX":
+                case "translateY":
+                case "translateZ":
+                    str += s + '(' + el.transform[s] +'px) ';
+                    break;
+                case "scale":
+                case "scaleX":
+                case "scaleY":
+                case "scaleZ":
+                    str += s + '(' + el.transform[s] +') ';
+                    break;
+                case "rotate":
+                case "rotateX":
+                case "rotateY":
+                case "rotateZ":
+                case "skew":
+                case "skewX":
+                case "skewY":
+                    str += s + '(' + el.transform[s] +'deg) ';
+                    break;
+            }
         }
     }
     el.style.webkitTransform = el.style.transform = str;
