@@ -169,11 +169,6 @@ var Tween = {
 //     move: 手指移动时的回调函数,
 //     end: 触摸结束的回调函数
 // }
-
-// 基本功能外注意的点：
-// 1. 防止安卓大面积按压误触，记录lastPoint 位置做比较；
-// 2. 防止手指变向，isFirst 以手指第一次移动方向为准，直到这次滑动结束；
-// 3. 比较x和y方向变化，判断是想往哪个方向滑动，如果是和设定方向一样，就滑动；
 function swiper(init){
     var wrap = init.wrap;
     var el = init.el;
@@ -204,7 +199,7 @@ function swiper(init){
            x: 0,
            y: 0
     };
-
+    // 开始记录 手指开始位置，元素开始位置，以及赋值手指最后的位置（即当前位置）
     el.addEventListener('touchstart', function(e){
         // console.log('start '+ isFirst)
         init.start  && init.start.call(el, e);
@@ -221,6 +216,11 @@ function swiper(init){
             y: e.changedTouches[0].pageY
         };
     });
+    // touchmove时， 判断第一次移动方向与预期方向一致，就移动；backout的效果判断
+    // 基本功能外注意的点（都在touchmove时判断）：
+    // 1. 防止安卓大面积按压误触，记录lastPoint 位置做比较；
+    // 2. 防止手指变向，isFirst 以手指第一次移动方向为准，直到这次滑动结束；
+    // 3. 比较x和y方向变化，判断是想往哪个方向滑动，如果是和设定方向一样，就滑动；
     el.addEventListener('touchmove', function(e){
         var curTouchLocation = {
             x: e.changedTouches[0].pageX,
@@ -273,9 +273,12 @@ function swiper(init){
 
         init.move  && init.move.call(el, e);
     });
+    // 1. 设置backour为out时的弹回状态
+    // 2. 根据最后滑动的速度来判断滑动结束后的移动效果
+    // 3. 重置一些值
     el.addEventListener('touchend', function(e){
-        // 设定backout为out时的弹回状态
-        if(realdir == dir) {
+         //  设定backout为out时的弹回状态
+         if(realdir == dir) {
             if (dir == 'x') {
                 var nowPosX = css(el, 'translateX');
                 if (init.backout == 'out') {
@@ -285,7 +288,7 @@ function swiper(init){
                 // css(el, 'translateX', nowPosX);
                 move({
                     el: el,
-                    type: 'elasticIn',
+                    type: 'easeIn',
                     time: 500,
                     target:{
                         'translateX' : nowPosX
@@ -300,14 +303,18 @@ function swiper(init){
                 // css(el, 'translateY', nowPosY);
                 move({
                     el: el,
-                    type: 'easeInStrong',
+                    type: 'easeIn',
                     time: 500,
                     target:{
                         'translateY' : nowPosY
                     }
                 })
             }
-        }
+         }
+
+         // 根据最后的速度判断滑动结束后的效果
+
+
          isFirst = true;
          init.end  && init.end.call(el, e);
     });
