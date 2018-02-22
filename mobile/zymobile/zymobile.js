@@ -164,7 +164,7 @@ var Tween = {
 //     wrap: 运动元素盒子,
 //     el: 运动元素,
 //     dir: x||y 想让元素的运动方向,
-//     backOut: none||out 不超出边界||超出边界添加回弹,
+//     backout: none||out 不超出边界||超出边界添加回弹,
 //     start: 触摸开始的回调函数,
 //     move: 手指移动时的回调函数,
 //     end: 触摸结束的回调函数
@@ -172,16 +172,19 @@ var Tween = {
 
 // 基本功能外注意的点：
 // 1. 防止安卓大面积按压误触，记录lastPoint 位置做比较；
-// 2. 防止手指变相，isFirst以手指第一次移动方向为准，直到这次滑动结束；
+// 2. 防止手指变向，isFirst 以手指第一次移动方向为准，直到这次滑动结束；
 // 3. 比较x和y方向变化，判断是想往哪个方向滑动，如果是和设定方向一样，就滑动；
-
 function swiper(init){
     var wrap = init.wrap;
     var el = init.el;
-    var dir = init.dir; //预定滑动方向
-    var realdir;  //实际滑动方向
-    var isFirst = true; //为了防止变相，对于滑动方向与预定方向是否一致的判断在一次滑动过程里只判断一次
-    //backOut的效果，需要判断边界，max为0，min需要计算
+    var dir = init.dir; // 预定滑动方向
+    var realdir;  // 实际滑动方向
+    var isFirst = true; // 为了防止变向，对于滑动方向与预定方向是否一致的判断在一次滑动过程里只判断一次
+    var lastDistance = 0;
+    var lastInterval = 0;
+    var lastSpeed = 0;
+
+    // backout 的效果，需要判断边界，max为0，min需要计算
     var min = {
            x: wrap.clientWidth - el.clientWidth,
            y: wrap.clientHeight - el.clientHeight
@@ -203,6 +206,7 @@ function swiper(init){
     };
 
     el.addEventListener('touchstart', function(e){
+        // console.log('start '+ isFirst)
         init.start  && init.start.call(el, e);
         startTouchLocation = {
             x: e.changedTouches[0].pageX,
@@ -216,7 +220,6 @@ function swiper(init){
             x: e.changedTouches[0].pageX,
             y: e.changedTouches[0].pageY
         };
-
     });
     el.addEventListener('touchmove', function(e){
         var curTouchLocation = {
@@ -239,19 +242,22 @@ function swiper(init){
         if(realdir == dir){
             if(dir == 'x'){
                 var nowPosX = startEleLocation.x + touchDis.x;
-                if(init.backOut == 'none'){
+                if(init.backout == 'none'){
                     nowPosX = nowPosX > 0? 0 : nowPosX;
                     nowPosX = nowPosX < min[dir]? min[dir] : nowPosX;
-                }else if(init.backOut == 'out'){
+                }else if(init.backout == 'out'){
                     nowPosX = nowPosX > 0? startEleLocation.x + touchDis.x*0.4 : nowPosX;
                     nowPosX = nowPosX < min[dir]? startEleLocation.x + touchDis.x*0.4 : nowPosX;
                 }
                 css(el, 'translateX', nowPosX);
             }else{
                 var nowPosY = startEleLocation.y + touchDis.y;
-                if(init.backOut == 'none'){
+                if(init.backout == 'none'){
                     nowPosY = nowPosY > 0? 0 : nowPosY;
                     nowPosY = nowPosY < min[dir]? min[dir] : nowPosY;
+                }else if(init.backout == 'out'){
+                    nowPosY = nowPosY > 0? startEleLocation.y + touchDis.y*0.4 : nowPosX;
+                    nowPosY = nowPosY < min[dir]? startEleLocation.y + touchDis.y*0.4 : nowPosX;
                 }
                 css(el, 'translateY', nowPosY);
             }
@@ -268,6 +274,40 @@ function swiper(init){
         init.move  && init.move.call(el, e);
     });
     el.addEventListener('touchend', function(e){
+        // 设定backout为out时的弹回状态
+        if(realdir == dir) {
+            if (dir == 'x') {
+                var nowPosX = css(el, 'translateX');
+                if (init.backout == 'out') {
+                    nowPosX = nowPosX > 0 ? 0 : nowPosX;
+                    nowPosX = nowPosX < min[dir] ? min[dir] : nowPosX;
+                }
+                // css(el, 'translateX', nowPosX);
+                move({
+                    el: el,
+                    type: 'elasticIn',
+                    time: 500,
+                    target:{
+                        'translateX' : nowPosX
+                    }
+                })
+            } else {
+                var nowPosY =  css(el, 'translateY');
+                if (init.backout == 'out') {
+                    nowPosY = nowPosY > 0? 0 : nowPosX;
+                    nowPosY = nowPosY < min[dir]?  min[dir]: nowPosX;
+                }
+                // css(el, 'translateY', nowPosY);
+                move({
+                    el: el,
+                    type: 'easeInStrong',
+                    time: 500,
+                    target:{
+                        'translateY' : nowPosY
+                    }
+                })
+            }
+        }
          isFirst = true;
          init.end  && init.end.call(el, e);
     });
@@ -278,9 +318,9 @@ function swiper(init){
 // 运动函数，利用 Tween 定义运动效果
 // 此函数接受的 target 和 css 函数内所传入参数只接受 css函数第1、2类
 // Tween对象内效果方法所需参数及解析：
-//     t: 当前次数；
-//     b：样式初始值；
-//     c: 样式差值；
+//     t: 当前次数;
+//     b：样式初始值;
+//     c: 样式差值;
 //     d：总次数
 //     返回值：当前次数下的样式值
 // init = {
@@ -304,7 +344,8 @@ function move(init){
     for(var as in init.target){
         if(init.target.hasOwnProperty(as)){
             b[as] = css(init.el, as);
-            if(typeof Number(b) != 'number') return;
+            if(typeof Number(b) != 'number' +
+                '') return;
             c[as] = init.target[as] - b[as];
         }
     }
@@ -330,10 +371,10 @@ function move(init){
 
 
 // 设置或者获取元素的属性,我分为以下几类进行处理:
-// 1. transform: 这个属性单独来一个函数处理,并且要求el的所有transform;
+// 1. transform: 这个属性单独来一个函数处理,并且要求el的所有transform都用此函数设置，不能在css中设置;
 // 2. width, height, top, bottom, left, right: 单位为px;这几个属性的单位问题在函数内处理掉;
 // 3. opacity: 无单位;
-// 4. border, background, margin, padding, color 等等其他属性
+// 4. border, background, margin, padding, color 等等其他属性,直接设置或者获取。
 function css(el, attr, val){
     var transformArr = [
         'translate','translateX','translateY','translateZ',

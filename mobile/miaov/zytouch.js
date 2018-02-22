@@ -1,5 +1,5 @@
 /**
- * Created by mszq on 2017/9/19.
+ * Created by zy on 2017/9/19.
  */
 /**
 1. 手势事件系列：tap, longtap, gesture: move事件绑定了scale和rotation属性

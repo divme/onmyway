@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tween效果选择</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .target{
+            position: relative;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            margin: 50px;
+            text-align: center;
+            background: yellowgreen;
+            color: #fff;
+        }
+        .btns{
+            margin-top: 50px;
+        }
+        .type{
+            height: 60px;
+        }
+        .btn{
+            display: inline-block;
+            width: 120px;
+            margin: 10px ;
+            padding: 10px 20px;
+            background: #f4f4f4;
+            color: #333;
+            /*text-align: center;*/
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="target"></div>
+<div class="btns">
+    <div class="type">
+        <span class="btn linear">linear</span>
+    </div>
+    <div class="type">
+        <span class="btn easeIn">easeIn</span>
+        <span class="btn easeOut">easeOut</span>
+        <span class="btn easeBoth">easeBoth</span>
+    </div>
+    <div class="type">
+        <span class="btn easeInStrong">easeInStrong</span>
+        <span class="btn easeOutStrong">easeOutStrong</span>
+        <span class="btn easeBothStrong">easeBothStrong</span>
+    </div>
+    <div class="type">
+        <span class="btn elasticIn">elasticIn</span>
+        <span class="btn elasticOut">elasticOut</span>
+        <span class="btn elasticBoth">elasticBoth</span>
+    </div>
+    <div class="type">
+        <span class="btn backIn">backIn</span>
+        <span class="btn backOut">backOut</span>
+        <span class="btn backBoth">backBoth</span>
+    </div>
+    <div class="type">
+        <span class="btn bounceIn">bounceIn</span>
+        <span class="btn bounceOut">bounceOut</span>
+        <span class="btn bounceBoth">bounceBoth</span>
+    </div>
+</div>
+
+<script src="zymobile.js"></script>
+<script>
+
+    (function(){
+        var target = $('.target');
+        var btn = document.querySelectorAll('.btn');
+
+        for(var i = 0; i < btn.length; i++){
+            btn[i].onclick = function(){
+                target.innerText = this.innerText;
+                move({
+                    el: target,
+                    time: 500,
+                    type: this.innerText,
+                    target:{
+                        translateX: 300
+                    },
+                    callback: function() {
+                        setTimeout(function(){
+                                    move({
+                                        el: target,
+                                        time: 10,
+                                        type: 'linear',
+                                        target: {
+                                            translateX: 0
+                                        }
+                                    })
+                        }, 200);
+                    }
+                })
+            }
+        }
+        function $(str){
+            return document.querySelector(str);
+        }
+    })();
+
+
+
+</script>
+</body>
+</html>
