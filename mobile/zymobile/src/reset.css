@@ -1,0 +1,59 @@
+*{position: relative;margin:0;padding:0;}
+body{font-family:"Helvetica Neue",'微软雅黑', Verdana, Arial, Helvetica, sans-serif;}
+
+/*常见元素reset   */
+@media (min-width:1px){
+    button{border:none}
+    button:focus{border:none;outline:none;}
+    a{color:#424242;text-decoration: none}
+    a:hover{color:#424242;text-decoration: none}
+    ul,li{list-style: none}
+    img{border:none;outline:none;vertical-align: middle;}
+}
+/*表格元素reset*/
+@media (min-width: 1px){
+    table{
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
+    table td{
+        border: 1px solid #f4f4f4;
+    }
+}
+/*表单元素reset*/
+@media (min-width: 1px){
+    input, textarea, keygen, select, button{font-family:"Helvetica Neue",'微软雅黑', Verdana, Arial, Helvetica, sans-serif;  }
+    input{border:none}
+    input:focus{border:none;outline:none;}
+    select{border:none; /*-moz-appearance:none;*/ /*-webkit-appearance:none;*/  }
+    select:focus{border:none;outline:none;}
+    /*日期input*/
+    input[type='date']{ -webkit-appearance: none;-moz-appearance:none;cursor: pointer; }
+    input[type='date']::-webkit-clear-button, input[type='date']::-webkit-inner-spin-button{
+        display: none !important;
+    }/*点击区：弹出日历*/
+    input[type='date']::-webkit-calendar-picker-indicator{
+        position: absolute;
+        top: 0;
+        right:5px;
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        opacity: 0;
+        z-index: 20;
+    }
+}
+
+/*常用工具类*/
+@media (min-width: 1px){
+    .clear:after{
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+        zoom:1;
+    }
+    .left{float: left;}
+    .right{float:right;}
+}

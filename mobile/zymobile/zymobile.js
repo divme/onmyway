@@ -157,7 +157,7 @@ var Tween = {
     }
 };
 
-// 封装一下移动端的运动函数，此函数只是跟随手指移动而运动而已，其他效果参数酌情添加，效果在回调中自己实现
+// 封装移动端的运动函数，效果如下：随手指移动而运动；边界限制或者超出回弹；滑动过程添加惯性原理；其他效果参数酌情添加，效果在回调中自己实现
 // 此函数仅限x或者y上的单方向运动
 // 举例说明该函数在移动端的实例，包含但不限于：轮播图，下拉刷新，上拉加载，左右滑屏切换等
 // init:{
@@ -165,6 +165,7 @@ var Tween = {
 //     el: 运动元素,
 //     dir: x||y 想让元素的运动方向,
 //     backout: none||out 不超出边界||超出边界添加回弹,
+//     inertance: no||yes 是否添加惯性缓冲
 //     start: 触摸开始的回调函数,
 //     move: 手指移动时的回调函数,
 //     end: 触摸结束的回调函数
@@ -175,8 +176,11 @@ function swiper(init){
     var dir = init.dir; // 预定滑动方向
     var realdir;  // 实际滑动方向
     var isFirst = true; // 为了防止变向，对于滑动方向与预定方向是否一致的判断在一次滑动过程里只判断一次
-    var lastDistance = 0;
-    var lastInterval = 0;
+    var lastDistance = {
+        x: 0,
+        y: 0
+    };
+    var startTime, endTime, lastInterval = 0;
     var lastSpeed = 0;
 
     // backout 的效果，需要判断边界，max为0，min需要计算
@@ -215,6 +219,7 @@ function swiper(init){
             x: e.changedTouches[0].pageX,
             y: e.changedTouches[0].pageY
         };
+        startTime = new Date().getTime();
     });
     // touchmove时， 判断第一次移动方向与预期方向一致，就移动；backout的效果判断
     // 基本功能外注意的点（都在touchmove时判断）：
@@ -226,6 +231,14 @@ function swiper(init){
             x: e.changedTouches[0].pageX,
             y: e.changedTouches[0].pageY
         };
+        lastDistance = {
+            x: curTouchLocation.x - lastTouchPosition.x,
+            y: curTouchLocation.y - lastTouchPosition.y
+        };
+        endTime = new Date().getTime();
+        lastInterval = endTime -startTime;
+        // console.log(lastDistance.x + '::' + lastInterval);
+
         var touchDis = {
             x: curTouchLocation.x - startTouchLocation.x,
             y: curTouchLocation.y - startTouchLocation.y
@@ -266,58 +279,131 @@ function swiper(init){
         }
 
         // 这里重置一下，是因为可能会移动一段距离后，再大面积误触
+        // 验证发现尽管手指移动，但是在同一个touchmove过程中，手指的位置读出来是一样的，这里实际上应该是把curTouchPosition直接复制给lastTouchPosition，而不是再读取手指位置
         lastTouchPosition = {
             x: e.changedTouches[0].pageX,
             y: e.changedTouches[0].pageY
         };
 
+        startTime = endTime;
         init.move  && init.move.call(el, e);
     });
     // 1. 设置backour为out时的弹回状态
     // 2. 根据最后滑动的速度来判断滑动结束后的移动效果
     // 3. 重置一些值
     el.addEventListener('touchend', function(e){
-         //  设定backout为out时的弹回状态
-         if(realdir == dir) {
+         //  设定backout为out时的弹回状态,添加动画效果
+         if(realdir == dir && init.backout == 'out') {
             if (dir == 'x') {
                 var nowPosX = css(el, 'translateX');
-                if (init.backout == 'out') {
                     nowPosX = nowPosX > 0 ? 0 : nowPosX;
                     nowPosX = nowPosX < min[dir] ? min[dir] : nowPosX;
-                }
                 // css(el, 'translateX', nowPosX);
-                move({
-                    el: el,
-                    type: 'easeIn',
-                    time: 500,
-                    target:{
-                        'translateX' : nowPosX
-                    }
-                })
+                if(nowPosX == 0 || nowPosX == min[dir]){
+                    move({
+                        el: el,
+                        type: 'easeIn',
+                        time: 500,
+                        target:{
+                            'translateX' : nowPosX
+                        }
+                    });
+                    return;
+                }
             } else {
                 var nowPosY =  css(el, 'translateY');
-                if (init.backout == 'out') {
                     nowPosY = nowPosY > 0? 0 : nowPosX;
                     nowPosY = nowPosY < min[dir]?  min[dir]: nowPosX;
-                }
                 // css(el, 'translateY', nowPosY);
-                move({
-                    el: el,
-                    type: 'easeIn',
-                    time: 500,
-                    target:{
-                        'translateY' : nowPosY
-                    }
-                })
+                if(nowPosY == 0 || nowPosY == min[dir]) {
+                    move({
+                        el: el,
+                        type: 'easeIn',
+                        time: 500,
+                        target: {
+                            'translateY': nowPosY
+                        }
+                    });
+                    return ;
+                }
             }
          }
 
          // 根据最后的速度判断滑动结束后的效果
-
+         if(init.inertance == 'yes'){
+             var touchendTime = new Date().getTime();
+             var disTime = touchendTime - endTime;
+             // console.log(touchendTime +'-'+ endTime +'='+ disTime);
+             if(disTime > 300){
+                 return;
+             }
+             lastSpeed = Number((lastDistance[dir]/lastInterval).toFixed(3));
+             // console.log(lastDistance.x + '::' + lastInterval + ':::' + lastSpeed);
+             var nowPX = css(el, 'translateX');
+             var nowPY = css(el, 'translateY');
+             if(realdir == dir){
+                 if(dir == 'x'){
+                     nowPX += lastSpeed*100;
+                     nowPX = nowPX > 0 ? 0 : nowPX;
+                     nowPX = nowPX < min[dir] ? min[dir] : nowPX;
+                     move({
+                         el: el,
+                         type: 'easeOut',
+                         time: 100,
+                         target:{
+                             translateX: nowPX
+                         }
+                     })
+                 }else{
+                     nowPY += lastSpeed*100;
+                     nowPY = nowPY > 0 ? 0 : nowPY;
+                     nowPY = nowPY < min[dir] ? min[dir] : nowPY;
+                     move({
+                         el: el,
+                         type: 'easeOut',
+                         time: 100,
+                         target:{
+                             translateX: nowPY
+                         }
+                     })
+                 }
+             }
+         }
 
          isFirst = true;
          init.end  && init.end.call(el, e);
     });
+}
+
+function swiperBar(init){
+    var wrap = init.wrap;
+    var el = init.el;
+    var dir = init.dir; // 预定滑动方向
+
+    var bar = document.createElement(div);
+    bar.className = 'swiperbar';
+    if(dir == 'x'){
+        bar.style.cssText = 'position: absolute; top: 0; left: 0; height: 10px; width: 100px; background:#f4f4f4; z-index: 10;'
+    }else{
+        bar.style.cssText = 'position: absolute; top: 0; right: 0; width: 10px; height: 100px; z-index: 10;'
+    }
+
+    swiper({
+        wrap: wrap,
+        el: el,
+        dir: dir,
+        backout: init.backout,
+        inertance: init.inertance,
+        start: function(){
+
+        },
+        move: function(){
+
+        },
+        end: function(){
+
+        }
+    })
 }
 
 

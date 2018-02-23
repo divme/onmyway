@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>网易新闻</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="src/reset.css">
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        .page{
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        @media screen and (min-width: 1px){
+            .box{
+                position: relative;
+                width: 100%;
+                background: rgba(255, 0, 0, .2);
+                overflow: hidden;
+            }
+            .wrap{
+                position: relative;
+            }
+            .wrap:after{
+                content: '';
+                clear: both;
+                display: block;
+            }
+            .imgbox{
+                float: left;
+            }
+            .imgbox img{
+                width: 100%;
+                vertical-align: top;
+            }
+            .navbox{
+                position: absolute;
+                width: 100%;
+                height: 10px;
+                bottom: 30px;
+                left: 0;
+                text-align: center;
+            }
+            .nav{
+                display: inline-block;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #ffffff;
+            }
+            .navnow{
+                background: #f03838;
+            }
+        }
+
+        @media screen and (min-width:1px){
+            .listbox{
+                height: 300px;
+                margin-top: 20px;
+                overflow: hidden;
+            }
+            .list{
+                border-top: 1px solid #f2f2f2;
+            }
+            .item{
+                line-height: 42px;
+                text-indent: 20px;
+                border-bottom: 1px solid #f2f2f2;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="box">
+            <div class="wrap">
+                <div class="imgbox"><img src="./src/1.png" alt=""></div>
+                <div class="imgbox"><img src="./src/2.png" alt=""></div>
+                <div class="imgbox"><img src="./src/3.png" alt=""></div>
+            </div>
+            <div class="navbox">
+                <div class="nav navnow"></div>
+                <div class="nav"></div>
+                <div class="nav"></div>
+            </div>
+        </div>
+
+        <div class="listbox">
+            <ul class="list">
+
+            </ul>
+        </div>
+    </div>
+    <script src="zymobile.js"></script>
+    <script>
+        (function(){
+            var box = document.querySelector('.box'); //盒子
+            var test = document.querySelector('.wrap');//运动元素
+            test.innerHTML += test.innerHTML;
+            var imgbox = document.querySelectorAll('.imgbox');//运动元素子元素
+            var nav = document.querySelectorAll('.nav');//切换点
+
+            var swidth = box.clientWidth;
+            var slen = imgbox.length;
+            var now = 0;  // 当前第几张
+
+            test.style.width = swidth*slen +'px';
+            for(var i = 0; i < slen; i++){
+                imgbox[i].style.width = swidth + 'px';
+            }
+            swiper({
+                wrap: box,
+                el: test,
+                dir: 'x',
+                backout: 'none',
+                inertance: 'no',
+                start: function(){
+                    test.style.transition = "none";
+                    /* 处理无缝 */
+                    if(now == 0){
+                        now = slen/2;
+                    } else if(now == slen-1){
+                        now = slen/2 - 1;
+                    }
+                    css(test, "translateX", -now * swidth);
+                    for(var i = 0; i < nav.length; i++){
+                        nav[i].className = 'nav';
+                    }
+                    nav[now%3].className = 'nav navnow';
+                },
+                end: function(){
+                    var nowX = css(test, "translateX");
+                    now = Math.abs(Math.round(nowX/swidth));
+                    nowX = -now*swidth;
+                    test.style.transition = ".3s";
+                    css( test,"translateX", nowX);
+                    for(var i = 0; i < nav.length; i++){
+                        nav[i].className = 'nav';
+                    }
+                    nav[now%3].className = 'nav navnow';
+                }
+            });
+        })();
+
+        (function(){
+            var listbox = document.querySelector('.listbox');
+            var list = document.querySelector('.list');
+            var html = '';
+            for(var i = 0; i < 50; i++){
+                html += '<li class="item"> 我是第' + i + '个</li>';
+            }
+            list.innerHTML = html;
+            swiper({
+                wrap: listbox,
+                el: list,
+                dir: 'y',
+                backout: 'none',
+                inertance: 'no'
+            });
+        })()
+    </script>
+</body>
+</html>
