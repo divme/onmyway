@@ -151,12 +151,13 @@ var Tween = {
 // startMove
 //    init:{
 // 	    el: 运动元素，
+// 	    type： 运动的动画函数类型,
 // 	    time: 运动时长，
 // 	    target:{  运动的目标位置
 // 		    left： 100，
 // 		    top： 200
 // 	    }，
-// 	    type： 运动的动画函数类型,
+//      callin: 运动时的回调,
 //      callback： 运动完的回调函数
 //    }
 

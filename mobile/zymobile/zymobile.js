@@ -269,8 +269,8 @@ function swiper(init){
                     nowPosY = nowPosY > 0? 0 : nowPosY;
                     nowPosY = nowPosY < min[dir]? min[dir] : nowPosY;
                 }else if(init.backout == 'out'){
-                    nowPosY = nowPosY > 0? startEleLocation.y + touchDis.y*0.4 : nowPosX;
-                    nowPosY = nowPosY < min[dir]? startEleLocation.y + touchDis.y*0.4 : nowPosX;
+                    nowPosY = nowPosY > 0? startEleLocation.y + touchDis.y*0.4 : nowPosY;
+                    nowPosY = nowPosY < min[dir]? startEleLocation.y + touchDis.y*0.4 : nowPosY;
                 }
                 css(el, 'translateY', nowPosY);
             }
@@ -303,28 +303,26 @@ function swiper(init){
                     move({
                         el: el,
                         type: 'easeIn',
-                        time: 500,
+                        time: 300,
                         target:{
                             'translateX' : nowPosX
                         }
                     });
-                    return;
                 }
             } else {
                 var nowPosY =  css(el, 'translateY');
-                    nowPosY = nowPosY > 0? 0 : nowPosX;
-                    nowPosY = nowPosY < min[dir]?  min[dir]: nowPosX;
+                    nowPosY = nowPosY > 0? 0 : nowPosY;
+                    nowPosY = nowPosY < min[dir]?  min[dir]: nowPosY;
                 // css(el, 'translateY', nowPosY);
                 if(nowPosY == 0 || nowPosY == min[dir]) {
                     move({
                         el: el,
                         type: 'easeIn',
-                        time: 500,
+                        time: 300,
                         target: {
                             'translateY': nowPosY
                         }
                     });
-                    return ;
                 }
             }
          }
@@ -335,7 +333,10 @@ function swiper(init){
              var disTime = touchendTime - endTime;
              // console.log(touchendTime +'-'+ endTime +'='+ disTime);
              if(disTime > 300){
-                 return;
+                 lastDistance = {
+                     x: 0,
+                     y: 0
+                 }
              }
              lastSpeed = Number((lastDistance[dir]/lastInterval).toFixed(3));
              // console.log(lastDistance.x + '::' + lastInterval + ':::' + lastSpeed);
@@ -363,31 +364,54 @@ function swiper(init){
                          type: 'easeOut',
                          time: 100,
                          target:{
-                             translateX: nowPY
+                             translateY: nowPY
                          }
                      })
                  }
              }
          }
+        isFirst = true;
+        init.end  && init.end.call(el, e);
 
-         isFirst = true;
-         init.end  && init.end.call(el, e);
     });
 }
 
+// 元素滚动另外添加滚动条
+// init:{
+//     wrap: 运动元素盒子,
+//     el: 运动元素,
+//     dir: x||y 想让元素的运动方向,
+//     backout: none||out 不超出边界||超出边界添加回弹,
+//     inertance: no||yes 是否添加惯性缓冲
+//     start: 触摸开始的回调函数,
+//     move: 手指移动时的回调函数,
+//     end: 触摸结束的回调函数
+// }
 function swiperBar(init){
     var wrap = init.wrap;
     var el = init.el;
     var dir = init.dir; // 预定滑动方向
+    var realwidth, realheight;
 
-    var bar = document.createElement(div);
+    var min = {
+        x: wrap.clientWidth - el.clientWidth,
+        y: wrap.clientHeight - el.clientHeight
+    };
+
+    var bar = document.createElement('div');
     bar.className = 'swiperbar';
     if(dir == 'x'){
-        bar.style.cssText = 'position: absolute; top: 0; left: 0; height: 10px; width: 100px; background:#f4f4f4; z-index: 10;'
+        bar.style.cssText = 'position: absolute; top: 0; left: 0; height: 4px; opacity: 0; background:#bbbbbb; z-index: 10;';
+        bar.style.width = wrap.clientWidth * wrap.clientWidth / el.clientWidth + 'px';
     }else{
-        bar.style.cssText = 'position: absolute; top: 0; right: 0; width: 10px; height: 100px; z-index: 10;'
+        bar.style.cssText = 'position: absolute; top: 0; right: 0; width: 4px; height: 100px; opacity: 0;  background:#bbbbbb; z-index: 10;';
+        bar.style.height = wrap.clientHeight * wrap.clientHeight / el.clientHeight + 'px';
     }
+    wrap.appendChild(bar);
 
+    // 滚动开始： 滚动条出现，初始化滚动条的宽高 以及 位置;
+    // 滚动过程： 滚动条 宽高 以及 位置变化;
+    // 滚动结束： 隐藏滚动条
     swiper({
         wrap: wrap,
         el: el,
@@ -395,13 +419,59 @@ function swiperBar(init){
         backout: init.backout,
         inertance: init.inertance,
         start: function(){
-
+             move({
+                 el: bar,
+                 type: 'linear',
+                 time: 300,
+                 target:{
+                     opacity: 1
+                 }
+             });
+             if(dir == 'x'){
+                 bar.style.width = wrap.clientWidth * wrap.clientWidth / el.clientWidth + 'px';
+                 bar.style.left = (wrap.clientWidth - bar.clientWidth)*(Math.abs(css(el, 'translateX'))/(el.clientWidth - wrap.clientWidth)) + 'px';
+             }else{
+                 bar.style.height = wrap.clientHeight * wrap.clientHeight / el.clientHeight + 'px';
+                 bar.style.top = (wrap.clientHeight - bar.clientHeight)*(Math.abs(css(el, 'translateY'))/(el.clientHeight - wrap.clientHeight)) + 'px';
+             }
+             realwidth = bar.clientWidth;
+             realheight = bar.clientHeight;
         },
         move: function(){
-
+            var curTrans;
+            if(dir == 'x'){
+                curTrans = css(el, 'translateX');
+                if(curTrans > 0 ){
+                    bar.style.width = realwidth *(wrap.clientWidth - curTrans)/wrap.clientWidth;
+                    bar.style.left = 0;
+                }else if(curTrans < min[dir]){
+                    bar.style.width = realwidth *(wrap.clientWidth - (min[dir] - curTrans))/wrap.clientWidth;
+                    bar.style.left = wrap.clientWidth - bar.clientWidth + 'px';
+                }else{
+                    bar.style.left = (wrap.clientWidth - bar.clientWidth)*(Math.abs(css(el, 'translateX'))/(el.clientWidth - wrap.clientWidth)) + 'px';
+                }
+            }else{
+                curTrans = css(el, 'translateY');
+                if(curTrans > 0 ){
+                    bar.style.height = realheight * (wrap.clientHeight - curTrans)/wrap.clientHeight + 'px';
+                    bar.style.top = 0;
+                }else if(curTrans < min[dir]){
+                    bar.style.height = realheight *(wrap.clientHeight - (min[dir] - curTrans))/wrap.clientHeight + 'px';
+                    bar.style.top = wrap.clientHeight - bar.clientHeight + 'px';
+                }else{
+                    bar.style.top = (wrap.clientHeight - bar.clientHeight)*(Math.abs(css(el, 'translateY'))/(el.clientHeight - wrap.clientHeight)) + 'px';
+                }
+            }
         },
         end: function(){
-
+            move({
+                el: bar,
+                type: 'linear',
+                time: 300,
+                target:{
+                    opacity: 0
+                }
+            });
         }
     })
 }
@@ -409,7 +479,7 @@ function swiperBar(init){
 
 // 如果只是简单效果的话, 可以不用此函数,用 transition 做个过渡就足够了
 // 运动函数，利用 Tween 定义运动效果
-// 此函数接受的 target 和 css 函数内所传入参数只接受 css函数第1、2类
+// 此函数接受的 target 和 css 函数内所传入参数只接受 css函数第1、2、3类
 // Tween对象内效果方法所需参数及解析：
 //     t: 当前次数;
 //     b：样式初始值;
@@ -437,8 +507,8 @@ function move(init){
     for(var as in init.target){
         if(init.target.hasOwnProperty(as)){
             b[as] = css(init.el, as);
-            if(typeof Number(b) != 'number' +
-                '') return;
+            if(typeof b[as] != 'number') b[as] = Number(b[as]);
+            if(typeof b[as] != 'number') return;
             c[as] = init.target[as] - b[as];
         }
     }

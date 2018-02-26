@@ -235,17 +235,17 @@
             time: 400,
             type: 'easeOut',
             target:{
-                top: 300
+                translateX: -300
             },
             callback: function() {
-                move({
-                    el: box,
-                    time: 800,
-                    type: 'bounceOut',
-                    target: {
-                        top: 0
-                    }
-                });
+//                move({
+//                    el: box,
+//                    time: 800,
+//                    type: 'bounceOut',
+//                    target: {
+//                        translateX: 0
+//                    }
+//                });
             }
         });
     })();

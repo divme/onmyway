@@ -44,6 +44,7 @@
                 bottom: 30px;
                 left: 0;
                 text-align: center;
+
             }
             .nav{
                 display: inline-block;
@@ -154,12 +155,12 @@
                 html += '<li class="item"> 我是第' + i + '个</li>';
             }
             list.innerHTML = html;
-            swiper({
+            swiperBar({
                 wrap: listbox,
                 el: list,
                 dir: 'y',
-                backout: 'none',
-                inertance: 'no'
+                backout: 'out',
+                inertance: 'yes'
             });
         })()
     </script>
