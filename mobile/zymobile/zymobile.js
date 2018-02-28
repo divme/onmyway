@@ -269,9 +269,11 @@ function swiper(init){
                     nowPosY = nowPosY > 0? 0 : nowPosY;
                     nowPosY = nowPosY < min[dir]? min[dir] : nowPosY;
                 }else if(init.backout == 'out'){
-                    nowPosY = nowPosY > 0? startEleLocation.y + touchDis.y*0.4 : nowPosY;
-                    nowPosY = nowPosY < min[dir]? startEleLocation.y + touchDis.y*0.4 : nowPosY;
+                    nowPosY = nowPosY > 0? nowPosY*0.4 : nowPosY;
+                    // nowPosY = nowPosY < min[dir]? startEleLocation.y + touchDis.y*0.4 : nowPosY;
+                    nowPosY = nowPosY < min[dir]? min[dir] + (nowPosY - min[dir])*0.4 : nowPosY;
                 }
+                console.log(nowPosY, startEleLocation.y, touchDis.y, startEleLocation.y + touchDis.y, min[dir] );
                 css(el, 'translateY', nowPosY);
             }
         }else{
