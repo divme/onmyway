@@ -9,14 +9,15 @@
             padding: 0;
             margin: 0;
         }
-        .box, .box2{
+        .box, .box2, .box3{
             position: relative;
             width: 100%;
             background: rgba(255, 0, 0, .2);
             overflow: hidden;
         }
-        .box2{
+        .box2, .box3{
             margin-top: 20px;
+            min-height: 100px;
         }
         .test, .test2{
             position: relative;
@@ -52,6 +53,14 @@
         .navnow{
             background: #f03838;
         }
+        .test3{
+            width: 300%;
+            height: 40px;
+            line-height: 40px;
+            margin-top: 10px;
+            background: rgba(0, 0, 0, .2);
+            color: #ffffff;
+        }
     </style>
 </head>
 <body>
@@ -74,6 +83,13 @@
         <div class="imgbox2"><img src="./src/2.png" alt=""></div>
         <div class="imgbox2"><img src="./src/3.png" alt=""></div>
     </div>
+</div>
+
+<div class="box3">
+  <div class="test3">
+      <p>一场雨，把我困在这里，你冷漠的表情，会让我伤心，六月的雨，就是无情的你，伴随着点点滴滴，冲击我心里，哦噢噢噢噢噢</p>
+  </div>
+  <!-- /.test3 -->
 </div>
 
 <script src="zymobile.js"></script>
@@ -199,7 +215,7 @@
 //        });
     })();
 
-//   第二个轮播图
+//   第二个拉动图
     (function(){
         var box = document.querySelector('.box2'); //盒子
         var test = document.querySelector('.test2');//运动元素
@@ -221,14 +237,28 @@
         });
     })();
 
+//    第三个测试
+(function(){
+       var  box = document.querySelector('.box3');
+       var  test3 = document.querySelector('.test3');
+       swiperbar({
+           wrap: box,
+           el: test3,
+           dir: 'x',
+           backout: 'out',
+           inertance: 'no'
+       })
+    })();
+
+
 //   函数测试
     (function(){
         var box = document.querySelector('.box2');
         var test = document.querySelector('.test2');
 
 //        css(test, 'border', '1px solid red');
-        console.log(css(test, 'width'));
-        console.log(css(test, 'translateX'));
+//        console.log(css(test, 'width'));
+//        console.log(css(test, 'translateX'));
 
         move({
             el: box,
@@ -238,14 +268,14 @@
                 translateX: -300
             },
             callback: function() {
-//                move({
-//                    el: box,
-//                    time: 800,
-//                    type: 'bounceOut',
-//                    target: {
-//                        translateX: 0
-//                    }
-//                });
+                move({
+                    el: box,
+                    time: 800,
+                    type: 'bounceOut',
+                    target: {
+                        translateX: 0
+                    }
+                });
             }
         });
     })();

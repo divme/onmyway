@@ -14,8 +14,54 @@
             position: relative;
             width: 100%;
             height: 100%;
+            overflow: hidden;
         }
-        @media screen and (min-width: 1px){
+        .scroll{
+            position: relative;
+        }
+
+        /*标题和导航*/
+        @media screen and (min-width:1px){
+            .title{
+                line-height: 46px;
+                text-align: center;
+            }
+            .navbar{
+                height: 42px;
+                line-height: 42px;
+                background: #f03838;
+                overflow: hidden;
+            }
+            .navbar p{
+                float: left;
+                height: 42px;
+                padding-right: 4em;
+                white-space: nowrap;
+            }
+            .navbar p a{
+                /*float: left;*/
+                height: 42px;
+                line-height: 42px;
+                padding: 0 10px;
+                font-size: 14px;
+                color: #ffffff;;
+            }
+            .toggle{
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 4em;
+                height: 42px;
+                line-height: 42px;
+                font-size: 15px;
+                text-align: center;
+                background: rgba(240, 56, 56, 1);
+                color: #ffffff;
+            }
+        }
+
+        /*轮播图*/
+        @media screen and (min-width:1px){
             .box{
                 position: relative;
                 width: 100%;
@@ -58,11 +104,12 @@
             }
         }
 
+        /*列表*/
         @media screen and (min-width:1px){
             .listbox{
-                height: 300px;
+                /*height: 300px;*/
                 margin-top: 20px;
-                overflow: hidden;
+                /*overflow: hidden;*/
             }
             .list{
                 border-top: 1px solid #f2f2f2;
@@ -77,27 +124,82 @@
 </head>
 <body>
     <div class="page">
-        <div class="box">
-            <div class="wrap">
-                <div class="imgbox"><img src="./src/1.png" alt=""></div>
-                <div class="imgbox"><img src="./src/2.png" alt=""></div>
-                <div class="imgbox"><img src="./src/3.png" alt=""></div>
-            </div>
-            <div class="navbox">
-                <div class="nav navnow"></div>
-                <div class="nav"></div>
-                <div class="nav"></div>
-            </div>
-        </div>
+        <div class="scroll">
 
-        <div class="listbox">
-            <ul class="list">
+            <div class="title">移动端开发小结</div>
 
-            </ul>
+            <div class="navbar">
+                <p class="navbarlist">
+                    <a>推荐</a>
+                    <a>移动端事件</a>
+                    <a>开发小结</a>
+                    <a>布局适配</a>
+                    <a>其他内容</a>
+                    <a>推荐</a>
+                </p>
+                <div class="toggle">展开</div>
+            </div>
+
+            <div class="box">
+                <div class="wrap">
+                    <div class="imgbox"><img src="./src/1.png" alt=""></div>
+                    <div class="imgbox"><img src="./src/2.png" alt=""></div>
+                    <div class="imgbox"><img src="./src/3.png" alt=""></div>
+                </div>
+                <div class="navbox">
+                    <div class="nav navnow"></div>
+                    <div class="nav"></div>
+                    <div class="nav"></div>
+                </div>
+            </div>
+
+            <div class="listbox">
+                <ul class="list">
+
+                </ul>
+            </div>
+
         </div>
     </div>
     <script src="zymobile.js"></script>
     <script>
+//        页面自定义滚动条
+        (function(){
+            var page = document.querySelector('.page');
+            var scroll = document.querySelector('.scroll');
+            var listbox = document.querySelector('.listbox');
+            var list = document.querySelector('.list');
+            var html = '';
+            for(var i = 0; i < 50; i++){
+                html += '<li class="item"> 我是第' + i + '个</li>';
+            }
+            list.innerHTML = html;
+            swiperbar({
+                wrap: page,
+                el: scroll,
+                dir: 'y',
+                backout: 'out',
+                inertance: 'yes'
+            });
+        })();
+
+
+//        导航
+        (function(){
+            var nav = document.querySelector('.navbar');
+            var navitem = document.querySelector('.navbarlist');
+
+            swiper({
+                wrap: nav,
+                el: navitem,
+                dir: 'x',
+                backout: 'none',
+                inertance: 'no'
+            })
+        })();
+
+
+//        轮播图
         (function(){
             var box = document.querySelector('.box'); //盒子
             var test = document.querySelector('.wrap');//运动元素
@@ -147,22 +249,6 @@
             });
         })();
 
-        (function(){
-            var listbox = document.querySelector('.listbox');
-            var list = document.querySelector('.list');
-            var html = '';
-            for(var i = 0; i < 50; i++){
-                html += '<li class="item"> 我是第' + i + '个</li>';
-            }
-            list.innerHTML = html;
-            swiperBar({
-                wrap: listbox,
-                el: list,
-                dir: 'y',
-                backout: 'out',
-                inertance: 'yes'
-            });
-        })()
     </script>
 </body>
 </html>

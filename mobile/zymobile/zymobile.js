@@ -387,7 +387,7 @@ function swiper(init){
 //     move: 手指移动时的回调函数,
 //     end: 触摸结束的回调函数
 // }
-function swiperBar(init){
+function swiperbar(init){
     var wrap = init.wrap;
     var el = init.el;
     var dir = init.dir; // 预定滑动方向
@@ -401,7 +401,7 @@ function swiperBar(init){
     var bar = document.createElement('div');
     bar.className = 'swiperbar';
     if(dir == 'x'){
-        bar.style.cssText = 'position: absolute; top: 0; left: 0; height: 4px; opacity: 0; background:#bbbbbb; z-index: 10;';
+        bar.style.cssText = 'position: absolute; bottom: 0; left: 0; height: 4px; opacity: 0; background:#bbbbbb; z-index: 10;';
         bar.style.width = wrap.clientWidth * wrap.clientWidth / el.clientWidth + 'px';
     }else{
         bar.style.cssText = 'position: absolute; top: 0; right: 0; width: 4px; height: 100px; opacity: 0;  background:#bbbbbb; z-index: 10;';
@@ -442,10 +442,10 @@ function swiperBar(init){
             if(dir == 'x'){
                 curTrans = css(el, 'translateX');
                 if(curTrans > 0 ){
-                    bar.style.width = realwidth *(wrap.clientWidth - curTrans)/wrap.clientWidth;
+                    bar.style.width = realwidth *(wrap.clientWidth - curTrans)/wrap.clientWidth + 'px';
                     bar.style.left = 0;
                 }else if(curTrans < min[dir]){
-                    bar.style.width = realwidth *(wrap.clientWidth - (min[dir] - curTrans))/wrap.clientWidth;
+                    bar.style.width = realwidth *(wrap.clientWidth - (min[dir] - curTrans))/wrap.clientWidth + 'px';
                     bar.style.left = wrap.clientWidth - bar.clientWidth + 'px';
                 }else{
                     bar.style.left = (wrap.clientWidth - bar.clientWidth)*(Math.abs(css(el, 'translateX'))/(el.clientWidth - wrap.clientWidth)) + 'px';
@@ -500,7 +500,7 @@ function move(init){
     var t = 0;
     var b = {};
     var c = {};
-    var d = Math.ceil(init.time/16.7);
+    var d = Math.floor(init.time/16.7);
     if(init.el.timer)
         window.cancelAnimationFrame(init.el.timer);
 
