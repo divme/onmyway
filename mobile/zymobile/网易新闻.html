@@ -163,6 +163,66 @@
     </div>
     <script src="zymobile.js"></script>
     <script>
+//        页面初始化加载内容
+        (function(){
+            var list = document.querySelector('.list');
+            var html = '';
+            for(var i = 0; i < 20; i++){
+                html += '<li class="item"> 我是第' + i + '个</li>';
+            }
+            list.innerHTML = html;
+        })();
+
+//        轮播图
+        (function(){
+    var box = document.querySelector('.box'); //盒子
+    var test = document.querySelector('.wrap');//运动元素
+    test.innerHTML += test.innerHTML;
+    var imgbox = document.querySelectorAll('.imgbox');//运动元素子元素
+    var nav = document.querySelectorAll('.nav');//切换点
+
+    var swidth = box.clientWidth;
+    var slen = imgbox.length;
+    var now = 0;  // 当前第几张
+
+    test.style.width = swidth*slen +'px';
+    for(var i = 0; i < slen; i++){
+        imgbox[i].style.width = swidth + 'px';
+    }
+    swiper({
+        wrap: box,
+        el: test,
+        dir: 'x',
+        backout: 'none',
+        inertance: 'no',
+        start: function(){
+            test.style.transition = "none";
+            /* 处理无缝 */
+            if(now == 0){
+                now = slen/2;
+            } else if(now == slen-1){
+                now = slen/2 - 1;
+            }
+            css(test, "translateX", -now * swidth);
+            for(var i = 0; i < nav.length; i++){
+                nav[i].className = 'nav';
+            }
+            nav[now%3].className = 'nav navnow';
+        },
+        end: function(){
+            var nowX = css(test, "translateX");
+            now = Math.abs(Math.round(nowX/swidth));
+            nowX = -now*swidth;
+            test.style.transition = ".3s";
+            css( test,"translateX", nowX);
+            for(var i = 0; i < nav.length; i++){
+                nav[i].className = 'nav';
+            }
+            nav[now%3].className = 'nav navnow';
+        }
+    });
+})();
+
 //        导航
         (function(){
             var nav = document.querySelector('.navbar');
@@ -178,74 +238,34 @@
         })();
 
 
-//        轮播图
-        (function(){
-            var box = document.querySelector('.box'); //盒子
-            var test = document.querySelector('.wrap');//运动元素
-            test.innerHTML += test.innerHTML;
-            var imgbox = document.querySelectorAll('.imgbox');//运动元素子元素
-            var nav = document.querySelectorAll('.nav');//切换点
-
-            var swidth = box.clientWidth;
-            var slen = imgbox.length;
-            var now = 0;  // 当前第几张
-
-            test.style.width = swidth*slen +'px';
-            for(var i = 0; i < slen; i++){
-                imgbox[i].style.width = swidth + 'px';
-            }
-            swiper({
-                wrap: box,
-                el: test,
-                dir: 'x',
-                backout: 'none',
-                inertance: 'no',
-                start: function(){
-                    test.style.transition = "none";
-                    /* 处理无缝 */
-                    if(now == 0){
-                        now = slen/2;
-                    } else if(now == slen-1){
-                        now = slen/2 - 1;
-                    }
-                    css(test, "translateX", -now * swidth);
-                    for(var i = 0; i < nav.length; i++){
-                        nav[i].className = 'nav';
-                    }
-                    nav[now%3].className = 'nav navnow';
-                },
-                end: function(){
-                    var nowX = css(test, "translateX");
-                    now = Math.abs(Math.round(nowX/swidth));
-                    nowX = -now*swidth;
-                    test.style.transition = ".3s";
-                    css( test,"translateX", nowX);
-                    for(var i = 0; i < nav.length; i++){
-                        nav[i].className = 'nav';
-                    }
-                    nav[now%3].className = 'nav navnow';
-                }
-            });
-        })();
-
-
 //        页面自定义滚动条
         (function(){
             var page = document.querySelector('.page');
             var scroll = document.querySelector('.scroll');
-            var listbox = document.querySelector('.listbox');
-            var list = document.querySelector('.list');
-            var html = '';
-            for(var i = 0; i < 50; i++){
-                html += '<li class="item"> 我是第' + i + '个</li>';
-            }
-            list.innerHTML = html;
+            var title = document.querySelector('.title');
+            var navbar = document.querySelector('.navbar');
+
             swiper({
                 wrap: page,
                 el: scroll,
                 dir: 'y',
                 backout: 'out',
-                inertance: 'yes'
+                inertance: 'yes',
+                start: function(){
+
+                },
+                move: function(){
+                    var cur = css(scroll, 'translateY');
+                    if (cur > 0){
+                        css(title, 'translateY', -cur);
+                        css(navbar, 'translateY', -cur);
+                    }else if(cur < -title.clientHeight){
+                        css(navbar, 'translateY', -(cur + title.clientHeight));
+                    }
+                },
+                end: function(){
+
+                }
             });
         })();
 

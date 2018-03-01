@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>移动端OMO</title>
+    <title>移动端测试</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
         *{
@@ -23,15 +23,18 @@
             position: relative;
             /*background: #f03838;*/
         }
+        .test2{
+            width: 250%;
+        }
         .test:after, .test2:after{
             content: '';
             clear: both;
             display: block;
         }
-        .imgbox, .imgbox2{
+        .imgbox{
             float: left;
         }
-        .imgbox img, .imgbox2 img{
+        .imgbox img, .test2 img{
             width: 100%;
             vertical-align: top;
         }
@@ -78,11 +81,7 @@
 </div>
 
 <div class="box2">
-    <div class="test2">
-        <div class="imgbox2"><img src="./src/1.png" alt=""></div>
-        <div class="imgbox2"><img src="./src/2.png" alt=""></div>
-        <div class="imgbox2"><img src="./src/3.png" alt=""></div>
-    </div>
+    <div class="test2"><img src="./src/long.png" alt=""></div>
 </div>
 
 <div class="box3">
@@ -219,15 +218,7 @@
     (function(){
         var box = document.querySelector('.box2'); //盒子
         var test = document.querySelector('.test2');//运动元素
-        var imgbox = document.querySelectorAll('.imgbox2');//运动元素子元素
 
-        var swidth = box.clientWidth;
-        var slen = imgbox.length;
-
-        test.style.width = swidth*slen +'px';
-        for(var i = 0; i < slen; i++){
-            imgbox[i].style.width = swidth + 'px';
-        }
         swiper({
             wrap: box,
             el: test,
@@ -251,9 +242,8 @@
     })();
 
 
-//   函数测试
+//   基本函数测试
     (function(){
-        var box = document.querySelector('.box2');
         var test = document.querySelector('.test2');
 
 //        css(test, 'border', '1px solid red');
@@ -261,7 +251,7 @@
 //        console.log(css(test, 'translateX'));
 
         move({
-            el: box,
+            el: test,
             time: 400,
             type: 'easeOut',
             target:{
@@ -269,7 +259,7 @@
             },
             callback: function() {
                 move({
-                    el: box,
+                    el: test,
                     time: 800,
                     type: 'bounceOut',
                     target: {
