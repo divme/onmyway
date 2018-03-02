@@ -91,6 +91,9 @@
   <!-- /.test3 -->
 </div>
 
+<div class="box4" style="display: inline-block;">sd</div>
+
+
 <script src="zymobile.js"></script>
 <script>
 
@@ -245,11 +248,13 @@
 //   基本函数测试
     (function(){
         var test = document.querySelector('.test2');
+        var box4 = document.querySelector('.box4');
 
 //        css(test, 'border', '1px solid red');
 //        console.log(css(test, 'width'));
 //        console.log(css(test, 'translateX'));
 
+         console.log(css(box4, 'width'));
         move({
             el: test,
             time: 400,

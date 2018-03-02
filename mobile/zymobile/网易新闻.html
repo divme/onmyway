@@ -31,6 +31,7 @@
                 line-height: 42px;
                 background: #f03838;
                 overflow: hidden;
+                z-index: 10;
             }
             .navbar p{
                 float: left;
@@ -81,6 +82,7 @@
             }
             .imgbox img{
                 width: 100%;
+                height: auto;
                 vertical-align: top;
             }
             .navbox{
@@ -119,6 +121,12 @@
                 text-indent: 20px;
                 border-bottom: 1px solid #f2f2f2;
             }
+        }
+        
+        .footerTool{
+            line-height: 40px;
+            font-size: 14px;
+            text-align: center;
         }
     </style>
 </head>
@@ -159,69 +167,73 @@
                 </ul>
             </div>
 
+            <div class="footerTool">下拉加载更多……</div>
         </div>
     </div>
     <script src="zymobile.js"></script>
     <script>
+        var now = 0;
+        var len = 10;
 //        页面初始化加载内容
         (function(){
             var list = document.querySelector('.list');
             var html = '';
-            for(var i = 0; i < 20; i++){
+            for(var i = len*now; i < (now+2)*len; i++){
                 html += '<li class="item"> 我是第' + i + '个</li>';
             }
+            now += 2;
             list.innerHTML = html;
         })();
 
 //        轮播图
         (function(){
-    var box = document.querySelector('.box'); //盒子
-    var test = document.querySelector('.wrap');//运动元素
-    test.innerHTML += test.innerHTML;
-    var imgbox = document.querySelectorAll('.imgbox');//运动元素子元素
-    var nav = document.querySelectorAll('.nav');//切换点
+            var box = document.querySelector('.box'); //盒子
+            var test = document.querySelector('.wrap');//运动元素
+            test.innerHTML += test.innerHTML;
+            var imgbox = document.querySelectorAll('.imgbox');//运动元素子元素
+            var nav = document.querySelectorAll('.nav');//切换点
 
-    var swidth = box.clientWidth;
-    var slen = imgbox.length;
-    var now = 0;  // 当前第几张
+            var swidth = box.clientWidth;
+            var slen = imgbox.length;
+            var now = 0;  // 当前第几张
 
-    test.style.width = swidth*slen +'px';
-    for(var i = 0; i < slen; i++){
-        imgbox[i].style.width = swidth + 'px';
-    }
-    swiper({
-        wrap: box,
-        el: test,
-        dir: 'x',
-        backout: 'none',
-        inertance: 'no',
-        start: function(){
-            test.style.transition = "none";
-            /* 处理无缝 */
-            if(now == 0){
-                now = slen/2;
-            } else if(now == slen-1){
-                now = slen/2 - 1;
+            test.style.width = swidth*slen +'px';
+            for(var i = 0; i < slen; i++){
+                imgbox[i].style.width = swidth + 'px';
             }
-            css(test, "translateX", -now * swidth);
-            for(var i = 0; i < nav.length; i++){
-                nav[i].className = 'nav';
-            }
-            nav[now%3].className = 'nav navnow';
-        },
-        end: function(){
-            var nowX = css(test, "translateX");
-            now = Math.abs(Math.round(nowX/swidth));
-            nowX = -now*swidth;
-            test.style.transition = ".3s";
-            css( test,"translateX", nowX);
-            for(var i = 0; i < nav.length; i++){
-                nav[i].className = 'nav';
-            }
-            nav[now%3].className = 'nav navnow';
-        }
-    });
-})();
+            swiper({
+                wrap: box,
+                el: test,
+                dir: 'x',
+                backout: 'none',
+                inertance: 'no',
+                start: function(){
+                    test.style.transition = "none";
+                    /* 处理无缝 */
+                    if(now == 0){
+                        now = slen/2;
+                    } else if(now == slen-1){
+                        now = slen/2 - 1;
+                    }
+                    css(test, "translateX", -now * swidth);
+                    for(var i = 0; i < nav.length; i++){
+                        nav[i].className = 'nav';
+                    }
+                    nav[now%3].className = 'nav navnow';
+                },
+                end: function(){
+                    var nowX = css(test, "translateX");
+                    now = Math.abs(Math.round(nowX/swidth));
+                    nowX = -now*swidth;
+                    test.style.transition = ".3s";
+                    css( test,"translateX", nowX);
+                    for(var i = 0; i < nav.length; i++){
+                        nav[i].className = 'nav';
+                    }
+                    nav[now%3].className = 'nav navnow';
+                }
+            });
+        })();
 
 //        导航
         (function(){
@@ -237,36 +249,65 @@
             })
         })();
 
-
 //        页面自定义滚动条
         (function(){
             var page = document.querySelector('.page');
             var scroll = document.querySelector('.scroll');
             var title = document.querySelector('.title');
             var navbar = document.querySelector('.navbar');
+            var fTool = document.querySelector('.footerTool');
 
-            swiper({
+            swiperbar({
                 wrap: page,
                 el: scroll,
                 dir: 'y',
                 backout: 'out',
                 inertance: 'yes',
-                start: function(){
-
-                },
                 move: function(){
+                    forNavbar();
                     var cur = css(scroll, 'translateY');
-                    if (cur > 0){
-                        css(title, 'translateY', -cur);
-                        css(navbar, 'translateY', -cur);
-                    }else if(cur < -title.clientHeight){
-                        css(navbar, 'translateY', -(cur + title.clientHeight));
+                    var min = page.clientHeight - scroll.clientHeight;
+                    if(cur < min){
+                        fTool.style.display = 'block';
                     }
                 },
                 end: function(){
-
+                    forNavbar();
+                    var cur = css(scroll, 'translateY');
+                    var min = page.clientHeight - scroll.clientHeight;
+                    if(cur < min){
+                        addList(fTool);
+                    }
                 }
             });
+
+            function forNavbar(){
+                var cur = css(scroll, 'translateY');
+                if (cur >= 0){
+                    css(title, 'translateY', -cur);
+                    css(navbar, 'translateY', -cur);
+                }else if(cur < -title.clientHeight){
+                    css(navbar, 'translateY', -(cur + title.clientHeight));
+                }
+            }
+            function addList(dom){
+                dom.style.display = 'block';
+                dom.innerText = '正在加载……';
+                var list = document.querySelector('.list');
+                var html = '';
+                if(now > 7) {
+                    dom.innerText = '已经到底了';
+                    return;
+                }
+                for(var i = len*now; i < (now+2)*len; i++){
+                    html += '<li class="item"> 我是第' + i + '个</li>';
+                }
+                now += 2;
+                setTimeout(function(){
+                    list.innerHTML += html;
+                    dom.style.display = 'none';
+                },500);
+            }
         })();
 
     </script>

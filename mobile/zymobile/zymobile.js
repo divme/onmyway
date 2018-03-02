@@ -168,7 +168,8 @@ var Tween = {
 //     inertance: no||yes 是否添加惯性缓冲
 //     start: 触摸开始的回调函数,
 //     move: 手指移动时的回调函数,
-//     end: 触摸结束的回调函数
+//     end: 触摸结束的回调函数,
+//     over: 有惯性缓冲/超出边界的，滚动结束后执行该函数
 // }
 function swiper(init){
     var wrap = init.wrap;
@@ -220,6 +221,10 @@ function swiper(init){
             y: e.changedTouches[0].pageY
         };
         startTime = new Date().getTime();
+        min = {
+            x: wrap.clientWidth - el.clientWidth,
+            y: wrap.clientHeight - el.clientHeight
+        };
     });
     // touchmove时， 判断第一次移动方向与预期方向一致，就移动；backout的效果判断
     // 基本功能外注意的点（都在touchmove时判断）：
@@ -273,7 +278,7 @@ function swiper(init){
                     // nowPosY = nowPosY < min[dir]? startEleLocation.y + touchDis.y*0.4 : nowPosY;
                     nowPosY = nowPosY < min[dir]? min[dir] + (nowPosY - min[dir])*0.4 : nowPosY;
                 }
-                console.log(nowPosY, startEleLocation.y, touchDis.y, startEleLocation.y + touchDis.y, min[dir] );
+                // console.log(nowPosY, startEleLocation.y, touchDis.y, startEleLocation.y + touchDis.y, min[dir] );
                 css(el, 'translateY', nowPosY);
             }
         }else{
@@ -308,6 +313,12 @@ function swiper(init){
                         time: 300,
                         target:{
                             'translateX' : nowPosX
+                        },
+                        callin: function(){
+                            init.move && init.move.call(el, e);
+                        },
+                        callback: function(){
+                            init.over && init.over.call(el);
                         }
                     });
                 }
@@ -323,6 +334,12 @@ function swiper(init){
                         time: 300,
                         target: {
                             'translateY': nowPosY
+                        },
+                        callin: function(){
+                            init.move && init.move.call(el, e);
+                        },
+                        callback: function(){
+                            init.over && init.over.call(el);
                         }
                     });
                 }
@@ -355,6 +372,12 @@ function swiper(init){
                          time: 100,
                          target:{
                              translateX: nowPX
+                         },
+                         callin: function(){
+                             init.move && init.move.call(el);
+                         },
+                         callback: function(){
+                             init.over && init.over.call(el);
                          }
                      })
                  }else{
@@ -367,6 +390,12 @@ function swiper(init){
                          time: 100,
                          target:{
                              translateY: nowPY
+                         },
+                         callin: function(){
+                             init.move && init.move.call(el);
+                         },
+                         callback: function(){
+                             init.over && init.over.call(el);
                          }
                      })
                  }
@@ -388,6 +417,7 @@ function swiper(init){
 //     start: 触摸开始的回调函数,
 //     move: 手指移动时的回调函数,
 //     end: 触摸结束的回调函数
+//     over: 有惯性缓冲的，滚动结束后执行的函数
 // }
 function swiperbar(init){
     var wrap = init.wrap;
@@ -420,7 +450,8 @@ function swiperbar(init){
         dir: dir,
         backout: init.backout,
         inertance: init.inertance,
-        start: function(){
+        start: function(e){
+            init.start && init.start.call(el, e);
              move({
                  el: bar,
                  type: 'linear',
@@ -439,7 +470,7 @@ function swiperbar(init){
              realwidth = bar.clientWidth;
              realheight = bar.clientHeight;
         },
-        move: function(){
+        move: function(e){
             var curTrans;
             if(dir == 'x'){
                 curTrans = css(el, 'translateX');
@@ -464,8 +495,9 @@ function swiperbar(init){
                     bar.style.top = (wrap.clientHeight - bar.clientHeight)*(Math.abs(css(el, 'translateY'))/(el.clientHeight - wrap.clientHeight)) + 'px';
                 }
             }
+            init.move && init.move.call(el, e);
         },
-        end: function(){
+        end: function(e){
             move({
                 el: bar,
                 type: 'linear',
@@ -474,6 +506,10 @@ function swiperbar(init){
                     opacity: 0
                 }
             });
+            init.end && init.end.call(el, e);
+        },
+        over: function(){
+            init.over&&init.over.call(el)
         }
     })
 }
@@ -496,6 +532,7 @@ function swiperbar(init){
 //        left: 100,
 //        top: 200
 //     },
+//     callin: 运动时的回调函数,
 //     callback: 运动完之后的回调函数
 // }
 function move(init){
@@ -519,7 +556,7 @@ function move(init){
         var cur;
         if( d == 0 || t >= d){
             window.cancelAnimationFrame(init.el.timer);
-            console.log('gg');
+            console.log('move over');
             init.callback&&init.callback.call(init.el);
         } else {
             t++;
@@ -529,6 +566,7 @@ function move(init){
                     css(init.el, s, cur);
                 }
             }
+            init.callin&&init.callin.call(init.el);
             init.el.timer = window.requestAnimationFrame(innerMove);
         }
     }
@@ -632,7 +670,7 @@ function tap(el, callback){
         var endX = e.changedTouches[0].pageX;
         var endY = e.changedTouches[0].pageY;
         if( (endX - startX) < 5 && (endY - startY) < 5 && now-startTime < 100){
-            callback && callback.call(el);
+            callback && callback.call(el, e);
         }
     });
 }
