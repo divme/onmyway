@@ -346,7 +346,7 @@ function swiper(init){
             }
          }
 
-         // 根据最后的速度判断滑动结束后的效果
+         //  根据最后的速度判断滑动结束后的效果
          if(init.inertance == 'yes'){
              var touchendTime = new Date().getTime();
              var disTime = touchendTime - endTime;
@@ -420,6 +420,7 @@ function swiper(init){
 //     over: 有惯性缓冲的，滚动结束后执行的函数
 // }
 function swiperbar(init){
+
     var wrap = init.wrap;
     var el = init.el;
     var dir = init.dir; // 预定滑动方向
@@ -436,12 +437,12 @@ function swiperbar(init){
         bar.style.cssText = 'position: absolute; bottom: 0; left: 0; height: 4px; opacity: 0; background:#bbbbbb; z-index: 10;';
         bar.style.width = wrap.clientWidth * wrap.clientWidth / el.clientWidth + 'px';
     }else{
-        bar.style.cssText = 'position: absolute; top: 0; right: 0; width: 4px; height: 100px; opacity: 0;  background:#bbbbbb; z-index: 10;';
+        bar.style.cssText = 'position: absolute; top: 0; right: 0; width: 4px; opacity: 0;  background:#bbbbbb; z-index: 10;';
         bar.style.height = wrap.clientHeight * wrap.clientHeight / el.clientHeight + 'px';
     }
     wrap.appendChild(bar);
 
-    // 滚动开始： 滚动条出现，初始化滚动条的宽高 以及 位置;
+    // 滚动开始： 滚动条出现，初始化滚动条的宽高 以及 位置, 还要不断重置el的高度等;
     // 滚动过程： 滚动条 宽高 以及 位置变化;
     // 滚动结束： 隐藏滚动条
     swiper({
@@ -452,14 +453,18 @@ function swiperbar(init){
         inertance: init.inertance,
         start: function(e){
             init.start && init.start.call(el, e);
-             move({
+            move({
                  el: bar,
                  type: 'linear',
                  time: 300,
                  target:{
                      opacity: 1
                  }
-             });
+            });
+            min = {
+                x: wrap.clientWidth - el.clientWidth,
+                y: wrap.clientHeight - el.clientHeight
+            };
              if(dir == 'x'){
                  bar.style.width = wrap.clientWidth * wrap.clientWidth / el.clientWidth + 'px';
                  bar.style.left = (wrap.clientWidth - bar.clientWidth)*(Math.abs(css(el, 'translateX'))/(el.clientWidth - wrap.clientWidth)) + 'px';
@@ -473,7 +478,8 @@ function swiperbar(init){
         move: function(e){
             var curTrans;
             if(dir == 'x'){
-                curTrans = css(el, 'translateX');
+                curTrans = css(el, 'translateX'
+                );
                 if(curTrans > 0 ){
                     bar.style.width = realwidth *(wrap.clientWidth - curTrans)/wrap.clientWidth + 'px';
                     bar.style.left = 0;
@@ -556,7 +562,7 @@ function move(init){
         var cur;
         if( d == 0 || t >= d){
             window.cancelAnimationFrame(init.el.timer);
-            console.log('move over');
+            // console.log('moveover');
             init.callback&&init.callback.call(init.el);
         } else {
             t++;

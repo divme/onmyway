@@ -59,6 +59,14 @@
                 background: rgba(240, 56, 56, 1);
                 color: #ffffff;
             }
+            .pulldown{
+                position: absolute;
+                top: 46px;
+                left: 0;
+                width: 100%;
+                line-height: 42px;
+                text-align: center;
+            }
         }
 
         /*轮播图*/
@@ -147,6 +155,8 @@
                 </p>
                 <div class="toggle">展开</div>
             </div>
+
+            <div class="pulldown">松开刷新</div>
 
             <div class="box">
                 <div class="wrap">
@@ -255,6 +265,7 @@
             var scroll = document.querySelector('.scroll');
             var title = document.querySelector('.title');
             var navbar = document.querySelector('.navbar');
+            var pulldown = document.querySelector('.pulldown');
             var fTool = document.querySelector('.footerTool');
 
             swiperbar({
@@ -269,6 +280,8 @@
                     var min = page.clientHeight - scroll.clientHeight;
                     if(cur < min){
                         fTool.style.display = 'block';
+                    }else if(cur > 0){
+                        pulldown.innerText = '松开加载'
                     }
                 },
                 end: function(){
@@ -277,6 +290,8 @@
                     var min = page.clientHeight - scroll.clientHeight;
                     if(cur < min){
                         addList(fTool);
+                    }else if(cur > 0){
+                        pulldown.innerText = '加载中'
                     }
                 }
             });
