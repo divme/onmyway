@@ -165,7 +165,7 @@ var Tween = {
 //     el: 运动元素,
 //     dir: x||y 想让元素的运动方向,
 //     backout: none||out 不超出边界||超出边界添加回弹,
-//     inertance: no||yes 是否添加惯性缓冲
+//     inertance: true||false 是否添加惯性缓冲
 //     start: 触摸开始的回调函数,
 //     move: 手指移动时的回调函数,
 //     end: 触摸结束的回调函数,
@@ -315,7 +315,7 @@ function swiper(init){
                             'translateX' : nowPosX
                         },
                         callin: function(){
-                            init.move && init.move.call(el, e);
+                            init.move && init.move.call(el);
                         },
                         callback: function(){
                             init.over && init.over.call(el);
@@ -331,12 +331,12 @@ function swiper(init){
                     move({
                         el: el,
                         type: 'easeIn',
-                        time: 300,
+                        time: 1200,
                         target: {
                             'translateY': nowPosY
                         },
                         callin: function(){
-                            init.move && init.move.call(el, e);
+                            init.move && init.move.call(el);
                         },
                         callback: function(){
                             init.over && init.over.call(el);
@@ -347,7 +347,7 @@ function swiper(init){
          }
 
          //  根据最后的速度判断滑动结束后的效果
-         if(init.inertance == 'yes'){
+         if(init.inertance){
              var touchendTime = new Date().getTime();
              var disTime = touchendTime - endTime;
              // console.log(touchendTime +'-'+ endTime +'='+ disTime);
@@ -413,7 +413,7 @@ function swiper(init){
 //     el: 运动元素,
 //     dir: x||y 想让元素的运动方向,
 //     backout: none||out 不超出边界||超出边界添加回弹,
-//     inertance: no||yes 是否添加惯性缓冲
+//     inertance: true|| false 是否添加惯性缓冲
 //     start: 触摸开始的回调函数,
 //     move: 手指移动时的回调函数,
 //     end: 触摸结束的回调函数
@@ -520,6 +520,88 @@ function swiperbar(init){
     })
 }
 
+// 轮播图封装
+// init:{
+//     wrap: 运动元素盒子,
+//     el: 运动元素,
+//     nav: 是否添加轮播指示器,
+//     auto: 是否自动轮播
+// }
+function swiperimage(init){
+    var wrap = init.wrap;
+    var el = init.el;
+    var initlength = el.children.length;
+
+    var navbar = '<div class="sNavbar" style="position:absolute; width:100%; height:10px; bottom:30px; left:0; text-align:center">';
+    for(var m = 0; m < initlength; m++){
+            navbar += m>0?'<div class="snav"></div>':'<div class="snav snavnow"></div>';
+    }
+    navbar += '</div>';
+    if(init.nav){
+        var snav = document.createElement('div');
+        snav.innerHTML = navbar;
+        wrap.appendChild(snav);
+        var navbox = wrap.querySelector('.sNavbar');
+        var nav = navbox.querySelectorAll('.snav');
+        var navnow = navbox.querySelector('.snavnow');
+        for(var n = 0; n < nav.length; n++){
+            nav[n].style.cssText = 'display:inline-block; width:6px; height:6px;margin-left: 5px;border-radius: 50%; background:#fff';
+        }
+        navnow.style.cssText += 'background:#f03838';
+    }
+
+
+    el.innerHTML += el.innerHTML;
+    var imgbox = el.querySelectorAll('.imgbox');//运动元素子元素
+
+    var swidth = wrap.clientWidth;
+    var slen = imgbox.length;
+
+    var now = 0;  // 当前第几张
+
+    el.style.width = swidth*slen +'px';
+    for(var i = 0; i < slen; i++){
+        imgbox[i].style.width = swidth + 'px';
+    }
+        swiper({
+            wrap: wrap,
+            el: el,
+            dir: 'x',
+            backout: 'none',
+            inertance: false,
+            start: function(){
+                el.style.transition = "none";
+                /* 处理无缝 */
+                if(now == 0){
+                    now = slen/2;
+                } else if(now == slen-1){
+                    now = slen/2 - 1;
+                }
+                css(el, "translateX", -now * swidth);
+
+                if(init.nav){
+                    for(var i = 0; i < initlength; i++){
+                        nav[i].style.background = '#fff';
+                    }
+                    nav[now%initlength].style.background = '#f03838';
+                }
+            },
+            end: function(){
+                var nowX = css(el, "translateX");
+                now = Math.abs(Math.round(nowX/swidth));
+                nowX = -now*swidth;
+                el.style.transition = ".3s";
+                css(el, "translateX", nowX);
+
+                if(init.nav){
+                    for(var i = 0; i < initlength; i++){
+                        nav[i].style.background = '#fff';
+                    }
+                    nav[now%initlength].style.background = '#f03838';
+                }
+            }
+        });
+}
 
 // 如果只是简单效果的话, 可以不用此函数,用 transition 做个过渡就足够了
 // 运动函数，利用 Tween 定义运动效果
@@ -591,12 +673,13 @@ function css(el, attr, val){
         'rotate', 'rotateX', 'rotateY', 'rotateZ',
         'skew', 'skewX','skewY'
     ];
-    var pxArr = ['width', 'height', 'top', 'left', 'bottom', 'right'];
     for(var i = 0; i < transformArr.length; i++){
         if(attr == transformArr[i]){
             return transform(el, attr, val);
         }
     }
+
+    var pxArr = ['width', 'height', 'top', 'left', 'bottom', 'right'];
     for(var k = 0; k < pxArr.length; k++){
         if(attr == pxArr[k]){
             if(arguments.length == 2){
