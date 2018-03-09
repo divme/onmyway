@@ -181,7 +181,9 @@ function swiper(init){
         x: 0,
         y: 0
     };
-    var startTime, endTime, lastInterval = 0;
+    var startTime,
+        lastTime = 0,
+        lastInterval = 0;
     var lastSpeed = 0;
 
     // backout 的效果，需要判断边界，max为0，min需要计算
@@ -240,9 +242,8 @@ function swiper(init){
             x: curTouchLocation.x - lastTouchPosition.x,
             y: curTouchLocation.y - lastTouchPosition.y
         };
-        endTime = new Date().getTime();
-        lastInterval = endTime -startTime;
-        // console.log(lastDistance.x + '::' + lastInterval);
+        startTime = new Date().getTime();
+        lastInterval = startTime - lastTime;
 
         var touchDis = {
             x: curTouchLocation.x - startTouchLocation.x,
@@ -275,10 +276,8 @@ function swiper(init){
                     nowPosY = nowPosY < min[dir]? min[dir] : nowPosY;
                 }else if(init.backout == 'out'){
                     nowPosY = nowPosY > 0? nowPosY*0.4 : nowPosY;
-                    // nowPosY = nowPosY < min[dir]? startEleLocation.y + touchDis.y*0.4 : nowPosY;
                     nowPosY = nowPosY < min[dir]? min[dir] + (nowPosY - min[dir])*0.4 : nowPosY;
                 }
-                // console.log(nowPosY, startEleLocation.y, touchDis.y, startEleLocation.y + touchDis.y, min[dir] );
                 css(el, 'translateY', nowPosY);
             }
         }else{
@@ -292,7 +291,7 @@ function swiper(init){
             y: e.changedTouches[0].pageY
         };
 
-        startTime = endTime;
+        lastTime = startTime;
         init.move  && init.move.call(el, e);
     });
     // 1. 设置backour为out时的弹回状态
@@ -349,8 +348,8 @@ function swiper(init){
          //  根据最后的速度判断滑动结束后的效果
          if(init.inertance){
              var touchendTime = new Date().getTime();
-             var disTime = touchendTime - endTime;
-             // console.log(touchendTime +'-'+ endTime +'='+ disTime);
+             var disTime = touchendTime - lastTime;
+             // console.log(touchendTime +'-'+ lastTime +'='+ disTime);
              if(disTime > 300){
                  lastDistance = {
                      x: 0,
@@ -387,7 +386,7 @@ function swiper(init){
                      move({
                          el: el,
                          type: 'easeOut',
-                         time: 100,
+                         time: 1200,
                          target:{
                              translateY: nowPY
                          },
@@ -563,44 +562,53 @@ function swiperimage(init){
     for(var i = 0; i < slen; i++){
         imgbox[i].style.width = swidth + 'px';
     }
-        swiper({
-            wrap: wrap,
-            el: el,
-            dir: 'x',
-            backout: 'none',
-            inertance: false,
-            start: function(){
-                el.style.transition = "none";
-                /* 处理无缝 */
-                if(now == 0){
-                    now = slen/2;
-                } else if(now == slen-1){
-                    now = slen/2 - 1;
-                }
-                css(el, "translateX", -now * swidth);
 
-                if(init.nav){
-                    for(var i = 0; i < initlength; i++){
-                        nav[i].style.background = '#fff';
-                    }
-                    nav[now%initlength].style.background = '#f03838';
-                }
-            },
-            end: function(){
-                var nowX = css(el, "translateX");
-                now = Math.abs(Math.round(nowX/swidth));
-                nowX = -now*swidth;
-                el.style.transition = ".3s";
-                css(el, "translateX", nowX);
+    function auto(){
+        if(el.Timer)
+            window.cancelAnimationFrame(el.timer);
 
-                if(init.nav){
-                    for(var i = 0; i < initlength; i++){
-                        nav[i].style.background = '#fff';
-                    }
-                    nav[now%initlength].style.background = '#f03838';
-                }
+    }
+
+    swiper({
+        wrap: wrap,
+        el: el,
+        dir: 'x',
+        backout: 'none',
+        inertance: false,
+        start: function(){
+            if(el.Timer)
+                window.cancelAnimationFrame(el.Timer);
+            el.style.transition = "none";
+            /* 处理无缝 */
+            if(now == 0){
+                now = slen/2;
+            } else if(now == slen-1){
+                now = slen/2 - 1;
             }
-        });
+            css(el, "translateX", -now * swidth);
+
+            if(init.nav){
+                for(var i = 0; i < initlength; i++){
+                    nav[i].style.background = '#fff';
+                }
+                nav[now%initlength].style.background = '#f03838';
+            }
+        },
+        end: function(){
+            var nowX = css(el, "translateX");
+            now = Math.abs(Math.round(nowX/swidth));
+            nowX = -now*swidth;
+            el.style.transition = ".3s";
+            css(el, "translateX", nowX);
+
+            if(init.nav){
+                for(var i = 0; i < initlength; i++){
+                    nav[i].style.background = '#fff';
+                }
+                nav[now%initlength].style.background = '#f03838';
+            }
+        }
+    });
 }
 
 // 如果只是简单效果的话, 可以不用此函数,用 transition 做个过渡就足够了
