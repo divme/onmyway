@@ -246,7 +246,6 @@
                     }
                 },
                 end: function(){
-
                     forNavbar();
                     var cur = css(scroll, 'translateY');
                     var min = page.clientHeight - scroll.clientHeight;
@@ -254,7 +253,7 @@
                         addList(fTool);
                     }else if(cur > 0){
                         pulldown.innerText = '加载中';
-                        window.location = window.location;
+//                        window.location = window.location;
                     }
                 }
             });

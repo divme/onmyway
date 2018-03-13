@@ -64,6 +64,14 @@
             background: rgba(0, 0, 0, .2);
             color: #ffffff;
         }
+
+        .attrTest{
+            width: 100px;
+            height: 100px;
+            border: 1px solid yellowgreen;
+            background: indianred;
+            transition: all 2s;
+        }
     </style>
 </head>
 <body>
@@ -93,6 +101,7 @@
 
 <div class="box4" style="display: inline-block;"></div>
 
+<div class="attrTest"></div>
 
 <script src="zymobile.js"></script>
 <script>
@@ -244,17 +253,18 @@
            })
     })();
 
-
 //   基本函数测试
     (function(){
         var test = document.querySelector('.test2');
         var box4 = document.querySelector('.box4');
+        var aTest = document.querySelector('.attrTest');
 
 //        css(test, 'border', '1px solid red');
 //        console.log(css(test, 'width'));
 //        console.log(css(test, 'translateX'));
 
-         console.log(css(box4, 'width'));
+        css(aTest, 'border', '10px solid red');
+        console.log(css(aTest, 'border'));
         move({
             el: test,
             time: 400,

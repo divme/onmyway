@@ -330,7 +330,7 @@ function swiper(init){
                     move({
                         el: el,
                         type: 'easeIn',
-                        time: 1200,
+                        time: 300,
                         target: {
                             'translateY': nowPosY
                         },
@@ -386,7 +386,7 @@ function swiper(init){
                      move({
                          el: el,
                          type: 'easeOut',
-                         time: 1200,
+                         time: 300,
                          target:{
                              translateY: nowPY
                          },
@@ -670,7 +670,7 @@ function move(init){
 
 
 // 设置或者获取元素的属性,我分为以下几类进行处理:
-// 1. transform: 这个属性单独来一个函数处理,并且要求el的所有transform都用此函数设置，不能在css中设置;
+// 1. transform: 这个属性单独来一个函数处理,并且要求el的所有 transform 都用此函数设置，不能在css中设置;
 // 2. width, height, top, bottom, left, right: 单位为px;这几个属性的单位问题在函数内处理掉;
 // 3. opacity: 无单位;
 // 4. border, background, margin, padding, color 等等其他属性,直接设置或者获取。

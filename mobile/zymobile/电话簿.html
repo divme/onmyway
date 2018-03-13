@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电话簿</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="src/reset.css">
+    <style>
+        *{margin:0; padding:0;}
+        .page{
+            position: relative;
+        }
+        .phonebook{
+            position: relative;
+            margin-right: 30px;
+            transition: all .5s;
+        }
+        .letterleader{
+            line-height: 40px;
+            font-size: 16px;
+            text-indent: 20px;
+            background: #f4f4f4;
+        }
+        .phonebook ul li{
+            line-height: 2.5;
+            font-size: 14px;
+            text-indent: 25px;
+            border-top: 1px solid #f4f4f4;
+        }
+        .navbox{
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 100%;
+            padding: 10px 0;
+            box-sizing: border-box;
+        }
+        .navlist{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 100%;
+        }
+        .nav{
+            flex: 1 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            border-radius: 50%;
+        }
+        .curnav{
+            background: #424242;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="phonebook">
+        <ul>
+            <p class="letterleader" data-id="a">A</p>
+            <li>阿猫</li>
+            <li>阿狗</li>
+            <p class="letterleader" data-id="b">B</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="d">D</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="e">E</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="f" id="f">F</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="h">H</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="i">I</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="k">K</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="l">L</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="m">M</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="n">N</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="p">P</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="r">R</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="s">S</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="t">T</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="w">W</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="y">Y</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <p class="letterleader" data-id="z">Z</p>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝塔</li>
+            <li>贝克</li>
+            <li>贝克</li>
+            <li>贝克</li>
+        </ul>
+    </div>
+    <div class="navbox">
+        <div class="navlist">
+            <div class="nav">A</div>
+            <div class="nav">B</div>
+            <div class="nav">C</div>
+            <div class="nav">D</div>
+            <div class="nav">E</div>
+            <div class="nav">F</div>
+            <div class="nav">G</div>
+            <div class="nav">H</div>
+            <div class="nav">I</div>
+            <div class="nav">J</div>
+            <div class="nav">K</div>
+            <div class="nav">L</div>
+            <div class="nav">M</div>
+            <div class="nav">N</div>
+            <div class="nav">O</div>
+            <div class="nav">P</div>
+            <div class="nav">Q</div>
+            <div class="nav">R</div>
+            <div class="nav">S</div>
+            <div class="nav">T</div>
+            <div class="nav">U</div>
+            <div class="nav">V</div>
+            <div class="nav">W</div>
+            <div class="nav">X</div>
+            <div class="nav">Y</div>
+            <div class="nav">Z</div>
+        </div>
+    </div>
+</div>
+<script src="zymobile.js"></script>
+<script>
+
+//    1. 导航区选中哪个字母，内容区滑动到对应区域;
+//    2. 导航区滑到哪个字母，内容区滑动到对应区域;
+//    3. 滑动到哪个字母区域，导航区选中哪个字母;
+
+//      1
+    var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    (function(){
+        var phonebook = document.querySelector('.phonebook');
+        var navlist = document.querySelector('.navlist');
+        var navs = navlist.children;
+        var letterleader = document.querySelectorAll('.letterleader');
+
+        tap(navlist, function(e){
+            for(var i = 0; i < navs.length; i++){
+                navs[i].className ='nav';
+            }
+            e.target.className ='nav curnav';
+            var curLetter = e.target.innerText;
+            findLetter(curLetter);
+        })
+    })();
+
+//    2
+    (function(){
+        var phonebook = document.querySelector('.phonebook');
+        var navlist = document.querySelector('.navlist');
+        var navs = navlist.children;
+        var letterleader = document.querySelectorAll('.letterleader');
+        navlist.addEventListener('touchmove', function(e){
+            var curPos = e.changedTouches[0].pageY;
+            var index = -1;
+            for(var i = 0; i < navs.length; i++){
+                if(navs[i].getBoundingClientRect().top < curPos && navs[i].getBoundingClientRect().bottom > curPos){
+                    index = i;
+                    break;
+                }
+            }
+            for(var m = 0; m < navs.length; m++){
+                navs[m].className ='nav';
+            }
+            navs[index].className ='nav curnav';
+            var curLetter = navs[index].innerText;
+
+            findLetter(curLetter);
+        }, true);
+    })();
+
+
+
+    function findLetter(curLetter){
+        var phonebook = document.querySelector('.phonebook');
+        var letterleader = document.querySelectorAll('.letterleader');
+        var hasLetter = false;
+        letterleader.forEach(function(cur, index){
+            if(cur.innerText == curLetter){
+                hasLetter = true;
+                var scrollY = window.scrollY - cur.getBoundingClientRect().top;
+                window.scrollTo(0, scrollY)
+            }
+        });
+        if(!hasLetter){
+            var curStrPos = letters.indexOf(curLetter) + 1;
+            if(curStrPos < 26 && curStrPos >= 0){
+                findLetter(letters.charAt(curStrPos));
+            }else{
+                console.log('meile ')
+            }
+        }
+    }
+</script>
+</body>
+</html>

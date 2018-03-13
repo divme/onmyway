@@ -103,7 +103,7 @@
 				console.log("size.width(border+padding+content):"+size.getBoundingClientRect().width);
 				console.log("size.height:"+size.getBoundingClientRect().height);
 				console.log("position.left(直接到窗口的左右距离):"+position.getBoundingClientRect().left);
-				console.log("position.top:"+position.getBoundingClientRect().top);
+				console.log("position.top(直接到窗口(不是文档)的上方距离):"+ position.getBoundingClientRect().top);
 			console.groupEnd();
 
             console.group("窗口滚动高度");
