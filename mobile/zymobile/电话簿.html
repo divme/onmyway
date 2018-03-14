@@ -212,32 +212,24 @@
 //    2. 导航区滑到哪个字母，内容区滑动到对应区域;
 //    3. 滑动到哪个字母区域，导航区选中哪个字母;
 
-//      1
-    var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     (function(){
+        var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         var phonebook = document.querySelector('.phonebook');
+        var letterleader = document.querySelectorAll('.letterleader');
         var navlist = document.querySelector('.navlist');
         var navs = navlist.children;
-        var letterleader = document.querySelectorAll('.letterleader');
 
-        tap(navlist, function(e){
+        navlist.addEventListener('touchstart',function(e){
             for(var i = 0; i < navs.length; i++){
                 navs[i].className ='nav';
             }
             e.target.className ='nav curnav';
             var curLetter = e.target.innerText;
             findLetter(curLetter);
-        })
-    })();
-
-//    2
-    (function(){
-        var phonebook = document.querySelector('.phonebook');
-        var navlist = document.querySelector('.navlist');
-        var navs = navlist.children;
-        var letterleader = document.querySelectorAll('.letterleader');
+        });
         navlist.addEventListener('touchmove', function(e){
-            var curPos = e.changedTouches[0].pageY;
+            e.preventDefault();
+            var curPos = e.changedTouches[0].clientY;
             var index = -1;
             for(var i = 0; i < navs.length; i++){
                 if(navs[i].getBoundingClientRect().top < curPos && navs[i].getBoundingClientRect().bottom > curPos){
@@ -248,35 +240,57 @@
             for(var m = 0; m < navs.length; m++){
                 navs[m].className ='nav';
             }
-            navs[index].className ='nav curnav';
+            if(index >=0 && index <26){
+                navs[index].className ='nav curnav';
+            }
             var curLetter = navs[index].innerText;
 
             findLetter(curLetter);
         }, true);
+
+
+        window.addEventListener('scroll', function(){
+            var index = -1;
+              for(var i = 0; i < letterleader.length; i++){
+                   if(letterleader[i].getBoundingClientRect().top <= 0 && letterleader[i].getBoundingClientRect().bottom > 0){
+                       index = letters.indexOf(letterleader[i].innerText);
+                       if(index >=0 && index < 26){
+                           for(var m = 0; m < navs.length; m++){
+                               navs[m].className ='nav';
+                           }
+                           navs[index].className ='nav curnav';
+                       }
+                   }
+              }
+        });
+
+        function navName(index){
+
+        }
+
+        function findLetter(curLetter){
+            var hasLetter = false;
+            letterleader.forEach(function(cur, index){
+                if(cur.innerText == curLetter){
+                    hasLetter = true;
+                    var scrollY = window.scrollY + cur.getBoundingClientRect().top;
+                    window.scrollTo(0, scrollY)
+                }
+            });
+            if(!hasLetter){
+                var curStrPos = letters.indexOf(curLetter) + 1;
+                if(curStrPos < 26 && curStrPos >= 0){
+                    findLetter(letters.charAt(curStrPos));
+                }else{
+                    console.log('meile ')
+                }
+            }
+        }
     })();
 
 
 
-    function findLetter(curLetter){
-        var phonebook = document.querySelector('.phonebook');
-        var letterleader = document.querySelectorAll('.letterleader');
-        var hasLetter = false;
-        letterleader.forEach(function(cur, index){
-            if(cur.innerText == curLetter){
-                hasLetter = true;
-                var scrollY = window.scrollY - cur.getBoundingClientRect().top;
-                window.scrollTo(0, scrollY)
-            }
-        });
-        if(!hasLetter){
-            var curStrPos = letters.indexOf(curLetter) + 1;
-            if(curStrPos < 26 && curStrPos >= 0){
-                findLetter(letters.charAt(curStrPos));
-            }else{
-                console.log('meile ')
-            }
-        }
-    }
+
 </script>
 </body>
 </html>

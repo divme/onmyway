@@ -638,6 +638,7 @@ body {
 /* 索引列表切换 */
 (function(){
   var indexList = document.querySelector('#indexList');
+  var dts = indexList.querySelectorAll('dt');
   var navList = document.querySelector('.navList');
   var navs = navList.querySelectorAll('li');
 
@@ -675,12 +676,18 @@ body {
     }
     index.className = "focus";
   }
+
+  /* 根据找到的dt，计算出滚动条位置 */
+  function toScroll(index){/* 滚动至dt所在的位置 */
+    var option = getOption(index);
+    var scrollY = getOffsetY(option);//获取dt在页面中的位置
+    window.scrollTo(0,scrollY);
+  }
+
   /* 找到选中的导航找到对应的dt */
   function getOption(index){
     var dataId = index.dataset.index;
-    //console.log(dataId);
     var option = indexList.querySelector('dt[data-id="'+dataId+'"]');//通过data属性找到对应dt
-   // console.log(option);
     if(!option){ //如果这个选项，没有对应的内容
       index = index.nextElementSibling;
       if(!index){
@@ -694,13 +701,6 @@ body {
     return option;
   }
 
-  /* 根据找到的dt，计算出滚动条位置 */
-  function toScroll(index){/* 滚动至dt所在的位置 */
-     var option = getOption(index);
-     var scrollY = getOffsetY(option);//获取dt在页面中的位置
-     //console.log(scrollY);
-     window.scrollTo(0,scrollY);
-  }
 
   /* 获取元素在页面中的位置*/
   function getOffsetY(el){
@@ -715,14 +715,9 @@ body {
   }
 
   /* 当页面发生滚动的时候 */
-  var dts = indexList.querySelectorAll('dt');
-  setScrollNav();
   window.onscroll = setScrollNav; 
   function setScrollNav(){
-    //console.log(1);
-    var pageY = window.scrollY; //页面的滚动条位置
-    console.log(pageY);
-    
+    var pageY = window.scrollY;
     for(var i = 0; i < dts.length; i++){
         var next = dts[i+1];
         //如果next不存在，当前就是最后一项，那么应该选中当前的
@@ -731,12 +726,11 @@ body {
         if(!next||getOffsetY(next) > pageY){
           var id = dts[i].dataset.id;
           var index = document.querySelector('.navList li[data-index = "'+id+'"]');;
-          console.log(index);
           setNav(index);
           return;
         }
     }
-  };
+  }
 })();
 </script>
 </body>
