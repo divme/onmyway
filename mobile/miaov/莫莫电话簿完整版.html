@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Document</title>
+<title>momo电话簿</title>
 <meta name="viewport" content="width=device-width,user-scalable=no" />
 <style type="text/css">
 body, 
@@ -725,7 +725,7 @@ body {
         //当元素的下一dt 大于滚动条位置 显示的就是还是当前的    
         if(!next||getOffsetY(next) > pageY){
           var id = dts[i].dataset.id;
-          var index = document.querySelector('.navList li[data-index = "'+id+'"]');;
+          var index = document.querySelector('.navList li[data-index = "'+id+'"]');
           setNav(index);
           return;
         }

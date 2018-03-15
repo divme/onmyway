@@ -211,7 +211,6 @@
 //    1. 导航区选中哪个字母，内容区滑动到对应区域;
 //    2. 导航区滑到哪个字母，内容区滑动到对应区域;
 //    3. 滑动到哪个字母区域，导航区选中哪个字母;
-
     (function(){
         var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         var phonebook = document.querySelector('.phonebook');
@@ -219,38 +218,28 @@
         var navlist = document.querySelector('.navlist');
         var navs = navlist.children;
 
-        navlist.addEventListener('touchstart',function(e){
-            for(var i = 0; i < navs.length; i++){
-                navs[i].className ='nav';
-            }
-            e.target.className ='nav curnav';
-            var curLetter = e.target.innerText;
-            findLetter(curLetter);
+//        navlist.addEventListener('touchstart',function(e){
+//            for(var i = 0; i < navs.length; i++){
+//                navs[i].className ='nav';
+//            }
+//            e.target.className ='nav curnav';
+//            var curLetter = e.target.innerText;
+//            findLetter(curLetter);
+//        });
+        navlist.addEventListener('touchstart', function(e){
+            var curPos = e.changedTouches[0].clientY;
+            searchNav(curPos);
         });
+
         navlist.addEventListener('touchmove', function(e){
             e.preventDefault();
             var curPos = e.changedTouches[0].clientY;
-            var index = -1;
-            for(var i = 0; i < navs.length; i++){
-                if(navs[i].getBoundingClientRect().top < curPos && navs[i].getBoundingClientRect().bottom > curPos){
-                    index = i;
-                    break;
-                }
-            }
-            for(var m = 0; m < navs.length; m++){
-                navs[m].className ='nav';
-            }
-            if(index >=0 && index <26){
-                navs[index].className ='nav curnav';
-            }
-            var curLetter = navs[index].innerText;
-
-            findLetter(curLetter);
+            searchNav(curPos);
         }, true);
 
 
         window.addEventListener('scroll', function(){
-            var index = -1;
+              var index = -1;
               for(var i = 0; i < letterleader.length; i++){
                    if(letterleader[i].getBoundingClientRect().top <= 0 && letterleader[i].getBoundingClientRect().bottom > 0){
                        index = letters.indexOf(letterleader[i].innerText);
@@ -264,8 +253,23 @@
               }
         });
 
-        function navName(index){
+        function searchNav(curTouchPos){
+            var index = -1;
+            for(var i = 0; i < navs.length; i++){
+                if(navs[i].getBoundingClientRect().top < curTouchPos && navs[i].getBoundingClientRect().bottom > curTouchPos){
+                    index = i;
+                    break;
+                }
+            }
+            for(var m = 0; m < navs.length; m++){
+                navs[m].className ='nav';
+            }
+            if(index >= 0 && index < 26){
+                navs[index].className ='nav curnav';
 
+                var curLetter = navs[index].innerText;
+                findLetter(curLetter);
+            }
         }
 
         function findLetter(curLetter){
