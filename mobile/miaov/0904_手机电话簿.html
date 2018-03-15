@@ -12,7 +12,7 @@
         .phonebook{
             position: relative;
             margin-right: 30px;
-            transition: all .5s;
+            /*transition: all .5s;*/
         }
         .letterleader{
             line-height: 40px;
@@ -210,6 +210,7 @@
         navlist.style.height = height - 20 + 'px';
         for (var i = 0, len = nav.length; i < len; i++){
             tap(nav[i], function(e){
+//                e.preventDefault();
                 addClass(this, 'curnav');
                 setPhonebook(this);
             })
@@ -222,7 +223,7 @@
         var nav = document.getElementsByClassName("nav");
 
         navlist.addEventListener('touchmove', function(e){
-            e.preventDefault(); // 阻止默认滑屏
+//            e.preventDefault(); // 阻止默认滑屏
             var pointY = e.touches[0].clientY;
             getCurnav(nav, pointY);
         })
@@ -269,8 +270,8 @@
         if(option){
             curPos = option.getBoundingClientRect().top;
             curTop = getStyle(phonebook, 'top');
-            phonebook.style.top = -curPos +'px';
-//            phonebook.style.top = curTop - curPos +'px';
+//            phonebook.style.top = -curPos +'px';
+            phonebook.style.top = curTop - curPos +'px';
         }else{
             var sibling = el.nextElementSibling;
             setPhonebook(sibling);
