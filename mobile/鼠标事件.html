@@ -32,6 +32,10 @@
     <div class="son"></div>
 </div>
 
+<div style="height: 30px;background: #17182c;"> 
+    <img src="img/info.png" alt="" style="width:16px;height: 16px;">
+    
+</div>
 <p>主要鼠标事件： mousemove, mousedown, mouseup, mouseenter, mouseleave, mouseover, mouseout</p>
 <p>对不同元素来说，鼠标事件会不断绑定到当前物体，而不是一直在第一个物体上，因为它们都不是因果关系</p>
 <p>对同一个元素来说，mouseenter 和 mouseleave 只对元素本身生效， mouseover 和 mouseout 移动离开子元素也触发</p>
@@ -328,7 +332,7 @@
         }
         init.el.timer = requestAnimationFrame(move);
         function move(){
-            if(t > d || d == 0){
+            if(t >= d || d == 0){
                 cancelAnimationFrame(init.el.timer);
                 init.callBack&&init.callBack.call(init.el);
             } else {

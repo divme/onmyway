@@ -26,16 +26,15 @@
 
 <div class="example"></div>
 
-<!--用法示例-->
+<!--<script src="move.js"></script>-->
 <script>
     var example = document.querySelector(".example");
     var first = true;
     example.addEventListener("click", checkCss);
-    window.onload = checkCss;
     function checkCss(e){
         css(example, "background", "yellow", function(){
             css(example, "transform", "translateX(200px)", function(){
-                css(example, "transform", 'scaleX(4)');
+                css(example, "transform", 'scaleX(.5)');
                 transform(example, "translateX", '-200px');
             });
         });
@@ -50,7 +49,7 @@
 
 <script>
 //    定义一个获取/设置元素属性值的方法: css(el,"width"); css(el, "width", "100px")
-//   transform用法如下：css(el, 'transform','translateX(100px)')
+//    transform用法如下：css(el, 'transform','translateX(100px)')
     function css(el, attr, val, fn){
         if(attr == "transform"){
            return transform(el, attr, val, true, fn);
@@ -93,7 +92,7 @@
             }
         }
         el.style.WebkitTransform = el.style.transform = str;
-        setTimeout(fn,2000)
+        setTimeout(fn, 2000)
     }
 
 </script>

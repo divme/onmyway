@@ -217,7 +217,7 @@
         }
     }();
 
-    //    监听导航栏滑动，并据此切换内容
+//    监听导航栏滑动，并据此切换内容
     (function(){
         var navlist = document.querySelector(".navlist");
         var nav = document.getElementsByClassName("nav");
@@ -229,7 +229,7 @@
         })
     }());
 
-    //    滑动时得到当前所在nav：
+    //          滑动时得到当前所在nav：
     //        1. 给当前nav添加选中状态
     //        2. 根据当前nav设置phonebook的位置
     function getCurnav(nav, posY){
@@ -242,7 +242,6 @@
             }
         }
     }
-
     //    添加class
     function addClass(ele, classname){
         var siblings = ele.parentNode.childNodes;
