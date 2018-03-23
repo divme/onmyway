@@ -97,7 +97,7 @@
     if(document.attachEvent){
         document.attachEvent('onmousewheel',function(e){
             var Timer;
-            alert(e.wheelDelta);
+            console.log(e.wheelDelta);
             clearTimeout(Timer);
             Timer = setTimeout(function(){
                 $('p').append(e.wheelDelta);
