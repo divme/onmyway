@@ -38,7 +38,7 @@
         }
         return ret;
       }
-      f(a,function(n){
+      f(a, function(n){
         return n>0?n:0;
       });
 
@@ -49,6 +49,7 @@
       }
       console.log (type(a));
       function dateformat(date){
+
         var h= parseInt(date/3600);
         var m= parseInt(date%3600/60);
         var s= parseInt(date%3600%60);
@@ -115,10 +116,7 @@
          console.timeEnd("three");
      </script>
 
-    <h6>BOM</h6>
-    <script>
 
-    </script>
 
     <h6>闭包之排序</h6>
     <script>
@@ -162,18 +160,18 @@
     <div id="proc"></div>
 
     <h6>闭包之点击</h6>
-    <!--<script>-->
-        <!--window.onload = function() {-->
-            <!--for (var i = 1; i < 4; i++) {-->
-                <!--var id = document.getElementById("a" + i);-->
-                <!--id.onclick = (function(i) {-->
-                    <!--return function() {-->
-                        <!--console.log(i);-->
-                    <!--}-->
-                <!--})(i);-->
-            <!--}-->
-        <!--}-->
-    <!--</script>-->
+    <script>
+//        window.onload = function() {
+//            for (var i = 1; i < 4; i++) {
+//                var id = document.getElementById("a" + i);
+//                id.onclick = (function(i) {
+//                    return function() {
+//                        console.log(i);
+//                    }
+//                })(i);
+//            }
+//        }
+    </script>
 
     <h6>闭包</h6>
     <script>
@@ -187,16 +185,6 @@
         var fooo=foo();
         fooo();
     </script>
-
-    <h6>一段DOM</h6>
-    <script>
-        var div=document.createElement('div');
-        div.setAttribute('class','mm');
-        div.innerHTML='我是DOM';
-        var body=document.getElementsByTagName('body')[0];
-        body.appendChild(div);
-    </script>
-
 
 </body>
 </html>

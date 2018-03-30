@@ -60,6 +60,29 @@
     // 绑定监听
     window.addEventListener('scroll', myEfficientFn);
 </script>
+
+<h5>事件节流：对于频繁触发而又没必要次次回应的事件，给个限制，减少触发次数P139</h5>
+<script>
+    function throttle(fn, interval) {
+        var doing = false;
+
+        return function() {
+            if (doing) {
+                return;
+            }
+            doing = true;
+            fn.apply(this, arguments);
+            setTimeout(function() {
+                doing = false;
+            }, interval);
+        }
+    }
+
+    window.onresize = throttle(function(){
+        console.log('execute');
+    }, 1000);
+</script>
+
 </body>
 </html>
 

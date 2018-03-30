@@ -28,12 +28,11 @@
        }
    </script>
 
-   <h5>关于闭包P54</h5>
+   <!--关于闭包-->
    <script>
        function foo(x){
            var tmp = 3;
            return function (y){
-
                var memb;
                memb = memb ? memb + 1 : 1;
                console.group('闭包');
@@ -47,28 +46,27 @@
        bar(10);
    </script>
 
-   <h5>简单偏函数典型示例P73</h5>
+   <!--简单偏函数典型示例-->
    <script>
        isString = function(obj){
                      return Object.prototype.toString.call(obj) === "[object String]";
-                  }
+                  };
        isNumber = function(obj){
                      return Object.prototype.toString.call(obj) === "[object Number]";
-                  }
+                  };
        isArray = function(obj) {
                      return Object.prototype.toString.call(obj) === "[object Array]";
-                 }
-   </script>
-   <!--将上面三个函数变为下面的-->
-   <script>
+                 };
        isType = function(type) {
-           return function(obj) {
-                     return Object.prototype.toString.call(obj) === "[object " + type + "]";
-                  }
-       }
+                   return function(obj) {
+                             return Object.prototype.toString
+
+                                             .call(obj) === "[object " + type + "]";
+                          }
+       };
        isString = isType('String');
        isNumber = isType('Number');
-       isArray = isType('Array');
+       isArray  = isType('Array');
    </script>
 
    <h5>curring--柯里化P97</h5>
@@ -87,16 +85,16 @@
    </script>
    <script>
        var currying = function(fn) {
-           var args = [];
-           return function() {
-               if (arguments.length === 0) {
-                   return fn.apply(this, args);
-               } else {
-                   Array.prototype.push.apply(args, arguments);
-                   return arguments.callee;
-               }
-           }
-       }
+                           var args = [];
+                           return function() {
+                               if (arguments.length === 0) {
+                                   return fn.apply(this, args);
+                               } else {
+                                   Array.prototype.push.apply(args, arguments);
+                                   return arguments.callee;
+                               }
+                           }
+                       }
        cost = function(){
                   var sum = 0;
                   for (var i = 0, len = arguments.length; i < len; i++) {
@@ -113,27 +111,7 @@
        console.groupEnd();
    </script>
 
-   <h5>事件节流：对于频繁触发而又没必要次次回应的事件，给个限制，减少触发次数P139</h5>
-   <script>
-       function throttle(fn, interval) {
-           var doing = false;
 
-           return function() {
-               if (doing) {
-                   return;
-               }
-               doing = true;
-               fn.apply(this, arguments);
-               setTimeout(function() {
-                   doing = false;
-               }, interval);
-           }
-       }
-
-       window.onresize = throttle(function(){
-           console.log('execute');
-       }, 1000);
-   </script>
 
 </body>
 </html>
