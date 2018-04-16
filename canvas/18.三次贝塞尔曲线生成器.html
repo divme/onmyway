@@ -10,8 +10,8 @@
             font-family: "Helvetica Neue", '微软雅黑', Verdana, Arial, Helvetica, sans-serif;
         }
         .container{
-            width:1200px;
-            margin:0 auto;
+            width: 1200px;
+            margin: 0 auto;
         }
         .leftCanvas{
             float: left;
@@ -19,18 +19,18 @@
         }
         #canvas{
             display: block;
-            margin:0 auto;
+            margin: 0 auto;
         }
         .rightText{
             margin: 20px 0 0 620px;
-            padding:10px 0;
+            padding: 10px 0;
             background: #282828;
             color: #d3ae68;
-            box-shadow:0 0 15px #fff inset;
+            box-shadow: 0 0 15px #fff inset;
         }
         .rightText p{
             text-indent: 2em;
-            line-height:30px;
+            line-height: 30px;
         }
     </style>
 </head>
@@ -94,22 +94,22 @@
     function bezier(x1, y1, x2, y2, x3, y3, x4, y4){
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        ctx.save()
+        ctx.save();
         ctx.beginPath();
         ctx.moveTo(x1,y1);
         ctx.bezierCurveTo(x2, y2, x3, y3, x4, y4);
         ctx.lineWidth = 5;
-        ctx.strokeStyle = circle.bezier
+        ctx.strokeStyle = circle.bezier;
         ctx.stroke();
-        ctx.restore()
+        ctx.restore();
 
-        ctx.beginPath()
-        ctx.moveTo(x1, y1)
-        ctx.lineTo(x2, y2)
-        ctx.moveTo(x3, y3)
-        ctx.lineTo(x4, y4)
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.moveTo(x3, y3);
+        ctx.lineTo(x4, y4);
         ctx.strokeStyle = circle.lineStyle;
-        ctx.stroke()
+        ctx.stroke();
 
         renderOne(x1, y1);
         renderTwo(x2, y2);
