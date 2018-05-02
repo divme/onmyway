@@ -66,18 +66,6 @@ function formatTenths(n) {
     return n[1] ? n : '0' + n
 }
 
-// 隐藏字符串中间数位
-function stringHide(str, start, n){
-    if(typeof str != 'string'){
-        str = String(str);
-    }
-    var sonstr = '';
-    for(var i = 0; i < n; i++){
-        sonstr += '*';
-    }
-    str = str.slice(0, start) + sonstr + str.slice(start+n);
-    return str;
-}
 
 // 检测手机系统：
 // 返回值为字符串： 'IOS' || 'Android'
@@ -116,4 +104,31 @@ function isqq(){
         return true
     }
     return false;
+}
+
+// 字符串
+//    1. 去掉字符串前后空格
+function trim(str){
+    var reg = /^\s+|\s+$/g;
+    return str.replace(reg, '')
+}
+//    2. html转义
+function htmlEncode(html) {
+    return text.replace(/\'/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
+function htmlDecode(text) {
+    return text.replace(/&amp;/g, '\'').replace(/&quot;/g, '\"').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+}
+//   3. 隐藏字符串中间数位
+//   stringHide('abcdefghijklmn', 3, 5)  返回："abc*****ijklmn"
+function stringHide(str, start, n){
+    if(typeof str != 'string'){
+        str = String(str);
+    }
+    var sonstr = '';
+    for(var i = 0; i < n; i++){
+        sonstr += '*';
+    }
+    str = str.slice(0, start) + sonstr + str.slice(start+n);
+    return str;
 }

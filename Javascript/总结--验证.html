@@ -56,12 +56,12 @@
                           return a+b;
                       })
                  }else{
-                      var arg = arg.concat(arg1);
+                      arg = arg.concat(arg1);
                       return fn;
                  }
              }
          }
-         console.log(add(1)(2)()) ;
+         console.log(add(1)(2)());
          console.log(add(1)(2)(3)());
          console.log(add(1)(2)(3)(4)());
      </script>
