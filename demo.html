@@ -44,14 +44,34 @@
             margin: 40px auto;
             background: url("zylib/congratulation.png") no-repeat center center/cover;
         }
+        #rcorners4 {
+            border-radius: 50%/30px 30px 100px 100px;
+            background: black;
+            padding: 20px;
+            width: 10px;
+            height: 100px;
+        }
+
+        #rcorners5 {
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            background: black;
+
+        }
     </style>
 </head>
 <body>
 
-<div class="con"></div>
+<p id="rcorners4"></p>
 
-<div class="anima"></div>
-<div id="d"><img src="CSS/img/xhr.png" alt="nothing"></div>
+
+<p id="rcorners5"></p>
+
+<!--<div class="con"></div>-->
+
+<!--<div class="anima"></div>-->
+<!--<div id="d"><img src="CSS/img/xhr.png" alt="nothing"></div>-->
 <!--<script>-->
 <!--var div = document.getElementById('d');-->
 <!--var html = "<span>我是sspan</span><p>我是个p</p>"-->
@@ -89,14 +109,14 @@
 <!--}, 0.1)-->
 <!--})()-->
 <!--</script>-->
-<script src="zylib/jquery-2.1.1.min.js"></script>
-<p><b>Values: </b></p>
-<form>
-    <input type="text" name="name" value="Johdsan"/>
-    <input type="text" name="password" value="password"/>
-    <input type="text" name="url" value="http://ejohn.org/"/>
-</form>
-<div style="height: 2000px;"></div>
+<!--<script src="zylib/jquery-2.1.1.min.js"></script>-->
+<!--<p><b>Values: </b></p>-->
+<!--<form>-->
+    <!--<input type="text" name="name" value="Johdsan"/>-->
+    <!--<input type="text" name="password" value="password"/>-->
+    <!--<input type="text" name="url" value="http://ejohn.org/"/>-->
+<!--</form>-->
+<!--<div style="height: 2000px;"></div>-->
 <script>
     $(function(){
         $("p").append( $("input").map(function(){
