@@ -10,27 +10,35 @@
 <button onclick="startWorker()">开始工作</button>
 <button onclick="stopWorker()">停止工作</button>
 
-<p><strong>注意：</strong> Internet Explorer 9 及更早 IE 版本浏览器不支持 Web Workers.</p>
+<!--<p><strong>注意：</strong> Internet Explorer 9 及更早 IE 版本浏览器不支持 Web Workers.</p>-->
 
 <script src="demoworker.js"></script>
 <script>
     var w;
-    window.addEventListener('message',function(e){
-        document.getElementById("result").innerHTML = e.data;
-    },false);
+//    window.addEventListener('message',function(e){
+//        document.getElementById("result").innerHTML = e.data;
+//    },false);
 
     function startWorker() {
-//        if(typeof(Worker) !== "undefined") {
-//            if(typeof(w) == "undefined") {
-//                w = new Worker("demoworker.js");
-//            }
-            window.onmessage = function(event) {
-                document.getElementById("result").innerHTML = event.data;
+        if(typeof(Worker) !== "undefined") {
+            if(typeof(w) == "undefined") {
+                w = new Worker("demoworker.js");
+                var obj = {
+                    a: 1,
+                    b: 2,
+                    c: 3
+                };
+                document.getElementById("result").innerHTML = JSON.stringify(obj);
+                w.postMessage(JSON.stringify(obj));
+            }
+            w.onmessage = function(event) {
+                document.getElementById("result").innerHTML += event.data;
             };
-//        } else {
-//            document.getElementById("result").innerHTML = "抱歉，你的浏览器不支持 Web Workers...";
-//        }
+        } else {
+            document.getElementById("result").innerHTML = "抱歉，你的浏览器不支持 Web Workers...";
+        }
     }
+
 
     function stopWorker()
     {
