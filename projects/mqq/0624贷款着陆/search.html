@@ -214,7 +214,7 @@
 		     	 for (var i = 1; i < 7; i++) {
 		     		$(".spot"+i).css('visibility','hidden');
 		     	  }
-		       };
+		       }
 		        search();
 		     function realsearch(){
 		   	   if (mmm>6) {
@@ -223,7 +223,7 @@
 		   	  }
 		   	 $(".spot"+mmm).css('visibility','visible');
 		   	 mmm++;
-		   };
+		   }
 				function addnum(){
 			      var i = $('.add').text();
 			      if (i<128){
@@ -232,7 +232,7 @@
 			       }else{
 			    	clearInterval(timer);
 			      } 
-		       };
+		       }
 		        function reducenum(){
 		        	var i = $('.num').text();
 		        	if (i>4){
@@ -241,7 +241,7 @@
 			       }else{
 			    	clearInterval(timer1);
 			      } 
-		        };
+		        }
 		        var timer = setInterval(addnum,150);
 		        var timer1 = setInterval(reducenum,1000);
 		        var timer2 = setInterval(realsearch,200);  
