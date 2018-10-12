@@ -69,7 +69,7 @@ function formatTenths(n) {
 
 // 检测手机系统：
 // 返回值为字符串： 'IOS' || 'Android'
-function mobileSystem() {
+function checkMobSys() {
     var platform = typeof (navigator.platform) == "undefined" ? "" : navigator.platform.toLowerCase();
     if (platform == "ipod" || platform == "iphone" || platform == "ipad" || platform == "iphone simulator" || platform == "ipad simulator") {
         return "IOS";
