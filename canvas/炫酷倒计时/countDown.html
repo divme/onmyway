@@ -4,13 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <title>real cool countDown</title>
+    <!--<meta name="format-detection" content="telephone=no">-->
+    <!--<meta name="apple-mobile-web-app-capable" content="yes">-->
+    <!--<meta name="apple-mobile-web-app-status-bar-style" content="white">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
+    <!--<script type="text/javascript">-->
+        <!--document.documentElement.style.fontSize = document.documentElement.clientWidth / 3.75 + 'px';-->
+<!--//    </script>-->
     <style>
         *{margin:0;padding:0}
         .container{
-            width:80%;
-            min-width:1000px;
+            position: fixed;
+            width:100%;
+            top: 50%;
+            margin-top: -300px;
+            /*min-width:1000px;*/
             min-height:600px;
-            margin: 25px auto;
+            /*margin: 25px auto;*/
+            /*margin-top: 100px;*/
         }
     </style>
 </head>
@@ -22,8 +33,11 @@
 <script>
     var canvas = document.getElementById('myCanvas');
     var ctx = canvas.getContext('2d');
-    canvas.width = 1000;
+//    canvas.width = 1000;
     canvas.height = 600;
+
+    canvas.width = window.innerWidth;
+//    canvas.height = window.innerHeight;
 
     var color = "yellowgreen"; // 数字球的颜色
     var radius = 6; // 数字球的半径
@@ -54,14 +68,15 @@
         var minute = Math.floor((now - 3600*hour)/60);
         var second = now - 3600*hour - 60*minute;
 
-        drawNum( 0, 10, Math.floor(hour/10), ctx);
-        drawNum( 15*(radius+1), 10, Math.floor(hour%10), ctx);
-        drawNum( 30*(radius+1), 10, 10,ctx);
-        drawNum( 39*(radius+1), 10, Math.floor(minute/10), ctx);
-        drawNum( 54*(radius+1), 10, Math.floor(minute%10), ctx);
-        drawNum( 69*(radius+1), 10, 10, ctx);
-        drawNum( 78*(radius+1), 10, Math.floor(second/10), ctx);
-        drawNum( 93*(radius+1), 10, Math.floor(second%10), ctx);
+        var xx = 20;
+        drawNum( 20, 10, Math.floor(hour/10), ctx);
+        drawNum( xx*(radius+1), 10, Math.floor(hour%10), ctx);
+        drawNum( xx*2*(radius+1), 10, 10, ctx);
+        drawNum( (xx*2+9)*(radius+1), 10, Math.floor(minute/10), ctx);
+        drawNum( (xx*3+9)*(radius+1), 10, Math.floor(minute%10), ctx);
+        drawNum( (xx*4+9)*(radius+1), 10, 10, ctx);
+        drawNum( (xx*4+18)*(radius+1), 10, Math.floor(second/10), ctx);
+        drawNum( (xx*5+18)*(radius+1), 10, Math.floor(second%10), ctx);
 
         while( balls.length > 324 ){
             balls.shift()
