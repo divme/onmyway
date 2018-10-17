@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>baseCanvas</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="white" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html, body{
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div>分享</div>
+<script>
+    var canvas = document.querySelector('#canvas');
+    var ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    var basedata;
+
+    var img =  new Image();
+    img.src = 'img/pbk.png';
+    img.onload = function(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        var img1 =  new Image();
+        img1.src = 'img/erweima.png';
+        img1.onload = function() {
+            ctx.drawImage(img1, 200, 600, 100, 100);
+            ctx.font = '20px bold Arial';
+            ctx.textBaseline = 'middle';
+
+
+            var basex = 260;
+            var basey = 50;
+            ctx.fillText('人',  basex+30, basey);
+            ctx.fillText('生',  basex+30, basey+30);
+            ctx.fillText('若',  basex+30, basey+60);
+            ctx.fillText('只',  basex+30, basey+90);
+            ctx.fillText('如',  basex+30, basey+120);
+            ctx.fillText('初',  basex+30, basey+150);
+            ctx.fillText('见',  basex+30, basey+180);
+
+            ctx.fillText('何',  basex, basey+30);
+            ctx.fillText('事',  basex, basey+60);
+            ctx.fillText('悲',  basex, basey+90);
+            ctx.fillText('风',  basex, basey+120);
+            ctx.fillText('秋',  basex, basey+150);
+            ctx.fillText('画',  basex, basey+180);
+            ctx.fillText('扇',  basex, basey+210);
+
+            var basex1 = 50;
+            var basey1 = 450;
+            ctx.fillText('纳',  basex1, basey1);
+            ctx.fillText('兰',  basex1, basey1+30);
+            ctx.fillText('性',  basex1, basey1+60);
+            ctx.fillText('德',  basex1, basey1+90);
+
+            basedata = canvas.toDataURL("image/png");
+        }
+
+    };
+
+
+</script>
+</body>
+</html>
