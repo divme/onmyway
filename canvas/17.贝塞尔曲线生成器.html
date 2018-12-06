@@ -50,11 +50,13 @@
           <p>  ctx.stroke( )</p>
       </div>
   </div>
-
+  <h1 onclick="hh()">w</h1>
   <script>
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
-
+      function hh(){
+          window.postMessage('dsds', 'https://divme.github.io')
+      }
       canvas.width = 600;
       canvas.height = 600;
 
