@@ -56,7 +56,9 @@
 
     canvas.width = 600;
     canvas.height = 600;
-
+    window.addEventListener('message',function(e){
+        alert('get')
+    })
     var circle = {
         r: 8,
         lineStyle: '#800000',
