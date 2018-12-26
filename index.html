@@ -30,7 +30,274 @@
 <body>
 <canvas id="canvas"></canvas>
 <script>
-    eval(function(p,a,c,k,e,r){e=function(c){return(c<62?'':e(parseInt(c/62)))+((c=c%62)>35?String.fromCharCode(c+29):c.toString(36))};if('0'.replace(0,e)==0){while(c--)r[e(c)]=k[c];k=[function(e){return r[e]||e}];e=function(){return'([578a-df-hj-lo-qs-wzA-Z]|1\\w)'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('5 7=document.getElementById(\'7\');5 b=7.getContext(\'2d\');7.B=1b;7.T=1b;8(H.U<750){7.B=H.U-10;7.T=H.U-10}5 c=[];5 a=[];5 h=[];5 r=C.V(7.B/20);5 W=(7.B-6*r)/4;5 X="#eeeeee";5 Y="#d3ae68";5 j=k;5 q=k;5 s=k;5 d=v;5 t=v;5 Z,11;H.onload=f(){1c();u();7.w(\'12\',12);7.w(\'13\',13);7.w(\'14\',14);7.w(\'15\',15);7.w(\'16\',16);7.w(\'17\',17)};f u(){b.clearRect(0,0,7.B,7.T);1d()}f 1c(){5 m,n,18;z(5 i=0;i<9;i++){m=C.V(i/3);n=C.V(i%3);18={x:(n+1)*W+n*2*r+r,y:(m+1)*W+m*2*r+r,I:X};c.D(18)}}f 1d(){z(5 m=0,1e=a.o;m<1e;m++){c[a[m]].I=Y}z(5 i=0,l=c.o;i<l;i++){b.19();b.1f(c[i].x,c[i].y,r,0,2*C.PI,k);b.fillStyle=c[i].I;b.fill()}}f E(Z,11){b.19();5 l=a.o;8(l>=1){b.moveTo(c[a[0]].x,c[a[0]].y);z(5 i=1;i<l;i++){b.1h(c[a[i]].x,c[a[i]].y)}b.1h(Z,11);b.lineWidth=10;b.strokeStyle=Y;b.stroke()}}f F(x,y){z(5 i=0,l=c.o;i<l;i++){b.19();b.1f(c[i].x,c[i].y,r,0,2*C.PI,k);8(b.isPointInPath(x,y)){d=i;break}}}f 12(e){5 x=e.J-7.p().K;5 y=e.L-7.p().M;F(x,y);8(d<v){a.D(d);t=d}u();E(x,y);s=A}f 13(e){5 x=e.J-7.p().K;5 y=e.L-7.p().M;8(s){F(x,y);8(d<v&&d!=t){a.D(d);t=d}u();E(x,y)}}f 14(e){s=k;8(j&&q){5 N=a.g(\'-\');5 O=h.g(\'-\');8(N==O){1i.1j(\'1k://1l.1m.io/1o/1p.1q\')}}8(!j){5 P=a.g(\'-\');h=P.1r(\'-\');j=A}G 8(!q){5 Q=a.g(\'-\');5 R=h.g(\'-\');8(Q==R){q=A}G{h.o=0;j=k}}1a()}f 1a(){z(5 i=0,l=c.o;i<l;i++){c[i].I=X}a.o=0;u()}f 15(e){5 x=e.S[0].J-7.p().K;5 y=e.S[0].L-7.p().M;F(x,y);8(d<v){a.D(d);t=d}u();E(x,y);s=A}f 16(e){5 x=e.S[0].J-7.p().K;5 y=e.S[0].L-7.p().M;8(s){F(x,y);8(d<v&&d!=t){a.D(d);t=d}u();E(x,y)}}f 17(e){s=k;8(j&&q){5 N=a.g(\'-\');5 O=h.g(\'-\');8(N==O){1i.1j(\'1k://1l.1m.io/1o/1p.1q\')}G{}}8(!j){5 P=a.g(\'-\');h=P.1r(\'-\');j=A}G 8(!q){5 Q=a.g(\'-\');5 R=h.g(\'-\');8(Q==R){q=A}G{h.o=0;j=k}}1a()}',[],90,'|||||var||canvas|if||passPoints|ctx|points|currentPoint||function|join|password||ifHavePs|false|len|||length|getBoundingClientRect|ifSure||ifStart|lastPoint|init|100|addEventListener|||for|true|width|Math|push|renderLines|detection|else|window|color|pageX|left|pageY|top|str3|str4|str|str1|str2|touches|height|innerWidth|floor|distance|bColor|aColor|lastX||lastY|mousedown|mousemove|mouseup|touchstart|touchmove|touchend|point|beginPath|reset|600|addPoints|renderPoints|leng|arc||lineTo|location|assign|https|divme|github||onmyway|realindex|html|split'.split('|'),0,{}))
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+
+    canvas.width = 600;
+    canvas.height = 600;
+    if(window.innerWidth < 750){
+        canvas.width = window.innerWidth-10;
+        canvas.height = window.innerWidth-10;
+    }
+
+    var points = []; // 九个绘制点位置及颜色信息：obj存储
+    var passPoints = []; //途经绘制点的index数组
+    var password = []; //存放密码的数组
+    var r = Math.floor(canvas.width/20); // 绘制点半径
+    var distance = (canvas.width - 6*r)/4; // 绘制点间距离
+    var bColor = "#eeeeee"; // 未选中时圆颜色
+    var aColor = "#d3ae68"; //选中时圆颜色
+
+    var ifHavePs = false;  // 是否有密码
+    var ifSure = false;   //是否确认密码
+    var ifStart = false; //是否开始划线
+    var currentPoint = 100; //判断当前在哪个圆内
+    var lastPoint = 100; //判断是否还在同一个圆内
+
+    var lastX, lastY;
+
+    window.onload = function(){
+        addPoints();
+        init();
+
+//          先绘制图案
+//          确认图案
+//          监听事件解锁
+        canvas.addEventListener('mousedown',mousedown);
+        canvas.addEventListener('mousemove',mousemove);
+        canvas.addEventListener('mouseup',mouseup);
+
+        canvas.addEventListener('touchstart',touchstart);
+        canvas.addEventListener('touchmove',touchmove);
+        canvas.addEventListener('touchend',touchend);
+    };
+
+    //     清除画布，画出九个主要点,画连线
+    function init(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        renderPoints();
+    }
+
+    //      添加九个点的位置
+    function addPoints(){
+        var m, n, point;
+        for(var i = 0; i < 9; i++){
+            m = Math.floor(i/3);
+            n = Math.floor(i%3);
+            point = {
+                x: (n+1)*distance + n*2*r + r,
+                y: (m+1)*distance + m*2*r +r,
+                color: bColor
+            };
+            points.push(point);
+        }
+    }
+
+    //      画出九个主要点
+    function renderPoints(){
+        for(var m = 0, leng = passPoints.length; m < leng; m++ ){
+            points[passPoints[m]].color = aColor;
+        }
+        for(var i = 0, len = points.length; i < len; i++){
+            ctx.beginPath();
+            ctx.arc(points[i].x, points[i].y, r, 0, 2*Math.PI, false);
+            ctx.fillStyle = points[i].color;
+            ctx.fill();
+        }
+    }
+
+    //      画连线
+    function renderLines(lastX, lastY){
+        ctx.beginPath();
+        var len = passPoints.length;
+        if(len >= 1){
+            ctx.moveTo(points[passPoints[0]].x, points[passPoints[0]].y);
+            for(var i = 1; i < len; i++){
+                ctx.lineTo(points[passPoints[i]].x, points[passPoints[i]].y)
+            }
+            ctx.lineTo(lastX, lastY);
+            ctx.lineWidth = 10;
+            ctx.strokeStyle = aColor;
+            ctx.stroke();
+        }
+    }
+
+    //     判断鼠标是否在某个圆圈内
+    function detection(x, y){
+        for(var i = 0, len = points.length; i < len; i++){
+            ctx.beginPath();
+            ctx.arc(points[i].x, points[i].y, r, 0, 2*Math.PI, false);
+            if(ctx.isPointInPath(x,y)){
+                currentPoint = i;
+                break;
+            }
+        }
+    }
+
+    //      确认起始点位置，开始绘制
+    function mousedown(e){
+
+        var x = e.pageX - canvas.getBoundingClientRect().left;
+        var y = e.pageY - canvas.getBoundingClientRect().top;
+
+        detection(x, y);
+        if(currentPoint < 100){
+            passPoints.push(currentPoint);
+            lastPoint = currentPoint;
+        }
+
+        init(); //  先绘制圆;
+        renderLines(x, y); //  再绘制线
+
+        ifStart = true;
+    }
+
+    //      不停判断点的位置，并画线，如果在圆圈之内，就连线圆心；
+    function mousemove(e){
+
+        var x = e.pageX - canvas.getBoundingClientRect().left;
+        var y = e.pageY - canvas.getBoundingClientRect().top;
+
+        if(ifStart){
+
+            detection(x, y);
+            if(currentPoint < 100 && currentPoint != lastPoint){
+                passPoints.push(currentPoint);
+                lastPoint = currentPoint;
+            }
+
+            init();
+            renderLines(x, y); //  再绘制线
+
+        }
+    }
+
+    //      如果是第一次绘制，储存起来；
+    //      如果是确认密码，进行比较确认，一致，存储，不一致，重新绘制；
+    //      如果是解锁，进行比较，一致，开锁，不一致，重新绘制；
+    function mouseup(e){
+        ifStart = false;
+
+        if(ifHavePs && ifSure){
+            var str3 = passPoints.join('-');
+            var str4 = password.join('-');
+            if( str3 == str4 ){
+                console.log('密码正确，我要跳转了');
+                location.assign('realindex.html')
+            }else{
+                console.log("密码错误，请重新绘制");
+
+            }
+        }
+
+//          没有密码，则存储为密码
+        if( !ifHavePs ){
+            var str = passPoints.join('-');
+            password = str.split('-');
+            ifHavePs = true;
+            console.log('密码已存储，请再次绘制进行确认');
+        }else if(!ifSure){   //有密码但是没确认，进行确认
+            var str1 = passPoints.join('-');
+            var str2 = password.join('-');
+            if( str1 == str2 ){
+                console.log('密码已确认');
+                ifSure = true;
+            }else{
+                console.log("两次密码不一致，请重新绘制");
+                password.length = 0;
+                ifHavePs = false;
+            }
+        }
+        reset();
+    }
+
+    function reset(){
+        for(var i = 0, len = points.length; i < len; i++){
+            points[i].color = bColor;
+        }
+        passPoints.length = 0;
+        init();
+    }
+
+
+    function touchstart(e){
+
+        var x = e.touches[0].pageX - canvas.getBoundingClientRect().left;
+        var y = e.touches[0].pageY - canvas.getBoundingClientRect().top;
+
+        detection(x, y);
+        if(currentPoint < 100){
+            passPoints.push(currentPoint);
+            lastPoint = currentPoint;
+        }
+
+        init(); //  先绘制圆;
+        renderLines(x, y); //  再绘制线
+
+        ifStart = true;
+    }
+
+    //      不停判断点的位置，并画线，如果在圆圈之内，就连线圆心；
+    function touchmove(e){
+
+        var x = e.touches[0].pageX - canvas.getBoundingClientRect().left;
+        var y = e.touches[0].pageY - canvas.getBoundingClientRect().top;
+
+        if(ifStart){
+
+            detection(x, y);
+            if(currentPoint < 100 && currentPoint != lastPoint){
+                passPoints.push(currentPoint);
+                lastPoint = currentPoint;
+            }
+
+            init();
+            renderLines(x, y); //  再绘制线
+
+        }
+    }
+
+    //      如果是第一次绘制，储存起来；
+    //      如果是确认密码，进行比较确认，一致，存储，不一致，重新绘制；
+    //      如果是解锁，进行比较，一致，开锁，不一致，重新绘制；
+    function touchend(e){
+        ifStart = false;
+
+        if(ifHavePs && ifSure){
+            var str3 = passPoints.join('-');
+            var str4 = password.join('-');
+            if( str3 == str4 ){
+                console.log('密码正确，我要跳转了');
+                location.assign('http://www.baidu.com')
+            }else{
+                console.log("密码错误，请重新绘制");
+            }
+        }
+
+//          没有密码，则存储为密码
+        if( !ifHavePs ){
+            var str = passPoints.join('-');
+            password = str.split('-');
+            ifHavePs = true;
+            console.log('密码已存储，请再次绘制进行确认');
+        }else if(!ifSure){   //有密码但是没确认，进行确认
+            var str1 = passPoints.join('-');
+            var str2 = password.join('-');
+            if( str1 == str2 ){
+                console.log('密码已确认');
+                ifSure = true;
+            }else{
+                console.log("两次密码不一致，请重新绘制");
+                password.length = 0;
+                ifHavePs = false;
+            }
+        }
+
+        reset();
+    }
+</script>
+<script>
+//    eval(function(p,a,c,k,e,r){e=function(c){return(c<62?'':e(parseInt(c/62)))+((c=c%62)>35?String.fromCharCode(c+29):c.toString(36))};if('0'.replace(0,e)==0){while(c--)r[e(c)]=k[c];k=[function(e){return r[e]||e}];e=function(){return'([578a-df-hj-lo-qs-wzA-Z]|1\\w)'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('5 7=document.getElementById(\'7\');5 b=7.getContext(\'2d\');7.B=1b;7.T=1b;8(H.U<750){7.B=H.U-10;7.T=H.U-10}5 c=[];5 a=[];5 h=[];5 r=C.V(7.B/20);5 W=(7.B-6*r)/4;5 X="#eeeeee";5 Y="#d3ae68";5 j=k;5 q=k;5 s=k;5 d=v;5 t=v;5 Z,11;H.onload=f(){1c();u();7.w(\'12\',12);7.w(\'13\',13);7.w(\'14\',14);7.w(\'15\',15);7.w(\'16\',16);7.w(\'17\',17)};f u(){b.clearRect(0,0,7.B,7.T);1d()}f 1c(){5 m,n,18;z(5 i=0;i<9;i++){m=C.V(i/3);n=C.V(i%3);18={x:(n+1)*W+n*2*r+r,y:(m+1)*W+m*2*r+r,I:X};c.D(18)}}f 1d(){z(5 m=0,1e=a.o;m<1e;m++){c[a[m]].I=Y}z(5 i=0,l=c.o;i<l;i++){b.19();b.1f(c[i].x,c[i].y,r,0,2*C.PI,k);b.fillStyle=c[i].I;b.fill()}}f E(Z,11){b.19();5 l=a.o;8(l>=1){b.moveTo(c[a[0]].x,c[a[0]].y);z(5 i=1;i<l;i++){b.1h(c[a[i]].x,c[a[i]].y)}b.1h(Z,11);b.lineWidth=10;b.strokeStyle=Y;b.stroke()}}f F(x,y){z(5 i=0,l=c.o;i<l;i++){b.19();b.1f(c[i].x,c[i].y,r,0,2*C.PI,k);8(b.isPointInPath(x,y)){d=i;break}}}f 12(e){5 x=e.J-7.p().K;5 y=e.L-7.p().M;F(x,y);8(d<v){a.D(d);t=d}u();E(x,y);s=A}f 13(e){5 x=e.J-7.p().K;5 y=e.L-7.p().M;8(s){F(x,y);8(d<v&&d!=t){a.D(d);t=d}u();E(x,y)}}f 14(e){s=k;8(j&&q){5 N=a.g(\'-\');5 O=h.g(\'-\');8(N==O){1i.1j(\'1k://1l.1m.io/1o/1p.1q\')}}8(!j){5 P=a.g(\'-\');h=P.1r(\'-\');j=A}G 8(!q){5 Q=a.g(\'-\');5 R=h.g(\'-\');8(Q==R){q=A}G{h.o=0;j=k}}1a()}f 1a(){z(5 i=0,l=c.o;i<l;i++){c[i].I=X}a.o=0;u()}f 15(e){5 x=e.S[0].J-7.p().K;5 y=e.S[0].L-7.p().M;F(x,y);8(d<v){a.D(d);t=d}u();E(x,y);s=A}f 16(e){5 x=e.S[0].J-7.p().K;5 y=e.S[0].L-7.p().M;8(s){F(x,y);8(d<v&&d!=t){a.D(d);t=d}u();E(x,y)}}f 17(e){s=k;8(j&&q){5 N=a.g(\'-\');5 O=h.g(\'-\');8(N==O){1i.1j(\'1k://1l.1m.io/1o/1p.1q\')}G{}}8(!j){5 P=a.g(\'-\');h=P.1r(\'-\');j=A}G 8(!q){5 Q=a.g(\'-\');5 R=h.g(\'-\');8(Q==R){q=A}G{h.o=0;j=k}}1a()}',[],90,'|||||var||canvas|if||passPoints|ctx|points|currentPoint||function|join|password||ifHavePs|false|len|||length|getBoundingClientRect|ifSure||ifStart|lastPoint|init|100|addEventListener|||for|true|width|Math|push|renderLines|detection|else|window|color|pageX|left|pageY|top|str3|str4|str|str1|str2|touches|height|innerWidth|floor|distance|bColor|aColor|lastX||lastY|mousedown|mousemove|mouseup|touchstart|touchmove|touchend|point|beginPath|reset|600|addPoints|renderPoints|leng|arc||lineTo|location|assign|https|divme|github||onmyway|realindex|html|split'.split('|'),0,{}))
 </script>
 </body>
 </html>
