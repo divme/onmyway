@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <style>
+
+        div{
+            margin: 10px ;
+            text-align: center;
+        }
+        .input{
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 28px;
+            line-height: 28px;
+            background: #377cb8 url("./zylib/add-company-add.png") no-repeat 5px center;
+            color: #ffffff;
+            /* text-align: center; */
+            text-indent: 18px;
+            font-size: 12px;
+
+        }
+        .input input{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+
+        label {
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 14px;
+            background: #424242;
+            color: #ffffff;
+            text-align: center;
+            cursor: pointer;
+        }
+        #file {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <label for="file">选择文件</label>
+    <input type="file"  name="file" id="file">
+</div>
+
+<div>
+    <span class="input">
+        上传
+        <input type="file" value="上传" />
+    </span>
+</div>
+<script src = "http://10.25.23.131:8085/target/target-script-min.js#anonymous" ></script>
+</body>
+</html>

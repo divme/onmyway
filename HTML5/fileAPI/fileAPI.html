@@ -20,7 +20,8 @@
 <script>
     // 检测是否支持File API
     if (window.File && window.FileReader && window.FileList && window.Blob) {
-        $("#img_input").on("change", function(e){
+        // $("#img_input").on("change", function(e){
+        $("#img_input").change(function(e){
 
             var file = e.target.files[0]; //获取图片资源
 
@@ -43,6 +44,73 @@
         console.log('不支持');
     }
 
+</script>
+<script>
+    var tempForm = $('<form ></form>')
+    tempForm.attr('action',"/upload")
+    tempForm.attr('method','post')
+    tempForm.attr('enctype','multipart/form-data')
+    keel.uploadForm==tempForm;
+
+    var fileInput= document.createElement("input");
+    //$('<input type="file" name="file">');
+    fileInput=$(fileInput);
+    fileInput.attr("type","file");
+    fileInput.attr("name","file");
+    fileInput.attr("accept",this.file_types);
+    var thatComp=this;
+
+    var postParams={userId:keel.userId,uploadAuto: true}
+    for(var key in postParams){
+        var paramInput=$('<input type="hidden">');
+        paramInput.attr("name",key);
+        paramInput.attr("value",postParams[key]);
+        tempForm.append(paramInput);
+    }
+    tempForm.append(fileInput);
+    tempForm.css('display','none');
+
+    $(fileInput).change(function(event){
+        var files = event.target.files;
+        if(files&&files.length>0){
+            var fileInfoInput=$('<input type="hidden">');
+            fileInfoInput.attr("name","fileProperty");
+            var file=files[0];
+            var fileInfo={};
+            fileInfo.name=file.name;
+            fileInfo.id="html_upload_"+(new Date().getTime());
+            fileInfo.cid=fileInfo.id;
+            fileInfo.size=file.size;
+            fileInfo.type=file.type;
+            fileInfo.index=0;
+            fileInfo.percent=0;
+            fileInfo.isNew=true;
+            fileInfo.user=keel.userName;
+            fileInfo.state=-2;
+            fileInfoInput.attr("value",JSON.stringify([fileInfo]))
+            fileInfo.percent=100;
+            fileInfo.filestatus=-2;
+            thatComp.setFileCache(fileInfo);
+            $(fileInput).before(fileInfoInput);
+            var formData = new FormData($(this).parent()[0]);
+            var req = new XMLHttpRequest()
+            req.onreadystatechange = function(){
+                if (req.readyState === 4) {
+                    var  response  = JSON.parse(req.responseText)
+                    if (response.success) {
+                        fileInfo.filestatus=-4;
+                        thatComp.onUploadSuccess(fileInfo,req.responseText);
+                    } else {
+                        fileInfo.filestatus=-3;
+                        thatComp.onUploadError(fileInfo,500,"服务器异常");
+                    }
+                }
+            }
+            req.open('post', '/upload', true)
+            req.send(formData);
+        }
+    });
+    setTimeout
 </script>
 </body>
 </html>
