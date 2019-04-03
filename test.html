@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>test</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <style>
 
         div{
@@ -50,6 +51,29 @@
     </style>
 </head>
 <body>
+<style>
+    .demoSpan1:before, .demoSpan1:after {
+        content: '';
+        height: 2px;
+        width: 12px;
+        display: block;
+        background: #ea3939;
+        /* border-radius: 10px; */
+        /* -webkit-border-radius: 10px; */
+        -moz-border-radius: 10px;
+        position: absolute;
+        top: 5px;
+        left: 0px;
+    }
+    .demoSpan1:after {
+        height: 12px;
+        width: 2px;
+        top: 0;
+        left: 5px;
+    }
+</style>
+<span class="demoSpan1">
+</span>
 <div class="box">
     <label for="file">选择文件</label>
     <input type="file"  name="file" id="file">
@@ -61,6 +85,11 @@
         <input type="file" value="上传" />
     </span>
 </div>
-<script src = "http://10.25.23.131:8085/target/target-script-min.js#anonymous" ></script>
+<!--<script src = "http://10.25.23.131:8085/target/target-script-min.js#anonymous" ></script>-->
+<script src="zylib/vconsole.min.js"></script>
+<script>
+    var vConsole = new VConsole();
+    console.log('foo');
+</script>
 </body>
 </html>
