@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="white" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!--<script>!function(e){function t(a){if(i[a])return i[a].exports;var n=i[a]={exports:{},id:a,loaded:!1};return e[a].call(n.exports,n,n.exports,t),n.loaded=!0,n.exports}var i={};return t.m=e,t.c=i,t.p="",t(0)}([function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var i=window;t["default"]=i.flex=function(e,t){var a=e||100,n=t||1,r=i.document,o=navigator.userAgent,d=o.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i),l=o.match(/U3\/((\d+|\.){5,})/i),c=l&&parseInt(l[1].split(".").join(""),10)>=80,p=navigator.appVersion.match(/(iphone|ipad|ipod)/gi),s=i.devicePixelRatio||1;p||d&&d[1]>534||c||(s=1);var u=1/s,m=r.querySelector('meta[name="viewport"]');m||(m=r.createElement("meta"),m.setAttribute("name","viewport"),r.head.appendChild(m)),m.setAttribute("content","width=device-width,user-scalable=no,initial-scale="+u+",maximum-scale="+u+",minimum-scale="+u),r.documentElement.style.fontSize=a/2*s*n+"px"},e.exports=t["default"]}]);-->
+    <!--flex(100, 1);</script>-->
+    <!--<script>document.documentElement.style.fontSize = window.innerWidth/3.6 + 'px';</script>-->
+    <style>
+        *{margin:0;padding:0}
+        .layout{
+            position: relative;
+            width: 300px;
+            height:500px;
+            margin:20px auto;
+            box-sizing:border-box;
+            border:1px solid #424242;
+            overflow: hidden;
+        }
+        .header{
+            position: absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:36px;
+            line-height:36px;
+            color: #fff;
+            text-align: center;
+            background:#7fa9c3;
+        }
+        .menu{
+            width:300px;
+            height:500px;
+            background:rgba(0,153,136,.5);
+            transform: translate3d(-300px,0,0);
+            transition: transform .25s ease-in;
+        }
+        .layout:hover .menu{
+            transform:translate3d(0,0,0);
+            transition: transform .25s ease-out;
+        }
+
+
+        .box{
+            width:300px;
+            height:40px;
+            line-height:40px;
+            border:1px solid red;
+            margin:10px auto;
+            font-size:14px;
+        }
+        .span{
+            display: inline-block;
+            width:40px;
+            height:32px;
+            margin-left:10px;
+            background:#009988;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="layout">
+    <div class='menu'></div>
+    <div class='header'>header</div>
+</div>
+
+<div class="box">
+    <span>一二三四是谁</span> <div class="span"></div>
+</div>
+
+<script>
+    var box = document.querySelector(".box");
+    box.onmouseenter = function (){
+        console.log('over');
+    };
+    box.onmouseleave = function(){
+        console.log('out')
+    };
+</script>
+
+<script>
+    //    jquery validate
+    $(function(){
+        $.validator.setDefault({
+            debug: true,
+            errorElement: "p"
+        });
+        $.validator.addClassRules('num',{
+            required: true,
+            number: true
+        });
+        $.validator.addMethod("idcard", function (value, element) {
+            var isIDCard1=/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/;//(15位)
+            var isIDCard2=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;//(18位)
+            return this.optional(element) || (isIDCard1.test(value)) || (isIDCard2.test(value));
+        }, "请输入正确的身份证号");
+        $("#form").validate({
+            errorClass: "error",
+            errorElement: "p",
+            ignore: '.ignore',
+            onsubmit: true,
+            onfocusout: true,
+            onkeyup: true,
+            onclick: true,
+
+            rules: {
+                username: 'required',
+                password: {
+                    required: true,
+                    minlength: 5
+                }
+            },
+            messages: {
+                username: "请填写用户名",
+                password: {
+                    required: "请输入密码",
+                    minlength: "密码长度不能少于5位"
+                }
+            }
+        })
+    })
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

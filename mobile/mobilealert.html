@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MobileAlert</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="white" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .mobile-alert-box{
+            position: fixed;
+            width: 70%;
+            top: 40%;
+            left: 50%;
+            transform:translateX(-50%) translateY(-50%);
+            border-radius: 5px;
+            border: 1px solid #ea3939;
+            background: #fff;
+        }
+        .mobile-alert-title{
+            height: 40px;
+            line-height: 40px;
+            background: #ea3939;
+            color: #fff;
+            text-align: center;
+            font-weight: bold;
+        }
+        .mobile-alert-content{
+            display: flex;
+            align-items: center;
+            align-content: center;
+
+            min-height:  80px;
+            line-height: 1.6;
+            padding: 15px;
+        }
+        .mobile-alert-btns{
+
+        }
+        .mobile-alert-btns-sure{
+            width: 100px;
+            height: 32px;
+            line-height: 32px;
+            margin: 5px auto 10px;
+            border-radius: 5px;
+            background: #ea3939;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+   <div id="control">control</div>
+
+   <div id="mobile-alert-box" class="mobile-alert-box">
+       <div class="mobile-alert-title">mobile-alert-title</div>
+       <div class="mobile-alert-content">mobile-alert-content, 我大大赛蝴蝶湾红瓦房到一万也哇还我way诶挖佛我好尬有覅我也哦我挖的撒韩国第三亿欧网也五千元</div>
+       <div class="mobile-alert-btns">
+           <div class="mobile-alert-btns-sure">sure</div>
+       </div>
+   </div>
+
+   <script>
+       var  c = document.querySelector('#control');
+       var  m = document.getElementById('mobile-alert-box');
+       var ms = document.querySelector('.mobile-alert-btns-sure');
+       c.onclick =function(){
+            if(m.style.display == 'none'){
+                m.style.display = 'flex'
+            }else{
+                m.style.display = 'none'
+            }
+       }
+       ms.onclick = function(){
+           m.style.display = 'none';
+       }
+   </script>
+</body>
+</html>

@@ -2,9 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>canvas 图表</title>
+    <style>
+        *{margin:0;padding:0;}
+        #canvas{
+            display: block;
+            /*border: 1px dashed #424242;*/
+            margin: 10px auto;
+        }
+    </style>
 </head>
 <body>
+<canvas id="canvas"></canvas>
+<div id="main" style="background: #000;color: #fff;" >
+    <img  id="mainimg" src="" alt="">
+</div>
+<script>
+    var main = document.querySelector("#main");
+    var mainimg = document.querySelector("#mainimg");
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
 
+    canvas.width = 21;
+    canvas.height = 21;
+
+    //折线图
+    ctx.moveTo(0, 10);
+    ctx.lineTo(21, 10);
+
+    ctx.moveTo(10,0);
+    ctx.lineTo(10, 21);
+
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#fff';
+    ctx.stroke();
+
+    dataURL=canvas.toDataURL('image/png');
+
+    main.innerText = dataURL
+    mainimg.src= dataURL
+</script>
 </body>
 </html>
+
