@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/classic/theme-classic/resources/theme-classic-all.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/ext-all.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/packages/charts/classic/charts.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/packages/charts/classic/classic/resources/charts-all.css" rel="stylesheet" />
+    <script src="https://cdn.bootcss.com/vConsole/3.3.0/vconsole.min.js"></script>
+    <script>
+        var vConsole = new VConsole();</script>
+    <script type="text/javascript">
+        Ext.onReady(function() {
+            Ext.create('Ext.chart.PolarChart', {
+                renderTo: document.body,
+                width: 600,
+                height: 300,
+                store: {
+                    fields: ['name', 'g1'],
+                    data: [
+                        {"name": "Item-0", "g1": 57},
+                        {"name": "Item-1", "g1": 45},
+                        {"name": "Item-2", "g1": 67}
+                    ]
+                },
+
+                //configure the legend.
+                legend: {
+                    docked: 'bottom'
+                },
+
+                //describe the actual pie series.
+                series: [{
+                    type: 'pie',
+                    xField: 'g1',
+                    label: {
+                        field: 'name'
+                    },
+                    donut: 30 // increase or decrease for increasing or decreasing donut area in middle.
+                }]
+            });
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
