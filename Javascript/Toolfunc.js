@@ -1,3 +1,8 @@
+// 字符串方法
+// 数字方法：Math/format Number
+// 数组方法
+// 日期方法
+
 /*----------------------------------------------------------- 字符串方法--------------------------------------------------------------------*/
 //  反转字符串
 function reverseStr(str){
@@ -162,6 +167,17 @@ function formatTime(date, symbol){
     return [year, month, day].map(formatNumber).join(symbol) + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
+function updateTime() {
+    const date = new Date()
+    const hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
+    const minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
+    const seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
+    this.curTime = hours + ':' + minutes + ':' + seconds
+    const _this = this
+    setTimeout(function() {
+        _this.updateTime()
+    }, 1000)
+}
 
 
 /*----------------------------------------------------------- 数组方法--------------------------------------------------------------------*/

@@ -13,8 +13,17 @@
             margin: 0;
             padding: 0;
         }
+        @font-face {
+            font-family: 'siyuan';
+            src: url('./font/SourceHanSansCN.otf');
+        }
+        @font-face {
+            font-family: 'play';
+            src: url('./font/GenJyuuGothic-P.ttf');
+        }
         body{
             background: #f2f2f2;
+            font-family: 'siyuan';
         }
         img{
             display: block;
@@ -26,7 +35,7 @@
             height: 35px;
             line-height: 35px;
             margin: 0 auto;
-            font-size: 14px;
+            font-size: 16px;
             border-radius: 5px;
             border: 1px solid #ccc;
             background: #fff;
@@ -46,7 +55,7 @@
 <div id="main">
     <img src="404.png" alt="404error">
     <div class="btn">再试一次</div>
-    <p class="reason">可能原因：1.进程出错 2.网络信号弱 </br>3.找不到请求页面</p>
+    <p class="reason">可能原因：1.进程出错 2.网络信号弱,言之过早 </br>3.找不到请求页面</p>
 </div>
 </body>
 </html>

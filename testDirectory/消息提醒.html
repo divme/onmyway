@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    window.flag = true;
+    window.addEventListener('blur', onblurr);
+    function onblurr(){
+        setTimeout(function(){
+            window.timer = setInterval(function(){
+                 if(window.flag){
+                     document.title = '来消息了'
+                 }else{
+                     document.title ='title'
+                 }
+                 window.flag = !window.flag;
+            }, 100)
+        }, 1000)
+    }
+    window.addEventListener('focus', function(){
+        clearInterval(window.timer);
+    })
+</script>
+</body>
+</html>

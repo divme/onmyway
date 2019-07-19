@@ -7,9 +7,9 @@
         *{margin:0;padding:0;}
         #canvas{
             display: block;
-            border:1px dashed #424242;
+            /*border:1px dashed #424242;*/
             margin:10px auto;
-            box-shadow:0 0 20px #000 inset,0 0 15px #101010 ;
+            /*box-shadow:0 0 20px #000 inset,0 0 15px #101010 ;*/
         }
     </style>
 </head>
@@ -19,58 +19,58 @@
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
 
-      canvas.width = 1000;
-      canvas.height = 600;
+      canvas.width = 200;
+      canvas.height = 200;
 
 //折线图
-      ctx.moveTo(20, 20);
-      ctx.lineTo(20, 200);
-      ctx.lineTo(200, 200);
-
-      ctx.moveTo(200,200);
-      ctx.lineTo(190, 190);
-
-      ctx.moveTo(200,200);
-      ctx.lineTo(190,210);
-
-      ctx.moveTo(20,20);
-      ctx.lineTo(10, 30);
-
-      ctx.moveTo(20,20);
-      ctx.lineTo(30, 30);
-
-      ctx.moveTo(20,50);
-      ctx.lineTo(40, 150);
-      ctx.lineTo(60, 126);
-      ctx.lineTo(80, 35);
-      ctx.lineTo(100, 98);
-      ctx.lineTo(120, 98);
-      ctx.lineTo(140, 98);
-      ctx.lineTo(150, 98);
-      ctx.lineWidth = 1.0;
-      ctx.strokeStyle = '#424242';
-      ctx.stroke();
+//       ctx.moveTo(20, 20);
+//       ctx.lineTo(20, 200);
+//       ctx.lineTo(200, 200);
+//
+//       ctx.moveTo(200,200);
+//       ctx.lineTo(190, 190);
+//
+//       ctx.moveTo(200,200);
+//       ctx.lineTo(190,210);
+//
+//       ctx.moveTo(20,20);
+//       ctx.lineTo(10, 30);
+//
+//       ctx.moveTo(20,20);
+//       ctx.lineTo(30, 30);
+//
+//       ctx.moveTo(20,50);
+//       ctx.lineTo(40, 150);
+//       ctx.lineTo(60, 126);
+//       ctx.lineTo(80, 35);
+//       ctx.lineTo(100, 98);
+//       ctx.lineTo(120, 98);
+//       ctx.lineTo(140, 98);
+//       ctx.lineTo(150, 98);
+//       ctx.lineWidth = 1.0;
+//       ctx.strokeStyle = '#424242';
+//       ctx.stroke();
 
 //圆形比例图
       ctx.beginPath();
-      ctx.fillStyle="#f6f6f6";
-      ctx.arc(200, 350, 100, 0, Math.PI*2, true);
+      ctx.fillStyle="#02AEF1";
+      ctx.arc(100, 100, 50, 0, Math.PI*2, true);
       ctx.fill();
       ctx.closePath();
 
-      ctx.beginPath();
-      ctx.fillStyle="#d3ae68";
-      ctx.arc(200, 350, 100, 0, Math.PI*1.8, true);
-      ctx.lineTo(200,350);
-      ctx.fill();
-      ctx.closePath();
-
-      ctx.beginPath();
-      ctx.fillStyle="#657422";
-      ctx.arc(200, 350, 100,  Math.PI*1.8,Math.PI*1.5, true);
-      ctx.lineTo(200,350);
-      ctx.fill();
-      ctx.closePath();
+      // ctx.beginPath();
+      // ctx.fillStyle="#d3ae68";
+      // ctx.arc(200, 350, 100, 0, Math.PI*1.8, true);
+      // ctx.lineTo(200,350);
+      // ctx.fill();
+      // ctx.closePath();
+      //
+      // ctx.beginPath();
+      // ctx.fillStyle="#657422";
+      // ctx.arc(200, 350, 100,  Math.PI*1.8,Math.PI*1.5, true);
+      // ctx.lineTo(200,350);
+      // ctx.fill();
+      // ctx.closePath();
 
   </script>
 </body>

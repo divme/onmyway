@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>民生研报</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="white" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <style>
+        *{margin:0;padding:0;}
+        body{background:#fff;color:#424242}
+        #listContainer li{
+            padding:5px 15px;
+            border-bottom:1px solid #f6f6f6;
+        }
+        #listContainer li .title{
+            min-height:2em;
+            line-height:1.8em;
+            font-size:15px;
+            font-weight: bold;
+            color: #494949;
+        }
+        #listContainer li>p{
+            display: -webkit-flex;
+            display: flex;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            -webkit-align-items: flex-end;
+            align-items: flex-end;
+            height: 2em;
+            font-size: 13px;
+            margin: .1rem 0;
+            color: #555555;
+        }
+
+        .loading, .nomore{
+            height:50px;
+            line-height:50px;
+            text-align: center;
+            font-size:16px;
+            color: #f03838;
+        }
+
+        /*black*/
+        .black{
+            color: #ececf8;
+        }
+        #listContainer.black li{
+            border-bottom:1px solid #323232;
+        }
+        #listContainer.black li .title{
+            color: #ececf8;
+        }
+        #listContainer.black li>p{
+            color: #82869d;
+        }
+    </style>
+</head>
+<body>
+<ul id="listContainer">
+
+</ul>
+<script src="lib/jquery-2.0.0.min.js"></script>
+<script>
+    (function() {
+        var search = location.search.split("&");
+        if(search[0][0] == "?") {
+            search[0] = search[0].slice(1, search[0].length);
+        }
+        var i;
+        for( i in search) {
+            var pos = search[i].indexOf("=");
+            var key = search[i].slice(0, pos);
+            var value = search[i].slice(pos+1, search[i].length);
+            if(key == "color" && value=="black") {
+                $('body').css('background','#17182c');
+                $("#listContainer").addClass('black');
+            }
+            if(key == "color" && value=="red") {
+                $('body').css('background','#ffffff');
+                $("#listContainer").addClass('red');
+            }
+        }
+    })()
+</script>
+<script src="../../tlibs/ts_client.js"></script>
+<script src="../../tlibs/connect.js"></script>
+<script src="./lib/tdxsocket.js"></script>
+<script src="./lib/base64.min.js"></script>
+<script>
+    var info;
+    var realobj;
+    var page_num = 1;
+
+    !function query(){
+        __fwCallTql.send("MszqMobileStock:InfoFunction",[{
+            "CONTROLLER":"info",
+            "FUNCTION":"getInfoList",
+            "author":"",
+            "page_num": page_num,
+            "page_size":10
+        }],function(data) {
+            var infolist = JSON.parse(data);
+            info = infolist.info_list;
+//            info = [{
+//                info_author: "郑平,杨思睿",
+//                info_content: "JCAx44CB5Lia57up5aKe6ZW/56iz5a6a77ya5YWs5Y+45Y2K5",
+//                info_createtime: "",
+//                info_gpdm: "300170",
+//                info_id: 8887451,
+//                info_pubtime: "2017-10-20",
+//                info_title: "5rGJ5b6X5L+h5oGvKDMwMDE3MCnkvKDnu"
+//            },{}];
+            var len = info.length,
+                    i,
+                    cur,
+                    content,
+                    html = '';
+            for( i = 0; i < len; i++){
+                cur = info[i];
+                cur['info_title'] =  Base64.decode(cur['info_title']);
+                cur['info_content'] =  Base64.decode(cur['info_content']);
+                content = cur['info_content'].slice(0, 200)+'……';
+
+
+                html += "<li>" +
+                            "<div class='title'>"+info[i]['info_title']+"</div>" +
+                            "<p class='guide'><span>"+info[i]['info_author']+"</span><span>"+info[i]['info_pubtime']+"</span></p>"+
+//                            "<div class='special'>" + content + "</div>"+
+                       "</li>";
+            }
+            $('#listContainer').html(html);
+        });
+    }();
+
+    $(function(){
+        $('#listContainer').on('click','li',function(){
+            var info_index = $(this).index();
+            var obj = info[info_index];
+            var myurl = "reportDetail.html?" + obj.info_id;
+            var shareurl = "site/webApp/app/homepage/reportDetail.html?" + obj.info_id;
+            var shareInfo = {"Time": new Date().getTime().toString(), "ShareUrl":shareurl,"Title": obj.info_title, "Abstract": obj.info_content.substr(154,50)+"……", "ImageUrl":""};
+            realobj = JSON.stringify(obj);
+
+//            toCallJavaUrl('LocalURL', "研报详情", myurl,'','',shareInfo);
+            __webCallTql.send('tdxOpenUrl', {
+                "OpenName": "研报详情",
+                "OpenType": "native",
+                "OpenUrl": myurl,
+                "OpenParam": {
+                    "UrlType": "Relative",
+                    "WebViewType": "LocalURL"
+                },
+                "ShareInfo": shareInfo
+            }, function(){})
+        })
+    });
+
+    window.addEventListener('scroll',wscroll);
+    function wscroll(e){
+        if(document.body.clientHeight - window.innerHeight - document.body.scrollTop < 50){
+            window.removeEventListener('scroll',wscroll);
+            $('#listContainer').append("<div class='loading'>正在加载，请稍候……</div>");
+            page_num  += 1;
+            __fwCallTql.send("MszqMobileStock:InfoFunction",[{
+                "CONTROLLER":"info",
+                "FUNCTION":"getInfoList",
+                "author":"",
+                "page_num":page_num,
+                "page_size":10
+            }],function(data) {
+                var infolist = JSON.parse(data);
+                var currentInfo =  infolist.info_list;
+                info = info.concat(currentInfo);
+                var len = currentInfo.length,
+                        i,
+                        html = '';
+                if(len > 0){
+                    for( i = 0; i < len; i++){
+                        currentInfo[i]['info_title'] =  Base64.decode(currentInfo[i]['info_title']);
+                        currentInfo[i]['info_content'] =  Base64.decode(currentInfo[i]['info_content']);
+
+                        html += "<li>" +
+                                "<div  class='title'>"+currentInfo[i]['info_title']+"</div>" +
+                                "<p class='guide'><span>"+currentInfo[i]['info_author']+"</span><span>"+currentInfo[i]['info_pubtime']+"</span></p>" +
+                                "</li>";
+                    }
+                    $('.loading').remove();
+                    $('#listContainer').append(html);
+                    window.addEventListener('scroll', wscroll);
+                }else{
+                    $('.loading').remove();
+                    $('#listContainer').append("<div class='nomore'>没有更多内容了</div>");
+                }
+            });
+        }
+    }
+
+    tdxRefresh = function() {
+        window.location = window.location;
+    }
+    tdxActivity = function(){}
+</script>
+</body>
+</html>

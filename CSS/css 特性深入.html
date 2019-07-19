@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css 特性深入</title>
+</head>
+<body>
+
+<div class="group">
+    <span class="dot">正在加载中</span>
+</div>
+<style>
+    .dot{
+        display: inline-block;
+        width: 8em;
+        height: 1em;
+        line-height: 1;
+        text-align: left;
+        vertical-align: -.25em;
+        overflow: hidden;
+    }
+    .dot::after{
+        display: block;
+        margin-left: 5.2em;
+        content: '...\A..\A.';
+        white-space: pre-wrap;
+        animation: dot 1s infinite step-start both;
+    }
+    @keyframes dot{
+        33% { transform: translateY(-3em);}
+        66% { transform: translateY(-2em);}
+        99% { transform: translateY(-1em);}
+    }
+</style>
+
+<div class="group">
+    <div class="box">
+        <span class="item1">diyihang</span>
+        <span>diyihangdsdsdasad</span>
+    </div>
+
+</div>
+<style>
+    span::after{
+        /*content: '';*/
+        /*white-space: pre;*/
+    }
+    .box{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        font-size: 30px;
+        background: red;
+    }
+    .item1{
+        margin-right: 10px;
+    }
+    .item1:after{
+        content: '';
+    }
+</style>
+
+<div class="group">
+    <h2>首选最小宽度</h2>
+    <div class="minW"></div>
+</div>
+<style>
+    .minW{
+        display: inline-block;
+        width: 0
+    }
+
+    .minW::before {
+        content: "love uu love";
+        color: transparent;
+        outline: 2px solid #cd0000;
+    }
+
+    .minW:hover::before{
+        content: "uu love uu";
+        color: transparent;
+        outline: 2px solid #cd0000;
+    }
+</style>
+
+<div class="group">
+    <h2>height 百分比</h2>
+    <p>width/height 百分比, 都是相对父元素的 width height 进行计算</p>
+    <p>margin/padding 百分比，都是相对父元素的 width 进行计算</p>
+    <div class="height-parent">
+        <div class="height-child"></div>
+    </div>
+</div>
+<style>
+    .height-parent{
+        width: 300px;
+        height: 200px;
+        padding: 20px;
+        background: yellowgreen;
+    }
+    .height-child{
+        height: 50%;
+        background: #fff;
+    }
+</style>
+
+<div class="group">
+    <h2>padding 妙用</h2>
+    <p>padding 菜单隐藏项</p>
+    <div class="padding-show"></div>
+</div>
+<style>
+    .padding-show{
+        width: 20px;
+        height: 2px;
+        padding: 5px 0;
+        border-top: 2px solid #C7252A;
+        border-bottom: 2px solid #C7252A;
+        background: #C7252A;
+        background-clip: content-box;
+        transition: .2s;
+    }
+    .padding-show:hover{
+        width: 2px;
+        height: 20px;
+        padding: 0 5px;
+        border-top: none;
+        border-bottom: none;
+        border-left: 2px solid #C7252A;
+        border-right: 2px solid #C7252A;
+    }
+</style>
+</body>
+</html>
