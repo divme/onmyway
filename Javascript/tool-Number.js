@@ -6,6 +6,7 @@
 // 格式化金额
 // 数字类处理函数，支持 12.74 和 1,238,12.55 两种格式
 // 保留几位小数
+// todo
 function keepDecimals(num, n) {
     if (String(num).indexOf(',') > -1) {
         num = num.split(',').join('')
@@ -19,6 +20,7 @@ function keepDecimals(num, n) {
     n = (n || n === 0) ? n : 2
     return Number(num).toFixed(n)
 }
+// todo
 // 小数转化为百分比
 function toPercent(num, n) {
     if (String(num).indexOf(',') > -1) {
@@ -33,6 +35,7 @@ function toPercent(num, n) {
     n = (n || n === 0) ? n : 2
     return Number(num * 100).toFixed(n)
 }
+// todo
 // 百分比数字转化为小数
 function toDecimals(num, n) {
     if (String(num).indexOf(',') > -1) {
@@ -48,6 +51,7 @@ function toDecimals(num, n) {
     return Number(num / 100).toFixed(n)
 }
 // 小数加法
+// todo
 function addition(n, m) {
     if (isNaN(n) || isNaN(m) || n === null || m === null || n === '' || m === '') {
         return '--'
@@ -79,6 +83,50 @@ function parseNumber(str) {
         return num
     }
     return str
+}
+
+function isNumber(num) {
+    if (num === null || num === '' || typeof num === 'boolean') {
+        return ''
+    }
+    return !isNaN(Number(num))
+}
+
+/**
+ * 将数值四舍五入(保留2位小数)后格式化成金额形式
+ *
+ * @param num 数值(Number或者String)
+ * @return String --金额格式的字符串,如'1,234,567.45'
+ * @type
+ */
+function formatMoney(num, decimal) {
+    num = num.toString().replace(/\$|\,/g,'');
+    if(isNaN(num))
+        num = "0";
+    var sign = (num == (num = Math.abs(num)));
+    var cents = 0;
+    if(decimal > 0)
+    {
+        num = Math.floor(num*100+0.50000000001);
+        cents = num%100;
+        num = Math.floor(num/100).toString();
+        if(cents<10)
+            cents = "0" + cents;
+    }
+    else
+    {
+        num = num.toString();
+    }
+    for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+        num = num.substring(0,num.length-(4*i+3))+','+ num.substring(num.length-(4*i+3));
+
+    var result = ((sign)?'':'-') + num;
+    if(decimal > 0)
+    {
+        return (result + '.' + cents);
+    }
+
+    return result;
 }
 
 // -------------------------------------------------计算精度问题--------------------------------------------
