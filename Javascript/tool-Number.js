@@ -2,6 +2,10 @@
  * Created by Administrator on 2019/7/21 0021.
  */
 
+// 两个数字比较是否相等
+function ifEqual(n, m){
+    return Math.abs(n - m) < Number.EPSILON
+}
 
 // 格式化金额
 // 数字类处理函数，支持 12.74 和 1,238,12.55 两种格式
@@ -20,7 +24,6 @@ function keepDecimals(num, n) {
     n = (n || n === 0) ? n : 2
     return Number(num).toFixed(n)
 }
-// todo
 // 小数转化为百分比
 function toPercent(num, n) {
     if (String(num).indexOf(',') > -1) {
@@ -33,7 +36,7 @@ function toPercent(num, n) {
         return '--'
     }
     n = (n || n === 0) ? n : 2
-    return Number(num * 100).toFixed(n)
+    return Number(num * 100).toFixed(n) + '%'
 }
 // todo
 // 百分比数字转化为小数
@@ -85,8 +88,9 @@ function parseNumber(str) {
     return str
 }
 
+// 判断是否为数字
 function isNumber(num) {
-    if (num === null || num === '' || typeof num === 'boolean') {
+    if (num === null || num === '' || (typeof num !== 'string' && typeof num !== 'number')) {
         return ''
     }
     return !isNaN(Number(num))
@@ -134,23 +138,21 @@ function formatMoney(num, decimal) {
 //说明：javascript的除法结果会有误差，在两个浮点数相除的时候会比较明显。这个函数返回较为精确的除法结果。
 //调用：accDiv(arg1,arg2)
 //返回值：arg1除以arg2的精确结果
-function accDiv(arg1,arg2){
-    var t1=0,t2=0,r1,r2;
-    try{t1=arg1.toString().split(".")[1].length}catch(e){}
-    try{t2=arg2.toString().split(".")[1].length}catch(e){}
-    with(Math){
-        r1=Number(arg1.toString().replace(".",""))
-        r2=Number(arg2.toString().replace(".",""))
-        return (r1/r2)*pow(10,t2-t1);
-    }
+function div(arg1,arg2){
+    var t1 = 0, t2 = 0, r1, r2;
+    try {t1 = arg1.toString().split(".")[1].length} catch(e) { t1 = 0}
+    try {t2 = arg2.toString().split(".")[1].length} catch(e) { t2 = 0}
+    r1 = Number(arg1.toString().replace(".",""))
+    r2 = Number(arg2.toString().replace(".",""))
+    return (r1/r2)*Math.pow(10,t2-t1);
 }
 
 
 //乘法函数，用来得到精确的乘法结果
 //说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。
-//调用：accMul(arg1,arg2)
+//调用：mul(arg1,arg2)
 //返回值：arg1乘以arg2的精确结果
-function accMul(arg1,arg2)
+function mul(arg1,arg2)
 {
     var m=0,s1=arg1.toString(),s2=arg2.toString();
     try{m+=s1.split(".")[1].length}catch(e){}
@@ -158,22 +160,17 @@ function accMul(arg1,arg2)
     return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m)
 }
 
-
-//加法函数，用来得到精确的加法结果
-//说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。
-//调用：accAdd(arg1,arg2)
-//返回值：arg1加上arg2的精确结果
-function accAdd(arg1,arg2){
+// 加法
+function add(arg1,arg2){
     var r1,r2,m;
     try{r1=arg1.toString().split(".")[1].length}catch(e){r1=0}
     try{r2=arg2.toString().split(".")[1].length}catch(e){r2=0}
-    m=Math.pow(10,Math.max(r1,r2))
+    m = Math.pow(10, Math.max(r1,r2))
     return (arg1*m+arg2*m)/m
 }
 
-
-// 帖出减法的代码：
-function Subtr(arg1,arg2){
+// 减法：
+function subtr(arg1,arg2){
     var r1,r2,m,n;
     try{r1=arg1.toString().split(".")[1].length}catch(e){r1=0}
     try{r2=arg2.toString().split(".")[1].length}catch(e){r2=0}

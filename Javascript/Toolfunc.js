@@ -153,36 +153,10 @@ function factorialize(num){
     return result;
 }
 /*----------------------------------------------------------- 日期方法--------------------------------------------------------------------*/
-// 日期格式化： 年 月 日
-// 返回值为 2018/01/02 13:45:30
-function formatTime(date, symbol){
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
-
-    var hour = date.getHours();
-    var minute = date.getMinutes();
-    var second = date.getSeconds();
-
-    return [year, month, day].map(formatNumber).join(symbol) + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
-
-function updateTime() {
-    const date = new Date()
-    const hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
-    const minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-    const seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
-    this.curTime = hours + ':' + minutes + ':' + seconds
-    const _this = this
-    setTimeout(function() {
-        _this.updateTime()
-    }, 1000)
-}
 
 
-/*----------------------------------------------------------- 数组方法--------------------------------------------------------------------*/
-/*----------------------------------------------------------- 数组方法--------------------------------------------------------------------*/
-/*----------------------------------------------------------- 数组方法--------------------------------------------------------------------*/
+
+
 /*----------------------------------------------------------- 数组方法--------------------------------------------------------------------*/
 //    2.整形数组去重
 function deleteRepeatInArr(arr){
