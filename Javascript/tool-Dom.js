@@ -41,6 +41,7 @@ function getWindow(){
         height: h
     }
 }
+// 获取元素在可视区域的位置： el.getBoundingClientRect()
 //  获取元素在文档内的Y位置
 function getElePos(el){
     var pos = 0;

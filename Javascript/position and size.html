@@ -9,21 +9,21 @@
 				padding: 11px;
 				border: 4px solid;
 			}
-			.box {
+			.box{
 				position: relative;
 				/*position: absolute;*/
-				/*width: 500px;*/
-				height: 200px;
-				margin-top: 150px;
-				margin-left: 60px;
+				width: 300px;
+				height: 300px;
+				margin-top: 100px;
+				margin-left: 50px;
 				overflow-y: scroll;
 				border: 10px solid;
 			}
 			.position{
-				width:300px;
-				height:300px;
-				margin-top:800px;
-				margin-left:40px;
+				width: 300px;
+				height: 300px;
+				margin-top: 800px;
+				margin-left: 40px;
 				border: 10px solid #d96b6e;
 				background: rgb(245,245,245);
 			}
@@ -34,36 +34,60 @@
 				border: 10px solid;
 				margin: 40px auto;
 			}
-			#big{width:700px;height:1600px;background:rgba(255, 0, 0, .2);}
+			#placeholder{
+				width:700px;
+				height:1600px;
+				background:rgba(255, 0, 0, .2);
+			}
 		</style>
 	</head>
 	<body>
-		<div id="box" class="box">
+		<div id="scroll" class="box">
 			<div id="position" class="position">position</div>
 		</div>
-
-		<div id="size" class="size" >size</div>
-
-		<div id="big"></div>
+		<div id="normal" class="size">size</div>
+		<div id="placeholder"></div>
 
 		<!--原生js-->
 		<script>
-		    var box = document.getElementById("box");
+		    var scroll = document.getElementById("scroll");
 		    var position = document.getElementById("position");
+		    var normal = document.getElementById("normal");
+			var placeholder = document.getElementById("placeholder");
 
-			var big=document.getElementById("big");
+			scroll.addEventListener('click', function(e){
+				console.log(e)
+			})
+
 		console.group("原生javascript");
 		    console.group("视口大小: screen window html body");
-				console.log("screen availWidth:"+screen.availWidth);
-				console.log("screen availHeight:"+screen.availHeight);
-				console.log("screen width:"+screen.width);
-				console.log("screen height:"+screen.height);
+		        console.log('%cscreen.availWidth/availHeight: 除去任务栏的宽高','font-size:13px;font-weight: bold;color:#ff3838');
+				console.log("screen.availWidth:"+screen.availWidth);
+				console.log("screen.availHeight:"+screen.availHeight);
 
-				console.log("window innerWidth(包含滚动条):"+window.innerWidth);
-				console.log("window innerHeight(包含滚动条):"+window.innerHeight);
-			    console.log("window outerWidth:"+window.outerWidth);
-			    console.log("window outerHeight:"+window.outerHeight);
+				console.log('%cscreen.width/height: 屏幕的宽高','font-size:13px;font-weight: bold;color:#ff3838')
+				console.log("screen.width:"+screen.width);
+				console.log("screen.height:"+screen.height);
 
+				console.log('%cscreenTop/screenY: 浏览器距离屏幕顶端的高度','font-size:13px;font-weight: bold;color:#ff3838');
+				console.log('%cscreenLeft/screenX: 浏览器距离屏幕左边的长度','font-size:13px;font-weight: bold;color:#ff3838');
+				console.log('window.screenTop:' + window.screenTop);
+				console.log('window.screenY:' + window.screenY);
+				console.log('window.screenLeft:' + window.screenLeft);
+				console.log('window.screenX:' + window.screenX);
+
+			    console.log('%cwindow.innerWidth/innerHeight: 浏览器页面区域宽高','font-size:13px;font-weight: bold;color:#ff3838');
+			    console.log('%cwindow.outerWidth/outerHeight: 整个浏览器区域宽高','font-size:13px;font-weight: bold;color:#ff3838');
+			    console.log('有意思的一点：innerWidth已经包含滚动条，但是outerWidth会在innerWidth基础上再加一次滚动条的宽度')
+				console.log("window innerWidth(可用区域宽，包含滚动条):"+window.innerWidth);
+				console.log("window innerHeight(可用区域高，包含滚动条):"+window.innerHeight);
+			    console.log("window outerWidth(浏览器宽，包含滚动条):"+window.outerWidth);
+			    console.log("window outerHeight(浏览器高，包含滚动条):"+window.outerHeight);
+
+			    console.log('%chtml元素','font-size:13px;font-weight: bold;color:#ff3838');
+			    console.log('%cdocument.documentElement.clientWidth/clientHeight: 可视区域宽高','font-size:13px;font-weight: bold;color:#ff3838');
+			    console.log('%cdocument.documentElement.offsetWidth/offsetHeight: 可视区域宽，文档高','font-size:13px;font-weight: bold;color:#ff3838');
+			    console.log('%cdocument.documentElement.scrollWidth/scrollHeight: 文档宽高(含滚动区域)','font-size:13px;font-weight: bold;color:#ff3838');
 			    console.log("document.documentElement.clientWidth:"+document.documentElement.clientWidth);
 			    console.log("document.documentElement.clientHeight:"+document.documentElement.clientHeight);
 			    console.log("document.documentElement.offsetWidth:"+document.documentElement.offsetWidth);
@@ -71,50 +95,80 @@
 				console.log("document.documentElement.scrollWidth:"+document.documentElement.scrollWidth);
 				console.log("document.documentElement.scrollHeight:"+document.documentElement.scrollHeight);
 
-				console.log("从body开始正常，像一个正常元素一样");
-			    console.log("document.body.clientWidth(包含padding+可视content):"+document.body.clientWidth);
+				console.log("%cbody.clientWidth/offsetHeight: padding + content",'font-size:13px;font-weight: bold;color:#ff3838')
+				console.log("%cbody.offsetWidth/offsetHeight: border + padding + content",'font-size:13px;font-weight: bold;color:#ff3838')
+				console.log("%cbody.scrollWidth/scrollHeight: padding + content(content+滚动content)",'font-size:13px;font-weight: bold;color:#ff3838')
+			    console.log("document.body.clientWidth(padding+body content高度):"+document.body.clientWidth);
 			    console.log("document.body.clientHeight:"+document.body.clientHeight);
-				console.log("document.body.offsetWidth(包含border+padding+可视content):"+document.body.offsetWidth);
+				console.log("document.body.offsetWidth(border+padding+body content高度):"+document.body.offsetWidth);
 				console.log("document.body.offsetHeight:"+document.body.offsetHeight);
-				console.log("document.body.scrollWidth(包含padding+content):"+document.body.scrollWidth);
+				console.log("document.body.scrollWidth(padding+body content高度，含滚动):"+document.body.scrollWidth);
 				console.log("document.body.scrollHeight:"+document.body.scrollHeight);
 			console.groupEnd();
 
-			console.group("元素大小");
-			    console.log('宽高：200px; padding：20; border: 10; margin: 40 auto');
-			    console.log("clientWidth(包含padding+可视content):"+size.clientWidth);
-			    console.log("clientHeight:"+size.clientHeight);
-				console.log("offsetwidth(包含border+padding+可视content):"+size.offsetWidth);
-				console.log("offsetheight:"+size.offsetHeight);
-			    console.log("scrollWidth(包含padding+content):"+size.scrollWidth);
-			    console.log("scrollHeight:"+size.scrollHeight);
+			console.log("%celement.clientWidth/offsetHeight: padding + content",'font-size:13px;font-weight: bold;color:#ff3838')
+			console.log("%celement.offsetWidth/offsetHeight: border + padding + content",'font-size:13px;font-weight: bold;color:#ff3838')
+			console.log("%celement.scrollWidth/scrollHeight: padding + content(包含滚动content)",'font-size:13px;font-weight: bold;color:#ff3838')
+			console.group("size 正常元素大小");
+			    console.log('%csize宽高：200px; padding：20; border: 10; margin: 40 auto','font-size:13px;font-weight: bold;color:yellowgreen');
+			    console.log("clientWidth(包含padding+content):"+normal.clientWidth);
+			    console.log("clientHeight:"+normal.clientHeight);
+				console.log("offsetwidth(包含border+padding+content):"+normal.offsetWidth);
+				console.log("offsetheight:"+normal.offsetHeight);
+			    console.log("scrollWidth(包含padding+content):"+normal.scrollWidth);
+			    console.log("scrollHeight:"+normal.scrollHeight);
+			console.groupEnd();
+			console.group("box 内含滚动元素大小");
+			    scroll.scrollTo(45 ,300)
+				console.log('%cbox宽高：200px; padding：20; border: 10; margin: 40 auto','font-size:13px;font-weight: bold;color:yellowgreen');
+				console.log('position宽高：300px; padding：20; border: 10; margin: 800 auto auto 40');
+				console.log("clientWidth(padding+content):"+scroll.clientWidth);
+				console.log("clientHeight:"+scroll.clientHeight);
+				console.log("offsetwidth(border+padding+content):"+scroll.offsetWidth);
+				console.log("offsetheight:"+scroll.offsetHeight);
+				console.log("scrollWidth(padding+content(包含内部滚动区)):"+scroll.scrollWidth);
+				console.log("scrollHeight:"+scroll.scrollHeight);
 			console.groupEnd();
 
 			console.group("元素位置");
-				console.log("size.clientLeft(目前看就是border的宽度):"+size.clientLeft);
-				console.log("size.clientTop:"+size.clientTop);
+				console.log("normal.clientLeft(目前看就是border的宽度):"+normal.clientLeft);
+				console.log("normal.clientTop:"+normal.clientTop);
             	console.log("position.offsetLeft(到第一个定位父元素的左距离):"+position.offsetLeft);
             	console.log("position.offsetTop(到第一个定位父元素的上距离):"+position.offsetTop);
-				console.log("box.scrollLeft(box内部内容滚动的距离):"+box.scrollLeft);
-				console.log("box.scrollTop:"+box.scrollTop);
+				console.log("scroll.scrollLeft(box内部内容滚动的距离):"+scroll.scrollLeft);
+				console.log("scroll.scrollTop:"+scroll.scrollTop);
             console.groupEnd();
 
 			console.group("元素大小位置:getBoundingClientRect");
-				console.log("size.width(border+padding+content):"+size.getBoundingClientRect().width);
-				console.log("size.height:"+size.getBoundingClientRect().height);
-				console.log("position.left(直接到窗口的左右距离):"+position.getBoundingClientRect().left);
-				console.log("position.top(直接到窗口(不是文档)的上方距离):"+ position.getBoundingClientRect().top);
+				console.log("normal.width(border+padding+content):"+normal.getBoundingClientRect().width);
+				console.log("normal.height:"+normal.getBoundingClientRect().height);
+				console.log("scroll.top(元素顶部到可视区(不是文档)顶部的距离):"+ position.getBoundingClientRect().top);
+				console.log("scroll.bottom(元素顶部到可视区(不是文档)顶部的距离):"+ position.getBoundingClientRect().bottom);
+				console.log("scroll.left(元素左边到可视区(不是文档)左边界的距离):"+ position.getBoundingClientRect().left);
+				console.log("scroll.right(元素右边到可视区(不是文档)左边界的距离):"+ position.getBoundingClientRect().right);
+				console.log("position.left(直接到可视窗口左距离):"+position.getBoundingClientRect().left);
+				console.log("position.top(直接到可视窗口(不是文档)的上距离):"+ position.getBoundingClientRect().top);
 			console.groupEnd();
 
             console.group("窗口滚动高度");
-//	            window.onscroll=function(){
-	            	console.log("document.body.scrollTop:"+document.body.scrollTop);
-	            	console.log("document.documentElement.scrollTop:"+document.documentElement.scrollTop);
-	            	console.log("window.scrollY:"+window.scrollY);
-//	            };
+                console.log('window：scrollX scrollY scrollTo(绝对位置) scrollBy(相对位置)')
+				console.log("window.scrollY:"+window.scrollY);
+                console.log('其他元素，包括html body 和普通元素:')
+                console.log('scrollWidth scrollHeight scrollLeft scrollTol')
+                console.log('scrollTo(x, y)：绝对位置，元素内部滚动距离')
+                console.log('scrollBy(x, y): 相对位置，元素内部滚动距离')
+                console.log('scrollIntoView(): 无参，将元素滚动到可视区域内')
+                console.log('scrollIntoViewIfNeeded()：无参，将元素滚动到可视区域内；如果已经在可视区域，则不执行操作')
+				console.log("document.documentElement.scrollTop:"+document.documentElement.scrollTop);
+			    console.log("document.body.scrollTop:"+document.body.scrollTop);
             console.groupEnd();
         console.groupEnd();    
 		</script>
+
+		<!--判断页面是不是有滚动条-->
+		<!--window.innerWidth == document.documentElement.clientWidth-->
+		<!--window.innerHeight == document.documentElement.clientHeight-->
+
 
 
 		<!--jquery-->
@@ -143,9 +197,9 @@
 				console.log("body outerHeight:"+$('body').outerHeight());
 			console.groupEnd();
 			console.group("元素大小");
-				console.log("width()(content):"+$("#size").width());
-				console.log("innerWidth()(padding+content):"+$("#size").innerWidth());
-				console.log("outerWidth()(border+padding+content):"+$("#size").outerWidth());
+				console.log("width()(content):"+$("#normal").width());
+				console.log("innerWidth()(padding+content):"+$("#normal").innerWidth());
+				console.log("outerWidth()(border+padding+content):"+$("#normal").outerWidth());
 			console.groupEnd();
 			console.group("元素位置");
             	console.log("offset().left:"+$("#position").offset().left);
