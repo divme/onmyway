@@ -51,37 +51,30 @@ function getElePos(el){
     }
     // var pos = window.scrollY + el.getBoundingClientRect().top
     return pos;
-
 }
-//  获取鼠标点击位置（相对于文档的位置）
-function getMousePos(evt){
-    evt = evt||window.event;
-    var x = 0, y = 0;
+function getElePos2(el){
+    return window.scrollY + el.getBoundingClientRect().top
+}
 
-//        如果事件对象有pageX属性,对应firefox,opera,chrome,safari浏览器
-    if(evt.pageX){
-        x=evt.pageX;
-        y=evt.pageY;
-    }
-//        如果对象有clientX属性,对应IE浏览器
-    else if(evt.clientX){
-        var offsetX=0,offsetY=0;
-        //IE6及其以上版本
-        if(document.documentElement.scrollLeft){
-            offsetX=document.documentElement.scrollLeft;
-            offsetY=document.documentElement.scrollTop;
+// 获取当前浏览器支持的transform兼容写法
+function getTransform() {
+    var transform = '',
+        divStyle = document.createElement('div').style,
+        // 可能涉及到的几种兼容性写法，通过循环找出浏览器识别的那一个
+        transformArr = ['transform', 'webkitTransform', 'MozTransform', 'msTransform', 'OTransform'],
+
+        i = 0,
+        len = transformArr.length;
+
+    for(; i < len; i++)  {
+        if(transformArr[i] in divStyle) {
+            // 找到之后立即返回，结束函数
+            return transform = transformArr[i];
         }
-        //IE较旧的版本
-        else if(document.body){
-            offsetX=document.body.scrollLeft;
-            offsetY=document.body.scrollTop;
-        }
-        x=evt.clientX+offsetX;
-        y=evt.clientY+offsetY;
     }
-    console.log("you clicked at x="+evt.clientX+" y="+evt.clientY);
-    console.log("you clicked at x="+evt.screenX+" y="+evt.screenY);
-    console.log("you clicked at x="+evt.pageX+" y="+evt.pageY);
+
+    // 如果没有找到，就直接返回空字符串
+    return transform;
 }
 
 //  实现getElementByclass的功能

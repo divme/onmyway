@@ -16,6 +16,7 @@
 </ul>
 <div style="height:4000px"></div>
 <!--简单的防抖函数-->
+<h5>函数防抖（debounce）：当持续触发事件时，一定时间段内没有再触发事件，事件处理函数才会执行一次，如果设定的时间到来之前，又一次触发了事件，就重新开始延时。</h5>
 <script>
 //    function debounce(func, wait, immediate) {
 //        // 定时器变量
@@ -38,7 +39,7 @@
 </script>
 <!--封装过-->
 <script>
-    function debounce(func, wait, immediate) {
+    function _debounce(func, wait, immediate) {
         var timeout;
         return function() {
             var context = this, args = arguments;
@@ -48,8 +49,20 @@
             var callNow = immediate && !timeout;
             clearTimeout(timeout);
             timeout = setTimeout(later, wait);
-            if (callNow) func.apply(context, args);
+            if (callNow) later();
         };
+    }
+
+    function debounce(func, interval){
+        var timer = null
+        return function(){
+            var that = this
+            var arg = [].slice.call(arguments)
+            if (timer) clearTimeout(timer)
+            timer = setTimeout(function(){
+                func.apply(that, arg)
+            }, interval)
+        }
     }
 
     var myEfficientFn = debounce(function(e) {
@@ -61,9 +74,9 @@
     window.addEventListener('scroll', myEfficientFn);
 </script>
 
-<h5>事件节流：对于频繁触发而又没必要次次回应的事件，给个限制，减少触发次数P139</h5>
+<h5>函数节流（throttle）：当持续触发事件时，保证一定时间段内只调用一次事件处理函数。</h5>
 <script>
-    function throttle(fn, interval) {
+    function _throttle(fn, interval) {
         var doing = false;
 
         return function() {
@@ -71,10 +84,46 @@
                 return;
             }
             doing = true;
-            fn.apply(this, arguments);
+            var context = this, args = arguments;
+            fn.apply(context, args);
             setTimeout(function() {
                 doing = false;
             }, interval);
+        }
+    }
+    function throttle(fn, interval, isNow){
+        var first = true
+        var now = new Date();
+        return function(){
+            var that = this
+            var arg = [].slice.call(arguments)
+            var cur = new Date()
+            if (first && isNow) {
+                first = false
+                return fn.apply(that, arg)
+            }
+            if (cur - now >= interval) {
+                now = cur
+                fn.apply(that, arg)
+            }
+        }
+    }
+    function throttle2(fn, interval, isNow){
+        var first = true
+        var timer = null
+        return function(){
+            var that = this
+            var arg = [].slice.call(arguments)
+            if (first && isNow){
+                first = false
+                return fn.apply(that, arg)
+            }
+            if(!timer){
+                timer = setTimeout(function(){
+                    timer = null
+                    fn.apply(that, arg)
+                }, interval)
+            }
         }
     }
 
@@ -85,13 +134,6 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
 
 
 

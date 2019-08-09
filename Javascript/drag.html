@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>omo drag</title>
+</head>
+<body>
+
+<div class="drag"></div>
+<div class="drags"></div>
+<style>
+    .drag, .drags{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: yellowgreen;
+    }
+    .drags{
+        margin-top: 100px;
+        background: #f03838;
+    }
+</style>
+<script>
+    (function(){
+        function getTransform(){
+            var transformArr = ['transform', 'webkitTransform', 'MozTransform', 'msTransform', 'OTransform'];
+            var transform = ''
+            for(var i = 0, len = transformArr.length; i < len; i++){
+                if(transformArr[i] in document.documentElement.style){
+                    transform = transformArr[i]
+                    break
+                }
+            }
+            return transform
+        }
+        function getElstyle(el, prop){
+            return window.getComputedStyle(el)[prop] || el.currentStyle[prop]
+        }
+        function getElposIndoc(el){
+            var elpos = el.getBoundingClientRect()
+            var left = window.scrollX || document.documentElement.scrollLeft || document.body.scrollLeft
+            var top  = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop
+            var x = elpos.x + left,
+                y = elpos.y + top,
+                width = elpos.width,
+                height = elpos.height
+            return {
+                x: x,
+                y: y,
+                width: width,
+                height: height
+            }
+        }
+        // 构造函数
+        // 可以传入元素对象/选择器
+        function Drag(el){
+            this.el = typeof el === 'object'? el : document.querySelector(el)
+            this.mouseStartX = 0
+            this.mouseStartY = 0
+            this.elStartX = 0
+            this.elStartY = 0
+            this.init()
+        }
+        Drag.prototype = {
+            constructor: Drag,
+            transform : getTransform(),
+            init: function(){
+                this.listenEvent()
+            },
+            getInitPos: function(){
+                if (this.transform) {
+                    var transformStr = getElstyle(this.el, this.transform)
+                    var transformArr = transformStr.split(',')
+                    if (transformArr.length < 6) {
+                        return {
+                            x: 0,
+                            y: 0
+                        }
+                    } else {
+                        return {
+                            x: Number(transformArr[4]),
+                            y: Number(transformArr[5].slice(0, -1))
+                        }
+                    }
+                } else {
+                    if(getElstyle(this.el, 'position') === 'static'){
+                        this.el.style.position = 'relative'
+                    }
+                    return {
+                        x: getElstyle(this.el, 'left') === 'auto' ? 0 : Number(parseInt(getElstyle(this.el, 'left'))),
+                        y: getElstyle(this.el, 'top') === 'auto' ? 0 : Number(parseInt(getElstyle(this.el, 'top')))
+                    }
+                }
+            },
+            setPos: function(posObj){
+                if(this.transform){
+                    this.el.style.transform = 'translate(' + posObj.x +'px,' + posObj.y +'px)'
+                }else{
+                    this.el.style.left = posObj.x +'px'
+                    this.el.style.top = posObj.y +'px'
+                }
+            },
+            listenEvent: function(){
+                var that = this
+                this.el.addEventListener('mousedown', mousedown)
+                function mousedown(e){
+                    var curpos = that.getInitPos()
+                    that.elStartX = curpos.x;
+                    that.elStartY = curpos.y;
+
+                    that.mouseStartX = e.pageX;
+                    that.mouseStartY = e.pageY;
+
+                    document.addEventListener('mousemove', mousemove)
+                    document.addEventListener('mouseup', mouseup)
+                }
+                function mousemove(e){
+                    var curX = e.pageX,
+                        curY = e.pageY;
+                    var targetpos = {
+                        x: that.elStartX + curX - that.mouseStartX,
+                        y: that.elStartY + curY - that.mouseStartY
+                    }
+                    that.setPos(targetpos)
+                }
+                function mouseup(){
+                    document.removeEventListener('mousemove', mousemove)
+                    document.removeEventListener('mouseup', mouseup)
+                }
+            }
+        }
+        window.drag = Drag
+    })();
+    new drag('.drags');
+    (function(){
+        // 这是一个私有属性，不需要被实例访问
+        var transform = getTransform();
+
+        function Drag(selector) {
+            // 放在构造函数中的属性，都是属于每一个实例单独拥有
+            this.elem = typeof selector == 'Object' ? selector : document.querySelector(selector);
+            this.startX = 0;
+            this.startY = 0;
+            this.sourceX = 0;
+            this.sourceY = 0;
+
+            this.init();
+        }
+
+
+        // 原型
+        Drag.prototype = {
+            constructor: Drag,
+
+            init: function() {
+                // 初始时需要做些什么事情
+                this.setDrag();
+            },
+
+            // 稍作改造，仅用于获取当前元素的属性，类似于getName
+            getStyle: function(property) {
+                return document.defaultView.getComputedStyle ? document.defaultView.getComputedStyle(this.elem, false)[property] : this.elem.currentStyle[property];
+            },
+
+            // 用来获取当前元素的位置信息，注意与之前的不同之处
+            getPosition: function() {
+                var pos = {x: 0, y: 0};
+                if(transform) {
+                    var transformValue = this.getStyle(transform);
+                    if(transformValue == 'none') {
+                        this.elem.style[transform] = 'translate(0, 0)';
+                    } else {
+                        var temp = transformValue.match(/-?\d+/g);
+                        pos = {
+                            x: parseInt(temp[4].trim()),
+                            y: parseInt(temp[5].trim())
+                        }
+                    }
+                } else {
+                    if(this.getStyle('position') == 'static') {
+                        this.elem.style.position = 'relative';
+                    } else {
+                        pos = {
+                            x: parseInt(this.getStyle('left') ? this.getStyle('left') : 0),
+                            y: parseInt(this.getStyle('top') ? this.getStyle('top') : 0)
+                        }
+                    }
+                }
+
+                return pos;
+            },
+
+            // 用来设置当前元素的位置
+            setPostion: function(pos) {
+                if(transform) {
+                    this.elem.style[transform] = 'translate('+ pos.x +'px, '+ pos.y +'px)';
+                } else {
+                    this.elem.style.left = pos.x + 'px';
+                    this.elem.style.top = pos.y + 'px';
+                }
+            },
+
+            // 该方法用来绑定事件
+            setDrag: function() {
+                var self = this;
+                this.elem.addEventListener('mousedown', start, false);
+                function start(event) {
+                    self.startX = event.pageX;
+                    self.startY = event.pageY;
+
+                    var pos = self.getPosition();
+
+                    self.sourceX = pos.x;
+                    self.sourceY = pos.y;
+
+                    document.addEventListener('mousemove', move, false);
+                    document.addEventListener('mouseup', end, false);
+                }
+
+                function move(event) {
+                    var currentX = event.pageX;
+                    var currentY = event.pageY;
+
+                    var distanceX = currentX - self.startX;
+                    var distanceY = currentY - self.startY;
+
+                    self.setPostion({
+                        x: (self.sourceX + distanceX).toFixed(),
+                        y: (self.sourceY + distanceY).toFixed()
+                    })
+                }
+
+                function end(event) {
+                    document.removeEventListener('mousemove', move);
+                    document.removeEventListener('mouseup', end);
+                    // do other things
+                }
+            }
+        }
+
+        // 私有方法，仅仅用来获取transform的兼容写法
+        function getTransform() {
+            var transform = '',
+                divStyle = document.createElement('div').style,
+                transformArr = ['transform', 'webkitTransform', 'MozTransform', 'msTransform', 'OTransform'],
+
+                i = 0,
+                len = transformArr.length;
+
+            for(; i < len; i++)  {
+                if(transformArr[i] in divStyle) {
+                    return transform = transformArr[i];
+                }
+            }
+
+            return transform;
+        }
+
+        // 一种对外暴露的方式
+        window.Drag = Drag;
+    })();
+    new Drag('.drag');
+</script>
+<script>
+    // 拖拽实现
+    // 1. 获取 el 当前位置和位置范围
+    // 2. 鼠标按下后，获取鼠标位置，如果鼠标位置在 el 范围内，开始拖拽
+    // 3. 鼠标移动多少，el 就移动多少
+    //    el 的移动，优先使用 transform，如果浏览器不支持，则使用relative + top，left
+    //    以transform为例，使用方法如下：
+    //    1. 获取 el 的 transform 属性值，
+    //    2. 根据鼠标移动距离，设置 el 的 transform 属性值
+    function dragdrag(){
+        var drag = document.querySelector('.drag')
+        function getElposIndoc(el){
+            var elpos = el.getBoundingClientRect()
+            var left = window.scrollX || document.documentElement.scrollLeft || document.body.scrollLeft
+            var top  = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop
+            var x = elpos.x + left,
+                y = elpos.y + top,
+                width = elpos.width,
+                height = elpos.height
+            return {
+                x: x,
+                y: y,
+                width: width,
+                height: height
+            }
+        }
+        function getTransform(){
+            var transformArr = ['transform', 'webkitTransform', 'MozTransform', 'msTransform', 'OTransform'];
+            var prop = ''
+            for(var i = 0, len = transformArr.length; i < len; i++){
+                if(transformArr[i] in document.documentElement.style){
+                    prop = transformArr[i]
+                    break
+                }
+            }
+            return prop
+        }
+        function getPosStyle(){
+            var trans = getTransform()
+            if (trans) {
+                var transform = getElstyle(drag, trans)
+                var transformArr = transform.split(',')
+                if (transformArr.length < 6) {
+                    return {
+                        x: 0,
+                        y: 0
+                    }
+                } else {
+                    return {
+                        x: Number(transformArr[4]),
+                        y: Number(transformArr[5].slice(0, -1))
+                    }
+                }
+            } else {
+                if(getElstyle(drag, 'position') === 'static'){
+                    drag.style.position = 'relative'
+                }
+                return {
+                    x: getElstyle(drag, 'left') === 'auto' ? 0 : Number(parseInt(getElstyle(drag, 'left'))),
+                    y: getElstyle(drag, 'top') === 'auto' ? 0 : Number(parseInt(getElstyle(drag, 'top')))
+                }
+            }
+        }
+        function setPosStyle(el, posObj){
+            if(getTransform()){
+                el.style.transform = 'translate(' + posObj.x +'px,' + posObj.y +'px)'
+            }else{
+                el.style.left = posObj.x +'px'
+                el.style.top = posObj.y +'px'
+            }
+        }
+
+        var mouseStartX = null,
+            mouseStartY = null;
+        var elStartX = null,
+            elStartY = null;
+        document.addEventListener('mousedown', mousedown)
+        function mousedown(e){
+            var curDrag = getElposIndoc(drag)
+            var curpos = getPosStyle()
+            if(e.pageX > curDrag.x && e.pageX < curDrag.x+curDrag.width && e.pageY > curDrag.y && e.pageY < curDrag.y+curDrag.height){
+                mouseStartX = e.pageX;
+                mouseStartY = e.pageY;
+                elStartX = curpos.x;
+                elStartY = curpos.y;
+                document.addEventListener('mousemove', mousemove)
+                document.addEventListener('mouseup', mouseup)
+            }
+        }
+        function mousemove(e){
+            var curX = e.pageX,
+                curY = e.pageY;
+            var targetpos = {
+                x: elStartX + curX - mouseStartX,
+                y: elStartY + curY - mouseStartY
+            }
+            setPosStyle(drag, targetpos)
+        }
+        function mouseup(){
+            document.removeEventListener('mousemove', mousemove)
+        }
+    }
+</script>
+</body>
+</html>
