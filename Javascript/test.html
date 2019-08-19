@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function curryFunc(func, arg){
+        var total = func.length;
+        var args = arg || [];
+        var realCurry = function(){
+            debugger
+            var realarg = [].slice.call(arguments);
+            // 如果参数这样写，会形成必报，args 会累加，柯里化后的函数只有初次使用才成功
+            args = args.concat(realarg)
+            // [].push.apply(realarg, args);
+            // 因为是确定参数数量，数量不足，说明后面还有参数要传递进来，所以，继续返回一个函数
+            // 如果参数数量到达要求了，那么就调用原函数
+            if (args.length < total){
+                return curryFunc.call(null, func, args)
+            } else {
+                return func.apply(null, realarg)
+            }
+        }
+        return realCurry
+    }
+
+    function add(x, y, n){
+        return x+y+n
+    }
+    var adder = curryFunc(add)
+    // console.log(adder(1,2,3))
+    // console.log(adder(1,2)(4))
+    // console.log(adder(1)(2,5))
+</script>
+</body>
+</html>

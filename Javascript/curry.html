@@ -18,7 +18,7 @@
         var args = arg || [];
         var realCurry = function(){
             var realarg = [].slice.call(arguments);
-            // 如果参数这样写，会形成必报，args 会累加，柯里化后的函数只有初次使用才成功
+            // 如果参数这样写，会形成闭包，args 会累加，柯里化后的函数只有初次使用才成功
             // args = args.concat(realarg)
             [].push.apply(realarg, args);
             // 因为是确定参数数量，数量不足，说明后面还有参数要传递进来，所以，继续返回一个函数
@@ -31,22 +31,23 @@
         }
         return realCurry
     }
+
     function add(x, y, n){
         return x+y+n
     }
-    function mul(x, y, m){
-        return x*y*m
-    }
     var adder = curryFunc(add)
-    var muler = curryFunc(mul)
-
     console.log(adder(1,2,3))
     console.log(adder(1,2)(4))
     console.log(adder(1)(2,5))
 
-    console.log(muler(1,2,3))
-    console.log(muler(1,2)(4))
-    console.log(muler(1)(2,5))
+
+    // function mul(x, y, m){
+    //     return x*y*m
+    // }
+    // var muler = curryFunc(mul)
+    // console.log(muler(1,2,3))
+    // console.log(muler(1,2)(4))
+    // console.log(muler(1)(2,5))
 
 
 
