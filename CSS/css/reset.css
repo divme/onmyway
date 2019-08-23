@@ -25,7 +25,9 @@ body::-webkit-scrollbar-thumb {
     button:focus{border:none;outline:none;}
     a{color:#424242;text-decoration: none}
     a:hover{color:#424242;text-decoration: none}
-    ul,li{list-style: none}
+    ul,li{
+        list-style: none
+    }
     img{border:none;outline:none;vertical-align: middle;}
 }
 /*表格元素reset*/
