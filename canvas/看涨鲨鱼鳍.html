@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="white" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>看涨鲨鱼鳍</title>
+    <script>
+        var initWidth = 0;
+        if(document.documentElement.clientWidth > 100){
+            initWidth = document.documentElement.clientWidth;
+        }else{
+            initWidth = Math.max(window.innerWidth, screen.availWidth);
+            initWidth = initWidth > 10? initWidth : 360;
+        }
+
+        document.documentElement.style.fontSize = initWidth / 3.75 + 'px'
+    </script>
+    <style>
+        *{margin:0;padding:0;}
+        body{
+            background: #0d1416;
+        }
+        .canvas-box{
+            width: 3.6rem;
+            height: 2.5rem;
+            margin: 10px auto;
+            text-align: center;
+        }
+        #canvas{
+            /*border: 1px solid #ccc;*/
+        }
+    </style>
+</head>
+<body>
+<div class="canvas-box">
+    <canvas id="canvas"></canvas>
+</div>
+<script>
+    var data = [
+        [95, -0.5],
+        [100, -0.5],
+        [105, -0.5],
+        [110, 4.5]
+    ]
+    var splitX = 3
+    var splitY = 10
+
+    data[data.length -1][2] - data[data.length ]
+    var cbox = document.querySelector('.canvas-box')
+    function getStyle(ele, property){
+        return ele.currentStyle?ele.currentStyle[property]:document.defaultView.getComputedStyle(ele, false)[property];
+    }
+</script>
+<script>
+    var canvas = document.getElementById('canvas')
+    var ctx = canvas.getContext('2d')
+
+    var width = parseInt(getStyle(cbox, 'width'))
+    var height = parseInt(getStyle(cbox, 'height'))
+    canvas.width = 300
+    canvas.height = 250
+
+    var availWidth = 250
+
+    var color = '#a3a3a3'
+    var red = '#ff3838'
+
+    function renderLine(ctx, data){
+        if(data.length < 2) return
+        ctx.moveTo(data[0][0], data[0][1])
+        for(var i = 1, len = data.length; i< len; i++){
+             ctx.lineTo(data[i][0], data[i][1])
+        }
+    }
+
+    // 起点
+    // (100, 200)
+    var point = [100, 200]
+    //折线图
+    // y轴
+    ctx.beginPath()
+    renderLine(ctx, [
+        [point[0], 0],
+        [point[0], canvas.height]
+    ])
+    ctx.moveTo(point[0] - 5, 5)
+    ctx.lineTo(point[0], 0)
+
+    ctx.moveTo(point[0] + 5, 5)
+    ctx.lineTo(point[0], 0)
+
+    // x轴
+    renderLine(ctx, [
+        [0, point[1]],
+        [canvas.width, point[1]]
+    ])
+    ctx.moveTo(canvas.width - 5, point[1] - 5)
+    ctx.lineTo(canvas.width, point[1])
+
+    ctx.moveTo(canvas.width - 5, point[1] + 5)
+    ctx.lineTo(canvas.width, point[1])
+
+    // 坐标点： 60 200
+    ctx.strokeStyle = color;
+    ctx.stroke();
+    ctx.closePath()
+
+    ctx.beginPath()
+    // 根据数据折线图
+    ctx.moveTo(50, 220)
+    ctx.lineTo(100, 220)
+    ctx.lineTo(150, 220)
+    ctx.lineTo(200, 60)
+    ctx.moveTo(200, 150)
+    ctx.lineTo(300, 150)
+
+    ctx.strokeStyle = red;
+    ctx.stroke();
+    ctx.closePath()
+
+</script>
+</body>
+</html>
+
