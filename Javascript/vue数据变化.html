@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue监听数据</title>
+</head>
+<body>
+<div id="zy"></div>
+<div onClick="dd()" style="width: 100px;
+height: 100px;background: #000">btn</div>
+<script>
+    var vm = new Vue({
+        el: '#zy',
+        data: {
+
+        }
+    })
+    function Vue(option){
+        var el = option.el
+        var data = option.data
+
+        this.data = data
+        this.el = document.querySelector(el)
+
+        observe(data, this)
+        compile(el)
+    }
+    function observe(data, vm){
+        data.forEach(function(prop){
+            define(prop, vm)
+        })
+    }
+    function define(prop, vm){
+        var dep = new Dep()
+        Object.defineProperty(vm, prop, {
+            get: function(){
+//                dep.target 是一个被监听的实例
+                if(dep.target) dep.addsub(dep.target)
+                return val
+            },
+            set: function(newval){
+                dep.notify()
+                val = newval
+            }
+        })
+    }
+
+    function Dep(){
+        this.subs = []
+    }
+    Dep.prototype = {
+        addSub: function(sub){
+           this.subs.push(sub)
+        },
+        notify: function(){
+           this.subs.forEach(function(sub){
+               sub.update()
+           })
+        }
+    }
+
+    function Watcher(){
+        dep.target = this
+        this.nodeType = nodeType
+        this.node = node
+        this.key = key
+        dep.target = null
+    }
+    Watcher.prototype = {
+
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="text">
+    {{ text }}
+</div>
+
+<script type="text/javascript">
+    //监视者
+    function observe(obj, vm){
+        Object.keys(obj).forEach(function (key) {
+            defineReactive(vm, key, obj[key]);
+        })
+    };
+    function defineReactive(obj, key, val){
+        console.log('observe:defineReactive');
+        var dep = new Dep();
+        console.log(dep);
+        //obj:vue实例vm（被操作的目标对象），key要定义or要修改的属性名
+        Object.defineProperty(obj, key,{
+            get : function (){
+                console.log('gettttttttt!');
+                console.log(Dep.target);
+                if(Dep.target)
+                    dep.addSub(Dep.target)
+                return val;
+            },
+            set : function (newVal){
+                console.log('set!!!!!!!!!!!!!!!!');
+                if(newVal === val) return;
+                val = newVal;
+                dep.notify();
+            }
+        });
+    }
+
+    //订阅器
+    function Dep (){
+        this.subs = [];
+        console.log('dep');
+    }
+    Dep.prototype =  {
+        addSub: function(sub){
+            console.log('addToDep')
+            this.subs.push(sub);
+        },
+        notify: function(){
+            this.subs.forEach(function(sub){
+                sub.update();  //通知watch去update
+            });
+        }
+
+    }
+
+    /**
+     * [Watcher 订阅者]
+     * @param {[type]} vm       [vue实例对象]
+     * @param {[type]} node     [含有v指令的节点]
+     * @param {[type]} name     [description]
+     * @param {[type]} nodeType [description]
+     */
+    function Watcher (vm, node, name, nodeType) {
+        console.log('watcher');
+        console.log(this);
+        //Dep target是Dep和watcher关联的唯一桥梁
+        Dep.target = this;
+        /**
+         * 关于Dep.target: 是一个全局变量，保存了当前的watcher
+         * wathcer构造函数中，为Dep.target赋值后会通过watcher.update()方法去调用observe.get()
+         * 在observer.get()方法中就是根据Dep.target来把当前watcher加入到订阅器Dep中
+         * 所以在把wathcer加入完Dep后,Dep.target就没有用了，所以在this.update()后面要把Dep.watcher设为null
+         */
+        this.name = name;
+        this.node = node;
+        this.vm = vm;
+        this.nodeType = nodeType;
+        this.update();
+        Dep.target = null;
+    }
+    Watcher.prototype = {
+        //更新视图上的值，{{ value }}
+        update: function () {
+            this.get();
+            if (this.nodeType == 'text') {
+                this.node.nodeValue = this.value;
+            }
+            if (this.nodeType == 'input') {
+                this.node.value = this.value;
+            }
+        },
+        // 获取 data 中的属性值
+        get: function () {
+            this.value = this.vm[this.name]; // 触发相应属性的 get
+        }
+    }
+
+
+    //解析器
+    //node：劫持的dom， vm:vue实例
+    function compile (node, vm) {
+        console.log('compile-----start');
+        var reg = /\{\{(.*)\}\}/;
+        if(node.nodeType === 1)  //元素，查找v-modal绑定的属性值
+        {
+            var attr = node.attributes;
+            for(var i = 0; i < attr.length; i++){
+                if(attr[i].nodeName == 'v-model'){
+                    var name = attr[i].nodeValue; //v-model的属性名
+                    node.addEventListener('input', function(e){
+                        console.log('检测到值改变：'+e.target.value);
+                        vm[name] = e.target.value; //给相应的 data 属性赋值，进而触发该属性的 set 方法
+                    });
+                    node.value = vm[name];  //把vue对应属性名的值赋给节点,触发get方法,vm.data[name]不会触发get方法，但是vm[name]会触发get方法！！
+                    node.removeAttribute('v-model');  //为什么要删除v-model？
+                }
+            }
+            new Watcher(vm, node, name, 'input'); //通知watcher去修改？
+        }
+        if(node.nodeType === 3){
+            if (reg.test(node.nodeValue)) {
+                var name = RegExp.$1; // 获取匹配到的字符串
+                name = name.trim();
+                new Watcher(vm, node, name, 'text');
+            }
+        }
+        console.log('compile-----end');
+    }
+    function nodeToFragment(node, vm){
+        console.log('nodeToFragment---start');
+        var flag = document.createDocumentFragment();
+        var child;
+        //console.log(node.childNodes); // length : 5
+        while (child = node.firstChild){
+            compile(child, vm); //把劫持的child给compile解析
+            flag.appendChild(child);
+        }
+        //console.log(node.childNodes);  // length : 0
+        console.log('nodeToFragment------end')
+        return flag;
+    }
+    function Vue(options){
+        console.log(this); //this是指向实例对象
+        this.data = options.data;
+        var data = this.data;
+        observe(data, this);
+        var id = options.el;
+        var dom = nodeToFragment(document.getElementById(id), this);
+        document.getElementById(id).appendChild(dom);
+    }
+
+    var vm = new Vue({
+        el: 'app',
+        data:{
+            text:'hello world'
+        }
+    })
+</script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>监听订阅模式</title>
+</head>
+<body>
+<div id="omo">
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div3"></div>
+    <div class="div4"></div>
+</div>
+<style>
+    #omo{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    #omo div{
+        width: 100px;
+        height: 100px;
+    }
+    .div1{
+        background: pink;
+    }
+    .div2{
+        background: yellow;
+    }
+    .div3{
+        background: yellowgreen;
+    }
+    .div4{
+        background: hotpink;
+    }
+</style>
+<script>
+    var omo = document.querySelector('#omo')
+    var div1 = document.querySelector('.div1')
+    var div2 = document.querySelector('.div2')
+    var div3 = document.querySelector('.div3')
+    var div4 = document.querySelector('.div4')
+
+    div1.addEventListener('click', function(){
+        div2.emit('dd')
+    })
+    div2.addEventListener('dd', function(){
+        alert(124)
+    })
+</script>
+</body>
+</html>
