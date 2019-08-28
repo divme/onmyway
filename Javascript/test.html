@@ -25,14 +25,26 @@
         }
         return realCurry
     }
-
-    function add(x, y, n){
-        return x+y+n
+    function curry0(fn, arr){
+        var args = arr || []
+        var temp = function(){
+            var arg = Array.prototype.slice.call(arguments)
+            var realarg = arg.concat(args)
+            arguments.callee.toString = function(){
+                return fn.apply(null, realarg)
+            }
+            return curry0(fn, realarg)
+        }
+        return temp
     }
-    var adder = curryFunc(add)
-    // console.log(adder(1,2,3))
-    // console.log(adder(1,2)(4))
-    // console.log(adder(1)(2,5))
+    function sd(){
+        var result = 0
+        for(var i = 0, len= arguments.length; i < len; i++){
+            result += arguments[i]
+        }
+        return result
+    }
+    var sdr = curry0(sd)
 </script>
 </body>
 </html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>防抖与节流</title>
+    <style>
+        *{margin:0;padding:0}
+    </style>
+</head>
+<body>
+<ul>
+    <li>监听事件，进去就移除，处理完再添加监听事件；</li>
+    <li>滚动事件，已进入清除滚动定时器，直到滚动停止达到延迟时间之上，重启滚动事件</li>
+    <li>resize时，就设置延迟定时器，停止后重启resize事件</li>
+    <li></li>
+</ul>
+<div style="height:4000px"></div>
+<!--简单的防抖函数-->
+<h5>函数防抖（debounce）：当持续触发事件时，一定时间段内没有再触发事件，事件处理函数才会执行一次，如果设定的时间到来之前，又一次触发了事件，就重新开始延时。</h5>
+<script>
+//    function debounce(func, wait, immediate) {
+//        // 定时器变量
+//        var timeout;
+//        return function() {
+//            // 每次触发 scroll handler 时先清除定时器
+//            clearTimeout(timeout);
+//            // 指定 xx ms 后触发真正想进行的操作 handler
+//            timeout = setTimeout(func, wait);
+//        };
+//    }
+//
+//    // 实际想绑定在 scroll 事件上的 handler
+//    function realFunc(){
+//        console.log("Success");
+//    }
+
+    // 采用了防抖动
+//    window.addEventListener('scroll',debounce(realFunc,500));
+</script>
+<!--封装过-->
+<script>
+    function _debounce(func, wait, immediate) {
+        var timeout;
+        return function() {
+            var context = this, args = arguments;
+            var later = function() {
+                 func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) later();
+        };
+    }
+
+    function debounce(func, interval){
+        var timer = null
+        return function(){
+            var that = this
+            var arg = [].slice.call(arguments)
+            if (timer) clearTimeout(timer)
+            timer = setTimeout(function(){
+                func.apply(that, arg)
+            }, interval)
+        }
+    }
+
+    var myEfficientFn = debounce(function(e) {
+        // 滚动中的真正的操作
+        console.log('scroll');
+    }, 250, true);
+
+    // 绑定监听
+    window.addEventListener('scroll', myEfficientFn);
+</script>
+
+<h5>函数节流（throttle）：当持续触发事件时，保证一定时间段内只调用一次事件处理函数。</h5>
+<script>
+    function _throttle(fn, interval) {
+        var doing = false;
+
+        return function() {
+            if (doing) {
+                return;
+            }
+            doing = true;
+            var context = this, args = arguments;
+            fn.apply(context, args);
+            setTimeout(function() {
+                doing = false;
+            }, interval);
+        }
+    }
+    function throttle(fn, interval, isNow){
+        var first = true
+        var now = new Date();
+        return function(){
+            var that = this
+            var arg = [].slice.call(arguments)
+            var cur = new Date()
+            if (first && isNow) {
+                first = false
+                return fn.apply(that, arg)
+            }
+            if (cur - now >= interval) {
+                now = cur
+                fn.apply(that, arg)
+            }
+        }
+    }
+    function throttle2(fn, interval, isNow){
+        var first = true
+        var timer = null
+        return function(){
+            var that = this
+            var arg = [].slice.call(arguments)
+            if (first && isNow){
+                first = false
+                return fn.apply(that, arg)
+            }
+            if(!timer){
+                timer = setTimeout(function(){
+                    timer = null
+                    fn.apply(that, arg)
+                }, interval)
+            }
+        }
+    }
+
+    window.onresize = throttle(function(){
+        console.log('execute');
+    }, 1000);
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

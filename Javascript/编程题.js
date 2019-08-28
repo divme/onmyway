@@ -1,70 +1,99 @@
-// 1. 防抖
-//    等停止后再执行函数
-    function debounce(fn, delay){
-        var timer
-        return function(){
-            var arg = [].slice.call(arguments)
-            if(timer) clearTimeout(timer)
+// 防抖
+ function debounce(fn, delay){
+    var timer;
+    return function(){
+        var arg = Array.prototype.slice.call(arguments)
+        var that = this
+        if(timer) clearTimeout(timer)
+        timer = setTimeout(function(){
+            fn.apply(this, arg)
+        }. delay)
+    }
+ }
+ // 节流
+function throttle(fn, delay){
+    var timer
+    return function(){
+        var arg= Array.prototype.slice.call(arguments)
+        var that = this
+        if(!timer){
             timer = setTimeout(function(){
-                fn.apply(null, arg)
+                timer = null
+                fn.apply(this, arg)
             }, delay)
         }
     }
-
-// 2. 节流
-//    duration 时间内，至少执行一次
-    function throttle(fn, time){
-        var start = new Date()
-        return function(){
-            var now = new Date()
-            var arg = Array.slice.call(arguments)
-            var duration = now - start
-            if( duration >= time) {
-                start = now
-                fn.apply(null, arg)
-            }
-        }
-    }
-
-    // 3. 柯里化
-    // 确定参数个数
-    function curry(fn){
-       var len = fn.length
-       var arg = Array.prototype.slice.call(arguments, 1)
-       return function(){
-           var args = Array.prototype.slice.call(arguments)
-           arg = arg.concat(args)
-           if(arg.length >= len){
-               fn.apply(null, arg)
-           } else {
-               // return curry.apply(null, fn, arg)
-               return arguments.callee
-           }
-       }
-    }
-function curry2(fn, arg){
-    var len = fn.length
-        arg = arg || []
+}
+function throttle2(fn, delay){
+    var start = new Date()
     return function(){
-        var args = Array.prototype.slice.call(arguments)
-        arg = arg.concat(args)
-        if(arg.length >= len){
-            fn.apply(null, arg)
-        } else {
-            // return curry.apply(null, fn, arg)
-            return arguments.callee
+        var arg = Array.prototype.slice.call(arguments)
+        var that = this
+        var now = new Date()
+        if(now - start >= delay){
+            start = now
+            fn.apply(that, arg)
         }
     }
 }
-function add(x, y, n){
-    return x+y+n
-}
-var adder = curry(add)
-var adders = adder(1)
-// adders(2)(3)
-// adders(2,3)
 
-// console.log(adder(1,2,3))
-// console.log(adder(1,2)(4))
-// console.log(adder(1)(2,5))
-    // 不确定参数个数
+// 柯里化
+// 1. 参数有限
+function curry(fn, arr){
+    var len = fn.length
+    var args = arr || []
+    return function(){
+        var that = this
+        var arg = Array.prototype.slice.call(arguments)
+        arg = arg.concat(args)
+        if(arg.length < len){
+            return curry(fn, arg)
+        }
+        return fn.apply(that, arg)
+    }
+}
+// 2. 参数不确定
+function curry0(fn, arr){
+    var len = fn.length
+    var args = arr || []
+    var that,
+        realArg ;
+    function temp(){
+        var arg = Array.prototype.slice.call(arguments)
+        realArg = arg.concat(args)
+        that = this
+        return curry0(fn, realArg)
+    }
+    temp.toString = function(){
+        return fn.apply(that, realArg)
+    }
+    return temp
+}
+
+// 实现call 和 apply
+Function.prototype.mycall = function(context){
+    var func = this
+    var arg = Array.prototype.slice.call(arguments)
+    context.func()
+}
+
+// 实现 new 操作符
+// 1. 如果构造函数本身没返回对象，则返回新对象
+// 2. 给新对象添加构造函数的属性
+// 3. 新对象的_proto_ 为 构造函数的protptype
+function mynew(fn){
+    var obj = {}
+    obj._proto_ = fn.prototype
+    var result = obj.apply(obj, Array.prototype.slice.call(arguments, 1))
+    if(dataType(result) === 'object'){
+        return result
+    }
+    return obj
+}
+function dataType(m) {
+    var type = typeof m;
+    if (type === 'object') {
+        type = Object.prototype.toString.call(m).slice(8, -1).toLowerCase()
+    }
+    return type
+}
