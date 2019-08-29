@@ -22,7 +22,7 @@
     <style>
         *{margin:0;padding:0;}
         body{
-            background: #0d1416;
+            background: #0D1014;
         }
         .canvas-box{
             width: 3.6rem;
@@ -40,88 +40,236 @@
     <canvas id="canvas"></canvas>
 </div>
 <script>
+    const cbox = document.querySelector('.canvas-box')
+    function getStyle(ele, property){
+        return ele.currentStyle?ele.currentStyle[property]:document.defaultView.getComputedStyle(ele, false)[property];
+    }
+    const width = parseInt(getStyle(cbox, 'width'))
+    const height = parseInt(getStyle(cbox, 'height'))
+</script>
+<script>
+    const canvas = document.getElementById('canvas')
+    const ctx = canvas.getContext('2d')
+
+    canvas.width = width
+    canvas.height = height
+
     var data = [
         [95, -0.5],
         [100, -0.5],
         [105, -0.5],
         [110, 4.5]
     ]
-    var splitX = 3
-    var splitY = 10
 
-    data[data.length -1][2] - data[data.length ]
-    var cbox = document.querySelector('.canvas-box')
-    function getStyle(ele, property){
-        return ele.currentStyle?ele.currentStyle[property]:document.defaultView.getComputedStyle(ele, false)[property];
+    const chartOption = {
+        axisColor: '#666',
+        lineColor: '#f03838',
+        text: '#a3a3a3',
+        textDark: '#666',
+        xname: '结算价/期初价(%)',
+        yname: '收益(%)',
+        strikePrice: 105,
+        strikeName: '执行价',
+        outPrice: 110,
+        outafter: 2.5,
+        outName: '敲出价'
     }
-</script>
-<script>
-    var canvas = document.getElementById('canvas')
-    var ctx = canvas.getContext('2d')
 
-    var width = parseInt(getStyle(cbox, 'width'))
-    var height = parseInt(getStyle(cbox, 'height'))
-    canvas.width = 300
-    canvas.height = 250
+    // 绘制坐标系
+    // 确认坐标原点 point,  数据/坐标，默认： [0, 0]
+    // 举例 [100, 200]
+    // 坐标原点，应该是数据导向，然后转化为坐标
+    // 有一个默认的坐标原点，对应数据原点 【0，0】，然后根据数据特点，自动改变数据原点 和 坐标原点
+    function renderCoordPoint(point){
+        point = point || [0, 0]
+        // y轴
+        ctx.beginPath()
+        ctx.moveTo(point[0], 0)
+        ctx.lineTo(point[0], height)
 
-    var availWidth = 250
+        ctx.moveTo(point[0] - 5, 5)
+        ctx.lineTo(point[0], 0)
 
-    var color = '#a3a3a3'
-    var red = '#ff3838'
+        ctx.moveTo(point[0] + 5, 5)
+        ctx.lineTo(point[0], 0)
 
-    function renderLine(ctx, data){
-        if(data.length < 2) return
-        ctx.moveTo(data[0][0], data[0][1])
-        for(var i = 1, len = data.length; i< len; i++){
-             ctx.lineTo(data[i][0], data[i][1])
+        // x轴 y轴 名字
+        ctx.fillStyle = chartOption.text
+        ctx.fillText(chartOption.xname, width - 80, coordPoint[1] + 15)
+        ctx.fillText(chartOption.yname, coordPoint[0] - 50, startV)
+
+        // x轴
+        ctx.moveTo(0, point[1])
+        ctx.lineTo(width, point[1])
+
+        ctx.moveTo(width - 5, point[1] - 5)
+        ctx.lineTo(width, point[1])
+
+        ctx.moveTo(width - 5, point[1] + 5)
+        ctx.lineTo(width, point[1])
+
+        ctx.strokeWidth = 0.5
+        ctx.strokeStyle = chartOption.axisColor;
+        ctx.stroke();
+        ctx.closePath()
+        function renderLine(ctx, data){
+            if(data.length < 2) return
+            ctx.moveTo(data[0][0], data[0][1])
+            for(var i = 1, len = data.length; i< len; i++){
+                ctx.lineTo(data[i][0], data[i][1])
+            }
         }
     }
 
-    // 起点
-    // (100, 200)
-    var point = [100, 200]
-    //折线图
-    // y轴
+
+    // 1. 把数据排序，并将数据转化为坐标
+    // 2. 按照数据坐标特点，划分坐标刻度，并绘制
+    // 3. 将数据按照坐标绘制成折线图
+    data = data.sort(function(a, b){
+        return a[0] - b[0]
+    })
+
+    // 绘制区域
+    const startH = width * .05,
+          endH = width * .7
+    const startV = height * .05,
+          endV = height * .9
+
+    const difH = endH - startH,
+      difV = endV - startV
+
+    // 数据范围
+    const length = data.length
+    const minX = Math.floor(data[0][0])
+        maxX = Math.ceil(data[length-1][0])
+    const minY = Math.floor(data[0][1])
+        maxY = Math.ceil(data[length-1][1])
+
+    const difX = maxX - minX
+        difY = maxY - minY
+
+    // 绘制坐标原点，确定数据原点为[100, 0]
+    const dataPoint = [100, 0]
+    const coordPoint = [
+            startH + (dataPoint[0] - minX)*(difH/difX),
+            startV + (maxY - dataPoint[1])*(difV/difY)
+        ]
+    renderCoordPoint(coordPoint)
+
+
+    // 把数据转化为坐标
+    var coordData = data.map(function(cur){
+        var arr = []
+        arr[0] = startH + (cur[0] - minX)*(difH/difX)
+        arr[1] = startV + (maxY - cur[1])*(difV/difY)
+        return arr
+    })
+
+
+    // 绘制折线图
+    coordData.forEach(function(cur, index){
+        if (index === 0) {
+            ctx.beginPath()
+            return ctx.moveTo(cur[0], cur[1])
+        }
+        ctx.lineTo(cur[0], cur[1])
+        if (index === length - 1){
+            // ctx.closePath()
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = chartOption.lineColor;
+            ctx.stroke();
+        }
+    })
+
+    // 绘制坐标刻度
+    // 绘制坐标label， 标注 执行价 敲出价
+    // 绘制数据基线
+    var renderedV = [] // 去重纵坐标
+    coordData.forEach(function(cur, index){
+        // 绘制横坐标 tick label
+        // 横坐标在原点上，则 横坐标上不画刻度，纵坐标也不画刻度
+        if (data[index][0] !== dataPoint[0]) {
+            ctx.beginPath()
+            ctx.moveTo(cur[0], coordPoint[1])
+            ctx.lineTo(cur[0], coordPoint[1] - 2)
+
+            ctx.moveTo(coordPoint[0], cur[1])
+            ctx.lineTo(coordPoint[0] - 2, cur[1])
+
+            ctx.lineWidth = 1.0
+            ctx.strokeStyle = chartOption.text
+            ctx.stroke()
+
+            ctx.fillStyle = chartOption.textDark
+            ctx.textAlign = 'center'
+            ctx.fillText(data[index][0], cur[0], coordPoint[1] - 10)
+            ctx.fillText(data[index][1], coordPoint[0] - 20, cur[1] + 10)
+
+            // 绘制对应点虚线,敲出价还要画到y轴的虚线，在敲出价的时候判断
+            ctx.beginPath()
+            ctx.moveTo(cur[0], cur[1])
+            ctx.lineTo(cur[0], coordPoint[1])
+            ctx.setLineDash([5,2])
+            ctx.lineWidth = 1
+            ctx.stroke()
+        } else {
+            ctx.beginPath()
+            ctx.fillStyle = chartOption.textDark
+            ctx.textAlign = 'left'
+            ctx.fillText(data[index][0], cur[0], coordPoint[1] - 10)
+        }
+
+        // 绘制纵坐标 tick label
+        // todo: 如果纵坐标相等，会重复渲染，导致颜色加深，先不处理
+        if (data[index][1] !== dataPoint[1]) {
+        // if (cur[1] !== coordPoint[1]) {
+        //     ctx.beginPath()
+        //     ctx.moveTo(coordPoint[0], cur[1])
+        //     ctx.lineTo(coordPoint[0] - 2, cur[1])
+        //     ctx.lineWidth = 1.0
+        //     ctx.strokeStyle = chartOption.text
+        //     ctx.stroke()
+        //     ctx.fillStyle = chartOption.textDark
+        //     ctx.textAlign = 'center'
+        //     ctx.fillText(data[index][1], coordPoint[0] - 20, cur[1] + 10)
+        }
+
+        // 标注执行价、敲出价
+        if (data[index][0] === chartOption.strikePrice) {
+            ctx.fillText(chartOption.strikeName, cur[0], coordPoint[1] - 24)
+        } else if (data[index][0] === chartOption.outPrice) {
+            ctx.beginPath()
+            ctx.moveTo(cur[0], cur[1])
+            ctx.lineTo(coordPoint[0], cur[1])
+            ctx.setLineDash([5,2])
+            ctx.lineWidth = 1
+            ctx.stroke()
+            ctx.fillText(chartOption.outName, cur[0], coordPoint[1] - 24)
+        }
+
+
+    })
+
+    // 绘制敲出后收益
+    var outafterV = conversion([chartOption.outPrice, chartOption.outafter])
     ctx.beginPath()
-    renderLine(ctx, [
-        [point[0], 0],
-        [point[0], canvas.height]
-    ])
-    ctx.moveTo(point[0] - 5, 5)
-    ctx.lineTo(point[0], 0)
-
-    ctx.moveTo(point[0] + 5, 5)
-    ctx.lineTo(point[0], 0)
-
-    // x轴
-    renderLine(ctx, [
-        [0, point[1]],
-        [canvas.width, point[1]]
-    ])
-    ctx.moveTo(canvas.width - 5, point[1] - 5)
-    ctx.lineTo(canvas.width, point[1])
-
-    ctx.moveTo(canvas.width - 5, point[1] + 5)
-    ctx.lineTo(canvas.width, point[1])
-
-    // 坐标点： 60 200
-    ctx.strokeStyle = color;
+    ctx.moveTo(outafterV[0], outafterV[1])
+    ctx.lineTo(width, outafterV[1])
+    ctx.lineWidth = 2;
+    ctx.setLineDash([5,0])
+    ctx.strokeStyle = chartOption.lineColor;
     ctx.stroke();
-    ctx.closePath()
 
-    ctx.beginPath()
-    // 根据数据折线图
-    ctx.moveTo(50, 220)
-    ctx.lineTo(100, 220)
-    ctx.lineTo(150, 220)
-    ctx.lineTo(200, 60)
-    ctx.moveTo(200, 150)
-    ctx.lineTo(300, 150)
 
-    ctx.strokeStyle = red;
-    ctx.stroke();
-    ctx.closePath()
+    function conversion(cur) {
+        var arr = []
+        arr[0] = startH + (cur[0] - minX)*(difH/difX)
+        arr[1] = startV + (maxY - cur[1])*(difV/difY)
+        return arr
+    }
+    function render(){
 
+    }
 </script>
 </body>
 </html>
