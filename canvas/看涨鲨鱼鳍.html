@@ -58,9 +58,10 @@
         [95, -0.5],
         [100, -0.5],
         [105, -0.5],
-        [110, 4.5]
+        [120, 4.5]
     ]
 
+//    参数对象
     const chartOption = {
         axisColor: '#666',
         lineColor: '#f03838',
@@ -70,12 +71,13 @@
         yname: '收益(%)',
         strikePrice: 105,
         strikeName: '执行价',
+        dataPoint: [100, 0],
         outPrice: 110,
         outafter: 2.5,
         outName: '敲出价'
     }
 
-    // 绘制坐标系
+    // 根据原点坐标位置，绘制坐标系
     // 确认坐标原点 point,  数据/坐标，默认： [0, 0]
     // 举例 [100, 200]
     // 坐标原点，应该是数据导向，然后转化为坐标
@@ -131,9 +133,9 @@
 
     // 绘制区域
     const startH = width * .05,
-          endH = width * .7
+      endH = width * .7
     const startV = height * .05,
-          endV = height * .9
+      endV = height * .9
 
     const difH = endH - startH,
       difV = endV - startV
@@ -149,20 +151,18 @@
         difY = maxY - minY
 
     // 绘制坐标原点，确定数据原点为[100, 0]
-    const dataPoint = [100, 0]
-    const coordPoint = [
-            startH + (dataPoint[0] - minX)*(difH/difX),
-            startV + (maxY - dataPoint[1])*(difV/difY)
-        ]
+    const dataPoint = chartOption.dataPoint
+    const coordPoint = conversion(dataPoint)
+//        [
+//            startH + (dataPoint[0] - minX)*(difH/difX),
+//            startV + (maxY - dataPoint[1])*(difV/difY)
+//        ]
     renderCoordPoint(coordPoint)
 
 
     // 把数据转化为坐标
     var coordData = data.map(function(cur){
-        var arr = []
-        arr[0] = startH + (cur[0] - minX)*(difH/difX)
-        arr[1] = startV + (maxY - cur[1])*(difV/difY)
-        return arr
+        return conversion(cur)
     })
 
 
@@ -260,7 +260,7 @@
     ctx.strokeStyle = chartOption.lineColor;
     ctx.stroke();
 
-
+//    数据转化为坐标
     function conversion(cur) {
         var arr = []
         arr[0] = startH + (cur[0] - minX)*(difH/difX)

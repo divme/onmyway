@@ -21,7 +21,7 @@
         var dep = new Dep();
         console.log(dep);
         //obj:vue实例vm（被操作的目标对象），key要定义or要修改的属性名
-        Object.defineProperty(obj, key,{
+        Object.defineProperty(obj, key, {
             get : function (){
                 console.log('gettttttttt!');
                 console.log(Dep.target);
@@ -53,7 +53,6 @@
                 sub.update();  //通知watch去update
             });
         }
-
     }
 
     /**
