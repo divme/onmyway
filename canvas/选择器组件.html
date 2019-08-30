@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="white" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Template</title>
+    <script>
+        var initWidth = 0;
+        if(document.documentElement.clientWidth > 100){
+            initWidth = document.documentElement.clientWidth;
+        }else{
+            initWidth = Math.max(window.innerWidth, screen.availWidth);
+            initWidth = initWidth > 10? initWidth : 360}
+
+        document.documentElement.style.fontSize = initWidth / 3.75 + 'px'
+    </script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</he#161a22>
+  <div class="select-box">
+      <div class="select-progress"></div>
+  </div>
+  <style>
+      html, body{
+          height: 60%;
+      }
+      body{
+          padding-top: 10px;
+          font-size: 15px;
+          background: #ccc;
+          --bg: #161a22;
+          --red: red;
+      }
+     .select-box{
+         position: relative;
+         width: 80%;
+         height: .06rem;
+         margin: .5rem auto;
+         background: var(--bg);
+     }
+     .select-progress{
+         width: 10px;
+         height: .06rem;
+         background: var(--red);
+     }
+      .circle{
+          position: absolute;
+          top: 50%;
+          height: .3rem;
+          transform: translate(-50%, -50%);
+      }
+      .circle:before{
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          width: 0.1rem;
+          height: 0.1rem;
+          margin: auto;
+          border-radius: 50%;
+          background: var(--red);
+      }
+      .circle.cur:before{
+          width: .14rem;
+          height: .14rem;
+      }
+  </style>
+  <script>
+      // props
+      //       start, end, splitnum
+//      [100, 105, 110, 115]
+      const data = [100, 105, 110, 115]
+      const dataObj = {
+          start: 100,
+          end: 115,
+          splitnum: 4
+      }
+
+
+      const sbox = document.querySelector('.select-box')
+      const sprogress = document.querySelector('.select-progress')
+      function getStyle(ele, property){
+          return ele.currentStyle?ele.currentStyle[property]:document.defaultView.getComputedStyle(ele, false)[property];
+      }
+      const width = parseInt(getStyle(sbox, 'width'))
+      const height = parseInt(getStyle(sbox, 'height'))
+
+      var vm = document.createDocumentFragment()
+      const length = data.length
+      const cellWidth = width/(length-1).toFixed(2)
+      var circleWidth = cellWidth
+      var innerStr = ''
+      for (var i = 0; i < length; i++) {
+          circleWidth = cellWidth
+//          if (i === 0 || i === length - 1) {circleWidth = cellWidth/2..toFixed(2)}
+          innerStr += '<div class="circle circle' + i + '" style="left:'+ cellWidth*i +'px; width: '+ circleWidth +'px;"></div>'
+      }
+      vm.innerText += innerStr
+      sbox.innerHTML += innerStr
+
+      sbox.addEventListener('click', function(e){
+          var target = e.target
+          if(target.classList.contains('circle')) {
+              const oldTarget = target.parentNode.querySelector('.cur')
+              if (oldTarget) {
+                  oldTarget.classList.remove('cur')
+              }
+              target.classList.add('cur')
+              sprogress.style.width = getStyle(target, 'left')
+              console.log(getStyle(target, 'left'))
+              console.log(getStyle(sprogress, 'width'))
+          }
+      })
+  </script>
+</body>
+</html>
