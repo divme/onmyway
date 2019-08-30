@@ -100,7 +100,7 @@
 
     //解析器
     //node：劫持的dom， vm:vue实例
-    function compile (node, vm) {
+function compile (node, vm) {
         console.log('compile-----start');
         var reg = /\{\{(.*)\}\}/;
         if(node.nodeType === 1)  //元素，查找v-modal绑定的属性值
@@ -128,9 +128,10 @@
         }
         console.log('compile-----end');
     }
-    function nodeToFragment(node, vm){
+    function nodeToFragment(node, vm) {
         console.log('nodeToFragment---start');
         var flag = document.createDocumentFragment();
+        debugger
         var child;
         //console.log(node.childNodes); // length : 5
         while (child = node.firstChild){

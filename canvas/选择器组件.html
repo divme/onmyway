@@ -24,7 +24,7 @@
             padding: 0;
         }
     </style>
-</he#161a22>
+</head>
   <div class="select-box">
       <div class="select-progress"></div>
   </div>
@@ -95,7 +95,6 @@
       const width = parseInt(getStyle(sbox, 'width'))
       const height = parseInt(getStyle(sbox, 'height'))
 
-      var vm = document.createDocumentFragment()
       const length = data.length
       const cellWidth = width/(length-1).toFixed(2)
       var circleWidth = cellWidth
@@ -105,7 +104,6 @@
 //          if (i === 0 || i === length - 1) {circleWidth = cellWidth/2..toFixed(2)}
           innerStr += '<div class="circle circle' + i + '" style="left:'+ cellWidth*i +'px; width: '+ circleWidth +'px;"></div>'
       }
-      vm.innerText += innerStr
       sbox.innerHTML += innerStr
 
       sbox.addEventListener('click', function(e){

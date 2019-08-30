@@ -25,6 +25,9 @@ height: 100px;background: #000">btn</div>
         observe(data, this)
         compile(el)
     }
+//    给每个属性添加监听：
+//    设置属性的时候，就触发绑定属性的 dom 元素更新
+//    什么时候给属性绑定 元素呢？ 读取属性的时候？
     function observe(data, vm){
         data.forEach(function(prop){
             define(prop, vm)
@@ -45,6 +48,7 @@ height: 100px;background: #000">btn</div>
         })
     }
 
+//    给每个元素创造一个监听数组实例，把每个绑定该属性的地方都封装一个实例进去
     function Dep(){
         this.subs = []
     }
@@ -59,7 +63,8 @@ height: 100px;background: #000">btn</div>
         }
     }
 
-    function Watcher(){
+
+    function Watcher(vm, node, nodeType, key){
         dep.target = this
         this.nodeType = nodeType
         this.node = node
@@ -67,9 +72,26 @@ height: 100px;background: #000">btn</div>
         dep.target = null
     }
     Watcher.prototype = {
+        update: function() {
+            if (this.node.tagName === 'input') {
+                this.node.value = vm[key]
+            } else if(this.nodeType === 2){
 
+            }
+        }
     }
 
+//    数据绑定有两种：
+//    1. 属性中绑定某个属性: input 和  其他
+//    2. 节点内容中绑定某属性
+    function compile(el){
+        var vdom = document.createDocumentFragment()
+        var child = el.children
+        while(child){
+            toCompile(child)
+
+        }
+    }
 </script>
 </body>
 </html>
