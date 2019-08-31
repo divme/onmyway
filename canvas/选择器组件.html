@@ -24,7 +24,7 @@
             padding: 0;
         }
     </style>
-</he#161a22>
+</head>
   <div class="select-box">
       <div class="select-progress"></div>
   </div>
@@ -38,8 +38,17 @@
           background: #ccc;
           --bg: #161a22;
           --red: red;
+          --text: #a3a3a3;
+          --textDark: #666666;
+          --textLight: #b5b5b5;
       }
      .select-box{
+         --bg: #161a22;
+         --red: red;
+         --text: #a3a3a3;
+         --textDark: #666666;
+         --textLight: #b5b5b5;
+
          position: relative;
          width: 80%;
          height: .06rem;
@@ -49,6 +58,7 @@
      .select-progress{
          width: 10px;
          height: .06rem;
+         transition: width 300ms;
          background: var(--red);
      }
       .circle{
@@ -70,9 +80,25 @@
           border-radius: 50%;
           background: var(--red);
       }
+      .circle .circle-text{
+          position: absolute;
+          top: calc(50% + .08rem );
+          left: 0;
+          bottom: 0;
+          right: 0;
+          width: 3em;
+          height: 1.2em;
+          margin: auto;
+          font-size: 12px;
+          color: var(--textDark);
+          text-align: center;
+      }
       .circle.cur:before{
           width: .14rem;
           height: .14rem;
+      }
+      .circle.cur .circle-text{
+          color: var(--textLight);
       }
   </style>
   <script>
@@ -80,42 +106,41 @@
       //       start, end, splitnum
 //      [100, 105, 110, 115]
       const data = [100, 105, 110, 115]
+      const value = 105
       const dataObj = {
           start: 100,
           end: 115,
           splitnum: 4
       }
 
-
+      const index = data.indexOf(value)
       const sbox = document.querySelector('.select-box')
       const sprogress = document.querySelector('.select-progress')
       function getStyle(ele, property){
           return ele.currentStyle?ele.currentStyle[property]:document.defaultView.getComputedStyle(ele, false)[property];
       }
       const width = parseInt(getStyle(sbox, 'width'))
-      const height = parseInt(getStyle(sbox, 'height'))
 
-      var vm = document.createDocumentFragment()
       const length = data.length
       const cellWidth = width/(length-1).toFixed(2)
-      var circleWidth = cellWidth
       var innerStr = ''
       for (var i = 0; i < length; i++) {
-          circleWidth = cellWidth
-//          if (i === 0 || i === length - 1) {circleWidth = cellWidth/2..toFixed(2)}
-          innerStr += '<div class="circle circle' + i + '" style="left:'+ cellWidth*i +'px; width: '+ circleWidth +'px;"></div>'
+          innerStr += '<div class="circle circle' + i + ' ' + (i === index ? 'curCircle' : '') + '" style="left:' + cellWidth * i + 'px; width: ' + cellWidth + 'px;">' +
+              '<span class="circle-text circle-text-' + i + '">' + data[i] + '</span>' +
+              '</div>'
       }
-      vm.innerText += innerStr
-      sbox.innerHTML += innerStr
+      var div = document.createElement('div')
+      div.innerHTML = innerStr
+      sbox.appendChild(div)
 
       sbox.addEventListener('click', function(e){
           var target = e.target
           if(target.classList.contains('circle')) {
-              const oldTarget = target.parentNode.querySelector('.cur')
+              const oldTarget = target.parentNode.querySelector('.curCircle')
               if (oldTarget) {
-                  oldTarget.classList.remove('cur')
+                  oldTarget.classList.remove('curCircle')
               }
-              target.classList.add('cur')
+              target.classList.add('curCircle')
               sprogress.style.width = getStyle(target, 'left')
               console.log(getStyle(target, 'left'))
               console.log(getStyle(sprogress, 'width'))
