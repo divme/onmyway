@@ -6,6 +6,7 @@
 <body>
 <div id="app">
     <input type="text" v-model="text">
+    <div><span>{{text}}</span></div>
     {{ text }}
 </div>
 
@@ -19,19 +20,14 @@
     function defineReactive(obj, key, val){
         console.log('observe:defineReactive');
         var dep = new Dep();
-        console.log(dep);
-        //obj:vue实例vm（被操作的目标对象），key要定义or要修改的属性名
         Object.defineProperty(obj, key, {
-            get : function (){
-                console.log('gettttttttt!');
-                console.log(Dep.target);
+            get: function (){
                 if(Dep.target)
                     dep.addSub(Dep.target)
                 return val;
             },
-            set : function (newVal){
-                console.log('set!!!!!!!!!!!!!!!!');
-                if(newVal === val) return;
+            set: function (newVal){
+                if (newVal === val) return;
                 val = newVal;
                 dep.notify();
             }
@@ -41,11 +37,9 @@
     //订阅器
     function Dep (){
         this.subs = [];
-        console.log('dep');
     }
     Dep.prototype =  {
         addSub: function(sub){
-            console.log('addToDep')
             this.subs.push(sub);
         },
         notify: function(){
@@ -63,8 +57,6 @@
      * @param {[type]} nodeType [description]
      */
     function Watcher (vm, node, name, nodeType) {
-        console.log('watcher');
-        console.log(this);
         //Dep target是Dep和watcher关联的唯一桥梁
         Dep.target = this;
         /**
@@ -100,7 +92,7 @@
 
     //解析器
     //node：劫持的dom， vm:vue实例
-function compile (node, vm) {
+    function compile (node, vm) {
         console.log('compile-----start');
         var reg = /\{\{(.*)\}\}/;
         if(node.nodeType === 1)  //元素，查找v-modal绑定的属性值
@@ -129,31 +121,20 @@ function compile (node, vm) {
         console.log('compile-----end');
     }
     function nodeToFragment(node, vm) {
-        console.log('nodeToFragment---start');
         var flag = document.createDocumentFragment();
-        debugger
         var child;
-        //console.log(node.childNodes); // length : 5
         while (child = node.firstChild){
             compile(child, vm); //把劫持的child给compile解析
             flag.appendChild(child);
         }
-        //console.log(node.childNodes);  // length : 0
-        console.log('nodeToFragment------end')
         return flag;
     }
     function Vue(options){
-        console.log(this); //this是指向实例对象
         this.data = options.data;
-        var data = this.data;
-        observe(data, this);
-        var id = options.el;
-        var dom = nodeToFragment(document.getElementById(id), this);
-        document.getElementById(id).appendChild(dom);
-    }
-
-    var vm = new Vue({
-        el: 'app',
+        this.el = document.getElementById(options.el)
+        observe(this.data, this)
+        var dom = nodeToFragment(this.el, this)
+        document.getElementById(id)var vm = new Vueel: 'app',
         data:{
             text:'hello world'
         }

@@ -6,8 +6,8 @@
         var that = this
         if(timer) clearTimeout(timer)
         timer = setTimeout(function(){
-            fn.apply(this, arg)
-        }. delay)
+            fn.apply(that, arg)
+        }, delay)
     }
  }
  // 节流
@@ -19,7 +19,7 @@ function throttle(fn, delay){
         if(!timer){
             timer = setTimeout(function(){
                 timer = null
-                fn.apply(this, arg)
+                fn.apply(that, arg)
             }, delay)
         }
     }
@@ -72,9 +72,11 @@ function curry0(fn, arr){
 
 // 实现call 和 apply
 Function.prototype.mycall = function(context){
-    var func = this
-    var arg = Array.prototype.slice.call(arguments)
-    context.func()
+    var arg = Array.prototype.slice.call(arguments, 1)
+        context.func = this
+    const result = context.func(...arg)
+    delete context.func
+    return result
 }
 
 // 实现 new 操作符
@@ -84,11 +86,12 @@ Function.prototype.mycall = function(context){
 function mynew(fn){
     var obj = {}
     obj._proto_ = fn.prototype
-    var result = obj.apply(obj, Array.prototype.slice.call(arguments, 1))
+    var result = fn.apply(obj, Array.prototype.slice.call(arguments, 1))
     if(dataType(result) === 'object'){
         return result
     }
     return obj
+
 }
 function dataType(m) {
     var type = typeof m;
