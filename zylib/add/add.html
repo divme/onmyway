@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html id="page-zichan">
+<head>
+  <title>资产管理</title>
+  <meta charset="UTF-8">
+
+</head>
+
+<body id="page-form" class="hold-transition skin-blue sidebar-mini">
+
+
+  <!-- Main content -->
+  <section class="content">
+
+    <div class="row">
+
+      <div class="col-xs-12">
+        <div class="box">
+
+          <!-- /.box-header -->
+          <div class="box-body" id="j_data">
+
+
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+
+
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+  <!-- ./wrapper -->
+  <script id="j_tpl_zichanleixing" type="text/html">
+    <form class="yhwh-add" style="overflow: hidden;">
+      <h4 id="page-title">{{titConfig[KEY]}}</h4>
+      <div class="box pt-20">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">编号:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="no" required maxlength="4" />
+
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">资产名称:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="name" required maxlength="20" />
+          </div>
+        </div>
+        <!-- value='{{_info.orgName}}' -->
+        <div class="form-group">
+          <label class="col-sm-2 control-label">上层分类:</label>
+          <div class="col-sm-10">
+            <select name="levelNo" class="form-control selectpicker j_select" data-type="zichanleixing"
+              data-tag="fixedList" data-live-search="true" data-live-search-placeholder="输入关键字查询">
+            </select>
+            <input type="hidden" name="levelName" class="select-hidden" />
+          </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">一物一码否:</label>
+            <div class="col-sm-10">
+              <span class="switch-on" id="switch" name="oneYard" required></span>
+              <input type="hidden" class="form-control" name="oneYard" maxlength="20" />
+            </div>
+          </div>
+
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">资产性质:</label>
+          <div class="col-sm-10">
+            <select name="attr" class="selectpicker j_select" required>
+              <option value="1">有形资产</option>
+              <option value="2">无形资产</option>
+              <option value="3">土地</option>
+              <option value="4">递耗资产</option>
+              <option value="5">费用</option>
+            </select>
+          </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">折旧方式:</label>
+          <div class="col-sm-10">
+            <select name="dist" class="selectpicker j_select" required>
+              <option value="0">不提折旧</option>
+              <option value="1">平均年限法</option>
+              <option value="2">双倍余额递减法</option>
+              <option value="3">年数总合法</option>
+              <option value="4">工作量法</option>
+            </select>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">耐用年限:</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control" name="durable" placeholder="请输入数值" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">残值率(%):</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control" name="residual" placeholder="请输入数值" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">折毕再提否:</label>
+
+          <div class="col-sm-10">
+            <select name="folded" class="selectpicker form-control j_select">
+              <option value="N">否</option>
+              <option value="Y">是</option>
+            </select>
+
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">折毕再提年限:</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control" name="raiseLife" placeholder="请输入数值" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">备注:</label>
+          <div class="col-sm-10">
+            <textarea class="form-control" name="memo"></textarea>
+          </div>
+        </div>
+
+        <div class="box-footer">
+          <button type="button" class="btn btn-primary" id="j_add">提交</button>
+        </div>
+    </form>
+  </script>
+
+  <script id="j_tpl_feiyongxiang" type="text/html">
+    <form class="yhwh-add" style="overflow: hidden;">
+      <h4 id="page-title">{{titConfig[KEY]}}</h4>
+      <div class="box pt-20">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">编号:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="no" required maxlength="4" />
+
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">名称:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="name" required maxlength="20" />
+          </div>
+        </div>
+
+
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">单位名称:</label>
+          <div class="col-sm-10">
+            <select name="unit" class="form-control selectpicker j_select" data-type="danwei" data-tag="unit"
+              data-live-search="true" data-live-search-placeholder="输入关键字查询">
+            </select>
+            <input type="hidden" name="unitname" class="select-hidden" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">备注:</label>
+          <div class="col-sm-10">
+            <textarea class="form-control" name="memo"></textarea>
+          </div>
+        </div>
+        <div class="box-footer">
+          <button type="button" class="btn btn-primary" id="j_add">提交</button>
+        </div>
+    </form>
+  </script>
+
+  <script id="j_tpl_gongchengziliao" type="text/html">
+    <form class="yhwh-add">
+      <h4 id="page-title">{{titConfig[KEY]}}</h4>
+      <div class="box pt-20">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">编号:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="no" required maxlength="4" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">名称:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="name" required maxlength="20" />
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">项目性质:</label>
+          <div class="col-sm-10">
+            <select name="attr" class="selectpicker form-control j_select">
+              <option value="1">单项工程</option>
+              <option value="2">单位工程</option>
+              <option value="3">分部工程</option>
+              <option value="4">分项工程</option>
+              <option value="5">其他</option>
+            </select>
+            <input type="hidden" name="attrname" class="select-hidden" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">项目分类:</label>
+          <div class="col-sm-10">
+            <select name="dist" class="selectpicker form-control j_select">
+              <option value="1">新建项目</option>
+              <option value="2">扩建项目</option>
+              <option value="3">改建项目</option>
+              <option value="4">迁建项目</option>
+              <option value="5">恢复项目</option>
+              <option value="6">其他</option>
+            </select>
+            <input type="hidden" name="distname" class="select-hidden" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">开工日期:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control j_datePicker" name="orderDate" maxlength="40" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">预计工期:</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control inline-block" name="sched" />
+            <span class="tip-danwei">天</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">图片:</label>
+          <div class="col-sm-10">
+            <input id="imgUpload" class="inputfile j_upload j_refuse_upload" name="url" type="file" multiple
+              accept="image/*">
+            <label for="imgUpload" class='btn btn-primary'>请选择图片</label>
+            <div class="preview">
+              <img id="show" src="" />
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">备注:</label>
+          <div class="col-sm-10">
+            <textarea class="form-control" name="memo"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">来源单号:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="source" maxlength="20" />
+          </div>
+        </div>
+
+      </div>
+      </div>
+
+      <div class="box-footer">
+        <button type="button" class="btn btn-primary" id="j_add">提交</button>
+      </div>
+    </form>
+  </script>
+
+  <script id="j_tpl_cunfangweizhi" type="text/html">
+    <form class="yhwh-add">
+      <h4 id="page-title">{{titConfig[KEY]}}</h4>
+      <div class="box pt-20">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">编号:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="no" required maxlength="4" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">名称:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="name" required maxlength="20" />
+          </div>
+        </div>
+
+
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">备注:</label>
+          <div class="col-sm-10">
+            <textarea class="form-control" name="memo"></textarea>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="box-footer">
+        <button type="button" class="btn btn-primary" id="j_add">提交</button>
+      </div>
+    </form>
+  </script>
+
+  <script id="j_tpl_cyszzuzhi" type="text/html">
+    <form class="yhwh-add">
+      <h4 id="page-title">{{titConfig[KEY]}}</h4>
+      <div class="box pt-20">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">分类编码:</label>
+          <div class="col-sm-10">
+            <input type="text" id="j_classno" class="form-control" name="classNo" required maxlength="4"
+              value="{{_info.classNo}}" disabled="disabled" />
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">分类名称:</label>
+          <div class="col-sm-10">
+            <input type="text" id="j_classname" class="form-control" name="className" required maxlength="4"
+              value="{{_info.className}}" disabled="disabled" />
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">门店名称:</label>
+          <div class="col-sm-10">
+            <select name="no" required class="form-control selectpicker j_select" data-type="zuzhis" data-tag="org"
+              data-live-search="true" data-live-search-placeholder="输入关键字查询">
+            </select>
+            <input type="hidden" name="name" class="select-hidden" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">设定名称:</label>
+          <div class="col-sm-10">
+            <select name="vset" required class="form-control selectpicker j_select" data-type="changyongshezhi"
+              data-tag="vList" data-live-search="true" data-classNo="{{_info.classNo}}" data-keytype="search/value"
+              data-live-search-placeholder="输入关键字查询">
+            </select>
+            <input type="hidden" name="vsetName" class="select-hidden" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">备注:</label>
+          <div class="col-sm-10">
+            <textarea class="form-control" name="memo"></textarea>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="box-footer">
+        <button type="button" class="btn btn-primary" id="j_add">提交</button>
+      </div>
+    </form>
+  </script>
+
+  <script id="j_tpl_digaoweihu" type="text/html">
+    <form class="yhwh-add" style="overflow: hidden;">
+      <h4 id="page-title">{{titConfig[KEY]}}</h4>
+      <div class="box pt-20">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">编号:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="no" required maxlength="10" />
+
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">底稿名称:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="name" required maxlength="20" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">资产分类:</label>
+          <div class="col-sm-10">
+            <select name="fixedType" class="form-control selectpicker j_select" data-type="zichanleixing"
+              data-tag="fixedList" data-keytype="search/base" data-live-search="true"
+              data-live-search-placeholder="输入关键字查询" required>
+            </select>
+            <input type="hidden" name="fixedTypeName" class="select-hidden" />
+          </div>
+        </div>
+    
+        <div class="form-group">
+          <label class="col-sm-2 control-label">一物一码否:</label>
+          <div class="col-sm-10">
+            <span class="switch-on" id="switch" name="oneYard" required></span>
+            <input type="hidden" class="form-control" name="oneYard" maxlength="20" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">品牌:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="brand" maxlength="20" />
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">规格:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="spec" maxlength="20" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">条码:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="barcode" maxlength="20" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">数量:</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control j_change" name="qty" required placeholder="请输入数值" />
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">单位:</label>
+          <div class="col-sm-10">
+            <select name="unit" class="form-control selectpicker j_select" data-type="danwei" data-tag="unit"
+              data-live-search="true" data-live-search-placeholder="输入关键字查询">
+            </select>
+            <input type="hidden" name="unitName" class="select-hidden" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">单价:</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control j_change" name="price" placeholder="请输入数值" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">金额:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="amount" placeholder="请输入数值" readonly />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">归属组织:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="org" maxlength="20"  value="{{_info.ent}}" disabled />
+          </div>
+        </div>
+
+
+       
+
+
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">存放地点:</label>
+          <div class="col-sm-10">
+            <select name="position" class="form-control selectpicker j_select" data-type="cunfangweizhi"
+              data-tag="fixedList" data-keytype="search/base" data-live-search="true"
+              data-live-search-placeholder="输入关键字查询">
+            </select>
+            <input type="hidden" name="positionName" class="select-hidden" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">保管部门:</label>
+          <div class="col-sm-10">
+            <select name="depart" class="form-control selectpicker j_select" data-type="baoguanbumen"
+              data-tag="departList" data-keytype="search/base" data-live-search="true"
+              data-live-search-placeholder="输入关键字查询">
+            </select>
+            <input type="hidden" name="departName" class="select-hidden" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">保管人员:</label>
+          <div class="col-sm-10">
+            <select name="person" class="form-control selectpicker j_select" data-type="baoguanrenyuan"
+              data-tag="employeeList" data-live-search="true" data-keytype="search/base"
+              data-live-search-placeholder="输入关键字查询">
+            </select>
+            <input type="hidden" name="personName" class="select-hidden" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">图片:</label>
+          <div class="col-sm-10">
+            <input id="imgUpload" class="inputfile j_upload j_refuse_upload" name="pics" type="file" multiple
+              accept="image/*">
+            <label for="imgUpload" class='btn btn-primary'>请选择图片</label>
+            <!-- <div class="preview">
+              <img id="show" src="" />
+            </div> -->
+          </div>
+        </div>
+
+        <div class="box-footer">
+          <button type="button" class="btn btn-primary" id="j_add">提交</button>
+        </div>
+    </form>
+  </script>
+
+
+
+  <script id="j_tpl_pandianjihuas" type="text/html">
+    <form class="yhwh-add" id="j_head" style="overflow: hidden;" data-type="fixedList">
+      <h4 id="page-title">{{titConfig[KEY]}}</h4>
+      <div class="box pt-20">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">名称:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="name" required maxlength="40" />
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">计划日期:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control j_datePicker" name="orderDate" required/>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+              <label class="col-sm-2 control-label">盘点周期:</label>
+              <div class="col-sm-10 pandian">
+                <select class="form-control selectpicker  j_change" name="freqcy">
+                  <option value="D">每日</option>
+                  <option value="W">每周</option>
+                  <option value="M">每月</option>
+                </select>
+
+               <select class="form-control selectpicker hide"  multiple data-max-options="7" name="freqcyVal" id="week" >
+                    <option value="1">周一</option>
+                    <option value="2">周二</option>
+                    <option value="3">周三</option>
+                    <option value="4">周四</option>
+                    <option value="5">周五</option>
+                    <option value="6">周六</option>
+                    <option value="7">周日</option>
+                </select>
+
+
+                <select class="form-control selectpicker hide" name="" id="months">
+                      <option value="1">一月</option>
+                      <option value="2">二月</option>
+                      <option value="3">三月</option>
+                      <option value="4">四月</option>
+                      <option value="5">五月</option>
+                      <option value="6">六月</option>
+                      <option value="7">七月</option>
+                      <option value="8">八月</option>
+                      <option value="9">九月</option>
+                      <option value="10">十月</option>
+                      <option value="11">十一月</option>
+                      <option value="12">十二月</option>
+              </select> 
+              
+              </div>
+            </div>
+
+            
+        <div class="form-group">
+            <label class="col-sm-2 control-label">资产限定否:</label>
+            <div class="col-sm-10">
+              <span class="switch-on" id="switch" name="qualif"></span>
+              <input type="hidden" class="form-control" name="qualif" maxlength="20" />
+            </div>
+          </div>
+
+          <div class="form-group">
+              <label class="col-sm-2 control-label">备注:</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" name="memo" maxlength="255"></textarea>
+              </div>
+            </div>
+          </div>
+     
+    </form>
+    <form class="yhwh-add" id="j_body" data-type="fixedList">
+        <h4>资产维护</h4>
+        <div class="box table-responsive">
+           
+            <table id="pandianjihuas" class="table text-nowrap">
+              <thead>
+                <th>资产类型</th>
+                <th>资产卡片</th>
+                <th>操作</th>
+              </thead>
+              <tbody>
+             
+                <tr>
+                  <td>
+                    <select title="" name="fixedType" class="selectpicker form-control" data-keytype="search/base"  data-type="zichanleixing" data-tag="fixedList">
+                    </select>
+                  </td>
+                  <td>
+                    <select title="" name="fixedNo" class="selectpicker form-control" data-keytype="search/base"  data-type="zichankapian" data-tag="fixedList">
+                    </select>
+                  </td>
+                 
+                  <td>
+                    <button type="button" class="btn btn-clear j_del">删除</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button type="button" class="btn btn-clear j_add">+ 新增资产</button>
+            
+        </div>
+        <div class="box-footer">
+            <button type="button" class="btn btn-primary" id="j_add">提交</button>
+          </div>
+        </form>      
+
+</script>
+
+
+
+<div id="j_holder"></div>
+<script src="jquery-3.4.1.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script src="bootstrap-select.min.js"></script>
+<script src="defaults-zh_CN.js"></script>
+<script src="add.js"></script>
+
+</body>
+
+</html>

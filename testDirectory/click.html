@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ <div id="div" onclick="dd()">我是一个divc</div>
+
+ <div class="close-box"></div>
+ <style>
+     .close-box{
+         position: relative;
+         width: 100px;
+         height: 30px;
+     }
+     .close-box:before{
+          content: '';
+          position: absolute;
+          right: 10px;
+          bottom: 10px;
+          width: 18px;
+          height: 2px;
+          transform-origin: center;
+          transform: rotate(45deg);
+          background: red;
+      }
+     .close-box:after{
+          content: '';
+          position: absolute;
+          right: 10px;
+          bottom: 10px;
+          width: 18px;
+          height: 2px;
+          transform-origin: center;
+          transform: rotate(-45deg);
+          background: red;
+      }
+ </style>
+ <script>
+     function dd() {
+         console.log(event.target.tagName)
+     }
+     var num = 1
+     function fn(){
+         console.log(this[num])
+     }
+     var obj = {
+         num: 2,
+         show: function(fn, bb){
+             this.num = 3
+             fn()
+             arguments[0]()
+         }
+     }
+     obj.show(fn, 13)
+     // var div = document.getElementById('div')
+     // div.addEventListener('click', dd)
+ </script>
+</body>
+</html>

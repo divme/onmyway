@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery</title>
+</head>
+<body>
+<div>
+    <select name="fresh" id="fresh" class="change">
+        <option value="D">日</option>
+        <option value="W">周</option>
+        <option value="M">月</option>
+    </select>
+    <select name="fresh" id="fresh2" class="change">
+        <option value="D">日</option>
+        <option value="W">周</option>
+        <option value="M">月</option>
+    </select>
+    <div class="change change1">change1</div>
+    <div class="change change2">change2</div>
+    <div class="change change3">change3</div>
+    <div class="change change4">change4</div>
+
+</div>
+<script src="../zylib/add/jquery-3.4.1.min.js"></script>
+<!--<script src="../zylib/add/bootstrap.min.js"></script>-->
+<!--<script src="../zylib/add/bootstrap-select.min.js"></script>-->
+<!--<script src="../zylib/add/defaults-zh_CN.js"></script>-->
+<script>
+  $('body').on('change', '.change', function(){
+      var opt = $('.change option:selected').val()
+      console.log(opt)
+      if (opt == 'W') {
+         $('.change1').hide()
+         $('.change2').hide()
+      } else if (opt == 'M') {
+          $('#fresh2').hide()
+      } else {
+          $('.change2').show()
+          $('.change4').hide()
+      }
+  })
+</script>
+</body>
+</html>
