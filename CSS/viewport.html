@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>viewport</title>
-    <meta name="viewport" content="width=divece-width,initial-scale=1">
+    <meta name="viewport" content="width=divece-width,initial-scale=2">
     <!--<script>-->
        <!--var scale = 1 / devicePixelRatio;-->
        <!--document.querySelector('meta[name="viewport"]').setAttribute('content','width=device-width,initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');-->
@@ -13,7 +13,7 @@
         <!--flex(100, 1);-->
     <!--</script>-->
     <script>
-        document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px'
+        // document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px'
     </script>
 
     <style>
@@ -28,8 +28,8 @@
             /*font-size:0.32rem;*/
         /*}*/
         .viewport2{
-            width:100%;
-            height:100px;
+            width: 200px;
+            height: 100px;
             background: yellowgreen;
             font-size: 14px;
         }
@@ -40,6 +40,14 @@
 <!--<div class="viewport">我是一行汉字3</div>-->
 <div class="viewport2">我是一二三四五六七八九十到底多少个字能装完一行</div>
 <!--<iframe src="demo.html" width="100%"></iframe>-->
+<script>
+    var str = window.devicePixelRatio + '理想视口:' + screen.width + '视觉视口'+ window.innerWidth + '布局视口' + document.documentElement.clientWidth
+    console.log(window.devicePixelRatio)
+    console.log('理想视口:', screen.width)
+    console.log('视觉视口', window.innerWidth)
+    console.log('布局视口', document.documentElement.clientWidth)
+    document.querySelector('.viewport2').innerText = str
+</script>
 </body>
 </html>
 
