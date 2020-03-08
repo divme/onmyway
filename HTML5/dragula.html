@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="left">
+    <div id="left1">左一</div>
+    <div>左二</div>
+    <div>左三</div>
+    <div>左四</div>
+</div>
+<div id="right">
+    <div>右一</div>
+    <div>右二</div>
+    <div>右三</div>
+    <div>右四</div>
+</div>
+<style>
+    #left{
+        float: left;
+        width: 40%;
+        background: slateblue;
+    }
+    #left div{
+        height: 30px;
+        margin-top: 10px;
+        border: 1px solid #f03838;
+    }
+    #right{
+        float: right;
+        width: 40%;
+    }
+    #right div{
+        height: 30px;
+        margin-top: 15px;
+        border: 1px solid #f03838;
+    }
+</style>
+<script src="js/dragula.min.js"></script>
+<script>
+
+ dragula([document.getElementById('left'), document.getElementById('right')])
+</script>
+</body>
+</html>
