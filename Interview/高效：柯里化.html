@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>柯里化</title>
 </head>
 <body>
 <p>柯里化函数有个难点，在于确定结束的点的方法：</p>
@@ -36,9 +36,9 @@
         return x+y+n
     }
     var adder = curryFunc(add)
-    console.log(adder(1,2,3))
-    console.log(adder(1,2)(4))
-    console.log(adder(1)(2,5))
+    console.log('确定数量：', adder(1,2,3))
+    console.log('确定数量：', adder(1,2)(3))
+    console.log('确定数量：', adder(1)(2,3))
 
 
     // function mul(x, y, m){
@@ -64,7 +64,7 @@
         return realCurry
     }
     function curryByself(func, arg){
-        var arg = arg || [];
+        arg = arg || [];
         var temp = function(){
             var realarg = [].slice.apply(arguments);
             [].push.apply(realarg, arg)
@@ -90,13 +90,14 @@
     var adders = curryByself(adds)
     var mulers = curryByself(muls)
 
-    console.log(adders(5))
-    console.log(adders(1)(9))
-    console.log(adders(1)(2,3)(4)(5))
+    console.log('不确定数量+:', adders(5)())
+    console.log('不确定数量+:', adders(1)(9)())
+    console.log('不确定数量+:', adders(1)(2,3)(4)(5)())
 
-    console.log(mulers(1,4))
-    console.log(mulers(1,2)(3))
-    console.log(mulers(1)(2,3)(4))
+    console.log('不确定数量*:',mulers(1,4).toString())
+    console.log('不确定数量*:',mulers(1,2)(3)())
+    console.log('不确定数量*:',mulers(1)(2,3)(4)())
+    console.log('不确定数量*:',mulers(1)(2,3)())
 
 </script>
 </body>

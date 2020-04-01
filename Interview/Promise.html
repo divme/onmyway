@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Promise</title>
+</head>
+<body>
+<script>
+  function MyPromise(callback){
+    this.status = 'pending';
+
+    this.data = null;
+    this.onFulfilledFunc = [];
+
+    this.err = null;
+    this.onRejectedFunc = [];
+
+    const that = this;
+    function resolve(res) {
+      // 这两句再想想：如果传入的直接是Promise实例，那就直接返回
+      if (res instanceof Promise) {
+        return res.then(resolve, reject)
+      }
+      // then 是异步；本身是 microTask， 这里用 setTimeout 模仿
+      setTimeout(function() {
+        if (that.status === 'pending') {
+          that.status = 'resolved';
+          that.data = res;
+          that.onFulfilledFunc.forEach((onFulfilled) => onFulfilled(that.data));
+        }
+      })
+    }
+    function reject(err) {
+      setTimeout(function() {
+        if (that.status === 'pending') {
+          that.status = 'rejected';
+          that.err = err;
+          that.onRejectedFunc.forEach((onRejected) => onRejected(that.err));
+        }
+      })
+    }
+    // 捕获一下回调中的同步错误
+    try {
+      callback(resolve, reject)
+    } catch(err) {
+      reject(err)
+    }
+  }
+
+  MyPromise.resolve = function(val){
+    return new MyPromise((resolve) => {
+      resolve(val)
+    })
+  }
+  MyPromise.reject = function(err) {
+    return new MyPromise((resolve, reject) => {
+      reject(err)
+    })
+  }
+  MyPromise.all = function(promiseArr) {
+    if (!Array.isArray(promiseArr)) {
+      throw Error('The param must be Ayyay');
+    }
+    return new MyPromise((resolve, reject) => {
+      try {
+        let resultArr = []
+        const length = promiseArr.length
+        for(let i = 0; i < length; i++) {
+          promiseArr[i].then((res) => {
+            resultArr.push(res)
+            if (resultArr.length === length) {
+              resolve(resultArr)
+            }
+          }).catch((err) => {
+            reject(err)
+          })
+        }
+      } catch(err) {
+        reject(err)
+      }
+    })
+  }
+  MyPromise.race = function(promiseArr) {
+    if (!Array.isArray(promiseArr)) {
+      throw Error('The param must be Ayyay');
+    }
+    return new MyPromise((resolve, reject) => {
+      try {
+        const length = promiseArr.length
+        for(let i = 0; i < length; i++) {
+          promiseArr[i].then(resolve, reject)
+        }
+      } catch(err) {
+        reject(err)
+      }
+    })
+  }
+  const resolvePromise = (promise2, result, resolve, reject) => {
+    // 当 result 和 promise2 相等时，也就是说 onfulfilled 返回 promise2 时，进行 reject
+    debugger;
+    if (result === promise2) {
+      reject(new TypeError('error due to circular reference'))
+    }
+
+    // 是否已经执行过 onfulfilled 或者 onrejected
+    let consumed = false
+    let thenable
+
+    if (result instanceof Promise) {
+      if (result.status === 'pending') {
+        result.then(function(data) {
+          resolvePromise(promise2, data, resolve, reject)
+        }, reject)
+      } else {
+        result.then(resolve, reject)
+      }
+      return
+    }
+
+    let isComplexResult = target => (typeof target === 'function' || typeof target === 'object') && (target !== null)
+
+    // 如果返回的是疑似 Promise 类型
+    if (isComplexResult(result)) {
+      try {
+        thenable = result.then
+        // 如果返回的是 Promise 类型，具有 then 方法
+        if (typeof thenable === 'function') {
+          thenable.call(result, function(data) {
+            if
+            (consumed) {
+              return
+            }
+            consumed = true
+
+            return resolvePromise(promise2, data, resolve, reject)
+          }, function(error) {
+            if (consumed) {
+              return
+            }
+            consumed = true
+
+            return reject(error)
+          })
+        }
+        else {
+          resolve(result)
+        }
+
+      } catch(e) {
+        if (consumed) {
+          return
+        }
+        consumed = true
+        return reject(e)
+      }
+    }
+    else {
+      resolve(result)
+    }
+  }
+  // then 异步解决方案：then 时已 resolve，则执行；否则收集函数
+  MyPromise.prototype.then = function(onFulfilled, onRejected) {
+    onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : data => data;
+    onRejected = typeof onRejeced === 'function' ? onRejeced : err => {throw err};
+
+    let promise2
+    if (this.status === 'resolved') {
+      return promise2 = new Promise((resolve, reject) => {
+        try {
+          const result = onFulfilled(this.data);
+          resolvePromise(promise2, result, resolve, reject)
+          // resolve(result);
+        } catch(e) {
+          reject(e)
+        }
+      })
+    } else if(this.status === 'rejected') {
+      // onRejeced(this.res)
+      return promise2 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          try {
+            const result = onRejected(this.err);
+            // resolve(result);
+            resolvePromise(promise2, result, resolve, reject)
+          } catch(e) {
+            reject(e)
+          }
+        })
+      })
+    }
+    if (this.status === 'pending') {
+      // this.onFulfilledFunc.push(onFulfilled)
+      // this.onRejectedFunc.push(onRejeced)
+      return promise2 = new Promise((resolve, reject) => {
+        this.onFulfilledFunc.push(() => {
+          try {
+            const result = onFulfilled(this.data);
+            resolvePromise(promise2, result, resolve, reject)
+            // resolve(result);
+          } catch(e) {
+            reject(e)
+          }
+        });
+        this.onRejectedFunc.push(() => {
+          try {
+            let result = onRejected(this.err)
+            resolvePromise(promise2, result, resolve, reject)
+            // resolve(result)
+          }
+          catch(e) {
+            reject(e)
+          }
+        })
+      })
+    }
+  }
+
+  MyPromise.prototype.catch = function(catchFunc) {
+    return this.then(null, catchFunc)
+  }
+</script>
+
+<script>
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('lucas')
+    }, 2000)
+  })
+
+  promise.then(onfulfilled = data => {
+    console.log(data)
+  })
+    // .then(data => {
+    //   console.log(data)
+    // })
+</script>
+<script>
+  // const promise= new MyPromise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve(3)
+  //   }, 500)
+  // })
+  //   .then(res => {
+  //     console.log(res)
+  //     return 'from the first then'
+  //   })
+  //   .then(s => console.log(s));
+  // promise.then(() => 'zongqilin').then((info) => console.log(info))
+</script>
+</body>
+</html>
