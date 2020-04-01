@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>error and performance</title>
+  <style>
+    .father{
+      width: 300px;
+      height: 300px;
+      margin: 20px auto;
+      border: 1px solid;
+    }
+    .son{
+      width: 100px;
+      height: 100px;
+      margin: 100px;
+      background: #f6f6f6;
+    }
+  </style>
+</head>
+<body>
+<!--4. 资源加载错误-->
+<!--<img src="../../zodadwe.png" alt="">-->
+
+<div class="father">
+  <div class="son"></div>
+</div>
+<div class="mother"></div>
+<!--错误类型: DOMException-->
+<script>
+  var node = document.querySelector('.father');
+  var refnode = node.nextSibling;
+  var newnode = document.createElement('div');
+  // node.insertBefore(newnode, refnode);
+  // document.body.insertBefore(newnode, node);
+</script>
+<!--onerror-->
+<script>
+  const father = document.querySelector('.father');
+  const son = document.querySelector('.son');
+  // Dom0 事件在冒泡阶段执行
+  father.onclick = function() {
+    console.log('click father');
+  }
+  father.addEventListener('click', function() {
+    console.log('Dom2 click father');
+  }, true);
+  son.addEventListener('click', function(e) {
+    e.stopPropagation();
+    console.log('click son');
+  }, false);
+  /**
+   * @param {String}  errMessage    错误信息
+   * @param {String}  source    出错文件
+   * @param {Number}  lineNo    行号
+   * @param {Number}  columnNo    列号
+   * @param {Object}  error  Error对象（对象）
+   */
+  // 捕获未try catch 的 Js 异常
+  window.onerror = function(errMessage, source, lineNo, columnNo, error){
+    console.log('window onerror:', errMessage);
+    console.log('scriptURI: ' + source); // 异常文件路径
+    console.log('lineNo: ' + lineNo); // 异常行号
+    console.log('columnNo: ' + columnNo); // 异常列号
+    console.log('error: ' + error); // 异常堆栈信息
+    return true
+  }
+  // 资源加载错误，不会冒泡，所以用 DOM2 捕获阶段监听
+  // window.addEventListener('error', (error) => {
+  //   error.preventDefault();
+  //   console.log('%cDom2 window error 捕获到异常：','color:green', error);
+  //   return true
+  // }, true)
+  // 捕获未 catch 的 promise 错误
+  window.addEventListener("unhandledrejection", function(e){
+    e.preventDefault(); // 去掉浏览器控制台提示
+    console.log(e);
+    return true;
+  });
+  // 1. 运行时错误：引用错误
+  // var b = ar + 1;
+  // 2. 语法错误
+  // var bb = 'a;
+  // 3.1 异步错误： setTimeout
+  setTimeout(() => {
+    undefined.map(v => v);
+  }, 1000)
+  // 3.2 异步错误： promise
+  // Promise.reject('ddd')
+  new Promise(() => {
+    throw Error('I am a promise error')
+  })
+    // .catch(err => console.log(err));
+</script>
+<!--try catch-->
+<script>
+
+  try{
+    father.onclick = function(){
+      console.log(ahew);
+    }
+    // var b = 'a + 1;
+    // setTimeout(() => {
+    //   undefined.map(v => v);
+    // }, 1000)
+    // setTimeout(function(){
+    //   var c = d;
+    // }, 500)
+  } catch(err){
+    console.log('CatchError: ', err)
+  }
+  // dd += 1;
+</script>
+<!--页面崩溃监控-->
+<script>
+  window.addEventListener('load', function () {
+    sessionStorage.setItem('good_exit', 'pending');
+    setInterval(function () {
+      sessionStorage.setItem('time_before_crash', new Date().toString());
+    }, 1000);
+  });
+
+  window.addEventListener('beforeunload', function () {
+    sessionStorage.setItem('good_exit', 'true');
+  });
+
+  if(sessionStorage.getItem('good_exit') &&
+    sessionStorage.getItem('good_exit') !== 'true') {
+    /*
+        insert crash logging code here
+    */
+    alert('Hey, welcome back from your crash, looks like you crashed on: ' + sessionStorage.getItem('time_before_crash'));
+  }
+</script>
+</body>
+</html>

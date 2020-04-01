@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Test</title>
     <style>
         /*body{*/
         /*    width: 400px;*/
@@ -34,10 +34,81 @@
     </style>
 </head>
 <body>
-<div class="father">
-  <div class="son"></div>
+<div class="father" id="father">
+  <div class="son" id="son">Father</div>
 </div>
 <div class="left"></div>
 <div class="right"></div>
+<script>
+    var father = document.getElementById('father');
+    var son = document.getElementById('son');
+    // 创建自定义事件方法一
+    // 想Event，CustomEvent new时第二个参数可以传递一个参数给e对象，detail
+    // var event = new CustomEvent('myevent');
+    var event = new CustomEvent('myevent', {
+        detail: {
+            name: 2
+        }
+    });
+    // 创建自定义事件方法二
+    // var event = document.createEvent('CustomEvent');
+    // event.initCustomEvent('myevent');
+
+    // 监听及触发事件
+    father.addEventListener('myevent', function(e){
+        debugger
+        alert(2);
+    });
+    son.addEventListener('myevent', function(e){
+        alert('son3');
+    });
+    father.onclick = function() {
+        father.dispatchEvent(event);
+        son.dispatchEvent(event);
+    }
+</script>
+<script>
+    var obj = {
+        a: 1,
+        b: function() {
+            console.log('b')
+        },
+        c: function () {
+            console.log('c')
+        }
+    }
+    var bb = obj.b
+    bb.prototype = obj
+    var bbb = new bb()
+    console.log(typeof bbb)
+    bbb.c()
+    console.log('bbb', bbb.a)
+</script>
+
+<!--async/await promise-->
+<script>
+  const promise = new Promise((resolve, reject) => {
+    resolve(3)
+  })
+    promise.then((res) => {
+    console.log(res)
+    // return 'sar'
+    // return new Promise((re, reh) => {
+    //   setTimeout(() => {
+    //     // resolve(333)
+    //     re(3444)
+    //   })
+    // })
+  })
+      promise.then((res) => {
+    console.log('第二层', res)
+  });
+  let dd
+  async function test() {
+    dd = await promise;
+    console.log('dd', dd)
+  }
+  test()
+</script>
 </body>
 </html>
