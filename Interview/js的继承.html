@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Js 继承</title>
+</head>
+<body>
+<ul class="list">
+    <li>第一行<span class="sel">X</span></li>
+    <li>第一行<span class="sel">X</span></li>
+    <li>第一行<span class="sel">X</span></li>
+    <li>第一行<span class="sel">X</span></li>
+    <li>第一行<span class="sel">X</span></li>
+    <li>第一行<span class="sel">X</span></li>
+</ul>
+
+<ul class="list">
+    <li>第一行<span class="sel">X</span></li>
+    <li>第一行<span class="sel">X</span></li>
+    <li>第一行<span class="sel">X</span></li>
+    <li>第一行<span class="sel">X</span></li>
+    <li>第一行<span class="sel">X</span></li>
+    <li>第一行<span class="sel">X</span></li>
+</ul>
+<!--事件委托移除元素-->
+<script>
+    class List{
+        constructor(sel) {
+            this.el = Array.from(document.querySelectorAll(sel));
+            this.name = 'wahaha'
+            let self = this;
+            this.el.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (e.target.className.indexOf('sel') > -1) {
+                        // self.removeItem(e.target)
+                        self.removeItem.call(self, e.target)
+                    }
+                })
+            })
+        }
+        removeItem(target){
+            console.log(this.name)
+            const self = this;
+            let findParent = function(node) {
+                let parent = node.parentNode;
+                let root = self.el.find(item => item === parent)
+                if (root) {
+                    root.removeChild(node)
+                } else {
+                    findParent(parent);
+                }
+            }
+            findParent(target)
+        }
+    }
+    window.addEventListener('DOMContentLoaded', function(){
+        new List('.list')
+    })
+</script>
+<!--运算符优先级面试题-->
+<script>
+    function Foo() {
+        // this.getName =
+        getName = function(){
+            console.log(1)
+        }
+        return this;
+    }
+    Foo.getName = function(){
+        console.log(2)
+    }
+    Foo.prototype.getName = function() {console.log(3)}
+    Foo.prototype.getName.prototype = {
+        name: 'getName.prototype'
+    }
+    Foo.prototype.n = 56;
+    var getName = function(){console.log(4)}
+    function getName() {console.log(5)}
+
+    // Foo.getName() //2
+    // getName() // 5 X => 4
+    // Foo().getName() // 1
+    // getName() // 1
+    // const nn = new Foo.getName() // {} => 2
+    // const nnn = new Foo().getName() // 3
+    // const nnnn = new new Foo().getName() // throw error '3 is not a function' => 3
+</script>
+<!--js继承-->
+<script>
+    // 1. 构造函数继承
+    function Parent1() {
+        this.name = 'parent1';
+    }
+    const parent1 = new Parent1();
+    console.log('实例的constructor', parent1.constructor);
+    for (i in parent1) {
+        if (parent1.hasOwnProperty(i)) {
+            console.log(i)
+        }
+    }
+    Parent1.prototype.say = function() {
+        console.log('parent1.prototype');
+    };
+    function Child1() {
+        Parent1.call(this); // 继承构造函数内属性，也就是实例属性，原型属性无法继承
+        this.type = 'child1'
+    }
+    const newChild1 = new Child1();
+    console.log(newChild1);
+
+    // 2. 原型链继承
+    function Parent2() {
+        this.name = 'parent2';
+        this.data = [1, 2, 3];
+    }
+    function Child2() {
+        this.type = 'child2';
+    }
+    // 这种继承，就是目的想在实例属性上的，放到了原型的原型上了;
+    // 导致 Child2 的实例继承的属性，若为对象，则共用一个
+    Child2.prototype = new Parent2();
+    console.log(new Child2());
+    const s21 = new Child2();
+    const s22 = new Child2();
+    s21.data.push(4);
+    // console.log('s21.data', s21.data);
+    // console.log('s22.data', s22.data);
+
+
+    // 3. 组合方式:
+    function Parent3() {
+        this.name = 'parent3';
+        this.data = [1, 2, 3];
+    }
+    function Child3() {
+        Parent3.call(this);
+        this.type = 'child3';
+    }
+    // 原型继承方法一：
+    Child3.prototype = new Parent3(); // 构造函数执行两次，不够优雅; 同时也有下面一条的缺点
+    // 原型继承方法二：
+    // Child3.prototype = Parent3.prototype; // 不同构造函数共用一个原型对象是不对的，起码 constructor 属性值就没法协调
+    const s31 = new Child3();
+    const s32 = new Child3();
+    s31.data.push(4);
+    console.log('s31.data', s31.data);
+    console.log('s32.data', s32.data);
+
+    // 4. 组合方式优化
+    function Parent4() {
+        this.name = 'parent4';
+        this.data = [1, 2, 3];
+    }
+    function Child4() {
+        Parent4.call(this);
+        this.type = 'child4';
+    }
+    Child4.prototype = Object.create(Parent4.prototype);
+    const child4 = new Child4();
+    console.log(child4.constructor);
+    Child4.prototype.constructor = Child4;
+</script>
+<!--Promise -->
+<script>
+    var pro = new Promise((res, rej) => {
+        res('init resolve');
+        // rej('init error')
+    });
+    // var pro2 = pro.then(res => {
+    //     console.log('in pro2')
+    //     return res
+    // }).then(res => console.log(pro2));
+    // console.log('pro2:', pro2);
+    // pro.then((res) => {
+    //     console.log('第一次调用',res)
+    //     return res;
+    // }).then((res) => {
+    //     console.log('22nd:', res);
+    // }).then(res => {
+    //     console.log('23rd:', res);
+    // }).catch(err => {
+    //     console.log('2err:', err);
+    // })
+    pro.then((res) => {
+        console.log(res);
+        // return new Promise((resolve) => {
+        //      setTimeout(function(){
+        //          resolve(345)
+        //      }, 1500)
+        //  });
+        // return Promise.resolve(4444);
+        return res;
+    }).then((res) => {
+        console.log('2nd:', res);
+    }).then(res => {
+        console.log('3rd:', res);
+    }).catch(err => {
+        console.log('err:', err);
+    })
+</script>
+</body>
+</html>
