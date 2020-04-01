@@ -50,7 +50,8 @@
       var btn = document.getElementById("btn");
       btn.addEventListener('click',reset);
       function reset(){
-          ctx.drawImage(img, canvasX, canvasY, img.width, img.height);
+          window.print();
+          // ctx.drawImage(img, canvasX, canvasY, img.width, img.height);
 //          ctx.drawImage(image, canvasX + 200, canvasY, image.width, image.height);
       }
 
@@ -121,29 +122,29 @@
       }
 //图像进行爆炸小分队分组
       function divide(imgObj){
-          for(var i = 0; i < counts; i++){
-              for(var j = 0; j< counts; j++){
-                  var area = {
-//                          每个块在img上的起始位置
-                      imgX: i*imgObj.width/counts,
-                      imgY: j*imgObj.height/counts, //第一列，x为0，y递增
-//                          每个块在canvas上的起始位置
-                      x : canvasX + i*imgObj.width/counts,
-                      y : canvasY + j*imgObj.height/counts, //第一列，x为50，y递增
-//                      运动速度
-//                      vx: Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*5+3),
-//                      vy: Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*5+3),
-                      vx: Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*3),
-                      vy: Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*5+3),
-                      g: 2,
-//                      vy: Math.random()*5+5,
-//                          每个块的宽高
-                      width: imgObj.width/counts,
-                      height:imgObj.height/counts
-                  };
-                  areas.push(area);
-              }
+        for(var i = 0; i < counts; i++){
+          for(var j = 0; j< counts; j++){
+            var area = {
+//            每个块在img上的起始位置
+              imgX: i*imgObj.width/counts,
+              imgY: j*imgObj.height/counts, //第一列，x为0，y递增
+//            每个块在canvas上的起始位置
+              x : canvasX + i*imgObj.width/counts,
+              y : canvasY + j*imgObj.height/counts, //第一列，x为50，y递增
+//            运动速度
+//            vx: Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*5+3),
+//            vy: Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*5+3),
+              vx: Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*3),
+              vy: Math.pow(-1,Math.floor(Math.random()*100))*(Math.random()*5+3),
+              g: 2,
+//            vy: Math.random()*5+5,
+//            每个块的宽高
+              width: imgObj.width/counts,
+              height:imgObj.height/counts
+            };
+            areas.push(area);
           }
+        }
       }
 
 //图像转换为爆炸小分队组图
