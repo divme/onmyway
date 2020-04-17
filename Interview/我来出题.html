@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<ul>
+	<li>
+		<h3>1. 以下输出顺序</h3>
+		<code>
+			function dd(){
+			  dsd
+			}
+		</code>
+		<pre>
+			setTimeout(function(){
+		  console.log(1);
+		  setTimeout(function(){
+		    console.log(2)
+			  setTimeout(function(){
+			    console.log(5)
+	        Promise.resolve(3).then(res => console.log('ds'))
+			  }, 200)
+		  }, 100)
+			Promise.resolve(3).then(res => console.log(res))
+		}, 100)
+		setTimeout(function(){
+		  console.log(4)
+		}, 2000)
+		</pre>
+	</li>
+</ul>
+</body>
+</html>

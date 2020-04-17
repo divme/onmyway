@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>异步队列测试</title>
+</head>
+<body>
+<h3>异步队列就一个，不停往js引擎队列推送，有微任务，先执行微任务</h3>
+<script>
+	setTimeout(function(){
+	  console.log(1)
+	  setTimeout(function(){
+	    console.log(2)
+		  setTimeout(function(){
+		    console.log(5)
+        Promise.resolve(3).then(res => console.log('ds'))
+		  }, 200)
+	  }, 100)
+		Promise.resolve(3).then(res => console.log(res))
+	}, 100)
+	setTimeout(function(){
+	  console.log(4)
+	}, 2000)
+</script>
+</body>
+</html>

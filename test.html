@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-store,no-cache,public">
     <title>Test</title>
+    <link rel="stylesheet" href="./CSS/layout/css/reset.css">
     <style>
         /*body{*/
         /*    width: 400px;*/
@@ -35,10 +37,48 @@
 </head>
 <body>
 <div class="father" id="father">
-  <div class="son" id="son">Father</div>
+  <div class="'son'" id="son">Father</div>
 </div>
 <div class="left"></div>
 <div class="right"></div>
+
+<script>
+    var arr = [1,2,3,4,5,6,7,78,8]
+    for (let i = 0; i < 6; i ++) {
+      console.log(i)
+    }
+    for(let i = 0; i < 4; i++) {
+        console.log(arr[i])
+        console.log('i', i)
+    }
+</script>
+
+<!--动态加载 script-->
+<script>
+    window.addEventListener('copy', function(e) {
+       console.log('cupy');
+    });
+  var script = document.createElement('script')
+  script.src = './zylib/base64.min.js'
+  document.body.appendChild(script)
+  script.onload = function(){
+    debugger
+    console.log(script.readyState)
+  }
+</script>
+
+<!--ES6 class -->
+<script>
+  class nodesdsds {
+    apply() {
+      console.log(this.constructor.name)
+    }
+  }
+  var n = new nodesdsds()
+  n.apply()
+</script>
+
+<!--创建自定义事件-->
 <script>
     var father = document.getElementById('father');
     var son = document.getElementById('son');
@@ -60,7 +100,7 @@
         alert(2);
     });
     son.addEventListener('myevent', function(e){
-        alert('son3');
+        // alert('son3');
     });
     father.onclick = function() {
         father.dispatchEvent(event);

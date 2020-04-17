@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>History Hash</title>
+</head>
+<body>
+ <ul>
+	 <li><a href="#a">去往a</a></li>
+	 <li><a href="#b">去往b</a></li>
+	 <li><a href="#c">去往c</a></li>
+ </ul>
+<div>
+	<div id="a">id = a </div>
+	<div id="b">id = b</div>
+	<div id="c">id = c</div>
+</div>
+<div>
+	<div>结论：hash 改变时，会往 history push记录，可以返回和前进，不会改变记录；</div>
+	<div>但是如果在当前记录里再前往新的hash，则后面的记录就没了</div>
+	<div>前进后退过程中，如果导航到新的location，则 history 堆栈中该条记录后面的都清空，被新导航的location清空一样</div>
+</div>
+<script>
+	 window.onload = function() {
+	   console.log('load', window.history.length);
+	 }
+	 window.addEventListener('hashchange', function(e) {
+	     console.log('hashchange');
+	     console.log(window.history.length);
+	     console.log(window.location.href);
+	 })
+</script>
+</body>
+</html>

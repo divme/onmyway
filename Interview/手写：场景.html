@@ -17,21 +17,13 @@
   <li>4. 防抖 | 节流</li>
   <li>5. 数组去重</li>
 
-  <li>6. 实现 pipe | compose
-
-    let funcs = [fn1, fn2, fn3, fn4]
-
-    let composeFunc = compose(...funcs)
-    let pipeFunc = pipe(...funcs)
-
-    composeFunc => fn1(fn2(fn3(fn4(args))))
-    pipeFunc => fn4(fn3(fn2(fn1(args))))
-
-  </li>
+  <li>6. 实现 pipe | compose</li>
   <li>7. obj = {a:1, b:2, c:3}
     arr = ['a', 'b'] => obj = {a:1, b: 2}
     提取 arr 中有的 obj 属性
   </li>
+  <li>8. 封装一个Jsonp</li>
+  <li>9. 实现一个 eventEmitter 类，包含 on off once emit 方法</li>
 
   <li></li>
 </ul>
@@ -175,6 +167,14 @@
 <!--5. 数组去重 -->
 <!--6. 实现pipe | compose-->
 <script>
+  // let funcs = [fn1, fn2, fn3, fn4]
+
+  // let composeFunc = compose(...funcs)
+  // let pipeFunc = pipe(...funcs)
+
+  // composeFunc => fn1(fn2(fn3(fn4(args))))
+  // pipeFunc => fn4(fn3(fn2(fn1(args))))
+
   const pipe = (...args) => args.reduce((f, g) =>
       (...arg) => g.call(this, f.apply(this, arg))
     , args.shift())
@@ -203,5 +203,44 @@
     }, {})
   }
 </script>
+<!--8. 封装一个Jsonp-->
+<script>
+  /*
+  * Jsonp(url, params, callback)
+  * 1. script src请求不跨域
+  * 2. 返回数据为一段js，形如：callback(data), 直接可以用客户端函数处理数据
+  */
+  function Jsonp(url, params, callback) {
+    let str = '';
+    if (typeof params === 'object' && params !== null) {
+      for (let i in params) {
+        str += `${i}=${params[i]}&`
+      }
+    }
+    let callbackName = 'jsonpCallback';
+    if (callback && typeof callback === 'function') {
+      callbackName = callback.name
+    }
+    url = `${url}?${str}callback=${callbackName}`
+    console.log(url)
+
+    return new Promise((resolve, reject) => {
+      // if (!callback) {
+      //   callback = window['jsonpCallback'] = (data) => data;
+      // }
+      // window[callbackName] = (data) {
+      //
+        // }
+      let script = document.createElement('script')
+      script.src = url;
+      document.body.appendChild(script);
+      script.onload = () => {
+        resolve();
+        document.body.removeChild(script);
+      }
+    })
+  }
+</script>
 </body>
 </html>
+
