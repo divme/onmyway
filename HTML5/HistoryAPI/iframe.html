@@ -5,6 +5,13 @@
     <title>Title</title>
 </head>
 <body>
+<div>
+	<h4>结论:</h4>
+	<ul>
+		<li>iframe 的 history会加入到 window.top 的 history 中，</li>
+		<li>即操作 window.top 的 history，会顺序操作 iframe 的 history</li>
+	</ul>
+</div>
 <iframe id="meta" src="./historyAPI.html" frameborder="0" width="800px" height="100px"></iframe>
 <input
   type='button'

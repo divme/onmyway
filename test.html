@@ -26,7 +26,7 @@
             width: 500px;
             height: 300px;
             margin: 30px auto;
-            background: #ff2222;
+            background: #f2f2f2;
         }
         .son{
             width: 100px;
@@ -36,11 +36,84 @@
     </style>
 </head>
 <body>
+<div>
+    <h4>dsd</h4>
+    <ul>
+        <li>&amp;</li>
+        <li>&#38;</li>
+        <li>&#x26;</li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
 <div class="father" id="father">
   <div class="'son'" id="son">Father</div>
 </div>
 <div class="left"></div>
 <div class="right"></div>
+
+<script>
+    var mins = function(A, K) {
+        let total = 0;
+        let index = A.indexOf(0);
+        let len = A.length;
+        debugger;
+        if (index < 0) return 0;
+        // 翻转方式：从0位开始截取k位，遍历更新，再插入回去，这样空间会不会占用太大
+        // 不如从0位开始，数组中替换，不占用过多空间
+        while(true) {
+            index = A.indexOf(0);
+            console.log(index)
+            if (index < 0) return total;
+            if (len - K < index < len) return -1;
+            for (let m = 0; m < k; m++) {
+                const cur = index + m;
+                A[cur] = A[cur] === 1 ? 0 : 1;
+            }
+            total += 1;
+        }
+    };
+    mins([0,1,0], 1)
+</script>
+
+<script>
+    function add(num1, num2) {
+        if (isNaN(Number(num1)) || isNaN(Number(num2))) {
+            return;
+        }
+        // num1 = String(Number(num1).toLocaleString());
+        // num2 = String(Number(num2).toLocaleString());
+        let len1 = num1.length - 1;
+        let len2 = num2.length - 1;
+
+        let result = ''; // 最后结果
+        let reg = 0; // 进位
+        while(len1 >= 0 || len2 >= 0) {
+            let x = 0;
+            let y = 0;
+            let sum = 0;
+
+            if (len1 >= 0) {
+                x = num1[len1--] - 0
+            }
+            if (len2 >= 0) {
+                y = num2[len2--] - 0
+            }
+debugger;
+            sum = x + y + reg;
+            reg = 0;
+            if (sum >= 10) {
+                sum -= 10;
+                reg = 1;
+            }
+
+            result = sum + result;
+        }
+        return result;
+    }
+    console.log(add('899999999999999999999999999999999999999999999999999999999990000000','456132'))
+    document.querySelector('.right').innerText = 893892189839218392328989 .toLocaleString()
+</script>
 
 <script>
     var arr = [1,2,3,4,5,6,7,78,8]
@@ -62,7 +135,7 @@
   script.src = './zylib/base64.min.js'
   document.body.appendChild(script)
   script.onload = function(){
-    debugger
+    // debugger
     console.log(script.readyState)
   }
 </script>
@@ -96,7 +169,7 @@
 
     // 监听及触发事件
     father.addEventListener('myevent', function(e){
-        debugger
+        // debugger
         alert(2);
     });
     son.addEventListener('myevent', function(e){
